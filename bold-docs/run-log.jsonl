@@ -1,1 +1,6 @@
 {"ts":"2026-07-15T23:18:43Z","command":"plan","collector":"collect-triage-context","user":"mark-hazleton"}
+{"ts":"2026-07-15T23:50:05Z","command":"ship","collector":"collect-ship-context","user":"mark-hazleton"}
+{"ts":"2026-07-15T23:50:42Z","command":"ship","collector":"collect-ship-context","user":"mark-hazleton"}
+{"ts":"2026-07-15T23:51:00Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}
+{"ts":"2026-07-15T23:52:15Z","command":"ship","collector":"collect-ship-context","user":"mark-hazleton"}
+{"ts":"2026-07-15T23:52:15Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}

@@ -1,13 +1,16 @@
 ---
 tier: Feature
 feature_id: 0001-static-prototype-preview
-status: ratified
+status: Complete
 branch: 0001-static-prototype-preview
 created_at: 2026-07-15
 source_request: "create static web app deployed to github pages for this repo for a public preview of the prototype. this is fully STATIC with mocked api interactions no exteernal links"
 ---
 
 # Static Prototype Preview
+
+**Status**: Complete
+**Tier**: Feature
 
 Product Owner TL;DR: Create a fully static GitHub Pages preview for the RITE prototype so stakeholders can review the bilingual archive experience publicly without requiring the future .NET API, SQLite database, Azure services, authentication provider, or any external links.
 
@@ -68,3 +71,13 @@ None blocking. Assumptions for implementation:
 ## Prototype Disposition
 
 The full original prototype folder lives under this feature at `bold-docs/features/0001-static-prototype-preview/prototype/`. It is retained as feature evidence and is not part of the final public site source; the deployable static preview is `docs/`.
+
+## Tasks
+
+- [X] Install and initialize Bold for the repository.
+- [X] Capture RITE backbone, project genome, and system docs from the accepted prototype and design specification.
+- [X] Build the static GitHub Pages preview in `docs/` with local assets only.
+- [X] Mock registration and resource interactions in browser-local JavaScript with no external API calls.
+- [X] Add GitHub Pages deployment workflow for `docs/`.
+- [X] Move the original prototype under this feature as reference evidence, separate from final site source.
+- [X] Refine navigation so the logo returns home, Alumni is under History, and primary navigation remains one line on small viewports.
