@@ -33,7 +33,6 @@
       stats: ["Inbound and outbound teachers since 1996", "Teachers received from Panama", "Teachers received from Argentina", "Years of partnership"],
       areasAlt: "Rotary Areas of Focus",
       nav: {
-        home: "Home",
         history: "History",
         stories: "Stories",
         directory: "Alumni",
@@ -44,6 +43,7 @@
       sections: {
         historyTitle: "A living history",
         historyIntro: "Six milestones tell the RITE story from a kitchen-table idea to a three-country community of educators.",
+        historyTimeline: "Timeline",
         storiesTitle: "Story archive",
         storiesIntro: "Approved public stories from teachers, host families, and Rotary leaders. Publication is modeled as editor-reviewed even in this mock preview.",
         directoryTitle: "Alumni network",
@@ -110,17 +110,17 @@
       stats: ["Docentes enviados y recibidos desde 1996", "Docentes recibidos de Panama", "Docentes recibidos de Argentina", "Anos de alianza"],
       areasAlt: "Areas de enfoque de Rotary",
       nav: {
-        home: "Inicio",
         history: "Historia",
         stories: "Historias",
         directory: "Exalumnos",
-        schools: "Escuelas y clubes",
+        schools: "Escuelas",
         resources: "Recursos",
         register: "Registro"
       },
       sections: {
         historyTitle: "Una historia viva",
         historyIntro: "Seis hitos cuentan la historia de RITE, desde una idea inicial hasta una comunidad educativa de tres paises.",
+        historyTimeline: "Linea de tiempo",
         storiesTitle: "Archivo de historias",
         storiesIntro: "Historias publicas aprobadas de docentes, familias anfitrionas y lideres rotarios. La publicacion se modela con revision editorial.",
         directoryTitle: "Red de exalumnos",
@@ -382,19 +382,19 @@
   }
 
   function renderHeader() {
-    const nav = ["home", "history", "stories", "directory", "schools", "resources"];
+    const nav = ["history", "stories", "schools", "resources"];
     return `
       <header class="site-header">
         <div class="header-inner">
-          <div class="brand" aria-label="RITE">
+          <button class="brand brand-home" data-view="home" aria-label="RITE home">
             <img src="assets/WestWichitaRotary.png" alt="Rotary Club of West Wichita">
             <span class="brand-mark">
               <span class="brand-title">RITE</span>
               <span class="brand-subtitle">${escapeHtml(t("siteSub"))}</span>
             </span>
-          </div>
+          </button>
           <nav class="nav" aria-label="Primary">
-            ${nav.map((item) => `<button class="nav-button ${state.view === item ? "active" : ""}" data-view="${item}">${escapeHtml(t(`nav.${item}`))}</button>`).join("")}
+            ${nav.map((item) => `<button class="nav-button ${isNavActive(item) ? "active" : ""}" data-view="${item}">${escapeHtml(t(`nav.${item}`))}</button>`).join("")}
           </nav>
           <div class="header-actions">
             <div class="language-toggle" aria-label="Language">
@@ -406,6 +406,13 @@
         </div>
       </header>
     `;
+  }
+
+  function isNavActive(item) {
+    if (item === "history") {
+      return state.view === "history" || state.view === "directory";
+    }
+    return state.view === item;
   }
 
   function renderMockBanner() {
@@ -463,6 +470,7 @@
       <section class="section">
         <h1 class="section-title">${escapeHtml(t("sections.historyTitle"))}</h1>
         <p class="section-lede">${escapeHtml(t("sections.historyIntro"))}</p>
+        ${renderHistorySubnav("timeline")}
         <div class="timeline">
           ${milestones.map((item) => `
             <article class="timeline-card">
@@ -509,6 +517,7 @@
       <section class="section">
         <h1 class="section-title">${escapeHtml(t("sections.directoryTitle"))}</h1>
         <p class="section-lede">${escapeHtml(t("sections.directoryIntro"))}</p>
+        ${renderHistorySubnav("directory")}
         <p class="privacy-note">${escapeHtml(t("labels.private"))}</p>
         ${renderFilters("directoryFilter", state.directoryFilter)}
         <div class="card-grid">
@@ -646,6 +655,19 @@
     `;
   }
 
+  function renderHistorySubnav(active) {
+    return `
+      <div class="child-nav" aria-label="History sections">
+        <button class="child-nav-button ${active === "timeline" ? "active" : ""}" data-view="history">
+          ${escapeHtml(t("sections.historyTimeline"))}
+        </button>
+        <button class="child-nav-button ${active === "directory" ? "active" : ""}" data-view="directory">
+          ${escapeHtml(t("nav.directory"))}
+        </button>
+      </div>
+    `;
+  }
+
   function renderFooter() {
     return `
       <footer class="footer">
@@ -708,4 +730,3 @@
 
   render();
 }());
-

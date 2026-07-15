@@ -35,6 +35,7 @@ This preview is not the production architecture. It is a reviewable static artif
 - Mocked interactions are visibly local-only, including registration/profile submission and story/resource submission behavior.
 - The preview includes bilingual English/Spanish UI switching.
 - The preview includes the main product areas documented in `bold-docs/system/product.md`.
+- The top navigation stays short and responsive: the logo returns home, Alumni is presented as a History child page rather than a primary nav item, and primary navigation remains on one line with horizontal scrolling if a small viewport cannot fit it.
 - The preview uses local assets from `bold-docs/features/0001-static-prototype-preview/prototype/assets/` or newly committed local static assets only.
 - No backend, database, Azure service, Auth0/OIDC call, analytics script, CDN, or external API is required for the preview.
 - Documentation explains how to run the preview locally and where GitHub Pages serves it from.
