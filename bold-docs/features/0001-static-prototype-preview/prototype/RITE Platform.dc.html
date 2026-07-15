@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/west-wichita-rotary-design-system-51609796-e93d-4753-840e-30196038f3b2/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/west-wichita-rotary-design-system-51609796-e93d-4753-840e-30196038f3b2/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/west-wichita-rotary-design-system-51609796-e93d-4753-840e-30196038f3b2/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/west-wichita-rotary-design-system-51609796-e93d-4753-840e-30196038f3b2/styles.css">
+  <script src="_ds/west-wichita-rotary-design-system-51609796-e93d-4753-840e-30196038f3b2/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;background:#f4f6f9;color:#54565a;font-family:'Open Sans',Helvetica,Arial,sans-serif}
+    a{color:#0067c8;text-decoration:none} a:hover{color:#17458f}
+    input,select,textarea{font-family:'Open Sans',Helvetica,Arial,sans-serif}
+  </style>
+</helmet>
+
+<div data-screen-label="RITE Platform" style="min-height:100vh;display:flex;flex-direction:column">
+
+  <!-- ============ HEADER ============ -->
+  <div style="background:#ffffff;border-bottom:1px solid #e2e6ec">
+    <div style="max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px">
+        <img src="assets/WestWichitaRotary.png" alt="Rotary Club of West Wichita" style="height:44px;width:auto;display:block">
+        <span style="display:flex;flex-direction:column">
+          <span style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;text-transform:uppercase;font-size:16px;line-height:1.1;color:#17458f;letter-spacing:0.02em">RITE</span>
+          <span style="font-size:11px;color:#898a8d;line-height:1.2">{{ t.siteSub }}</span>
+        </span>
+      </a>
+      <nav style="display:flex;gap:4px;flex-wrap:wrap;margin-left:auto">
+        <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="5">
+          <a href="#" onClick="{{ nv.onClick }}" style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:0.04em;font-size:13px;font-weight:600;padding:8px 12px;border-radius:4px;color:{{ nv.color }};background:{{ nv.bg }}" style-hover="color:#17458f">{{ nv.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="display:flex;border:1px solid #e2e6ec;border-radius:999px;overflow:hidden">
+          <a href="#" onClick="{{ setEn }}" style="font-size:12px;font-weight:700;padding:5px 12px;color:{{ enColor }};background:{{ enBg }}">EN</a>
+          <a href="#" onClick="{{ setEs }}" style="font-size:12px;font-weight:700;padding:5px 12px;color:{{ esColor }};background:{{ esBg }}">ES</a>
+        </div>
+        <x-import component-from-global-scope="WestWichitaRotaryDesignSystem_516097.Button" variant="gold" onClick="{{ goRegister }}" hint-size="auto,38px">{{ t.join }}</x-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1">
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Home">
+      <div style="background:#0067c8;color:#ffffff">
+        <div style="max-width:1100px;margin:0 auto;padding:72px 24px 64px;display:flex;gap:48px;flex-wrap:wrap;align-items:center">
+          <div style="flex:1 1 480px;min-width:300px">
+            <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:0.1em;font-size:14px;font-weight:600;color:#f7a81b;margin-bottom:14px">{{ t.motto }}</div>
+            <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:clamp(34px,5vw,56px);line-height:1.05;margin:0 0 18px;letter-spacing:0.02em">{{ t.heroTitle }}</h1>
+            <p style="font-size:17px;line-height:1.6;margin:0 0 28px;max-width:560px;color:#e6f0fa">{{ t.heroBody }}</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <x-import component-from-global-scope="WestWichitaRotaryDesignSystem_516097.Button" variant="gold" onClick="{{ goHistory }}" hint-size="auto,44px">{{ t.heroCta1 }}</x-import>
+              <x-import component-from-global-scope="WestWichitaRotaryDesignSystem_516097.Button" variant="outline-inverse" onClick="{{ goStories }}" hint-size="auto,44px">{{ t.heroCta2 }}</x-import>
+            </div>
+          </div>
+          <div style="flex:0 1 340px;min-width:280px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+              <div style="background:#17458f;border-radius:8px;padding:20px 18px;border-top:6px solid #f7a81b">
+                <div style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;font-size:36px;line-height:1">{{ st.num }}</div>
+                <div style="font-size:12px;color:#b9d9eb;margin-top:6px;line-height:1.35">{{ st.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="height:6px;background:#f7a81b"></div>
+      </div>
+
+      <div style="max-width:1100px;margin:0 auto;padding:56px 24px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+          <h2 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:28px;color:#17458f;margin:0;letter-spacing:0.02em">{{ t.recentStories }}</h2>
+          <a href="#" onClick="{{ goStories }}" style="font-weight:700;font-size:14px">{{ t.viewAll }} →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+          <sc-for list="{{ homeStories }}" as="s" hint-placeholder-count="3">
+            <a href="#" onClick="{{ s.onClick }}" style="display:block;background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid {{ s.band }};padding:22px;color:#54565a" style-hover="border-color:#0067c8">
+              <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center">
+                <span style="background:#f4f6f9;border:1px solid #e2e6ec;border-radius:999px;font-size:11px;font-weight:700;padding:3px 10px;color:#17458f">{{ s.tag }}</span>
+                <span style="font-size:12px;color:#898a8d">{{ s.meta }}</span>
+              </div>
+              <div style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:600;font-size:19px;line-height:1.25;color:#17458f;margin-bottom:8px">{{ s.title }}</div>
+              <p style="font-size:14px;line-height:1.55;margin:0">{{ s.excerpt }}</p>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#ffffff;border-top:1px solid #e2e6ec;border-bottom:1px solid #e2e6ec">
+        <div style="max-width:1100px;margin:0 auto;padding:56px 24px;display:flex;gap:40px;flex-wrap:wrap;align-items:center">
+          <div style="flex:1 1 380px;min-width:280px">
+            <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:0.1em;font-size:13px;font-weight:600;color:#0067c8;margin-bottom:10px">{{ t.aofEyebrow }}</div>
+            <h2 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:26px;color:#17458f;margin:0 0 12px;letter-spacing:0.02em">{{ t.aofTitle }}</h2>
+            <p style="font-size:15px;line-height:1.6;margin:0">{{ t.aofBody }}</p>
+          </div>
+          <img src="assets/areas-of-focus.png" alt="Rotary Areas of Focus" style="flex:0 1 420px;min-width:260px;max-width:100%;height:auto">
+        </div>
+      </div>
+
+      <div style="max-width:1100px;margin:0 auto;padding:56px 24px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+          <sc-for list="{{ homeLinks }}" as="hl" hint-placeholder-count="3">
+            <a href="#" onClick="{{ hl.onClick }}" style="display:block;background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid #f7a81b;padding:24px;color:#54565a" style-hover="border-color:#0067c8">
+              <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:600;font-size:18px;color:#17458f;margin-bottom:8px;letter-spacing:0.02em">{{ hl.title }}</div>
+              <p style="font-size:14px;line-height:1.55;margin:0 0 12px">{{ hl.body }}</p>
+              <span style="font-weight:700;font-size:13px;color:#0067c8">{{ hl.cta }} →</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ HISTORY ============ -->
+  <sc-if value="{{ isHistory }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="History Timeline" style="max-width:1100px;margin:0 auto;padding:56px 24px">
+      <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:0.1em;font-size:13px;font-weight:600;color:#0067c8;margin-bottom:10px">1996 — {{ currentYear }}</div>
+      <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:40px;color:#17458f;margin:0 0 10px;letter-spacing:0.02em">{{ t.histTitle }}</h1>
+      <p style="font-size:16px;line-height:1.6;max-width:680px;margin:0 0 40px">{{ t.histIntro }}</p>
+
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="6">
+          <div style="display:flex;gap:20px">
+            <div style="display:flex;flex-direction:column;align-items:center;width:20px;flex:none">
+              <div style="width:18px;height:18px;border-radius:50%;background:{{ m.dotBg }};border:4px solid {{ m.dotRing }};flex:none;margin-top:4px"></div>
+              <div style="width:3px;flex:1;background:#e2e6ec"></div>
+            </div>
+            <div style="flex:1;padding-bottom:28px;min-width:0">
+              <a href="#" onClick="{{ m.onClick }}" style="display:block;background:#ffffff;border:1px solid {{ m.border }};border-radius:8px;padding:20px 22px;color:#54565a" style-hover="border-color:#0067c8">
+                <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+                  <span style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;font-size:22px;color:{{ m.yearColor }}">{{ m.year }}</span>
+                  <span style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:600;font-size:17px;color:#17458f;letter-spacing:0.02em">{{ m.title }}</span>
+                  <span style="margin-left:auto;font-size:12px;font-weight:700;color:#898a8d">{{ m.toggleLabel }}</span>
+                </div>
+                <sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}">
+                  <p style="font-size:15px;line-height:1.65;margin:14px 0 0;max-width:640px">{{ m.body }}</p>
+                  <sc-if value="{{ m.fact }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:14px;display:inline-block;background:#f4f6f9;border-left:none;border-top:4px solid #f7a81b;border-radius:6px;padding:10px 14px;font-size:13px;font-weight:700;color:#17458f">{{ m.fact }}</div>
+                  </sc-if>
+                </sc-if>
+              </a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ STORIES ============ -->
+  <sc-if value="{{ isStories }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Story Archive" style="max-width:1100px;margin:0 auto;padding:56px 24px">
+      <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:40px;color:#17458f;margin:0 0 10px;letter-spacing:0.02em">{{ t.storiesTitle }}</h1>
+      <p style="font-size:16px;line-height:1.6;max-width:680px;margin:0 0 28px">{{ t.storiesIntro }}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+        <sc-for list="{{ storyFilters }}" as="f" hint-placeholder-count="4">
+          <a href="#" onClick="{{ f.onClick }}" style="font-size:13px;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid {{ f.border }};color:{{ f.color }};background:{{ f.bg }}">{{ f.label }}</a>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <sc-for list="{{ storyCards }}" as="s" hint-placeholder-count="6">
+          <a href="#" onClick="{{ s.onClick }}" style="display:block;background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid {{ s.band }};padding:22px;color:#54565a" style-hover="border-color:#0067c8">
+            <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap">
+              <span style="background:#f4f6f9;border:1px solid #e2e6ec;border-radius:999px;font-size:11px;font-weight:700;padding:3px 10px;color:#17458f">{{ s.tag }}</span>
+              <span style="font-size:12px;color:#898a8d">{{ s.meta }}</span>
+            </div>
+            <div style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:600;font-size:19px;line-height:1.25;color:#17458f;margin-bottom:8px">{{ s.title }}</div>
+            <p style="font-size:14px;line-height:1.55;margin:0">{{ s.excerpt }}</p>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ STORY DETAIL ============ -->
+  <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Story Detail" style="max-width:760px;margin:0 auto;padding:48px 24px">
+      <a href="#" onClick="{{ goStories }}" style="font-weight:700;font-size:14px">← {{ t.backToStories }}</a>
+      <div style="background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid #f7a81b;padding:36px;margin-top:18px">
+        <div style="display:flex;gap:8px;margin-bottom:16px;align-items:center;flex-wrap:wrap">
+          <span style="background:#f4f6f9;border:1px solid #e2e6ec;border-radius:999px;font-size:11px;font-weight:700;padding:3px 10px;color:#17458f">{{ story.tag }}</span>
+          <span style="font-size:13px;color:#898a8d">{{ story.meta }}</span>
+        </div>
+        <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:32px;line-height:1.15;color:#17458f;margin:0 0 20px;letter-spacing:0.02em">{{ story.title }}</h1>
+        <div style="background:#f4f6f9;border-radius:8px;border:1px dashed #b1b1b1;padding:40px;text-align:center;color:#898a8d;font-size:13px;margin-bottom:24px">{{ t.photoPlaceholder }}</div>
+        <p style="font-size:16px;line-height:1.75;margin:0 0 18px">{{ story.body1 }}</p>
+        <p style="font-size:16px;line-height:1.75;margin:0 0 18px">{{ story.body2 }}</p>
+        <div style="border-top:4px solid #f7a81b;background:#f4f6f9;border-radius:6px;padding:18px 20px;font-family:Georgia,serif;font-style:italic;font-size:17px;line-height:1.6;color:#17458f;margin-bottom:24px">"{{ story.quote }}"</div>
+        <div style="display:flex;align-items:center;gap:14px;border-top:1px solid #e2e6ec;padding-top:20px">
+          <div style="width:48px;height:48px;border-radius:50%;background:#0067c8;color:#ffffff;display:flex;align-items:center;justify-content:center;font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;font-size:18px;flex:none">{{ story.initials }}</div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:#17458f">{{ story.author }}</div>
+            <div style="font-size:13px;color:#898a8d">{{ story.role }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ DIRECTORY ============ -->
+  <sc-if value="{{ isDirectory }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Alumni Directory" style="max-width:1100px;margin:0 auto;padding:56px 24px">
+      <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:40px;color:#17458f;margin:0 0 10px;letter-spacing:0.02em">{{ t.dirTitle }}</h1>
+      <p style="font-size:16px;line-height:1.6;max-width:680px;margin:0 0 12px">{{ t.dirIntro }}</p>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#ffffff;border:1px solid #e2e6ec;border-radius:6px;padding:9px 14px;font-size:13px;color:#898a8d;margin-bottom:28px">
+        <span style="width:8px;height:8px;border-radius:50%;background:#009739;flex:none"></span>{{ t.dirPrivacy }}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+        <sc-for list="{{ dirFilters }}" as="f" hint-placeholder-count="4">
+          <a href="#" onClick="{{ f.onClick }}" style="font-size:13px;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid {{ f.border }};color:{{ f.color }};background:{{ f.bg }}">{{ f.label }}</a>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px">
+        <sc-for list="{{ alumniCards }}" as="a" hint-placeholder-count="8">
+          <div style="background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid {{ a.band }};padding:22px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+              <div style="width:44px;height:44px;border-radius:50%;background:{{ a.avatarBg }};color:#ffffff;display:flex;align-items:center;justify-content:center;font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;font-size:16px;flex:none">{{ a.initials }}</div>
+              <div style="min-width:0">
+                <div style="font-weight:700;font-size:15px;color:#17458f">{{ a.name }}</div>
+                <div style="font-size:12px;color:#898a8d">{{ a.place }}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+              <span style="background:#f4f6f9;border:1px solid #e2e6ec;border-radius:999px;font-size:11px;font-weight:700;padding:3px 10px;color:#17458f">{{ a.years }}</span>
+              <span style="background:#f4f6f9;border:1px solid #e2e6ec;border-radius:999px;font-size:11px;font-weight:700;padding:3px 10px;color:#17458f">{{ a.langs }}</span>
+            </div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#898a8d;margin-bottom:4px">{{ t.whereNow }}</div>
+            <p style="font-size:13px;line-height:1.5;margin:0">{{ a.now }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ SCHOOLS & CLUBS ============ -->
+  <sc-if value="{{ isSchools }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Schools and Clubs" style="max-width:1100px;margin:0 auto;padding:56px 24px">
+      <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:40px;color:#17458f;margin:0 0 10px;letter-spacing:0.02em">{{ t.schoolsTitle }}</h1>
+      <p style="font-size:16px;line-height:1.6;max-width:680px;margin:0 0 36px">{{ t.schoolsIntro }}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+        <sc-for list="{{ schoolCards }}" as="sc" hint-placeholder-count="6">
+          <div style="background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid {{ sc.band }};padding:24px">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px">
+              <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:600;font-size:18px;color:#17458f;letter-spacing:0.02em;line-height:1.25">{{ sc.name }}</div>
+              <span style="background:#f4f6f9;border:1px solid #e2e6ec;border-radius:999px;font-size:11px;font-weight:700;padding:3px 10px;color:#17458f;flex:none">{{ sc.type }}</span>
+            </div>
+            <div style="font-size:13px;color:#898a8d;margin-bottom:14px">{{ sc.place }}</div>
+            <p style="font-size:14px;line-height:1.55;margin:0 0 16px">{{ sc.desc }}</p>
+            <div style="display:flex;gap:20px;border-top:1px solid #e2e6ec;padding-top:14px">
+              <div>
+                <div style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;font-size:22px;color:#0067c8;line-height:1">{{ sc.since }}</div>
+                <div style="font-size:11px;color:#898a8d;margin-top:3px">{{ t.partnerSince }}</div>
+              </div>
+              <div>
+                <div style="font-family:'Oswald',Arial Narrow,sans-serif;font-weight:700;font-size:22px;color:#0067c8;line-height:1">{{ sc.hosted }}</div>
+                <div style="font-size:11px;color:#898a8d;margin-top:3px">{{ t.teachersHosted }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ REGISTER ============ -->
+  <sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Registration" style="max-width:760px;margin:0 auto;padding:56px 24px">
+      <sc-if value="{{ notRegistered }}" hint-placeholder-val="{{ true }}">
+        <h1 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:40px;color:#17458f;margin:0 0 10px;letter-spacing:0.02em">{{ t.regTitle }}</h1>
+        <p style="font-size:16px;line-height:1.6;margin:0 0 28px">{{ t.regIntro }}</p>
+        <div style="background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid #f7a81b;padding:32px">
+          <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:600;font-size:15px;color:#17458f;letter-spacing:0.04em;margin-bottom:12px">{{ t.regRole }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:28px">
+            <sc-for list="{{ roles }}" as="r" hint-placeholder-count="5">
+              <a href="#" onClick="{{ r.onClick }}" style="display:block;border:2px solid {{ r.border }};background:{{ r.bg }};border-radius:8px;padding:14px 16px;color:#54565a">
+                <div style="font-weight:700;font-size:14px;color:#17458f">{{ r.label }}</div>
+                <div style="font-size:12px;color:#898a8d;margin-top:3px;line-height:1.4">{{ r.sub }}</div>
+              </a>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:16px">
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f">{{ t.fName }}
+              <input type="text" placeholder="{{ t.fNamePh }}" style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f">{{ t.fEmail }}
+              <input type="email" placeholder="name@school.edu" style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f">{{ t.fCountry }}
+              <select style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a;background:#ffffff">
+                <option>United States</option><option>Panamá</option><option>Argentina</option><option>México</option>
+              </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f">{{ t.fCity }}
+              <input type="text" placeholder="{{ t.fCityPh }}" style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f">{{ t.fLangs }}
+              <input type="text" placeholder="{{ t.fLangsPh }}" style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f">{{ t.fYears }}
+              <input type="text" placeholder="2018–2019" style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a">
+            </label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#17458f;margin-bottom:24px">{{ t.fBio }}
+            <textarea rows="4" placeholder="{{ t.fBioPh }}" style="border:1px solid #e2e6ec;border-radius:4px;padding:10px 12px;font-size:14px;color:#54565a;resize:vertical"></textarea>
+          </label>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <x-import component-from-global-scope="WestWichitaRotaryDesignSystem_516097.Button" variant="primary" onClick="{{ submitReg }}" hint-size="auto,44px">{{ t.regSubmit }}</x-import>
+            <span style="font-size:12px;color:#898a8d;max-width:380px;line-height:1.45">{{ t.regNote }}</span>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ registered }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#ffffff;border:1px solid #e2e6ec;border-radius:8px;border-top:6px solid #009739;padding:40px;text-align:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:#009739;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;margin:0 auto 18px">✓</div>
+          <h2 style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:28px;color:#17458f;margin:0 0 10px;letter-spacing:0.02em">{{ t.regDoneTitle }}</h2>
+          <p style="font-size:15px;line-height:1.6;max-width:460px;margin:0 auto 24px">{{ t.regDoneBody }}</p>
+          <x-import component-from-global-scope="WestWichitaRotaryDesignSystem_516097.Button" variant="primary" onClick="{{ goHome }}" hint-size="auto,44px">{{ t.regDoneCta }}</x-import>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div style="background:#17458f;color:#b9d9eb;margin-top:auto">
+    <div style="height:6px;background:#f7a81b"></div>
+    <div style="max-width:1100px;margin:0 auto;padding:36px 24px;display:flex;gap:32px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase;font-weight:700;font-size:16px;color:#ffffff;letter-spacing:0.04em">{{ t.footTitle }}</div>
+        <div style="font-size:13px;margin-top:6px">{{ t.footSub }}</div>
+      </div>
+      <div style="font-size:12px">{{ t.footNote }}</div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentBand&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#f7a81b&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#f7a81b&quot;, &quot;#0067c8&quot;, &quot;#00a2e0&quot;], &quot;section&quot;: &quot;Theme&quot;}, &quot;defaultLang&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;en&quot;, &quot;options&quot;: [&quot;en&quot;, &quot;es&quot;], &quot;tsType&quot;: &quot;'en' | 'es'&quot;, &quot;section&quot;: &quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = { screen: 'home', lang: 'en', storyId: null, storyFilter: 'all', dirFilter: 'all', openMilestone: 0, role: 'teacher', registered: false };
+
+  data() {
+    const AZ = '#0067c8', RB = '#17458f', GOLD = '#f7a81b', SKY = '#00a2e0', CRAN = '#d41367', TURQ = '#00adbb';
+    return {
+      milestones: [
+        { year: '1996', color: GOLD,
+          title: { en: 'The Founding', es: 'La fundación' },
+          body: { en: 'Ralph and Armida Hight launch the Rotary Inter-country Teacher Exchange in Rotary District 5680, building the first bridge between Wichita classrooms and Latin America.', es: 'Ralph y Armida Hight fundan el Intercambio Internacional de Docentes de Rotary en el Distrito 5680, construyendo el primer puente entre las aulas de Wichita y América Latina.' },
+          fact: { en: 'District 5680 · Wichita, Kansas', es: 'Distrito 5680 · Wichita, Kansas' } },
+        { year: '1996–2001', color: AZ,
+          title: { en: 'The Mexico Era', es: 'La era de México' },
+          body: { en: 'Over the program\u2019s first five years, 13 Wichita teachers travel to Mexico, establishing the exchange model of classroom immersion and host-family hospitality.', es: 'Durante los primeros cinco años del programa, 13 docentes de Wichita viajan a México, estableciendo el modelo de inmersión en el aula y hospitalidad de familias anfitrionas.' },
+          fact: { en: '13 teachers sent to Mexico', es: '13 docentes enviados a México' } },
+        { year: '2001', color: SKY,
+          title: { en: 'The Panama & Argentina Expansion', es: 'La expansión a Panamá y Argentina' },
+          body: { en: 'The program shifts to Panama, later adding Argentina. Since then, Wichita schools have welcomed 39 Panamanian and 45 Argentinian inbound teachers.', es: 'El programa se traslada a Panamá y luego suma a Argentina. Desde entonces, las escuelas de Wichita han recibido a 39 docentes panameños y 45 argentinos.' },
+          fact: { en: '39 from Panamá · 45 from Argentina', es: '39 de Panamá · 45 de Argentina' } },
+        { year: '2010', color: RB,
+          title: { en: 'Leadership Continuity', es: 'Continuidad del liderazgo' },
+          body: { en: 'Coordination transitions to Dalia Hale and Shelli Kadel, preserving the program\u2019s \u201csecret sauce\u201d: deep, decades-long institutional relationships between schools, clubs, and families.', es: 'La coordinación pasa a Dalia Hale y Shelli Kadel, preservando la \u201csalsa secreta\u201d del programa: relaciones institucionales profundas de décadas entre escuelas, clubes y familias.' },
+          fact: { en: 'Dalia Hale & Shelli Kadel', es: 'Dalia Hale y Shelli Kadel' } },
+        { year: '2020–2023', color: CRAN,
+          title: { en: 'Pandemic & Recovery', es: 'Pandemia y recuperación' },
+          body: { en: 'COVID-19 forces a hiatus in travel. The community stays connected online, and in 2023 the inbound program successfully resumes with new teachers arriving in Wichita.', es: 'El COVID-19 obliga a una pausa en los viajes. La comunidad se mantiene conectada en línea y en 2023 el programa de recepción se reanuda con éxito con nuevos docentes llegando a Wichita.' },
+          fact: { en: 'Inbound program resumed 2023', es: 'Programa de recepción reanudado en 2023' } },
+        { year: '2026', color: TURQ,
+          title: { en: '30 Years of Exchange', es: '30 años de intercambio' },
+          body: { en: 'RITE approaches its 30th anniversary with a living digital archive — this platform — to preserve its history and connect the next generation of teachers across three countries.', es: 'RITE se acerca a su 30.º aniversario con un archivo digital vivo — esta plataforma — para preservar su historia y conectar a la próxima generación de docentes en tres países.' },
+          fact: { en: 'You are here', es: 'Usted está aquí' } }
+      ],
+      stories: [
+        { id: 's1', tag: { en: 'Teacher Story', es: 'Historia docente' }, country: 'panama', band: AZ, year: '2019',
+          title: { en: 'From Panama City to Pleasant Valley Middle School', es: 'De la Ciudad de Panamá a Pleasant Valley Middle School' },
+          excerpt: { en: 'María spent a semester co-teaching ESL in Wichita — and brought a sister-school partnership home with her.', es: 'María pasó un semestre coenseñando ESL en Wichita — y regresó con una alianza de escuelas hermanas.' },
+          body1: { en: 'When María Camarena arrived in Wichita in August 2019, she expected culture shock. What she found instead was a second family: a host household that had welcomed four RITE teachers before her, and a middle-school classroom eager to learn about Panama.', es: 'Cuando María Camarena llegó a Wichita en agosto de 2019, esperaba un choque cultural. En cambio, encontró una segunda familia: un hogar anfitrión que ya había recibido a cuatro docentes de RITE y un aula de secundaria ansiosa por conocer Panamá.' },
+          body2: { en: 'Over one semester she co-taught ESL classes, led cultural exchange assemblies, and built a pen-pal program that still connects her students in Panama City with Wichita classrooms today.', es: 'Durante un semestre coenseñó clases de ESL, dirigió asambleas de intercambio cultural y creó un programa de correspondencia que aún conecta a sus estudiantes de la Ciudad de Panamá con las aulas de Wichita.' },
+          quote: { en: 'I came to teach English. I left having taught Panama — and learned Kansas.', es: 'Vine a enseñar inglés. Me fui habiendo enseñado Panamá — y aprendido Kansas.' },
+          author: 'María Camarena', role: { en: 'Inbound teacher, Panamá · 2019', es: 'Docente de intercambio, Panamá · 2019' } },
+        { id: 's2', tag: { en: 'Host Family', es: 'Familia anfitriona' }, country: 'usa', band: GOLD, year: '2023',
+          title: { en: 'Twelve Years, Nine Teachers, One Guest Room', es: 'Doce años, nueve docentes, una habitación de huéspedes' },
+          excerpt: { en: 'The Kadel family has hosted RITE teachers since 2011. Here\u2019s what keeps them saying yes.', es: 'La familia Kadel ha recibido docentes de RITE desde 2011. Esto es lo que los mantiene diciendo que sí.' },
+          body1: { en: 'The guest room in the Kadel home has a map on the wall with nine pins: five in Argentina, four in Panama. Each pin is a teacher who lived there for a semester — and each one still sends holiday messages.', es: 'La habitación de huéspedes de los Kadel tiene un mapa con nueve alfileres: cinco en Argentina, cuatro en Panamá. Cada alfiler es un docente que vivió allí un semestre — y cada uno aún envía saludos en las fiestas.' },
+          body2: { en: 'Hosting, they say, is the easiest way to travel without leaving home: new recipes, new music, and a permanent invitation to visit two continents.', es: 'Hospedar, dicen, es la forma más fácil de viajar sin salir de casa: nuevas recetas, nueva música y una invitación permanente a visitar dos continentes.' },
+          quote: { en: 'Every teacher arrives as a stranger and leaves as family. That\u2019s the whole program in one sentence.', es: 'Cada docente llega como un extraño y se va como familia. Ese es todo el programa en una frase.' },
+          author: 'The Kadel Family', role: { en: 'Host family, Wichita · since 2011', es: 'Familia anfitriona, Wichita · desde 2011' } },
+        { id: 's3', tag: { en: 'Classroom Project', es: 'Proyecto de aula' }, country: 'argentina', band: SKY, year: '2018',
+          title: { en: 'The Mendoza–Wichita Weather Journal', es: 'El diario del clima Mendoza–Wichita' },
+          excerpt: { en: 'A bilingual science project where two classrooms 5,900 miles apart compared seasons for a full school year.', es: 'Un proyecto bilingüe de ciencias en el que dos aulas a 9.500 km compararon las estaciones durante un año escolar.' },
+          body1: { en: 'When Lucía Ferrero returned to Mendoza after her 2018 exchange, she kept one Wichita habit: the morning weather report. Her third-graders began logging daily conditions and exchanging them — in English and Spanish — with her former host classroom in Kansas.', es: 'Cuando Lucía Ferrero regresó a Mendoza tras su intercambio de 2018, conservó un hábito de Wichita: el reporte matutino del clima. Sus alumnos de tercer grado comenzaron a registrar el clima diario e intercambiarlo — en inglés y español — con su antigua aula anfitriona en Kansas.' },
+          body2: { en: 'The journal became a full curriculum unit on hemispheres, seasons, and measurement — and is now a downloadable lesson plan in the RITE curriculum repository.', es: 'El diario se convirtió en una unidad curricular completa sobre hemisferios, estaciones y medición — y hoy es un plan de clase descargable en el repositorio curricular de RITE.' },
+          quote: { en: 'My students learned that when it snows in Wichita, we\u2019re at the pool. Geography stopped being abstract.', es: 'Mis alumnos aprendieron que cuando nieva en Wichita, nosotros estamos en la piscina. La geografía dejó de ser abstracta.' },
+          author: 'Lucía Ferrero', role: { en: 'Inbound teacher, Argentina · 2018', es: 'Docente de intercambio, Argentina · 2018' } },
+        { id: 's4', tag: { en: 'Program History', es: 'Historia del programa' }, country: 'usa', band: RB, year: '1996',
+          title: { en: 'How Ralph and Armida Built the Bridge', es: 'Cómo Ralph y Armida construyeron el puente' },
+          excerpt: { en: 'The origin story of RITE, told through the founders\u2019 letters and the memories of the first cohort.', es: 'La historia del origen de RITE, contada a través de las cartas de los fundadores y los recuerdos de la primera cohorte.' },
+          body1: { en: 'In 1996, Ralph and Armida Hight proposed something District 5680 had never tried: sending working teachers — not students — across borders, betting that one educator could touch a thousand students over a career.', es: 'En 1996, Ralph y Armida Hight propusieron algo que el Distrito 5680 nunca había intentado: enviar docentes en ejercicio — no estudiantes — a través de las fronteras, apostando a que un educador podía llegar a mil estudiantes a lo largo de su carrera.' },
+          body2: { en: 'The first five years sent 13 teachers to Mexico. Three decades later, the exchange the Hights sketched on a kitchen table connects three countries and hundreds of classrooms.', es: 'Los primeros cinco años enviaron 13 docentes a México. Tres décadas después, el intercambio que los Hight esbozaron en la mesa de su cocina conecta tres países y cientos de aulas.' },
+          quote: { en: 'Teach a teacher, and you teach every classroom they\u2019ll ever stand in.', es: 'Enseña a un docente y enseñarás a cada aula en la que se pare.' },
+          author: 'RITE Archive', role: { en: 'Program history · 1996', es: 'Historia del programa · 1996' } },
+        { id: 's5', tag: { en: 'Teacher Story', es: 'Historia docente' }, country: 'panama', band: TURQ, year: '2023',
+          title: { en: 'First Back After the Pause', es: 'La primera en volver tras la pausa' },
+          excerpt: { en: 'Rosa was the first inbound teacher when the program resumed in 2023 — reopening a door three years closed.', es: 'Rosa fue la primera docente de intercambio cuando el programa se reanudó en 2023 — reabriendo una puerta cerrada por tres años.' },
+          body1: { en: 'The 2023 school year began with something Wichita hadn\u2019t seen since 2019: a RITE teacher at the front of the classroom. Rosa Delgado of Panama carried the weight of a restart — and the excitement of a community that had waited three years.', es: 'El año escolar 2023 comenzó con algo que Wichita no veía desde 2019: una docente de RITE al frente del aula. Rosa Delgado, de Panamá, cargó con el peso de un reinicio — y la emoción de una comunidad que esperó tres años.' },
+          body2: { en: 'Her semester proved the program\u2019s relationships had survived the pandemic intact: her host family, her partner school, and her Rotary sponsors were all veterans of previous exchanges.', es: 'Su semestre demostró que las relaciones del programa sobrevivieron intactas a la pandemia: su familia anfitriona, su escuela asociada y sus padrinos rotarios eran todos veteranos de intercambios anteriores.' },
+          quote: { en: 'They told me I was reopening the bridge. Really, the bridge was never closed — just waiting.', es: 'Me dijeron que estaba reabriendo el puente. En realidad, el puente nunca se cerró — solo esperaba.' },
+          author: 'Rosa Delgado', role: { en: 'Inbound teacher, Panamá · 2023', es: 'Docente de intercambio, Panamá · 2023' } },
+        { id: 's6', tag: { en: 'Classroom Project', es: 'Proyecto de aula' }, country: 'argentina', band: CRAN, year: '2015',
+          title: { en: 'Tango Night at the School Gym', es: 'Noche de tango en el gimnasio escolar' },
+          excerpt: { en: 'How one exchange teacher turned a Kansas fundraiser into an Argentine cultural festival.', es: 'Cómo una docente de intercambio convirtió una recaudación de fondos en Kansas en un festival cultural argentino.' },
+          body1: { en: 'Asked to help with the school\u2019s annual fundraiser, Valentina Roldán of Córdoba proposed something different: a tango night, with empanadas from her host family\u2019s kitchen and dance lessons from a very patient gym teacher.', es: 'Cuando le pidieron ayuda con la recaudación anual de la escuela, Valentina Roldán, de Córdoba, propuso algo diferente: una noche de tango, con empanadas de la cocina de su familia anfitriona y clases de baile de un profesor de gimnasia muy paciente.' },
+          body2: { en: 'The event raised a record amount for the library — and became an annual tradition that outlasted her exchange by eight years and counting.', es: 'El evento recaudó una cifra récord para la biblioteca — y se convirtió en una tradición anual que ha sobrevivido a su intercambio por ocho años y contando.' },
+          quote: { en: 'Kansas learned the tango. I learned line dancing. Fair trade.', es: 'Kansas aprendió tango. Yo aprendí baile en línea. Trato justo.' },
+          author: 'Valentina Roldán', role: { en: 'Inbound teacher, Argentina · 2015', es: 'Docente de intercambio, Argentina · 2015' } }
+      ],
+      alumni: [
+        { name: 'María Camarena', country: 'panama', band: AZ, avatarBg: AZ, place: { en: 'Panama City, Panamá', es: 'Ciudad de Panamá, Panamá' }, years: '2019', langs: 'ES · EN', now: { en: 'ESL department head; runs a sister-school partnership with Wichita.', es: 'Jefa del departamento de ESL; dirige una alianza de escuelas hermanas con Wichita.' } },
+        { name: 'Lucía Ferrero', country: 'argentina', band: SKY, avatarBg: RB, place: { en: 'Mendoza, Argentina', es: 'Mendoza, Argentina' }, years: '2018', langs: 'ES · EN', now: { en: 'Primary science coordinator; author of the Weather Journal curriculum.', es: 'Coordinadora de ciencias de primaria; autora del currículo del Diario del Clima.' } },
+        { name: 'Rosa Delgado', country: 'panama', band: TURQ, avatarBg: SKY, place: { en: 'David, Panamá', es: 'David, Panamá' }, years: '2023', langs: 'ES · EN', now: { en: 'Bilingual program lead; mentors incoming RITE candidates.', es: 'Líder del programa bilingüe; mentora de nuevas candidatas de RITE.' } },
+        { name: 'Valentina Roldán', country: 'argentina', band: CRAN, avatarBg: RB, place: { en: 'Córdoba, Argentina', es: 'Córdoba, Argentina' }, years: '2015', langs: 'ES · EN', now: { en: 'School principal; hosts Wichita outbound teachers at her school.', es: 'Directora de escuela; recibe a docentes de Wichita en su institución.' } },
+        { name: 'Janet Brooks', country: 'usa', band: GOLD, avatarBg: AZ, place: { en: 'Wichita, Kansas, USA', es: 'Wichita, Kansas, EE. UU.' }, years: '1998', langs: 'EN · ES', now: { en: 'Retired teacher; traveled to Mexico in the program\u2019s first era, now a RITE archive volunteer.', es: 'Docente jubilada; viajó a México en la primera era del programa, hoy voluntaria del archivo de RITE.' } },
+        { name: 'Diego Morales', country: 'panama', band: AZ, avatarBg: RB, place: { en: 'Colón, Panamá', es: 'Colón, Panamá' }, years: '2011', langs: 'ES · EN', now: { en: 'Ministry of Education curriculum advisor; RITE alumni network co-chair.', es: 'Asesor curricular del Ministerio de Educación; copresidente de la red de exalumnos de RITE.' } },
+        { name: 'Carla Aguirre', country: 'argentina', band: SKY, avatarBg: SKY, place: { en: 'Rosario, Argentina', es: 'Rosario, Argentina' }, years: '2013', langs: 'ES · EN · PT', now: { en: 'Teacher-training instructor; adapting the RITE replication toolkit for her district.', es: 'Formadora de docentes; adapta el kit de replicación de RITE para su distrito.' } },
+        { name: 'Tom Whitaker', country: 'usa', band: GOLD, avatarBg: RB, place: { en: 'Wichita, Kansas, USA', es: 'Wichita, Kansas, EE. UU.' }, years: { }, langs: 'EN', now: { en: 'Rotary Club of West Wichita liaison; has sponsored 14 inbound teachers.', es: 'Enlace del Club Rotario de West Wichita; ha apadrinado a 14 docentes de intercambio.' } }
+      ],
+      schools: [
+        { type: 'school', band: AZ, name: 'Pleasant Valley Middle School', place: { en: 'Wichita, Kansas, USA', es: 'Wichita, Kansas, EE. UU.' }, since: '2004', hosted: '11', desc: { en: 'A cornerstone host school: ESL co-teaching placements, cultural assemblies, and a standing pen-pal program with Panama City.', es: 'Escuela anfitriona clave: coenseñanza de ESL, asambleas culturales y un programa de correspondencia permanente con la Ciudad de Panamá.' } },
+        { type: 'school', band: SKY, name: 'Instituto Panamericano', place: { en: 'Panama City, Panamá', es: 'Ciudad de Panamá, Panamá' }, since: '2006', hosted: '9', desc: { en: 'Long-standing partner sending bilingual educators to Wichita and hosting Kansas teachers for summer immersion visits.', es: 'Socio de larga data que envía educadores bilingües a Wichita y recibe a docentes de Kansas en visitas de inmersión de verano.' } },
+        { type: 'school', band: CRAN, name: 'Escuela Normal Superior de Mendoza', place: { en: 'Mendoza, Argentina', es: 'Mendoza, Argentina' }, since: '2009', hosted: '8', desc: { en: 'Teacher-training institution whose graduates make up a large share of Argentina\u2019s RITE cohorts.', es: 'Institución de formación docente cuyos graduados componen gran parte de las cohortes argentinas de RITE.' } },
+        { type: 'club', band: GOLD, name: 'Rotary Club of West Wichita', place: { en: 'Wichita, Kansas, USA · District 5680', es: 'Wichita, Kansas, EE. UU. · Distrito 5680' }, since: '1996', hosted: '30+', desc: { en: 'Founding club of the exchange: recruits host families, sponsors visas and travel, and stewards this archive.', es: 'Club fundador del intercambio: recluta familias anfitrionas, patrocina visas y viajes, y custodia este archivo.' } },
+        { type: 'club', band: RB, name: 'Club Rotario de Panamá', place: { en: 'Panama City, Panamá · District 4240', es: 'Ciudad de Panamá, Panamá · Distrito 4240' }, since: '2001', hosted: '39', desc: { en: 'Partner club anchoring the Panama era: candidate selection, orientation, and re-entry support for returning teachers.', es: 'Club socio ancla de la era de Panamá: selección de candidatos, orientación y apoyo al regreso de los docentes.' } },
+        { type: 'club', band: TURQ, name: 'Rotary Club Mendoza Este', place: { en: 'Mendoza, Argentina · District 4860', es: 'Mendoza, Argentina · Distrito 4860' }, since: '2008', hosted: '45', desc: { en: 'Coordinates Argentina\u2019s inbound pipeline and hosts the annual alumni reunion for RITE veterans.', es: 'Coordina el flujo de docentes argentinos y organiza la reunión anual de exalumnos veteranos de RITE.' } }
+      ]
+    };
+  }
+
+  dict(lang) {
+    const en = {
+      siteSub: 'Inter-country Teacher Exchange', join: 'Join the community', motto: 'Service Above Self',
+      heroTitle: 'Thirty years of teachers crossing borders',
+      heroBody: 'The Rotary Inter-country Teacher Exchange (RITE) has connected classrooms in Wichita, Panamá, and Argentina since 1996. This is our living archive: the stories, the people, and the partnerships that made it work — preserved for the next generation.',
+      heroCta1: 'Explore the timeline', heroCta2: 'Read the stories',
+      recentStories: 'From the archive', viewAll: 'View all stories',
+      aofEyebrow: 'Rooted in Rotary', aofTitle: 'Part of Rotary\u2019s Areas of Focus',
+      aofBody: 'RITE advances Rotary International\u2019s commitment to basic education and literacy and to peacebuilding — one teacher, one classroom, and one host family at a time.',
+      histTitle: 'A living history', histIntro: 'Six milestones tell the story of RITE — from a kitchen-table idea in Rotary District 5680 to a three-country community of educators. Select a milestone to read more.',
+      storiesTitle: 'Story archive', storiesIntro: 'First-person accounts from teachers, host families, and Rotary leaders across three decades of exchange. Every story is reviewed for accuracy and privacy before publication.',
+      backToStories: 'Back to the archive', photoPlaceholder: 'Photo from the RITE archive — awaiting digitization',
+      dirTitle: 'Where are they now?', dirIntro: 'The RITE alumni network: past exchange teachers, host families, and coordinators — and the careers the exchange helped shape.',
+      dirPrivacy: 'Members-only detail: contact information is visible to registered, approved members only.',
+      whereNow: 'Where they are now',
+      schoolsTitle: 'Schools & clubs', schoolsIntro: 'The institutions behind the exchange. These partnerships — some now in their third decade — are the program\u2019s foundation.',
+      partnerSince: 'Partner since', teachersHosted: 'Teachers hosted',
+      regTitle: 'Join the RITE community', regIntro: 'Registration is open to anyone connected to the exchange — past or future. Editors review each request to protect student and school privacy.',
+      regRole: '1 · I am a…', regSubmit: 'Request membership',
+      regNote: 'You\u2019ll sign in with your email — no new password needed. An editor will approve your profile, usually within a few days.',
+      fName: 'Full name', fNamePh: 'e.g. María Camarena', fEmail: 'Email', fCountry: 'Country', fCity: 'City', fCityPh: 'e.g. Wichita', fLangs: 'Languages', fLangsPh: 'e.g. Spanish, English', fYears: 'RITE exchange year(s)', fBio: 'Short biography', fBioPh: 'Your connection to the exchange, in a sentence or two…',
+      regDoneTitle: 'Request received', regDoneBody: 'Thank you! An editor will review your profile shortly. You\u2019ll get an email the moment you\u2019re approved — then the alumni directory and story submissions open up.', regDoneCta: 'Back to home',
+      footTitle: 'Rotary Inter-country Teacher Exchange', footSub: 'A program of Rotary District 5680 · Wichita, Kansas — with partners in Panamá and Argentina', footNote: 'Service Above Self · Since 1996',
+      roleTeacher: 'Teacher', roleTeacherSub: 'Past or future exchange educator', roleHost: 'Host family', roleHostSub: 'We open our home to teachers', roleLeader: 'Rotary leader', roleLeaderSub: 'Club or district officer', roleCoord: 'Coordinator', roleCoordSub: 'Program organizer', roleSchool: 'School administrator', roleSchoolSub: 'Partner school staff',
+      filterAll: 'All', filterPanama: 'Panamá', filterArgentina: 'Argentina', filterUsa: 'United States',
+      statTeachers: 'Inbound & outbound teachers since 1996', statPanama: 'Teachers received from Panamá', statArgentina: 'Teachers received from Argentina', statYears: 'Years of continuous partnership',
+      navHome: 'Home', navHistory: 'History', navStories: 'Stories', navDirectory: 'Alumni', navSchools: 'Schools & Clubs',
+      linkDirTitle: 'Alumni network', linkDirBody: 'Find fellow exchange teachers, see where careers led, and reconnect across borders.', linkDirCta: 'Open the directory',
+      linkSchoolTitle: 'Schools & clubs', linkSchoolBody: 'The partner institutions in three countries that make every exchange possible.', linkSchoolCta: 'Meet the partners',
+      linkRegTitle: 'Add your story', linkRegBody: 'Were you part of RITE? Register to share your photos, memories, and lesson plans.', linkRegCta: 'Join the community',
+      showMore: 'Read more', showLess: 'Close'
+    };
+    const es = {
+      siteSub: 'Intercambio Internacional de Docentes', join: 'Únase a la comunidad', motto: 'Dar de Sí antes de Pensar en Sí',
+      heroTitle: 'Treinta años de docentes cruzando fronteras',
+      heroBody: 'El Intercambio Internacional de Docentes de Rotary (RITE) conecta aulas de Wichita, Panamá y Argentina desde 1996. Este es nuestro archivo vivo: las historias, las personas y las alianzas que lo hicieron posible — preservado para la próxima generación.',
+      heroCta1: 'Explorar la línea de tiempo', heroCta2: 'Leer las historias',
+      recentStories: 'Del archivo', viewAll: 'Ver todas las historias',
+      aofEyebrow: 'Con raíces en Rotary', aofTitle: 'Parte de las Áreas de Interés de Rotary',
+      aofBody: 'RITE promueve el compromiso de Rotary International con la educación básica y la alfabetización, y con la paz — un docente, un aula y una familia anfitriona a la vez.',
+      histTitle: 'Una historia viva', histIntro: 'Seis hitos cuentan la historia de RITE — de una idea en la mesa de una cocina en el Distrito 5680 a una comunidad de educadores en tres países. Seleccione un hito para leer más.',
+      storiesTitle: 'Archivo de historias', storiesIntro: 'Relatos en primera persona de docentes, familias anfitrionas y líderes rotarios a lo largo de tres décadas de intercambio. Cada historia se revisa por precisión y privacidad antes de publicarse.',
+      backToStories: 'Volver al archivo', photoPlaceholder: 'Foto del archivo de RITE — pendiente de digitalización',
+      dirTitle: '¿Dónde están ahora?', dirIntro: 'La red de exalumnos de RITE: docentes de intercambio, familias anfitrionas y coordinadores — y las carreras que el intercambio ayudó a formar.',
+      dirPrivacy: 'Detalle solo para miembros: la información de contacto es visible únicamente para miembros registrados y aprobados.',
+      whereNow: 'Dónde están ahora',
+      schoolsTitle: 'Escuelas y clubes', schoolsIntro: 'Las instituciones detrás del intercambio. Estas alianzas — algunas ya en su tercera década — son la base del programa.',
+      partnerSince: 'Socio desde', teachersHosted: 'Docentes recibidos',
+      regTitle: 'Únase a la comunidad RITE', regIntro: 'El registro está abierto a cualquier persona vinculada al intercambio — pasada o futura. Los editores revisan cada solicitud para proteger la privacidad de estudiantes y escuelas.',
+      regRole: '1 · Soy…', regSubmit: 'Solicitar membresía',
+      regNote: 'Iniciará sesión con su correo electrónico — sin necesidad de una nueva contraseña. Un editor aprobará su perfil, normalmente en pocos días.',
+      fName: 'Nombre completo', fNamePh: 'p. ej. María Camarena', fEmail: 'Correo electrónico', fCountry: 'País', fCity: 'Ciudad', fCityPh: 'p. ej. Wichita', fLangs: 'Idiomas', fLangsPh: 'p. ej. español, inglés', fYears: 'Año(s) de intercambio RITE', fBio: 'Biografía breve', fBioPh: 'Su vínculo con el intercambio, en una o dos frases…',
+      regDoneTitle: 'Solicitud recibida', regDoneBody: '¡Gracias! Un editor revisará su perfil en breve. Recibirá un correo en cuanto sea aprobado — y entonces se habilitarán el directorio de exalumnos y el envío de historias.', regDoneCta: 'Volver al inicio',
+      footTitle: 'Intercambio Internacional de Docentes de Rotary', footSub: 'Un programa del Distrito 5680 de Rotary · Wichita, Kansas — con socios en Panamá y Argentina', footNote: 'Dar de Sí antes de Pensar en Sí · Desde 1996',
+      roleTeacher: 'Docente', roleTeacherSub: 'Educador de intercambio, pasado o futuro', roleHost: 'Familia anfitriona', roleHostSub: 'Abrimos nuestro hogar a docentes', roleLeader: 'Líder rotario', roleLeaderSub: 'Directivo de club o distrito', roleCoord: 'Coordinador', roleCoordSub: 'Organizador del programa', roleSchool: 'Administrador escolar', roleSchoolSub: 'Personal de escuela asociada',
+      filterAll: 'Todos', filterPanama: 'Panamá', filterArgentina: 'Argentina', filterUsa: 'Estados Unidos',
+      statTeachers: 'Docentes enviados y recibidos desde 1996', statPanama: 'Docentes recibidos de Panamá', statArgentina: 'Docentes recibidos de Argentina', statYears: 'Años de alianza continua',
+      navHome: 'Inicio', navHistory: 'Historia', navStories: 'Historias', navDirectory: 'Exalumnos', navSchools: 'Escuelas y clubes',
+      linkDirTitle: 'Red de exalumnos', linkDirBody: 'Encuentre a colegas del intercambio, vea adónde llevaron las carreras y reconéctese a través de las fronteras.', linkDirCta: 'Abrir el directorio',
+      linkSchoolTitle: 'Escuelas y clubes', linkSchoolBody: 'Las instituciones socias en tres países que hacen posible cada intercambio.', linkSchoolCta: 'Conozca a los socios',
+      linkRegTitle: 'Comparta su historia', linkRegBody: '¿Fue parte de RITE? Regístrese para compartir sus fotos, recuerdos y planes de clase.', linkRegCta: 'Únase a la comunidad',
+      showMore: 'Leer más', showLess: 'Cerrar'
+    };
+    return lang === 'es' ? es : en;
+  }
+
+  renderVals() {
+    const { screen, lang, storyId, storyFilter, dirFilter, openMilestone, role, registered } = this.state;
+    const t = this.dict(lang);
+    const d = this.data();
+    const L = (v) => (v && typeof v === 'object') ? (v[lang] || v.en) : v;
+    const go = (s) => (e) => { e.preventDefault(); this.setState({ screen: s }); window.scrollTo(0, 0); };
+    const AZ = '#0067c8', RB = '#17458f', GOLD = '#f7a81b';
+
+    const navDefs = [
+      { id: 'home', label: t.navHome }, { id: 'history', label: t.navHistory }, { id: 'stories', label: t.navStories },
+      { id: 'directory', label: t.navDirectory }, { id: 'schools', label: t.navSchools }
+    ];
+    const navItems = navDefs.map(n => ({
+      label: n.label,
+      color: (screen === n.id || (n.id === 'stories' && screen === 'story')) ? '#ffffff' : '#54565a',
+      bg: (screen === n.id || (n.id === 'stories' && screen === 'story')) ? AZ : 'transparent',
+      onClick: go(n.id)
+    }));
+
+    const mkStoryCard = (s) => ({
+      title: L(s.title), excerpt: L(s.excerpt), tag: L(s.tag), band: s.band,
+      meta: L(s.role || {}) ? `${s.author} · ${s.year}` : s.year,
+      onClick: (e) => { e.preventDefault(); this.setState({ screen: 'story', storyId: s.id }); window.scrollTo(0, 0); }
+    });
+
+    const filteredStories = d.stories.filter(s => storyFilter === 'all' || s.country === storyFilter);
+    const storySel = d.stories.find(s => s.id === storyId) || d.stories[0];
+    const story = {
+      title: L(storySel.title), tag: L(storySel.tag), meta: `${storySel.author} · ${storySel.year}`,
+      body1: L(storySel.body1), body2: L(storySel.body2), quote: L(storySel.quote),
+      author: storySel.author, role: L(storySel.role),
+      initials: storySel.author.split(' ').map(w => w[0]).slice(0, 2).join('')
+    };
+
+    const mkFilter = (cur, key, setKey) => [
+      { id: 'all', label: t.filterAll }, { id: 'panama', label: t.filterPanama },
+      { id: 'argentina', label: t.filterArgentina }, { id: 'usa', label: t.filterUsa }
+    ].map(f => ({
+      label: f.label,
+      border: cur === f.id ? AZ : '#e2e6ec',
+      color: cur === f.id ? '#ffffff' : '#54565a',
+      bg: cur === f.id ? AZ : '#ffffff',
+      onClick: (e) => { e.preventDefault(); this.setState({ [setKey]: f.id }); }
+    }));
+
+    const milestones = d.milestones.map((m, i) => ({
+      year: m.year, title: L(m.title), body: L(m.body), fact: L(m.fact),
+      open: openMilestone === i,
+      toggleLabel: openMilestone === i ? t.showLess : t.showMore,
+      dotBg: openMilestone === i ? m.color : '#ffffff',
+      dotRing: m.color,
+      border: openMilestone === i ? AZ : '#e2e6ec',
+      yearColor: m.color === GOLD ? '#b97906' : m.color,
+      onClick: (e) => { e.preventDefault(); this.setState({ openMilestone: openMilestone === i ? -1 : i }); }
+    }));
+
+    const alumniCards = d.alumni
+      .filter(a => dirFilter === 'all' || a.country === dirFilter)
+      .map(a => ({
+        name: a.name, band: a.band, avatarBg: a.avatarBg, place: L(a.place),
+        years: (typeof a.years === 'string' && a.years) ? `RITE ${a.years}` : 'RITE 1996–',
+        langs: a.langs, now: L(a.now),
+        initials: a.name.split(' ').map(w => w[0]).slice(0, 2).join('')
+      }));
+
+    const schoolCards = d.schools.map(s => ({
+      name: s.name, band: s.band, place: L(s.place), since: s.since, hosted: s.hosted, desc: L(s.desc),
+      type: s.type === 'school' ? (lang === 'es' ? 'Escuela' : 'School') : (lang === 'es' ? 'Club Rotario' : 'Rotary Club')
+    }));
+
+    const roleDefs = [
+      { id: 'teacher', label: t.roleTeacher, sub: t.roleTeacherSub },
+      { id: 'host', label: t.roleHost, sub: t.roleHostSub },
+      { id: 'leader', label: t.roleLeader, sub: t.roleLeaderSub },
+      { id: 'coord', label: t.roleCoord, sub: t.roleCoordSub },
+      { id: 'school', label: t.roleSchool, sub: t.roleSchoolSub }
+    ];
+    const roles = roleDefs.map(r => ({
+      label: r.label, sub: r.sub,
+      border: role === r.id ? AZ : '#e2e6ec',
+      bg: role === r.id ? '#eef5fc' : '#ffffff',
+      onClick: (e) => { e.preventDefault(); this.setState({ role: r.id }); }
+    }));
+
+    return {
+      t, currentYear: '2026',
+      isHome: screen === 'home', isHistory: screen === 'history', isStories: screen === 'stories',
+      isStory: screen === 'story', isDirectory: screen === 'directory', isSchools: screen === 'schools',
+      isRegister: screen === 'register',
+      goHome: go('home'), goHistory: go('history'), goStories: go('stories'),
+      goRegister: (e) => { e && e.preventDefault && e.preventDefault(); this.setState({ screen: 'register', registered: false }); window.scrollTo(0, 0); },
+      setEn: (e) => { e.preventDefault(); this.setState({ lang: 'en' }); },
+      setEs: (e) => { e.preventDefault(); this.setState({ lang: 'es' }); },
+      enColor: lang === 'en' ? '#ffffff' : '#54565a', enBg: lang === 'en' ? AZ : '#ffffff',
+      esColor: lang === 'es' ? '#ffffff' : '#54565a', esBg: lang === 'es' ? AZ : '#ffffff',
+      navItems,
+      stats: [
+        { num: '97+', label: t.statTeachers }, { num: '39', label: t.statPanama },
+        { num: '45', label: t.statArgentina }, { num: '30', label: t.statYears }
+      ],
+      homeStories: d.stories.slice(0, 3).map(mkStoryCard),
+      homeLinks: [
+        { title: t.linkDirTitle, body: t.linkDirBody, cta: t.linkDirCta, onClick: go('directory') },
+        { title: t.linkSchoolTitle, body: t.linkSchoolBody, cta: t.linkSchoolCta, onClick: go('schools') },
+        { title: t.linkRegTitle, body: t.linkRegBody, cta: t.linkRegCta, onClick: (e) => { e.preventDefault(); this.setState({ screen: 'register', registered: false }); window.scrollTo(0, 0); } }
+      ],
+      milestones,
+      storyFilters: mkFilter(storyFilter, 'story', 'storyFilter'),
+      storyCards: filteredStories.map(mkStoryCard),
+      story,
+      dirFilters: mkFilter(dirFilter, 'dir', 'dirFilter'),
+      alumniCards,
+      schoolCards,
+      roles,
+      notRegistered: !registered, registered,
+      submitReg: (e) => { e && e.preventDefault && e.preventDefault(); this.setState({ registered: true }); window.scrollTo(0, 0); }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
