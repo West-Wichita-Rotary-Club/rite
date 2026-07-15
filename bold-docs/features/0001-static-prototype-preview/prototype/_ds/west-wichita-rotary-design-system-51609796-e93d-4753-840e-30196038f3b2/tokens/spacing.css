@@ -1,0 +1,18 @@
+/* West Wichita Rotary — Spacing & radius tokens */
+:root {
+  --sp-xs: 4px;
+  --sp-sm: 8px;
+  --sp-md: 16px;
+  --sp-lg: 24px;
+  --sp-xl: 40px;
+  --sp-2xl: 64px;
+
+  --r-none: 0px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-pill: 999px;
+
+  --shadow-card: 0 1px 3px rgba(23, 69, 143, 0.08);
+  --border-width: 1px;
+  --border-accent-width: 3px;
+}

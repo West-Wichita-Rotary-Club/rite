@@ -1,0 +1,26 @@
+/* West Wichita Rotary — Typography tokens
+   Official licensed faces: Frutiger LT Std (primary) + Sentinel (secondary) — the club does not
+   have these font files on hand. Substituting the closest free Google Fonts: Oswald (condensed
+   display, stands in for Frutiger Condensed) + Open Sans (body, stands in for Frutiger Regular).
+   FLAGGED SUBSTITUTION — see readme.md "Typography" section. Swap this @import for licensed
+   @font-face rules if/when the club obtains Frutiger LT Std / Sentinel files. */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+
+:root {
+  --font-display: 'Oswald', Arial Narrow, sans-serif;
+  --font-body: 'Open Sans', Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, serif; /* stands in for licensed Sentinel */
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-3xl: 3.5rem;
+
+  --leading-tight: 1.05;
+  --leading-normal: 1.5;
+
+  --tracking-display: 0.02em;
+}

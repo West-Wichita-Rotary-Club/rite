@@ -1,0 +1,174 @@
+{
+  "name": {
+    "value": "rite",
+    "source": "discovered(README.md)"
+  },
+  "product": {
+    "name": {
+      "value": "Rotary Inter-country Teacher Exchange Community Archive and Storytelling Platform",
+      "source": "provided(design-spec, 2026-07-15)"
+    },
+    "short_name": {
+      "value": "RITE",
+      "source": "discovered(README.md)"
+    },
+    "owner_context": {
+      "value": "West Wichita Rotary / Rotary District 5680",
+      "source": "discovered(bold-docs/features/0001-static-prototype-preview/prototype/RITE Platform.dc.html)"
+    },
+    "summary": {
+      "value": "A bilingual living archive and community platform preserving RITE history while supporting alumni networking, resource sharing, story submissions, and future participant workflows across Wichita, Panama, and Argentina.",
+      "source": "provided(design-spec, 2026-07-15)"
+    },
+    "prototype_path": {
+      "value": "bold-docs/features/0001-static-prototype-preview/prototype/",
+      "source": "ratified(discovery-playback, 2026-07-15)"
+    }
+  },
+  "composition": {
+    "entry_path": {
+      "value": "discover",
+      "source": "discovered(.bold/scripts/powershell/collect-entry-path-context.ps1)"
+    },
+    "starter": {
+      "value": "brownfield-from-prototype",
+      "source": "ratified(discovery-playback, 2026-07-15)"
+    },
+    "stacks": [
+      {
+        "value": "aspnet-core-mvc-web-api",
+        "source": "provided(stack-answer, 2026-07-15)"
+      },
+      {
+        "value": "react-standalone",
+        "source": "provided(stack-answer, 2026-07-15)"
+      },
+      {
+        "value": "sqlite",
+        "source": "provided(stack-answer, 2026-07-15)"
+      },
+      {
+        "value": "azure",
+        "source": "provided(design-spec, 2026-07-15)"
+      }
+    ],
+    "flavors": [
+      {
+        "value": "west-wichita-rotary-design-system",
+        "source": "discovered(bold-docs/features/0001-static-prototype-preview/prototype/_ds)"
+      }
+    ]
+  },
+  "architecture": {
+    "backend": {
+      "framework": {
+        "value": "ASP.NET Core MVC/Web API",
+        "source": "provided(stack-answer, 2026-07-15)"
+      },
+      "database": {
+        "value": "SQLite",
+        "source": "provided(stack-answer, 2026-07-15)"
+      },
+      "authentication": {
+        "value": "OpenID Connect, with Auth0 as an example provider",
+        "source": "provided(design-spec, 2026-07-15)"
+      }
+    },
+    "frontend": {
+      "framework": {
+        "value": "Standalone React site calling the API",
+        "source": "provided(stack-answer, 2026-07-15)"
+      }
+    },
+    "media": {
+      "storage": {
+        "value": "Azure Blob Storage for high-resolution photos, videos, transcripts, and other media",
+        "source": "provided(design-spec, 2026-07-15)"
+      },
+      "metadata": {
+        "value": "SQLite-managed metadata",
+        "source": "provided(design-spec, 2026-07-15)"
+      }
+    },
+    "hosting": {
+      "value": "Azure hosting",
+      "source": "provided(design-spec, 2026-07-15)"
+    }
+  },
+  "users": {
+    "personas": {
+      "value": [
+        "teachers",
+        "host_families",
+        "rotary_leaders",
+        "coordinators",
+        "school_administrators"
+      ],
+      "source": "provided(design-spec, 2026-07-15)"
+    },
+    "profile_fields": {
+      "value": [
+        "country",
+        "city",
+        "languages",
+        "biography",
+        "rite_exchange_years"
+      ],
+      "source": "provided(design-spec, 2026-07-15)"
+    }
+  },
+  "content": {
+    "languages": {
+      "value": [
+        "English",
+        "Spanish"
+      ],
+      "source": "ratified(discovery-playback, 2026-07-15)"
+    },
+    "workflow": {
+      "value": "Members submit stories, classroom projects, curriculum resources, and media through a contributor workflow; editors and administrators approve before public release.",
+      "source": "provided(design-spec, 2026-07-15)"
+    },
+    "translation_policy": {
+      "value": "AI-assisted translations may be used, but fluent reviewers verify them before publication.",
+      "source": "provided(design-spec, 2026-07-15)"
+    }
+  },
+  "roadmap": {
+    "phase_1_mvp": {
+      "value": [
+        "bilingual site shell",
+        "user registration",
+        "contributor profiles",
+        "foundational history timeline"
+      ],
+      "source": "provided(design-spec, 2026-07-15)"
+    },
+    "phase_2": {
+      "value": [
+        "video oral history archive",
+        "school-specific pages",
+        "automated notifications for new community stories"
+      ],
+      "source": "provided(design-spec, 2026-07-15)"
+    },
+    "phase_3": {
+      "value": [
+        "automated host-family matching",
+        "participant dashboards",
+        "interactive impact reporting maps"
+      ],
+      "source": "provided(design-spec, 2026-07-15)"
+    }
+  },
+  "quality": {
+    "tests": {
+      "value": "not yet established",
+      "source": "discovered(repo-inventory, 2026-07-15)"
+    },
+    "ci": {
+      "value": "not yet established",
+      "source": "discovered(repo-inventory, 2026-07-15)"
+    }
+  }
+}

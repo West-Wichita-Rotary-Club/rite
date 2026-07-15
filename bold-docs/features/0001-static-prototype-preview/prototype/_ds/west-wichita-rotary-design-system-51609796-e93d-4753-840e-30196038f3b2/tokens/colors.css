@@ -1,0 +1,54 @@
+/* West Wichita Rotary — Color tokens
+   Sourced verbatim from the club's "Logos at a Glance" brand sheet (April 2025). */
+:root {
+  /* Leadership colors — use these most */
+  --rotary-gold: #f7a81b;
+  --royal-blue: #17458f;
+  --azure: #0067c8;      /* use most often */
+  --sky-blue: #00a2e0;
+
+  /* Secondary colors — sparing use, emphasis / series differentiation only */
+  --cranberry: #d41367;
+  --cardinal: #e02927;
+  --slate: #657f99;
+  --powder-blue: #b9d9eb;
+  --turquoise: #00adbb;
+  --violet: #901f93;
+  --lavender: #c6bcd0;
+  --stone: #9ba4b4;
+  --orange: #ff7600;
+  --grass: #009739;
+  --moss: #a7aca2;
+  --taupe: #d9c89e;
+
+  /* Neutrals */
+  --charcoal: #54565a;
+  --pewter: #898a8d;
+  --smoke: #b1b1b1;
+  --silver: #d0cfcd;
+  --storm: #7a6e66;
+  --ash: #968b83;
+  --platinum: #bfb7b0;
+  --cloud: #d6d1ca;
+  --white: #ffffff;
+  --mist: #f4f6f9; /* off-white surface tint, not from brand sheet — for page backgrounds */
+
+  /* Semantic aliases */
+  --color-bg: var(--white);
+  --color-bg-subtle: var(--mist);
+  --color-surface: var(--white);
+  --color-text: var(--charcoal);
+  --color-text-muted: var(--pewter);
+  --color-heading: var(--royal-blue);
+  --color-accent: var(--azure);
+  --color-accent-hover: var(--royal-blue);
+  --color-highlight: var(--rotary-gold);
+  --color-border: #e2e6ec;
+  --color-link: var(--azure);
+  --color-link-hover: var(--royal-blue);
+
+  --color-success: var(--grass);
+  --color-warning: var(--rotary-gold);
+  --color-danger: var(--cardinal);
+  --color-info: var(--sky-blue);
+}
