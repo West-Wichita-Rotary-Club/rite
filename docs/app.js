@@ -94,7 +94,10 @@
         bio: "Your connection to RITE in one or two sentences"
       },
       footerTitle: "Rotary Inter-country Teacher Exchange",
-      footerSub: "A program of Rotary District 5680, Wichita, Kansas, with partners in Panama and Argentina"
+      footerSub: "A program of Rotary District 5680, Wichita, Kansas, with partners in Panama and Argentina",
+      feedbackTitle: "Help shape this preview",
+      feedbackBody: "Reviewers can request changes, report gaps, or suggest story and archive improvements in the project issue tracker.",
+      feedbackLink: "Leave feedback on GitHub"
     },
     es: {
       siteSub: "Intercambio Internacional de Docentes",
@@ -171,7 +174,10 @@
         bio: "Su vinculo con RITE en una o dos frases"
       },
       footerTitle: "Intercambio Internacional de Docentes de Rotary",
-      footerSub: "Un programa del Distrito 5680 de Rotary, Wichita, Kansas, con socios en Panama y Argentina"
+      footerSub: "Un programa del Distrito 5680 de Rotary, Wichita, Kansas, con socios en Panama y Argentina",
+      feedbackTitle: "Ayude a mejorar esta vista previa",
+      feedbackBody: "Los revisores pueden pedir cambios, reportar vacios o sugerir mejoras para historias y archivo en el registro de incidencias del proyecto.",
+      feedbackLink: "Enviar comentarios en GitHub"
     }
   };
 
@@ -375,6 +381,7 @@
         ${state.view === "schools" ? renderSchools() : ""}
         ${state.view === "resources" ? renderResources() : ""}
         ${state.view === "register" ? renderRegister() : ""}
+        ${renderFeedback()}
       </main>
       ${renderFooter()}
     `;
@@ -679,6 +686,22 @@
           <p>${escapeHtml(t("motto"))} · ${escapeHtml(t("labels.noNetwork"))}</p>
         </div>
       </footer>
+    `;
+  }
+
+  function renderFeedback() {
+    return `
+      <section class="feedback-strip" aria-labelledby="feedback-title">
+        <div class="feedback-inner">
+          <div>
+            <h2 id="feedback-title">${escapeHtml(t("feedbackTitle"))}</h2>
+            <p>${escapeHtml(t("feedbackBody"))}</p>
+          </div>
+          <a class="button feedback-link" href="https://github.com/West-Wichita-Rotary-Club/rite/issues">
+            ${escapeHtml(t("feedbackLink"))}
+          </a>
+        </div>
+      </section>
     `;
   }
 
