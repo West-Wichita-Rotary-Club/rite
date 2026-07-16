@@ -5,3 +5,10 @@
 {"ts":"2026-07-15T23:52:15Z","command":"ship","collector":"collect-ship-context","user":"mark-hazleton"}
 {"ts":"2026-07-15T23:52:15Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}
 {"ts":"2026-07-15T23:52:31Z","command":"ship","collector":"collect-ship-context","user":"mark-hazleton"}
+{"ts":"2026-07-16T02:43:56Z","command":"plan","collector":"collect-triage-context","user":"mark-hazleton"}
+{"ts":"2026-07-16T03:03:44Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}
+{"ts":"2026-07-16T03:04:42Z","command":"plan","collector":"collect-triage-context","user":"mark-hazleton"}
+{"ts":"2026-07-16T03:09:27Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}
+{"ts":"2026-07-16T03:15:20Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}
+{"ts":"2026-07-16T03:16:36Z","command":"build","collector":"collect-gate-status","user":"mark-hazleton"}
+{"ts":"2026-07-16T03:17:48Z","command":"ship","collector":"collect-ship-context","user":"mark-hazleton"}
