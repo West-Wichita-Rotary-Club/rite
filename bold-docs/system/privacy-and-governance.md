@@ -43,3 +43,9 @@ English and Spanish are first-class. AI-assisted translation may be used for dra
 
 The alumni directory is private member functionality. Contact details and sensitive profile data should be visible only to approved members with appropriate access.
 
+## Alumni Profile Content
+
+Alumni/community profile content is separate from authenticated site-member accounts. Some alumni may never become site members, while many site members may be alumni, future alumni, or potential alumni.
+
+Sample-derived participant information, bios, pictures, memories, and suggestions require review before public release. Candidate extraction should omit contact details, addresses, dates of birth, emergency contacts, allergies, and other sensitive personal data unless a future approved member-only workflow explicitly requires them.
+

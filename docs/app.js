@@ -1,12 +1,17 @@
 (function () {
   const STORE_KEY = "rite-preview-submissions";
+  const ALUMNI_CONTENT_URL = "content/alumni.json";
 
   const state = {
     lang: "en",
     view: "home",
     storyFilter: "all",
-    directoryFilter: "all",
+    directoryCountryFilter: "all",
+    directoryFunctionFilter: "all",
     selectedStoryId: "s1",
+    selectedAlumniId: "",
+    alumniContent: null,
+    alumniLoadStatus: "loading",
     submissions: readSubmissions()
   };
 
@@ -76,7 +81,22 @@
         submit: "Submit mock request",
         submitted: "Mock request received. In production, an editor would review this profile before directory access or story submission opens.",
         resourceSubmit: "Mock resource queued for editor review.",
-        noNetwork: "Local mock API"
+        noNetwork: "Local mock API",
+        countryFilter: "Country",
+        functionFilter: "Community role",
+        participationYears: "Participation years",
+        loadingAlumni: "Loading static alumni content...",
+        alumniLoadError: "Alumni content could not be loaded. Serve the docs folder with a static web server to preview JSON-driven content.",
+        noAlumniResults: "No profiles match these filters yet.",
+        viewProfile: "View profile",
+        backToDirectory: "Back to alumni",
+        memories: "Memories",
+        pictures: "Pictures",
+        suggestions: "Suggestions",
+        futureProfileNote: "Profile pages are static placeholders for reviewed memories, photos, and contribution suggestions.",
+        noMemories: "No reviewed memories have been added yet.",
+        noPictures: "No reviewed pictures have been added yet.",
+        noSuggestions: "No suggestions have been added yet."
       },
       roles: {
         teacher: "Teacher",
@@ -156,7 +176,22 @@
         submit: "Enviar solicitud simulada",
         submitted: "Solicitud simulada recibida. En produccion, un editor revisaria este perfil antes de abrir directorio o envio de historias.",
         resourceSubmit: "Recurso simulado enviado a revision editorial.",
-        noNetwork: "API local simulada"
+        noNetwork: "API local simulada",
+        countryFilter: "Pais",
+        functionFilter: "Rol comunitario",
+        participationYears: "Anos de participacion",
+        loadingAlumni: "Cargando contenido estatico de exalumnos...",
+        alumniLoadError: "No se pudo cargar el contenido de exalumnos. Sirva la carpeta docs con un servidor web estatico para ver contenido basado en JSON.",
+        noAlumniResults: "Ningun perfil coincide con estos filtros todavia.",
+        viewProfile: "Ver perfil",
+        backToDirectory: "Volver a exalumnos",
+        memories: "Memorias",
+        pictures: "Fotos",
+        suggestions: "Sugerencias",
+        futureProfileNote: "Las paginas de perfil son espacios estaticos para memorias, fotos y sugerencias revisadas.",
+        noMemories: "Todavia no hay memorias revisadas.",
+        noPictures: "Todavia no hay fotos revisadas.",
+        noSuggestions: "Todavia no hay sugerencias."
       },
       roles: {
         teacher: "Docente",
@@ -291,13 +326,6 @@
     }
   ];
 
-  const alumni = [
-    { name: "Rosa Delgado", country: "panama", band: palette.turquoise, place: { en: "David, Panama", es: "David, Panama" }, years: "2023", now: { en: "Bilingual program lead and mentor.", es: "Lider bilingue y mentora." } },
-    { name: "Valentina Roldan", country: "argentina", band: palette.cranberry, place: { en: "Cordoba, Argentina", es: "Cordoba, Argentina" }, years: "2015", now: { en: "School principal and host for Wichita teachers.", es: "Directora escolar y anfitriona de docentes de Wichita." } },
-    { name: "Janet Brooks", country: "usa", band: palette.gold, place: { en: "Wichita, Kansas", es: "Wichita, Kansas" }, years: "1998", now: { en: "Retired teacher and archive volunteer.", es: "Docente jubilada y voluntaria del archivo." } },
-    { name: "Diego Morales", country: "panama", band: palette.azure, place: { en: "Colon, Panama", es: "Colon, Panama" }, years: "2011", now: { en: "Curriculum advisor and alumni network co-chair.", es: "Asesor curricular y colider de exalumnos." } }
-  ];
-
   const schools = [
     { type: "school", band: palette.azure, name: "Pleasant Valley Middle School", place: "Wichita, Kansas", since: "2004", hosted: "11", desc: { en: "Host school for ESL co-teaching, cultural assemblies, and pen-pal projects.", es: "Escuela anfitriona para ESL, asambleas culturales y correspondencia." } },
     { type: "school", band: palette.turquoise, name: "Instituto Panamericano", place: "Panama City, Panama", since: "2006", hosted: "9", desc: { en: "Long-standing partner sending bilingual educators to Wichita.", es: "Socio de larga data que envia docentes bilingues a Wichita." } },
@@ -345,6 +373,20 @@
     window.localStorage.setItem(STORE_KEY, JSON.stringify(items.slice(0, 12)));
   }
 
+  async function loadAlumniContent() {
+    try {
+      const response = await window.fetch(ALUMNI_CONTENT_URL, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Alumni content returned ${response.status}`);
+      }
+      state.alumniContent = await response.json();
+      state.alumniLoadStatus = "ready";
+    } catch (_error) {
+      state.alumniLoadStatus = "error";
+    }
+    render();
+  }
+
   function t(path) {
     return path.split(".").reduce((value, key) => value[key], copy[state.lang]);
   }
@@ -364,6 +406,28 @@
 
   function setView(view) {
     state.view = view;
+    if (view !== "alumniProfile" && window.location.hash.startsWith("#alumni/")) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    render();
+  }
+
+  function setAlumniProfile(profileId) {
+    state.selectedAlumniId = profileId;
+    state.view = "alumniProfile";
+    window.location.hash = `alumni/${encodeURIComponent(profileId)}`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    render();
+  }
+
+  function applyHashRoute() {
+    const match = window.location.hash.match(/^#alumni\/(.+)$/);
+    if (!match) {
+      return;
+    }
+    state.selectedAlumniId = decodeURIComponent(match[1]);
+    state.view = "alumniProfile";
     window.scrollTo({ top: 0, behavior: "smooth" });
     render();
   }
@@ -378,6 +442,7 @@
         ${state.view === "history" ? renderHistory() : ""}
         ${state.view === "stories" ? renderStories() : ""}
         ${state.view === "directory" ? renderDirectory() : ""}
+        ${state.view === "alumniProfile" ? renderAlumniProfilePage() : ""}
         ${state.view === "schools" ? renderSchools() : ""}
         ${state.view === "resources" ? renderResources() : ""}
         ${state.view === "register" ? renderRegister() : ""}
@@ -417,7 +482,7 @@
 
   function isNavActive(item) {
     if (item === "history") {
-      return state.view === "history" || state.view === "directory";
+      return state.view === "history" || state.view === "directory" || state.view === "alumniProfile";
     }
     return state.view === item;
   }
@@ -519,30 +584,245 @@
   }
 
   function renderDirectory() {
-    const filtered = alumni.filter((person) => state.directoryFilter === "all" || person.country === state.directoryFilter);
     return `
       <section class="section">
         <h1 class="section-title">${escapeHtml(t("sections.directoryTitle"))}</h1>
         <p class="section-lede">${escapeHtml(t("sections.directoryIntro"))}</p>
         ${renderHistorySubnav("directory")}
         <p class="privacy-note">${escapeHtml(t("labels.private"))}</p>
-        ${renderFilters("directoryFilter", state.directoryFilter)}
-        <div class="card-grid">
-          ${filtered.map((person) => `
-            <article class="profile-card ${person.band}">
-              <div class="profile-heading">
-                <div class="avatar" aria-hidden="true">${escapeHtml(initials(person.name))}</div>
-                <div>
-                  <h2 class="card-title">${escapeHtml(person.name)}</h2>
-                  <p class="meta">${escapeHtml(localize(person.place))} · ${escapeHtml(person.years)}</p>
-                </div>
-              </div>
-              <p>${escapeHtml(localize(person.now))}</p>
-            </article>
-          `).join("")}
+        ${renderAlumniDirectoryContent()}
+      </section>
+    `;
+  }
+
+  function renderAlumniDirectoryContent() {
+    if (state.alumniLoadStatus === "loading") {
+      return `<div class="status-panel">${escapeHtml(t("labels.loadingAlumni"))}</div>`;
+    }
+
+    if (state.alumniLoadStatus === "error" || !state.alumniContent) {
+      return `<div class="status-panel warning">${escapeHtml(t("labels.alumniLoadError"))}</div>`;
+    }
+
+    return `
+      ${renderAlumniFilters(state.alumniContent)}
+      ${renderAlumniGroups(state.alumniContent)}
+    `;
+  }
+
+  function renderAlumniFilters(content) {
+    return `
+      <div class="directory-filter-panel">
+        <div>
+          <p class="filter-label">${escapeHtml(t("labels.countryFilter"))}</p>
+          <div class="filters" aria-label="${escapeHtml(t("labels.countryFilter"))}">
+            ${renderAlumniFilterButton("directoryCountryFilter", "all", t("filters.all"), state.directoryCountryFilter)}
+            ${Object.entries(content.countries || {}).map(([key, country]) => (
+              renderAlumniFilterButton("directoryCountryFilter", key, localize(country.label), state.directoryCountryFilter)
+            )).join("")}
+          </div>
+        </div>
+        <div>
+          <p class="filter-label">${escapeHtml(t("labels.functionFilter"))}</p>
+          <div class="filters" aria-label="${escapeHtml(t("labels.functionFilter"))}">
+            ${renderAlumniFilterButton("directoryFunctionFilter", "all", t("filters.all"), state.directoryFunctionFilter)}
+            ${Object.entries(content.functions || {}).map(([key, item]) => (
+              renderAlumniFilterButton("directoryFunctionFilter", key, localize(item.label), state.directoryFunctionFilter)
+            )).join("")}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderAlumniFilterButton(kind, value, label, selected) {
+    return `
+      <button class="filter-button ${selected === value ? "active" : ""}" data-filter-kind="${kind}" data-filter="${escapeHtml(value)}">
+        ${escapeHtml(label)}
+      </button>
+    `;
+  }
+
+  function renderAlumniGroups(content) {
+    const profiles = (content.profiles || []).filter((profile) => (
+      state.directoryCountryFilter === "all" || profile.country === state.directoryCountryFilter
+    ));
+    const functionEntries = Object.entries(content.functions || {}).filter(([key]) => (
+      state.directoryFunctionFilter === "all" || state.directoryFunctionFilter === key
+    ));
+    const groups = functionEntries.map(([key, item]) => {
+      const groupedProfiles = profiles.filter((profile) => (profile.functions || []).includes(key));
+      if (!groupedProfiles.length) {
+        return "";
+      }
+      return `
+        <section class="directory-group" aria-labelledby="directory-group-${escapeHtml(key)}">
+          <div class="directory-group-heading">
+            <h2 id="directory-group-${escapeHtml(key)}">${escapeHtml(localize(item.label))}</h2>
+            <p>${escapeHtml(localize(item.summary))}</p>
+          </div>
+          <div class="card-grid">
+            ${groupedProfiles.map((profile) => renderAlumniProfile(profile, content)).join("")}
+          </div>
+        </section>
+      `;
+    }).join("");
+
+    return groups || `<div class="status-panel">${escapeHtml(t("labels.noAlumniResults"))}</div>`;
+  }
+
+  function renderAlumniProfile(profile, content) {
+    return `
+      <article class="profile-card ${getProfileBand(profile)}">
+        <div class="profile-heading">
+          <div class="avatar" aria-hidden="true">${escapeHtml(initials(profile.name))}</div>
+          <div>
+            <h3 class="card-title">${escapeHtml(profile.name)}</h3>
+            <p class="meta">${escapeHtml(localize(profile.place))} · ${escapeHtml(getCountryLabel(profile.country, content))}</p>
+          </div>
+        </div>
+        ${renderFunctionBadges(profile, content)}
+        <p>${escapeHtml(localize(profile.summary))}</p>
+        <div class="year-block">
+          <p class="meta">${escapeHtml(t("labels.participationYears"))}</p>
+          ${renderYearList(profile)}
+        </div>
+        <div class="profile-card-actions">
+          <a class="button ghost profile-link" href="#alumni/${encodeURIComponent(profile.id)}" data-profile-id="${escapeHtml(profile.id)}">${escapeHtml(t("labels.viewProfile"))}</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderAlumniProfilePage() {
+    const content = state.alumniContent;
+    if (state.alumniLoadStatus === "loading") {
+      return `<section class="section"><div class="status-panel">${escapeHtml(t("labels.loadingAlumni"))}</div></section>`;
+    }
+
+    if (state.alumniLoadStatus === "error" || !content) {
+      return `<section class="section"><div class="status-panel warning">${escapeHtml(t("labels.alumniLoadError"))}</div></section>`;
+    }
+
+    const profile = findAlumniProfile(state.selectedAlumniId, content);
+    if (!profile) {
+      return `
+        <section class="section">
+          <button class="button ghost" data-view="directory">${escapeHtml(t("labels.backToDirectory"))}</button>
+          <div class="status-panel">${escapeHtml(t("labels.noAlumniResults"))}</div>
+        </section>
+      `;
+    }
+
+    return `
+      <section class="section profile-page">
+        <button class="button ghost" data-view="directory">${escapeHtml(t("labels.backToDirectory"))}</button>
+        <div class="profile-page-header ${getProfileBand(profile)}">
+          <div class="avatar large" aria-hidden="true">${escapeHtml(initials(profile.name))}</div>
+          <div>
+            <h1 class="section-title">${escapeHtml(profile.name)}</h1>
+            <p class="section-lede">${escapeHtml(localize(profile.place))} · ${escapeHtml(getCountryLabel(profile.country, content))}</p>
+            ${renderFunctionBadges(profile, content)}
+          </div>
+        </div>
+        <div class="profile-page-grid">
+          <article class="profile-panel">
+            <h2>${escapeHtml(t("labels.participationYears"))}</h2>
+            ${renderYearList(profile)}
+            <p>${escapeHtml(localize(profile.summary))}</p>
+            <p class="privacy-note">${escapeHtml(t("labels.futureProfileNote"))}</p>
+          </article>
+          ${renderProfileCollection("memories", profile.memories, renderMemoryItem)}
+          ${renderProfileCollection("pictures", profile.pictures, renderPictureItem)}
+          ${renderProfileCollection("suggestions", profile.suggestions, renderSuggestionItem)}
         </div>
       </section>
     `;
+  }
+
+  function renderProfileCollection(kind, items, itemRenderer) {
+    const fallbackKey = {
+      memories: "noMemories",
+      pictures: "noPictures",
+      suggestions: "noSuggestions"
+    }[kind];
+
+    return `
+      <article class="profile-panel">
+        <h2>${escapeHtml(t(`labels.${kind}`))}</h2>
+        ${items && items.length ? items.map(itemRenderer).join("") : `<p class="empty-note">${escapeHtml(t(`labels.${fallbackKey}`))}</p>`}
+      </article>
+    `;
+  }
+
+  function renderMemoryItem(item) {
+    return `
+      <div class="profile-content-item">
+        <h3>${escapeHtml(localize(item.title))}</h3>
+        <p>${escapeHtml(localize(item.body))}</p>
+      </div>
+    `;
+  }
+
+  function renderPictureItem(item) {
+    return `
+      <div class="profile-content-item picture-placeholder">
+        ${item.src ? `
+          <img class="profile-photo" src="${escapeHtml(item.src)}" alt="${escapeHtml(localize(item.caption))}">
+        ` : `
+          <div class="picture-frame" aria-hidden="true">${escapeHtml(item.year || "")}</div>
+        `}
+        <p>${escapeHtml(localize(item.caption))}</p>
+      </div>
+    `;
+  }
+
+  function renderSuggestionItem(item) {
+    return `
+      <div class="profile-content-item">
+        <p>${escapeHtml(localize(item.text))}</p>
+      </div>
+    `;
+  }
+
+  function findAlumniProfile(profileId, content) {
+    return (content.profiles || []).find((profile) => profile.id === profileId);
+  }
+
+  function renderFunctionBadges(profile, content) {
+    return `
+      <div class="function-badges">
+        ${(profile.functions || []).map((key) => `
+          <span class="function-badge ${escapeHtml(key)}">${escapeHtml(localize(content.functions[key].label))}</span>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function renderYearList(profile) {
+    if (!profile.participationYears || !profile.participationYears.length) {
+      return `<p class="year-note">${escapeHtml(localize(profile.participationYearNote) || "")}</p>`;
+    }
+
+    return `
+      <div class="year-list">
+        ${profile.participationYears.map((year) => `<span class="year-pill">${escapeHtml(year)}</span>`).join("")}
+      </div>
+    `;
+  }
+
+  function getProfileBand(profile) {
+    const primaryFunction = (profile.functions || [])[0];
+    return {
+      leader: palette.royal,
+      host: palette.gold,
+      teacher: palette.turquoise
+    }[primaryFunction] || palette.azure;
+  }
+
+  function getCountryLabel(countryKey, content) {
+    const country = content.countries && content.countries[countryKey];
+    return country ? localize(country.label) : countryKey;
   }
 
   function renderSchools() {
@@ -728,6 +1008,13 @@
       });
     });
 
+    document.querySelectorAll("[data-profile-id]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        setAlumniProfile(link.dataset.profileId);
+      });
+    });
+
     document.querySelectorAll("[data-resource]").forEach((button) => {
       button.addEventListener("click", async () => {
         const result = await mockApi.submitResource(button.dataset.resource);
@@ -751,5 +1038,8 @@
     }
   }
 
+  window.addEventListener("hashchange", applyHashRoute);
+  applyHashRoute();
   render();
+  loadAlumniContent();
 }());

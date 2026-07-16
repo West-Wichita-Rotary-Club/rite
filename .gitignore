@@ -428,3 +428,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 .bold/.backup/
+
+# Local source evidence may contain private participant/contact details.
+bold-docs/samples/

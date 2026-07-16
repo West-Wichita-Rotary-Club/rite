@@ -1,0 +1,898 @@
+{
+  "modelVersion": "2026-07-16",
+  "modelNotes": {
+    "en": "This static file models approved public-preview alumni and community profile content, not authenticated site-member accounts. Sensitive fields are excluded.",
+    "es": "Este archivo estatico modela contenido aprobado para vista previa publica de perfiles de exalumnos y comunidad, no cuentas autenticadas del sitio. Los campos sensibles se excluyen."
+  },
+  "countries": {
+    "usa": {
+      "label": {
+        "en": "United States",
+        "es": "Estados Unidos"
+      }
+    },
+    "panama": {
+      "label": {
+        "en": "Panama",
+        "es": "Panama"
+      }
+    },
+    "argentina": {
+      "label": {
+        "en": "Argentina",
+        "es": "Argentina"
+      }
+    }
+  },
+  "functions": {
+    "leader": {
+      "label": {
+        "en": "Leaders",
+        "es": "Lideres"
+      },
+      "summary": {
+        "en": "Program founders, coordinators, and Rotary leaders who preserve relationships across years.",
+        "es": "Fundadores, coordinadores y lideres rotarios que preservan relaciones durante anos."
+      }
+    },
+    "host": {
+      "label": {
+        "en": "Hosts",
+        "es": "Anfitriones"
+      },
+      "summary": {
+        "en": "Families and community members who make the exchange personal through hospitality.",
+        "es": "Familias y miembros de la comunidad que hacen personal el intercambio mediante hospitalidad."
+      }
+    },
+    "teacher": {
+      "label": {
+        "en": "Teachers",
+        "es": "Docentes"
+      },
+      "summary": {
+        "en": "Educators whose classroom exchanges create the daily stories of RITE.",
+        "es": "Educadores cuyos intercambios en el aula crean las historias diarias de RITE."
+      }
+    }
+  },
+  "profiles": [
+    {
+      "id": "armida-hight",
+      "name": "Armida Hight",
+      "country": "usa",
+      "functions": [
+        "leader"
+      ],
+      "participationYears": [
+        1996
+      ],
+      "place": {
+        "en": "Rotary District 5680",
+        "es": "Distrito 5680 de Rotary"
+      },
+      "summary": {
+        "en": "Founding leader whose vision helped begin the teacher exchange in 1996.",
+        "es": "Lider fundadora cuya vision ayudo a iniciar el intercambio docente en 1996."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [
+        {
+          "text": {
+            "en": "Add founding-era photos or documents once archive permissions are confirmed.",
+            "es": "Agregar fotos o documentos de la etapa fundadora cuando se confirmen permisos de archivo."
+          }
+        }
+      ],
+      "privacy": "public-preview"
+    },
+    {
+      "id": "ayelen-usandizaga",
+      "name": "Ayelen Usandizaga",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": {
+        "en": "Baradero, Buenos Aires Province, Argentina",
+        "es": "Baradero, provincia de Buenos Aires, Argentina"
+      },
+      "summary": {
+        "en": "English teacher and Rotary Ambassador from Baradero with experience across age levels, interested in teaching methodologies, cultural exchange, and promoting peace through RITE.",
+        "es": "Docente de ingles y embajadora rotaria de Baradero con experiencia en varios niveles, interesada en metodologias de ensenanza, intercambio cultural y promocion de la paz mediante RITE."
+      },
+      "memories": [],
+      "pictures": [
+        {
+          "src": "assets/alumni/RITE-Teachers-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE teacher welcome group photo in Wichita. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto grupal de bienvenida de docentes RITE 2025 en Wichita. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        },
+        {
+          "src": "assets/alumni/RITE-Teachers-Welcome-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE welcome photo. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto de bienvenida RITE 2025. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        }
+      ],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "belen-moran-galvarici",
+      "name": "Belen Moran Galvarici",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": {
+        "en": "Junin, Buenos Aires, Argentina",
+        "es": "Junin, Buenos Aires, Argentina"
+      },
+      "summary": {
+        "en": "English teacher sponsored by the Rotary Club of Junin, with primary through university teaching experience and CLIL co-teaching experience.",
+        "es": "Docente de ingles auspiciada por el Rotary Club de Junin, con experiencia desde primaria hasta universidad y trabajo de coensenanza CLIL."
+      },
+      "memories": [],
+      "pictures": [
+        {
+          "src": "assets/alumni/RITE-Teachers-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE teacher welcome group photo in Wichita. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto grupal de bienvenida de docentes RITE 2025 en Wichita. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        },
+        {
+          "src": "assets/alumni/RITE-Teachers-Welcome-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE welcome photo. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto de bienvenida RITE 2025. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        }
+      ],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "esteban-almengor",
+      "name": "Esteban Almengor",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": {
+        "en": "David, Chiriqui, Panama",
+        "es": "David, Chiriqui, Panama"
+      },
+      "summary": {
+        "en": "English as a Second Language educator from David with more than 15 years of experience and training in teacher development programs.",
+        "es": "Educador de ingles como segundo idioma de David, con mas de 15 anos de experiencia y formacion en programas de desarrollo docente."
+      },
+      "memories": [],
+      "pictures": [
+        {
+          "src": "assets/alumni/RITE-Teachers-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE teacher welcome group photo in Wichita. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto grupal de bienvenida de docentes RITE 2025 en Wichita. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        },
+        {
+          "src": "assets/alumni/RITE-Teachers-Welcome-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE welcome photo. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto de bienvenida RITE 2025. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        }
+      ],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "dayra-gonzalez",
+      "name": "Dayra Gonzalez",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": {
+        "en": "Dolega, Chiriqui, Panama",
+        "es": "Dolega, Chiriqui, Panama"
+      },
+      "summary": {
+        "en": "English teacher from the David area with 24 years of elementary teaching experience and a focus on professional growth through cultural exchange.",
+        "es": "Docente de ingles del area de David con 24 anos de experiencia en primaria y enfoque en crecimiento profesional mediante intercambio cultural."
+      },
+      "memories": [],
+      "pictures": [
+        {
+          "src": "assets/alumni/RITE-Teachers-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE teacher welcome group photo in Wichita. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto grupal de bienvenida de docentes RITE 2025 en Wichita. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        },
+        {
+          "src": "assets/alumni/RITE-Teachers-Welcome-2025.jpeg",
+          "year": 2025,
+          "caption": {
+            "en": "2025 RITE welcome photo. All visible adults approved public preview use; full names for every person are pending.",
+            "es": "Foto de bienvenida RITE 2025. Todos los adultos visibles aprobaron su uso en la vista previa publica; faltan los nombres completos de todas las personas."
+          },
+          "approval": {
+            "status": "approved-for-public-preview",
+            "confirmedBy": "product-owner",
+            "confirmationChannel": "WhatsApp",
+            "confirmedAt": "2026-07-16",
+            "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+          }
+        }
+      ],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "ivan-guerra",
+      "name": "Ivan Guerra",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": {
+        "en": "David, Chiriqui, Panama",
+        "es": "David, Chiriqui, Panama"
+      },
+      "summary": {
+        "en": "2024 RITE teacher participant from David, Chiriqui, Panama.",
+        "es": "Docente participante de RITE 2024 de David, Chiriqui, Panama."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "ingrid-villamonte",
+      "name": "Ingrid Villamonte",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": {
+        "en": "David, Chiriqui, Panama",
+        "es": "David, Chiriqui, Panama"
+      },
+      "summary": {
+        "en": "2024 RITE teacher participant from David, Chiriqui, Panama.",
+        "es": "Docente participante de RITE 2024 de David, Chiriqui, Panama."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "gimena-rios",
+      "name": "Gimena Rios",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": {
+        "en": "Buenos Aires, Argentina",
+        "es": "Buenos Aires, Argentina"
+      },
+      "summary": {
+        "en": "2024 RITE teacher participant from Buenos Aires, Argentina.",
+        "es": "Docente participante de RITE 2024 de Buenos Aires, Argentina."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "florencia-zappia",
+      "name": "Florencia Zappia",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": {
+        "en": "Buenos Aires, Argentina",
+        "es": "Buenos Aires, Argentina"
+      },
+      "summary": {
+        "en": "2024 RITE teacher participant from Buenos Aires, Argentina.",
+        "es": "Docente participante de RITE 2024 de Buenos Aires, Argentina."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "marianne-lopez",
+      "name": "Marianne Lopez",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": {
+        "en": "David, Chiriqui, Panama",
+        "es": "David, Chiriqui, Panama"
+      },
+      "summary": {
+        "en": "2026 RITE teacher participant from David who enjoys learning about new cultures and is excited to adapt to host-family routines.",
+        "es": "Docente participante de RITE 2026 de David, abierta a aprender sobre nuevas culturas y adaptarse a las rutinas de las familias anfitrionas."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "lourdes-rodriguez",
+      "name": "Lourdes Rodriguez",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": {
+        "en": "David, Chiriqui, Panama",
+        "es": "David, Chiriqui, Panama"
+      },
+      "summary": {
+        "en": "2026 RITE teacher participant from Panama with experience teaching English in primary and secondary school settings.",
+        "es": "Docente participante de RITE 2026 de Panama con experiencia ensenando ingles en primaria y secundaria."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "leticia-torielli",
+      "name": "Leticia Torielli",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": {
+        "en": "General Pinto, Buenos Aires, Argentina",
+        "es": "General Pinto, Buenos Aires, Argentina"
+      },
+      "summary": {
+        "en": "2026 RITE teacher participant from General Pinto, Buenos Aires, Argentina.",
+        "es": "Docente participante de RITE 2026 de General Pinto, Buenos Aires, Argentina."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "mauro-coletti",
+      "name": "Mauro Coletti",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": {
+        "en": "San Isidro, Buenos Aires, Argentina",
+        "es": "San Isidro, Buenos Aires, Argentina"
+      },
+      "summary": {
+        "en": "2026 RITE teacher participant from San Isidro, Buenos Aires, Argentina.",
+        "es": "Docente participante de RITE 2026 de San Isidro, Buenos Aires, Argentina."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "mark-hazleton",
+      "name": "Mark Hazleton",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+        "es": "Participante como familia anfitriona conectado a registros de hospedaje de RITE 2024 y 2026."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "lesley-hazleton",
+      "name": "Lesley Hazleton",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+        "es": "Participante como familia anfitriona conectada a registros de hospedaje de RITE 2024 y 2026."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "dalia-hale",
+      "name": "Dalia Hale",
+      "country": "usa",
+      "functions": [
+        "leader",
+        "host"
+      ],
+      "participationYears": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "RITE chair listed in 2024 and 2026 host-family grids and host-family participant in both years.",
+        "es": "Presidenta/coordinadora de RITE indicada en las listas de familias anfitrionas de 2024 y 2026, y participante como anfitriona en ambos anos."
+      },
+      "memories": [
+        {
+          "title": {
+            "en": "Continuity across cohorts",
+            "es": "Continuidad entre cohortes"
+          },
+          "body": {
+            "en": "Future oral history content can document how coordination practices were passed forward after 2010.",
+            "es": "El contenido futuro de historia oral puede documentar como se transmitieron las practicas de coordinacion despues de 2010."
+          }
+        }
+      ],
+      "pictures": [],
+      "suggestions": [
+        {
+          "text": {
+            "en": "Add interview prompts about what changed after the 2023 restart.",
+            "es": "Agregar preguntas de entrevista sobre lo que cambio despues del reinicio de 2023."
+          }
+        }
+      ],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "shelli-kadel",
+      "name": "Shelli Kadel",
+      "country": "usa",
+      "functions": [
+        "leader",
+        "host"
+      ],
+      "participationYears": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "RITE co-chair listed in 2024 and 2026 host-family grids and host-family participant in 2026.",
+        "es": "Copresidenta/coordinadora de RITE indicada en las listas de familias anfitrionas de 2024 y 2026, y participante como anfitriona en 2026."
+      },
+      "memories": [
+        {
+          "title": {
+            "en": "Hospitality as program infrastructure",
+            "es": "La hospitalidad como infraestructura del programa"
+          },
+          "body": {
+            "en": "Future profile content can connect hosting memories with the logistics that make teachers feel at home.",
+            "es": "El contenido futuro del perfil puede conectar memorias de hospedaje con la logistica que hace que los docentes se sientan en casa."
+          }
+        }
+      ],
+      "pictures": [],
+      "suggestions": [
+        {
+          "text": {
+            "en": "Invite host families to contribute photos after media permissions are reviewed.",
+            "es": "Invitar a familias anfitrionas a contribuir fotos despues de revisar permisos de medios."
+          }
+        }
+      ],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "ed-frey",
+      "name": "Ed Frey",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+        "es": "Participante como familia anfitriona conectado a registros de hospedaje de RITE 2024 y 2026."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "robyn-sullivan",
+      "name": "Robyn Sullivan",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+        "es": "Participante como familia anfitriona conectada a registros de hospedaje de RITE 2024 y 2026."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "greg-sullivan",
+      "name": "Greg Sullivan",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+        "es": "Participante como familia anfitriona conectado a registros de hospedaje de RITE 2024 y 2026."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "mark-hansen",
+      "name": "Mark Hansen",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+        "es": "Participante como familia anfitriona conectado a registros de hospedaje de RITE 2024 y 2026."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [
+        {
+          "text": {
+            "en": "Collect memories about first arrival dinners, school visits, and long-term friendships.",
+            "es": "Recopilar memorias sobre cenas de llegada, visitas escolares y amistades de largo plazo."
+          }
+        }
+      ],
+      "privacy": "public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    }
+  ]
+}

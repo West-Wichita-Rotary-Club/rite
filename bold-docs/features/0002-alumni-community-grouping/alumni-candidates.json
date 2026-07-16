@@ -1,0 +1,797 @@
+{
+  "modelVersion": "2026-07-16",
+  "purpose": "Review-stage participant/alumni candidate inventory extracted from bold-docs/samples. This is not public site content.",
+  "publicationPolicy": {
+    "status": "approved-for-public-preview",
+    "notes": [
+      "Candidate records are approved for public-safe profile publication.",
+      "Contact details, addresses, dates of birth, emergency contacts, allergies, and family details remain intentionally omitted.",
+      "Bios are concise public summaries derived from source documents and product-owner approval."
+    ],
+    "approval": {
+      "confirmedBy": "product-owner",
+      "confirmationChannel": "WhatsApp",
+      "confirmedAt": "2026-07-16",
+      "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+      "exclusions": [
+        "contact details",
+        "addresses",
+        "dates of birth",
+        "emergency contacts",
+        "allergies",
+        "private family details"
+      ],
+      "mediaNote": "Photos are approved for public preview use by all visible adults. Names/profiles for every visible person are pending."
+    }
+  },
+  "sourceInventory": [
+    {
+      "file": "2. Lourdes RITEOut  Application (1).pdf",
+      "status": "text-extracted",
+      "participantUse": "Candidate teacher profile evidence for Lourdes Rodriguez."
+    },
+    {
+      "file": "Host Family Grid 2024.pdf",
+      "status": "text-extracted",
+      "participantUse": "Candidate 2024 teacher, host, and leader participation evidence."
+    },
+    {
+      "file": "Host Family Grid 2026.pdf",
+      "status": "text-extracted",
+      "participantUse": "Candidate 2026 teacher, host, and leader participation evidence."
+    },
+    {
+      "file": "Host Form Hazleton 01.08.24 (1).pdf",
+      "status": "text-extracted",
+      "participantUse": "Candidate host profile evidence for Mark and Lesley Hazleton."
+    },
+    {
+      "file": "Marianne RITE TEACHER PROFILE BLNK DOC 5680 9 10 2025 (2).pdf",
+      "status": "text-extracted",
+      "participantUse": "Candidate teacher profile evidence for Marianne Lopez."
+    },
+    {
+      "file": "RITE 2025 Teacher BIOS #2.docx",
+      "status": "text-extracted",
+      "participantUse": "Candidate 2025 teacher bios and participation evidence."
+    },
+    {
+      "file": "2025 RITE SCHOOL SCHEDULE FINAL Copy Jan 28.doc",
+      "status": "blocked-local-file-trust-settings",
+      "participantUse": "Potential participant-name/year evidence; not extracted in this environment."
+    },
+    {
+      "file": "2026 RITE SCHOOL SCHEDULE  DRAFT #2  1-27-26.doc",
+      "status": "blocked-local-file-trust-settings",
+      "participantUse": "Potential participant-name/year evidence; not extracted in this environment."
+    },
+    {
+      "file": "Host Form Blank.doc",
+      "status": "blocked-local-file-trust-settings",
+      "participantUse": "Profile field reference only; not extracted in this environment."
+    },
+    {
+      "file": "RITE Blank Host Form 12-23.docx",
+      "status": "text-extracted",
+      "participantUse": "Profile field reference only."
+    },
+    {
+      "file": "RITE-Teachers-2025.jpeg",
+      "status": "media-inventoried",
+      "participantUse": "Candidate profile-safe media reference for 2025 teacher participants.",
+      "dimensions": "1869x1169"
+    },
+    {
+      "file": "RITE-Teachers-Welcome-2025.jpeg",
+      "status": "media-inventoried",
+      "participantUse": "Candidate profile-safe media reference for 2025 teacher participants.",
+      "dimensions": "640x480"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "ayelen-usandizaga",
+      "name": "Ayelen Usandizaga",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": "Baradero, Buenos Aires Province, Argentina",
+      "draftBio": "English teacher and Rotary Ambassador from Baradero with experience across age levels, interested in teaching methodologies, cultural exchange, and promoting peace through RITE.",
+      "sourceFiles": [
+        "RITE 2025 Teacher BIOS #2.docx"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "belen-moran-galvarici",
+      "name": "Belen Moran Galvarici",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": "Junin, Buenos Aires, Argentina",
+      "draftBio": "English teacher sponsored by the Rotary Club of Junin, with primary through university teaching experience and CLIL co-teaching experience.",
+      "sourceFiles": [
+        "RITE 2025 Teacher BIOS #2.docx"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "esteban-almengor",
+      "name": "Esteban Almengor",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": "David, Chiriqui, Panama",
+      "draftBio": "English as a Second Language educator from David with more than 15 years of experience and training in teacher development programs.",
+      "sourceFiles": [
+        "RITE 2025 Teacher BIOS #2.docx"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "dayra-gonzalez",
+      "name": "Dayra Gonzalez",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2025
+      ],
+      "place": "Dolega, Chiriqui, Panama",
+      "draftBio": "English teacher from the David area with 24 years of elementary teaching experience and a focus on professional growth through cultural exchange.",
+      "sourceFiles": [
+        "RITE 2025 Teacher BIOS #2.docx"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "ivan-guerra",
+      "name": "Ivan Guerra",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": "David, Chiriqui, Panama",
+      "draftBio": "2024 RITE teacher participant from David, Chiriqui, Panama.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "ingrid-villamonte",
+      "name": "Ingrid Villamonte",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": "David, Chiriqui, Panama",
+      "draftBio": "2024 RITE teacher participant from David, Chiriqui, Panama.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "gimena-rios",
+      "name": "Gimena Rios",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": "Buenos Aires, Argentina",
+      "draftBio": "2024 RITE teacher participant from Buenos Aires, Argentina.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "florencia-zappia",
+      "name": "Florencia Zappia",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2024
+      ],
+      "place": "Buenos Aires, Argentina",
+      "draftBio": "2024 RITE teacher participant from Buenos Aires, Argentina.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "marianne-lopez",
+      "name": "Marianne Lopez",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": "David, Chiriqui, Panama",
+      "draftBio": "2026 RITE teacher participant from David who enjoys learning about new cultures and is excited to adapt to host-family routines.",
+      "sourceFiles": [
+        "Host Family Grid 2026.pdf",
+        "Marianne RITE TEACHER PROFILE BLNK DOC 5680 9 10 2025 (2).pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "lourdes-rodriguez",
+      "name": "Lourdes Rodriguez",
+      "country": "panama",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": "David, Chiriqui, Panama",
+      "draftBio": "2026 RITE teacher participant from Panama with experience teaching English in primary and secondary school settings.",
+      "sourceFiles": [
+        "2. Lourdes RITEOut  Application (1).pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "leticia-torielli",
+      "name": "Leticia Torielli",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": "General Pinto, Buenos Aires, Argentina",
+      "draftBio": "2026 RITE teacher participant from General Pinto, Buenos Aires, Argentina.",
+      "sourceFiles": [
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "mauro-coletti",
+      "name": "Mauro Coletti",
+      "country": "argentina",
+      "functions": [
+        "teacher"
+      ],
+      "participationYears": [
+        2026
+      ],
+      "place": "San Isidro, Buenos Aires, Argentina",
+      "draftBio": "2026 RITE teacher participant from San Isidro, Buenos Aires, Argentina.",
+      "sourceFiles": [
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "mark-hazleton",
+      "name": "Mark Hazleton",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+      "sourceFiles": [
+        "Host Form Hazleton 01.08.24 (1).pdf",
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "lesley-hazleton",
+      "name": "Lesley Hazleton",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+      "sourceFiles": [
+        "Host Form Hazleton 01.08.24 (1).pdf",
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "dalia-hale",
+      "name": "Dalia Hale",
+      "country": "usa",
+      "functions": [
+        "leader",
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "RITE chair listed in 2024 and 2026 host-family grids and host-family participant in both years.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "shelli-kadel",
+      "name": "Shelli Kadel",
+      "country": "usa",
+      "functions": [
+        "leader",
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "RITE co-chair listed in 2024 and 2026 host-family grids and host-family participant in 2026.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "ed-frey",
+      "name": "Ed Frey",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "Host-family participant connected to 2024 and 2026 RITE hosting records. Spelling should be reviewed against product-owner note that used Ed Fry.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "robyn-sullivan",
+      "name": "Robyn Sullivan",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "greg-sullivan",
+      "name": "Greg Sullivan",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    },
+    {
+      "id": "mark-hansen",
+      "name": "Mark Hansen",
+      "country": "usa",
+      "functions": [
+        "host"
+      ],
+      "participationYears": [
+        2024,
+        2026
+      ],
+      "place": "Wichita, Kansas",
+      "draftBio": "Host-family participant connected to 2024 and 2026 RITE hosting records.",
+      "sourceFiles": [
+        "Host Family Grid 2024.pdf",
+        "Host Family Grid 2026.pdf"
+      ],
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All candidate profiles and all named participants approved for public-safe profile publication.",
+        "exclusions": [
+          "contact details",
+          "addresses",
+          "dates of birth",
+          "emergency contacts",
+          "allergies",
+          "private family details"
+        ],
+        "mediaNote": "Photos remain unpublished because visible people beyond named candidate participants may require photo-wide approval."
+      }
+    }
+  ],
+  "mediaCandidates": [
+    {
+      "id": "rite-teachers-2025",
+      "file": "RITE-Teachers-2025.jpeg",
+      "candidateProfileIds": [
+        "ayelen-usandizaga",
+        "belen-moran-galvarici",
+        "esteban-almengor",
+        "dayra-gonzalez"
+      ],
+      "draftCaption": "Candidate 2025 RITE teacher group photo; identities and permissions need review before public preview use.",
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+      },
+      "publicAsset": "docs/assets/alumni/RITE-Teachers-2025.jpeg"
+    },
+    {
+      "id": "rite-teachers-welcome-2025",
+      "file": "RITE-Teachers-Welcome-2025.jpeg",
+      "candidateProfileIds": [
+        "ayelen-usandizaga",
+        "belen-moran-galvarici",
+        "esteban-almengor",
+        "dayra-gonzalez"
+      ],
+      "draftCaption": "Candidate 2025 RITE welcome or arrival photo; identities and permissions need review before public preview use.",
+      "reviewStatus": "approved-for-public-preview",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "WhatsApp",
+        "confirmedAt": "2026-07-16",
+        "scope": "All people visible in the photos are adults and approved the photos for public preview publication. Individual names for every visible person are still pending."
+      },
+      "publicAsset": "docs/assets/alumni/RITE-Teachers-Welcome-2025.jpeg"
+    }
+  ]
+}

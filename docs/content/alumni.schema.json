@@ -1,0 +1,170 @@
+{
+  "title": "RITE Alumni And Community Profile Content",
+  "type": "object",
+  "required": ["modelVersion", "countries", "functions", "profiles"],
+  "properties": {
+    "modelVersion": {
+      "type": "string",
+      "description": "Version date for the static preview content model."
+    },
+    "modelNotes": {
+      "type": "object",
+      "description": "Human-readable notes about preview model boundaries. Alumni/community profile records are not the same thing as authenticated site-member accounts.",
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      }
+    },
+    "countries": {
+      "type": "object",
+      "description": "Country filters and labels keyed by stable country id."
+    },
+    "functions": {
+      "type": "object",
+      "description": "Community function filters and labels keyed by stable function id."
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "country", "functions", "participationYears", "place", "summary"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable content id for the person profile. This is not an authentication account id."
+          },
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "description": "Primary country key used for country grouping."
+          },
+          "functions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["leader", "host", "teacher"]
+            }
+          },
+          "participationYears": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Specific years of RITE participation. Empty means the year list still needs confirmation."
+          },
+          "participationYearNote": {
+            "type": "object",
+            "properties": {
+              "en": { "type": "string" },
+              "es": { "type": "string" }
+            }
+          },
+          "place": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": {
+              "en": { "type": "string" },
+              "es": { "type": "string" }
+            }
+          },
+          "summary": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": {
+              "en": { "type": "string" },
+              "es": { "type": "string" }
+            }
+          },
+          "memories": {
+            "type": "array",
+            "description": "Optional public-preview memory snippets that can later become reviewed story submissions.",
+            "items": {
+              "type": "object",
+              "required": ["title", "body"],
+              "properties": {
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "en": { "type": "string" },
+                    "es": { "type": "string" }
+                  }
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "en": { "type": "string" },
+                    "es": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "pictures": {
+            "type": "array",
+            "description": "Optional reviewed picture references for the future media archive. Static preview entries may be empty until media permissions are confirmed.",
+            "items": {
+              "type": "object",
+              "required": ["caption"],
+              "properties": {
+                "src": { "type": "string" },
+                "caption": {
+                  "type": "object",
+                  "properties": {
+                    "en": { "type": "string" },
+                    "es": { "type": "string" }
+                  }
+                },
+                "year": { "type": "integer" },
+                "approval": {
+                  "type": "object",
+                  "description": "Optional photo publication approval metadata.",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "confirmedBy": { "type": "string" },
+                    "confirmationChannel": { "type": "string" },
+                    "confirmedAt": { "type": "string" },
+                    "scope": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "suggestions": {
+            "type": "array",
+            "description": "Optional prompts or suggested additions for future profile enrichment.",
+            "items": {
+              "type": "object",
+              "required": ["text"],
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "en": { "type": "string" },
+                    "es": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "privacy": {
+            "type": "string",
+            "enum": ["public-preview", "needs-confirmation"]
+          },
+          "approval": {
+            "type": "object",
+            "description": "Optional publication approval metadata for public-preview profile fields.",
+            "properties": {
+              "status": { "type": "string" },
+              "confirmedBy": { "type": "string" },
+              "confirmationChannel": { "type": "string" },
+              "confirmedAt": { "type": "string" },
+              "scope": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
