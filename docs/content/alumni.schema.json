@@ -40,6 +40,11 @@
             "type": "string",
             "description": "Primary country key used for country grouping."
           },
+          "audiences": {
+            "type": "array",
+            "description": "Audience landing views that surface this profile (alumni, active, recruiting). Closed set. A profile with no audiences tag is treated as recruiting-visible by default. Program leaders are typically tagged for both alumni and recruiting since they are strong public-facing recruiting voices.",
+            "items": { "type": "string", "enum": ["alumni", "active", "recruiting"] }
+          },
           "participation": {
             "type": "array",
             "description": "One or more role/years records. A person's role can differ across years (e.g. teacher one year, host in later years, leader after that), so participation is not a single flat role list.",

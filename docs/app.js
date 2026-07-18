@@ -3,6 +3,8 @@
   const ACCOUNTS_KEY = "rite-preview-accounts";
   const SESSION_KEY = "rite-preview-session";
   const ALUMNI_CONTENT_URL = "content/alumni.json";
+  const STORIES_CONTENT_URL = "content/stories.json";
+  const RESOURCES_CONTENT_URL = "content/resources.json";
   const FEATURE_STORAGE_BUDGET = 3 * 1000 * 1000;
   const PHOTO_MAX_DIMENSION = 1024;
   const MAX_PHOTOS_PER_MEMORY = 3;
@@ -22,6 +24,10 @@
     selectedAlumniId: "",
     alumniContent: null,
     alumniLoadStatus: "loading",
+    storiesContent: null,
+    storiesLoadStatus: "loading",
+    resourcesContent: null,
+    resourcesLoadStatus: "loading",
     submissions: readSubmissions(),
     storageAvailable: detectStorageAvailable(),
     accounts: {},
@@ -52,9 +58,10 @@
       join: "Join the community",
       mock: "Static preview: all API, login, registration, and submission behavior is mocked locally. No data leaves this page.",
       motto: "Service Above Self",
-      heroTitle: "Thirty years of teachers crossing borders",
-      heroBody: "The Rotary Inter-country Teacher Exchange has connected classrooms in Wichita, Panama, and Argentina since 1996. This preview preserves the stories, people, resources, and partnerships for stakeholder review.",
-      heroPrimary: "Explore the timeline",
+      heroEducationLabel: "What is RITE?",
+      heroTitle: "Teachers cross borders. Classrooms open up.",
+      heroBody: "The Rotary Inter-country Teacher Exchange (RITE) sends Wichita teachers to partner classrooms in Panama and Argentina, and welcomes their teachers here in return. This preview explains how it works, who's part of it, and how you can join.",
+      heroPrimary: "See how it works",
       heroSecondary: "Read the stories",
       homeTitle: "From archive to community platform",
       homeIntro: "This static preview demonstrates the future public experience while the production .NET API, SQLite database, and React app are still being built.",
@@ -127,6 +134,13 @@
         noMemories: "No reviewed memories have been added yet.",
         noPictures: "No reviewed pictures have been added yet.",
         noSuggestions: "No suggestions have been added yet.",
+        loadingStories: "Loading static story content...",
+        storiesLoadError: "Story content could not be loaded. Serve the docs folder with a static web server to preview JSON-driven content.",
+        loadingResources: "Loading static resource content...",
+        resourcesLoadError: "Resource content could not be loaded. Serve the docs folder with a static web server to preview JSON-driven content.",
+        interestIntro: "Tell us about your interest",
+        involvement: "How would you like to be involved?",
+        expressInterest: "Express interest",
         signIn: "Sign in",
         signOut: "Sign out",
         myAccount: "My account",
@@ -183,6 +197,48 @@
         years: "2019",
         bio: "Your connection to RITE in one or two sentences"
       },
+      audience: {
+        cardsTitle: "Find your path in RITE",
+        cardsIntro: "However you're connected to the exchange, start here.",
+        subnavLabel: "Audience sections",
+        recruitNavLabel: "About RITE",
+        alumniNavLabel: "Alumni",
+        activeNavLabel: "Current participants",
+        recruitTitle: "New here? Start with the program",
+        recruitBody: "Learn what RITE is, see the impact, and find out how to teach abroad, host a teacher, or partner your school or club.",
+        recruitCta: "Learn about RITE",
+        alumniTitle: "RITE alumni",
+        alumniBody: "Find your community by country and role, revisit your profile, and reconnect with fellow teachers, hosts, and leaders.",
+        alumniCta: "Go to the alumni network",
+        activeTitle: "Current participants",
+        activeBody: "Free public resources for teachers, host families, and coordinators right now, enhanced further once you're part of the program.",
+        activeCta: "See participant resources",
+        recruitLandingTitle: "What is RITE?",
+        recruitLandingIntro: "The Rotary Inter-country Teacher Exchange connects classrooms in Wichita, Panama, and Argentina. Here's how it works and how to get involved.",
+        recruitHowTitle: "How the exchange works",
+        recruitHowBody: "Teachers, host families, Rotary clubs, and partner schools work together each year to send and welcome educators across three countries.",
+        seeFullTimeline: "See the full timeline",
+        recruitImpactTitle: "Stories from the exchange",
+        seeAllStories: "Read all stories",
+        recruitSchoolsTitle: "Partner schools and clubs",
+        recruitSchoolsBody: "Schools and Rotary clubs in Wichita, Panama, and Argentina make the exchange possible year after year.",
+        seeSchools: "See schools and clubs",
+        recruitResourcesTitle: "Replication and education resources",
+        seeAllResources: "See all resources",
+        recruitCtaTitle: "Interested in joining RITE?",
+        recruitCtaBody: "Tell us how you'd like to be involved, as a teacher, a host family, a school, or a club, and we'll follow up. This preview's interest form is fully mocked; no data leaves this page.",
+        recruitCtaButton: "Express interest",
+        alumniLandingTitle: "RITE alumni network",
+        alumniLandingIntro: "Explore alumni by country and by community role, and revisit your own profile.",
+        alumniDirectoryCta: "Browse the alumni directory",
+        alumniStoryCta: "Share your story",
+        activeLandingTitle: "Resources for current participants",
+        activeLandingIntro: "Free public resources that can be enhanced by your participation.",
+        activeFreeNote: "These resources are free and public. Joining RITE as a teacher, host, or coordinator unlocks more: training modules, scheduling tools, and direct coordinator support.",
+        activeUnlockTitle: "Want more than the free resources?",
+        activeUnlockBody: "Join the RITE community to unlock training modules, scheduling tools, and direct coordinator support.",
+        activeUnlockCta: "Express interest"
+      },
       footerTitle: "Rotary Inter-country Teacher Exchange",
       footerSub: "A program of Rotary District 5680, Wichita, Kansas, with partners in Panama and Argentina",
       feedbackTitle: "Help shape this preview",
@@ -194,9 +250,10 @@
       join: "Unirse a la comunidad",
       mock: "Vista previa estatica: API, inicio de sesion, registro y envios son simulados localmente. Ningun dato sale de esta pagina.",
       motto: "Dar de Si antes de Pensar en Si",
-      heroTitle: "Treinta anos de docentes cruzando fronteras",
-      heroBody: "El Intercambio Internacional de Docentes de Rotary conecta aulas de Wichita, Panama y Argentina desde 1996. Esta vista previa conserva historias, personas, recursos y alianzas para revision.",
-      heroPrimary: "Explorar la linea de tiempo",
+      heroEducationLabel: "Que es RITE?",
+      heroTitle: "Docentes cruzan fronteras. Las aulas se abren.",
+      heroBody: "El Intercambio Internacional de Docentes de Rotary (RITE) envia docentes de Wichita a aulas asociadas en Panama y Argentina, y recibe a sus docentes aqui a cambio. Esta vista previa explica como funciona, quien participa y como puede unirse.",
+      heroPrimary: "Vea como funciona",
       heroSecondary: "Leer historias",
       homeTitle: "Del archivo a una plataforma comunitaria",
       homeIntro: "Esta vista previa estatica muestra la futura experiencia publica mientras se construyen la API .NET, la base SQLite y la aplicacion React.",
@@ -269,6 +326,13 @@
         noMemories: "Todavia no hay memorias revisadas.",
         noPictures: "Todavia no hay fotos revisadas.",
         noSuggestions: "Todavia no hay sugerencias.",
+        loadingStories: "Cargando contenido estatico de historias...",
+        storiesLoadError: "No se pudo cargar el contenido de historias. Sirva la carpeta docs con un servidor web estatico para ver contenido basado en JSON.",
+        loadingResources: "Cargando contenido estatico de recursos...",
+        resourcesLoadError: "No se pudo cargar el contenido de recursos. Sirva la carpeta docs con un servidor web estatico para ver contenido basado en JSON.",
+        interestIntro: "Cuentenos su interes",
+        involvement: "Como le gustaria participar?",
+        expressInterest: "Expresar interes",
         signIn: "Iniciar sesion",
         signOut: "Cerrar sesion",
         myAccount: "Mi cuenta",
@@ -324,6 +388,48 @@
         languages: "espanol, ingles",
         years: "2019",
         bio: "Su vinculo con RITE en una o dos frases"
+      },
+      audience: {
+        cardsTitle: "Encuentre su camino en RITE",
+        cardsIntro: "Sin importar como esta conectado con el intercambio, comience aqui.",
+        subnavLabel: "Secciones por audiencia",
+        recruitNavLabel: "Sobre RITE",
+        alumniNavLabel: "Exalumnos",
+        activeNavLabel: "Participantes actuales",
+        recruitTitle: "Nuevo aqui? Comience con el programa",
+        recruitBody: "Conozca que es RITE, vea su impacto y descubra como ensenar en el extranjero, hospedar a un docente o asociar su escuela o club.",
+        recruitCta: "Conocer RITE",
+        alumniTitle: "Exalumnos de RITE",
+        alumniBody: "Encuentre su comunidad por pais y por rol, revise su perfil y reconectese con otros docentes, anfitriones y lideres.",
+        alumniCta: "Ir a la red de exalumnos",
+        activeTitle: "Participantes actuales",
+        activeBody: "Recursos publicos gratuitos para docentes, familias anfitrionas y coordinadores ahora mismo, ampliados una vez que forme parte del programa.",
+        activeCta: "Ver recursos para participantes",
+        recruitLandingTitle: "Que es RITE?",
+        recruitLandingIntro: "El Intercambio Internacional de Docentes de Rotary conecta aulas de Wichita, Panama y Argentina. Asi funciona y asi puede participar.",
+        recruitHowTitle: "Como funciona el intercambio",
+        recruitHowBody: "Docentes, familias anfitrionas, clubes rotarios y escuelas asociadas trabajan juntos cada ano para enviar y recibir educadores en tres paises.",
+        seeFullTimeline: "Ver la linea de tiempo completa",
+        recruitImpactTitle: "Historias del intercambio",
+        seeAllStories: "Leer todas las historias",
+        recruitSchoolsTitle: "Escuelas y clubes asociados",
+        recruitSchoolsBody: "Escuelas y clubes rotarios en Wichita, Panama y Argentina hacen posible el intercambio ano tras ano.",
+        seeSchools: "Ver escuelas y clubes",
+        recruitResourcesTitle: "Recursos de replicacion y educacion",
+        seeAllResources: "Ver todos los recursos",
+        recruitCtaTitle: "Interesado en unirse a RITE?",
+        recruitCtaBody: "Cuentenos como le gustaria participar, como docente, familia anfitriona, escuela o club, y le contactaremos. El formulario de interes de esta vista previa es totalmente simulado; ningun dato sale de esta pagina.",
+        recruitCtaButton: "Expresar interes",
+        alumniLandingTitle: "Red de exalumnos de RITE",
+        alumniLandingIntro: "Explore a los exalumnos por pais y por rol comunitario, y revise su propio perfil.",
+        alumniDirectoryCta: "Explorar el directorio de exalumnos",
+        alumniStoryCta: "Compartir su historia",
+        activeLandingTitle: "Recursos para participantes actuales",
+        activeLandingIntro: "Recursos publicos gratuitos que se amplian con su participacion.",
+        activeFreeNote: "Estos recursos son gratuitos y publicos. Unirse a RITE como docente, anfitrion o coordinador desbloquea mas: modulos de capacitacion, herramientas de programacion y apoyo directo de coordinacion.",
+        activeUnlockTitle: "Quiere mas que los recursos gratuitos?",
+        activeUnlockBody: "Unase a la comunidad RITE para desbloquear modulos de capacitacion, herramientas de programacion y apoyo directo de coordinacion.",
+        activeUnlockCta: "Expresar interes"
       },
       footerTitle: "Intercambio Internacional de Docentes de Rotary",
       footerSub: "Un programa del Distrito 5680 de Rotary, Wichita, Kansas, con socios en Panama y Argentina",
@@ -384,76 +490,11 @@
     }
   ];
 
-  const stories = [
-    {
-      id: "s1",
-      country: "panama",
-      band: palette.azure,
-      tag: { en: "Teacher story", es: "Historia docente" },
-      year: "2019",
-      title: { en: "From Panama City to Pleasant Valley", es: "De Ciudad de Panama a Pleasant Valley" },
-      excerpt: {
-        en: "Maria co-taught ESL in Wichita and helped build a sister-school partnership that still connects classrooms.",
-        es: "Maria coenseno ESL en Wichita y ayudo a crear una alianza escolar que aun conecta aulas."
-      },
-      author: "Maria Camarena",
-      role: { en: "Inbound teacher, Panama", es: "Docente de intercambio, Panama" }
-    },
-    {
-      id: "s2",
-      country: "usa",
-      band: palette.gold,
-      tag: { en: "Host family", es: "Familia anfitriona" },
-      year: "2023",
-      title: { en: "Twelve years, nine teachers, one guest room", es: "Doce anos, nueve docentes, una habitacion" },
-      excerpt: {
-        en: "The Kadel family story models how hosting turns exchange logistics into lifelong relationships.",
-        es: "La historia de la familia Kadel muestra como hospedar crea relaciones duraderas."
-      },
-      author: "Kadel Family",
-      role: { en: "Host family", es: "Familia anfitriona" }
-    },
-    {
-      id: "s3",
-      country: "argentina",
-      band: palette.cranberry,
-      tag: { en: "Classroom exchange", es: "Intercambio en aula" },
-      year: "2018",
-      title: { en: "A weather journal across hemispheres", es: "Un diario del clima entre hemisferios" },
-      excerpt: {
-        en: "A daily classroom habit became a bilingual lesson plan on seasons, measurement, and geography.",
-        es: "Un habito diario se convirtio en un plan bilingue sobre estaciones, medicion y geografia."
-      },
-      author: "Lucia Ferrero",
-      role: { en: "Inbound teacher, Argentina", es: "Docente de intercambio, Argentina" }
-    },
-    {
-      id: "s4",
-      country: "usa",
-      band: palette.royal,
-      tag: { en: "Program history", es: "Historia del programa" },
-      year: "1996",
-      title: { en: "The kitchen-table idea", es: "La idea en la mesa familiar" },
-      excerpt: {
-        en: "The founding idea connected one educator with thousands of students over a career.",
-        es: "La idea fundadora conecto a un educador con miles de estudiantes durante una carrera."
-      },
-      author: "RITE Archive",
-      role: { en: "Program history", es: "Historia del programa" }
-    }
-  ];
-
   const schools = [
     { type: "school", band: palette.azure, name: "Pleasant Valley Middle School", place: "Wichita, Kansas", since: "2004", hosted: "11", desc: { en: "Host school for ESL co-teaching, cultural assemblies, and pen-pal projects.", es: "Escuela anfitriona para ESL, asambleas culturales y correspondencia." } },
     { type: "school", band: palette.turquoise, name: "Instituto Panamericano", place: "Panama City, Panama", since: "2006", hosted: "9", desc: { en: "Long-standing partner sending bilingual educators to Wichita.", es: "Socio de larga data que envia docentes bilingues a Wichita." } },
     { type: "school", band: palette.cranberry, name: "Escuela Normal Superior de Mendoza", place: "Mendoza, Argentina", since: "2009", hosted: "8", desc: { en: "Teacher-training institution represented in Argentina's RITE cohorts.", es: "Institucion de formacion docente representada en cohortes argentinas." } },
     { type: "club", band: palette.gold, name: "Rotary Club of West Wichita", place: "Wichita, Kansas", since: "1996", hosted: "30+", desc: { en: "Founding club stewarding host families, travel support, and this archive.", es: "Club fundador que custodia familias anfitrionas, viajes y este archivo." } }
-  ];
-
-  const resources = [
-    { title: { en: "Weather journal lesson plan", es: "Plan de clase del diario del clima" }, body: { en: "Mock curriculum item for bilingual science and geography exchange.", es: "Recurso simulado para ciencias y geografia bilingue." } },
-    { title: { en: "Host family orientation", es: "Orientacion para familias anfitrionas" }, body: { en: "Mock training module for semester expectations and privacy.", es: "Modulo simulado sobre expectativas y privacidad." } },
-    { title: { en: "Replication toolkit", es: "Guia de replicacion" }, body: { en: "Mock guide for Rotary clubs planning a teacher exchange.", es: "Guia simulada para clubes que planean un intercambio docente." } }
   ];
 
   const mockApi = {
@@ -704,6 +745,50 @@
     render();
   }
 
+  async function loadStoriesContent() {
+    try {
+      const response = await window.fetch(STORIES_CONTENT_URL, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Story content returned ${response.status}`);
+      }
+      state.storiesContent = await response.json();
+      state.storiesLoadStatus = "ready";
+    } catch (_error) {
+      state.storiesLoadStatus = "error";
+    }
+    render();
+  }
+
+  async function loadResourcesContent() {
+    try {
+      const response = await window.fetch(RESOURCES_CONTENT_URL, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Resource content returned ${response.status}`);
+      }
+      state.resourcesContent = await response.json();
+      state.resourcesLoadStatus = "ready";
+    } catch (_error) {
+      state.resourcesLoadStatus = "error";
+    }
+    render();
+  }
+
+  function getAudiences(item) {
+    return item.audiences && item.audiences.length ? item.audiences : ["recruiting"];
+  }
+
+  function filterByAudience(items, audience) {
+    return items.filter((item) => getAudiences(item).includes(audience));
+  }
+
+  function getStories() {
+    return (state.storiesContent && state.storiesContent.stories) || [];
+  }
+
+  function getResources() {
+    return (state.resourcesContent && state.resourcesContent.resources) || [];
+  }
+
   function t(path) {
     return path.split(".").reduce((value, key) => value[key], copy[state.lang]);
   }
@@ -756,6 +841,9 @@
       <main>
         ${renderMockBanner()}
         ${state.view === "home" ? renderHome() : ""}
+        ${state.view === "recruit" ? renderRecruitView() : ""}
+        ${state.view === "alumniLanding" ? renderAlumniLandingView() : ""}
+        ${state.view === "activeLanding" ? renderActiveLandingView() : ""}
         ${state.view === "history" ? renderHistory() : ""}
         ${state.view === "stories" ? renderStories() : ""}
         ${state.view === "directory" ? renderDirectory() : ""}
@@ -844,11 +932,11 @@
       <section class="hero">
         <div class="hero-inner">
           <div>
-            <p class="eyebrow">${escapeHtml(t("motto"))}</p>
+            <p class="eyebrow">${escapeHtml(t("heroEducationLabel"))}</p>
             <h1>${escapeHtml(t("heroTitle"))}</h1>
             <p>${escapeHtml(t("heroBody"))}</p>
             <div class="hero-actions">
-              <button class="button gold" data-view="history">${escapeHtml(t("heroPrimary"))}</button>
+              <button class="button gold" data-view="recruit">${escapeHtml(t("heroPrimary"))}</button>
               <button class="button outline" data-view="stories">${escapeHtml(t("heroSecondary"))}</button>
             </div>
           </div>
@@ -856,6 +944,11 @@
             <img src="assets/areas-of-focus.png" alt="${escapeHtml(t("areasAlt"))}">
           </div>
         </div>
+      </section>
+      <section class="section">
+        <h2 class="section-title">${escapeHtml(t("audience.cardsTitle"))}</h2>
+        <p class="section-lede">${escapeHtml(t("audience.cardsIntro"))}</p>
+        ${renderAudienceCards()}
       </section>
       <section class="section">
         <h2 class="section-title">${escapeHtml(t("homeTitle"))}</h2>
@@ -872,9 +965,30 @@
       <section class="section">
         <h2 class="section-title">${escapeHtml(t("sections.storiesTitle"))}</h2>
         <div class="card-grid">
-          ${stories.slice(0, 3).map(renderStoryCard).join("")}
+          ${getStories().slice(0, 3).map(renderStoryCard).join("")}
         </div>
       </section>
+    `;
+  }
+
+  function renderAudienceCards(activeAudience) {
+    const cards = [
+      { key: "recruit", view: "recruit", titleKey: "audience.recruitTitle", bodyKey: "audience.recruitBody", ctaKey: "audience.recruitCta", band: "gold" },
+      { key: "alumni", view: "alumniLanding", titleKey: "audience.alumniTitle", bodyKey: "audience.alumniBody", ctaKey: "audience.alumniCta", band: "royal" },
+      { key: "active", view: "activeLanding", titleKey: "audience.activeTitle", bodyKey: "audience.activeBody", ctaKey: "audience.activeCta", band: "turquoise" }
+    ];
+    return `
+      <div class="card-grid audience-cards">
+        ${cards.map((card) => `
+          <article class="card ${card.band} audience-card ${activeAudience === card.key ? "current" : ""}">
+            <h3 class="card-title">${escapeHtml(t(card.titleKey))}</h3>
+            <p>${escapeHtml(t(card.bodyKey))}</p>
+            <div class="form-actions">
+              <button class="button ghost" data-view="${card.view}">${escapeHtml(t(card.ctaKey))}</button>
+            </div>
+          </article>
+        `).join("")}
+      </div>
     `;
   }
 
@@ -900,7 +1014,13 @@
   }
 
   function renderStories() {
-    const filtered = stories.filter((story) => state.storyFilter === "all" || story.country === state.storyFilter);
+    if (state.storiesLoadStatus === "loading") {
+      return `<section class="section"><div class="status-panel">${escapeHtml(t("labels.loadingStories"))}</div></section>`;
+    }
+    if (state.storiesLoadStatus === "error" || !state.storiesContent) {
+      return `<section class="section"><div class="status-panel warning">${escapeHtml(t("labels.storiesLoadError"))}</div></section>`;
+    }
+    const filtered = getStories().filter((story) => state.storyFilter === "all" || story.country === state.storyFilter);
     return `
       <section class="section">
         <h1 class="section-title">${escapeHtml(t("sections.storiesTitle"))}</h1>
@@ -921,6 +1041,135 @@
         <p>${escapeHtml(localize(story.excerpt))}</p>
         <p class="meta">${escapeHtml(story.author)} · ${escapeHtml(localize(story.role))}</p>
       </article>
+    `;
+  }
+
+  function renderAudienceSubnav(active) {
+    const items = [
+      { view: "recruit", key: "recruit" },
+      { view: "alumniLanding", key: "alumni" },
+      { view: "activeLanding", key: "active" }
+    ];
+    return `
+      <div class="child-nav" aria-label="${escapeHtml(t("audience.subnavLabel"))}">
+        ${items.map((item) => `
+          <button class="child-nav-button ${active === item.key ? "active" : ""}" data-view="${item.view}">
+            ${escapeHtml(t(`audience.${item.key}NavLabel`))}
+          </button>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function renderRecruitView() {
+    const recruitStories = filterByAudience(getStories(), "recruiting");
+    const recruitResources = filterByAudience(getResources(), "recruiting");
+    const highlightMilestones = [milestones[0], milestones[2], milestones[5]].filter(Boolean);
+    return `
+      <section class="section">
+        <h1 class="section-title">${escapeHtml(t("audience.recruitLandingTitle"))}</h1>
+        <p class="section-lede">${escapeHtml(t("audience.recruitLandingIntro"))}</p>
+        ${renderAudienceSubnav("recruit")}
+
+        <h2 class="card-title">${escapeHtml(t("audience.recruitHowTitle"))}</h2>
+        <p>${escapeHtml(t("audience.recruitHowBody"))}</p>
+        <div class="timeline">
+          ${highlightMilestones.map((item) => `
+            <article class="timeline-card">
+              <div class="timeline-year">${escapeHtml(item.year)}</div>
+              <div>
+                <h3 class="card-title">${escapeHtml(localize(item.title))}</h3>
+                <p>${escapeHtml(localize(item.body))}</p>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+        <div class="form-actions">
+          <button class="button ghost" data-view="history">${escapeHtml(t("audience.seeFullTimeline"))}</button>
+        </div>
+
+        <h2 class="card-title">${escapeHtml(t("audience.recruitImpactTitle"))}</h2>
+        <div class="card-grid">
+          ${recruitStories.map(renderStoryCard).join("")}
+        </div>
+        <div class="form-actions">
+          <button class="button ghost" data-view="stories">${escapeHtml(t("audience.seeAllStories"))}</button>
+        </div>
+
+        <h2 class="card-title">${escapeHtml(t("audience.recruitSchoolsTitle"))}</h2>
+        <p>${escapeHtml(t("audience.recruitSchoolsBody"))}</p>
+        <div class="form-actions">
+          <button class="button ghost" data-view="schools">${escapeHtml(t("audience.seeSchools"))}</button>
+        </div>
+
+        <h2 class="card-title">${escapeHtml(t("audience.recruitResourcesTitle"))}</h2>
+        <div class="resource-grid">
+          ${renderResourceCards(recruitResources)}
+        </div>
+        <div class="form-actions">
+          <button class="button ghost" data-view="resources">${escapeHtml(t("audience.seeAllResources"))}</button>
+        </div>
+
+        <div class="form-card audience-cta">
+          <h2 class="form-title">${escapeHtml(t("audience.recruitCtaTitle"))}</h2>
+          <p>${escapeHtml(t("audience.recruitCtaBody"))}</p>
+          <div class="form-actions">
+            <button class="button gold" data-view="register">${escapeHtml(t("audience.recruitCtaButton"))}</button>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderAlumniLandingView() {
+    const alumniStories = filterByAudience(getStories(), "alumni");
+    return `
+      <section class="section">
+        <h1 class="section-title">${escapeHtml(t("audience.alumniLandingTitle"))}</h1>
+        <p class="section-lede">${escapeHtml(t("audience.alumniLandingIntro"))}</p>
+        ${renderAudienceSubnav("alumni")}
+
+        <div class="form-actions">
+          <button class="button gold" data-view="directory">${escapeHtml(t("audience.alumniDirectoryCta"))}</button>
+          <button class="button ghost" data-view="register">${escapeHtml(t("audience.alumniStoryCta"))}</button>
+        </div>
+
+        <h2 class="card-title">${escapeHtml(t("sections.storiesTitle"))}</h2>
+        <div class="card-grid">
+          ${alumniStories.map(renderStoryCard).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function renderActiveLandingView() {
+    if (state.resourcesLoadStatus === "loading") {
+      return `<section class="section"><div class="status-panel">${escapeHtml(t("labels.loadingResources"))}</div></section>`;
+    }
+    if (state.resourcesLoadStatus === "error" || !state.resourcesContent) {
+      return `<section class="section"><div class="status-panel warning">${escapeHtml(t("labels.resourcesLoadError"))}</div></section>`;
+    }
+    const activeResources = filterByAudience(getResources(), "active");
+    return `
+      <section class="section">
+        <h1 class="section-title">${escapeHtml(t("audience.activeLandingTitle"))}</h1>
+        <p class="section-lede">${escapeHtml(t("audience.activeLandingIntro"))}</p>
+        ${renderAudienceSubnav("active")}
+
+        <p class="privacy-note">${escapeHtml(t("audience.activeFreeNote"))}</p>
+        <div class="resource-grid">
+          ${renderResourceCards(activeResources)}
+        </div>
+        <div id="resource-status" class="status-panel hidden"></div>
+
+        <div class="form-card audience-cta">
+          <h2 class="form-title">${escapeHtml(t("audience.activeUnlockTitle"))}</h2>
+          <p>${escapeHtml(t("audience.activeUnlockBody"))}</p>
+          <div class="form-actions">
+            <button class="button gold" data-view="register">${escapeHtml(t("audience.activeUnlockCta"))}</button>
+          </div>
+        </div>
+      </section>
     `;
   }
 
@@ -1243,25 +1492,35 @@
   }
 
   function renderResources() {
+    if (state.resourcesLoadStatus === "loading") {
+      return `<section class="section"><div class="status-panel">${escapeHtml(t("labels.loadingResources"))}</div></section>`;
+    }
+    if (state.resourcesLoadStatus === "error" || !state.resourcesContent) {
+      return `<section class="section"><div class="status-panel warning">${escapeHtml(t("labels.resourcesLoadError"))}</div></section>`;
+    }
     return `
       <section class="section">
         <h1 class="section-title">${escapeHtml(t("sections.resourcesTitle"))}</h1>
         <p class="section-lede">${escapeHtml(t("sections.resourcesIntro"))}</p>
         <div class="resource-grid">
-          ${resources.map((resource, index) => `
-            <article class="card ${index === 1 ? "azure" : index === 2 ? "turquoise" : ""}">
-              <p class="meta">${escapeHtml(t("labels.noNetwork"))}</p>
-              <h2 class="card-title">${escapeHtml(localize(resource.title))}</h2>
-              <p>${escapeHtml(localize(resource.body))}</p>
-              <div class="form-actions">
-                <button class="button ghost" data-resource="${escapeHtml(localize(resource.title))}">${escapeHtml(t("labels.resourceSubmit"))}</button>
-              </div>
-            </article>
-          `).join("")}
+          ${renderResourceCards(getResources())}
         </div>
         <div id="resource-status" class="status-panel hidden"></div>
       </section>
     `;
+  }
+
+  function renderResourceCards(items) {
+    return items.map((resource, index) => `
+      <article class="card ${index === 1 ? "azure" : index === 2 ? "turquoise" : ""}">
+        <p class="meta">${escapeHtml(t("labels.noNetwork"))}</p>
+        <h2 class="card-title">${escapeHtml(localize(resource.title))}</h2>
+        <p>${escapeHtml(localize(resource.body))}</p>
+        <div class="form-actions">
+          <button class="button ghost" data-resource="${escapeHtml(localize(resource.title))}">${escapeHtml(t("labels.resourceSubmit"))}</button>
+        </div>
+      </article>
+    `).join("");
   }
 
   function renderRegister() {
@@ -1270,14 +1529,8 @@
         <h1 class="section-title">${escapeHtml(t("sections.registerTitle"))}</h1>
         <p class="section-lede">${escapeHtml(t("sections.registerIntro"))}</p>
         <form class="form-card" id="register-form">
-          <h2 class="form-title">${escapeHtml(t("labels.role"))}</h2>
+          <h2 class="form-title">${escapeHtml(t("labels.interestIntro"))}</h2>
           <div class="form-grid">
-            <label class="field">
-              ${escapeHtml(t("labels.role"))}
-              <select name="role">
-                ${Object.keys(copy[state.lang].roles).map((role) => `<option value="${role}">${escapeHtml(t(`roles.${role}`))}</option>`).join("")}
-              </select>
-            </label>
             <label class="field">
               ${escapeHtml(t("labels.fullName"))}
               <input name="name" autocomplete="name" placeholder="${escapeHtml(t("placeholders.name"))}">
@@ -1285,6 +1538,12 @@
             <label class="field">
               ${escapeHtml(t("labels.email"))}
               <input name="email" type="email" autocomplete="email" placeholder="${escapeHtml(t("placeholders.email"))}">
+            </label>
+            <label class="field">
+              ${escapeHtml(t("labels.involvement"))}
+              <select name="role">
+                ${Object.keys(copy[state.lang].roles).map((role) => `<option value="${role}">${escapeHtml(t(`roles.${role}`))}</option>`).join("")}
+              </select>
             </label>
             <label class="field">
               ${escapeHtml(t("labels.country"))}
@@ -1313,7 +1572,7 @@
             </label>
           </div>
           <div class="form-actions">
-            <button class="button gold" type="submit">${escapeHtml(t("labels.submit"))}</button>
+            <button class="button gold" type="submit">${escapeHtml(t("labels.expressInterest"))}</button>
             <span class="privacy-note">${escapeHtml(t("labels.noNetwork"))}</span>
           </div>
           <p class="privacy-note login-notice">${escapeHtml(t("labels.previewLoginNotice"))}</p>
@@ -2000,4 +2259,6 @@
   applyHashRoute();
   render();
   loadAlumniContent();
+  loadStoriesContent();
+  loadResourcesContent();
 }());

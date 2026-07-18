@@ -1,0 +1,60 @@
+{
+  "title": "RITE Story Archive Content",
+  "type": "object",
+  "required": ["modelVersion", "stories"],
+  "properties": {
+    "modelVersion": {
+      "type": "string",
+      "description": "Version date for the static preview content model."
+    },
+    "modelNotes": {
+      "type": "object",
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      }
+    },
+    "stories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "country", "band", "tag", "year", "title", "excerpt", "author", "role"],
+        "properties": {
+          "id": { "type": "string", "description": "Stable content id for the story." },
+          "country": { "type": "string", "enum": ["usa", "panama", "argentina"] },
+          "band": { "type": "string", "description": "Design-system accent color class (azure, royal, gold, turquoise, cranberry)." },
+          "tag": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "year": { "type": "string" },
+          "title": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "excerpt": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "author": { "type": "string" },
+          "role": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "audiences": {
+            "type": "array",
+            "description": "Audience landing views that surface this story. Closed set. A story with no audiences tag is treated as recruiting-visible by default.",
+            "items": { "type": "string", "enum": ["alumni", "active", "recruiting"] }
+          }
+        }
+      }
+    }
+  },
+  "productionMapping": {
+    "note": "Static preview content only. In the future .NET API / SQLite model, each story maps to a reviewed, editor-approved Story entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values, so the same story record can be queried per audience without duplication."
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "modelVersion": "2026-07-17",
+  "modelVersion": "2026-07-18",
   "modelNotes": {
     "en": "This static file models approved public-preview alumni and community profile content, not authenticated site-member accounts. Sensitive fields are excluded. Participation is modeled as one or more role/years records per person so a role can differ across years.",
     "es": "Este archivo estatico modela contenido aprobado para vista previa publica de perfiles de exalumnos y comunidad, no cuentas autenticadas del sitio. Los campos sensibles se excluyen. La participacion se modela como uno o mas registros de rol/anos por persona para que el rol pueda variar entre anos."
@@ -61,8 +61,17 @@
       "id": "armida-hight",
       "name": "Armida Hight",
       "country": "usa",
+      "audiences": [
+        "alumni",
+        "recruiting"
+      ],
       "participation": [
-        { "role": "leader", "years": [1996] }
+        {
+          "role": "leader",
+          "years": [
+            1996
+          ]
+        }
       ],
       "place": {
         "en": "Rotary District 5680",
@@ -88,8 +97,16 @@
       "id": "ayelen-usandizaga",
       "name": "Ayelen Usandizaga",
       "country": "argentina",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2025] }
+        {
+          "role": "teacher",
+          "years": [
+            2025
+          ]
+        }
       ],
       "place": {
         "en": "Baradero, Buenos Aires Province, Argentina",
@@ -146,8 +163,16 @@
       "id": "belen-moran-galvarici",
       "name": "Belen Moran Galvarici",
       "country": "argentina",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2025] }
+        {
+          "role": "teacher",
+          "years": [
+            2025
+          ]
+        }
       ],
       "place": {
         "en": "Junin, Buenos Aires, Argentina",
@@ -204,8 +229,16 @@
       "id": "esteban-almengor",
       "name": "Esteban Almengor",
       "country": "panama",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2025] }
+        {
+          "role": "teacher",
+          "years": [
+            2025
+          ]
+        }
       ],
       "place": {
         "en": "David, Chiriqui, Panama",
@@ -262,8 +295,16 @@
       "id": "dayra-gonzalez",
       "name": "Dayra Gonzalez",
       "country": "panama",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2025] }
+        {
+          "role": "teacher",
+          "years": [
+            2025
+          ]
+        }
       ],
       "place": {
         "en": "Dolega, Chiriqui, Panama",
@@ -320,8 +361,16 @@
       "id": "ivan-guerra",
       "name": "Ivan Guerra",
       "country": "panama",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2024] }
+        {
+          "role": "teacher",
+          "years": [
+            2024
+          ]
+        }
       ],
       "place": {
         "en": "David, Chiriqui, Panama",
@@ -347,8 +396,16 @@
       "id": "ingrid-villamonte",
       "name": "Ingrid Villamonte",
       "country": "panama",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2024] }
+        {
+          "role": "teacher",
+          "years": [
+            2024
+          ]
+        }
       ],
       "place": {
         "en": "David, Chiriqui, Panama",
@@ -374,8 +431,16 @@
       "id": "gimena-rios",
       "name": "Gimena Rios",
       "country": "argentina",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2024] }
+        {
+          "role": "teacher",
+          "years": [
+            2024
+          ]
+        }
       ],
       "place": {
         "en": "Buenos Aires, Argentina",
@@ -401,8 +466,16 @@
       "id": "florencia-zappia",
       "name": "Florencia Zappia",
       "country": "argentina",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2024] }
+        {
+          "role": "teacher",
+          "years": [
+            2024
+          ]
+        }
       ],
       "place": {
         "en": "Buenos Aires, Argentina",
@@ -428,8 +501,16 @@
       "id": "marianne-lopez",
       "name": "Marianne Lopez",
       "country": "panama",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2026] }
+        {
+          "role": "teacher",
+          "years": [
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "David, Chiriqui, Panama",
@@ -455,8 +536,16 @@
       "id": "lourdes-rodriguez",
       "name": "Lourdes Rodriguez",
       "country": "panama",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2026] }
+        {
+          "role": "teacher",
+          "years": [
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "David, Chiriqui, Panama",
@@ -482,8 +571,16 @@
       "id": "leticia-torielli",
       "name": "Leticia Torielli",
       "country": "argentina",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2026] }
+        {
+          "role": "teacher",
+          "years": [
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "General Pinto, Buenos Aires, Argentina",
@@ -509,8 +606,16 @@
       "id": "mauro-coletti",
       "name": "Mauro Coletti",
       "country": "argentina",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "teacher", "years": [2026] }
+        {
+          "role": "teacher",
+          "years": [
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "San Isidro, Buenos Aires, Argentina",
@@ -536,8 +641,17 @@
       "id": "mark-hazleton",
       "name": "Mark Hazleton",
       "country": "usa",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "host", "years": [2024, 2026] }
+        {
+          "role": "host",
+          "years": [
+            2024,
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -563,8 +677,17 @@
       "id": "lesley-hazleton",
       "name": "Lesley Hazleton",
       "country": "usa",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "host", "years": [2024, 2026] }
+        {
+          "role": "host",
+          "years": [
+            2024,
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -590,9 +713,25 @@
       "id": "dalia-hale",
       "name": "Dalia Hale",
       "country": "usa",
+      "audiences": [
+        "alumni",
+        "recruiting"
+      ],
       "participation": [
-        { "role": "leader", "range": { "start": 2010, "end": 2026 } },
-        { "role": "host", "range": { "start": 2010, "end": 2026 } }
+        {
+          "role": "leader",
+          "range": {
+            "start": 2010,
+            "end": 2026
+          }
+        },
+        {
+          "role": "host",
+          "range": {
+            "start": 2010,
+            "end": 2026
+          }
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -636,9 +775,25 @@
       "id": "shelli-kadel",
       "name": "Shelli Kadel",
       "country": "usa",
+      "audiences": [
+        "alumni",
+        "recruiting"
+      ],
       "participation": [
-        { "role": "leader", "range": { "start": 2010, "end": 2026 } },
-        { "role": "host", "range": { "start": 2010, "end": 2026 } }
+        {
+          "role": "leader",
+          "range": {
+            "start": 2010,
+            "end": 2026
+          }
+        },
+        {
+          "role": "host",
+          "range": {
+            "start": 2010,
+            "end": 2026
+          }
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -682,8 +837,17 @@
       "id": "ed-frey",
       "name": "Ed Frey",
       "country": "usa",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "host", "years": [2024, 2026] }
+        {
+          "role": "host",
+          "years": [
+            2024,
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -709,8 +873,17 @@
       "id": "robyn-sullivan",
       "name": "Robyn Sullivan",
       "country": "usa",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "host", "years": [2024, 2026] }
+        {
+          "role": "host",
+          "years": [
+            2024,
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -736,8 +909,17 @@
       "id": "greg-sullivan",
       "name": "Greg Sullivan",
       "country": "usa",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "host", "years": [2024, 2026] }
+        {
+          "role": "host",
+          "years": [
+            2024,
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",
@@ -763,8 +945,17 @@
       "id": "mark-hansen",
       "name": "Mark Hansen",
       "country": "usa",
+      "audiences": [
+        "alumni"
+      ],
       "participation": [
-        { "role": "host", "years": [2024, 2026] }
+        {
+          "role": "host",
+          "years": [
+            2024,
+            2026
+          ]
+        }
       ],
       "place": {
         "en": "Wichita, Kansas",

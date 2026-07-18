@@ -1,0 +1,69 @@
+{
+  "modelVersion": "2026-07-18",
+  "modelNotes": {
+    "en": "Static preview story archive content. audiences marks which audience landing views (alumni, active, recruiting) surface each story; an item with no audiences tag is treated as recruiting-visible by default.",
+    "es": "Contenido estatico del archivo de historias de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada historia; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto."
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "country": "panama",
+      "band": "azure",
+      "tag": { "en": "Teacher story", "es": "Historia docente" },
+      "year": "2019",
+      "title": { "en": "From Panama City to Pleasant Valley", "es": "De Ciudad de Panama a Pleasant Valley" },
+      "excerpt": {
+        "en": "Maria co-taught ESL in Wichita and helped build a sister-school partnership that still connects classrooms.",
+        "es": "Maria coenseno ESL en Wichita y ayudo a crear una alianza escolar que aun conecta aulas."
+      },
+      "author": "Maria Camarena",
+      "role": { "en": "Inbound teacher, Panama", "es": "Docente de intercambio, Panama" },
+      "audiences": ["alumni", "recruiting"]
+    },
+    {
+      "id": "s2",
+      "country": "usa",
+      "band": "gold",
+      "tag": { "en": "Host family", "es": "Familia anfitriona" },
+      "year": "2023",
+      "title": { "en": "Twelve years, nine teachers, one guest room", "es": "Doce anos, nueve docentes, una habitacion" },
+      "excerpt": {
+        "en": "The Kadel family story models how hosting turns exchange logistics into lifelong relationships.",
+        "es": "La historia de la familia Kadel muestra como hospedar crea relaciones duraderas."
+      },
+      "author": "Kadel Family",
+      "role": { "en": "Host family", "es": "Familia anfitriona" },
+      "audiences": ["alumni", "recruiting"]
+    },
+    {
+      "id": "s3",
+      "country": "argentina",
+      "band": "cranberry",
+      "tag": { "en": "Classroom exchange", "es": "Intercambio en aula" },
+      "year": "2018",
+      "title": { "en": "A weather journal across hemispheres", "es": "Un diario del clima entre hemisferios" },
+      "excerpt": {
+        "en": "A daily classroom habit became a bilingual lesson plan on seasons, measurement, and geography.",
+        "es": "Un habito diario se convirtio en un plan bilingue sobre estaciones, medicion y geografia."
+      },
+      "author": "Lucia Ferrero",
+      "role": { "en": "Inbound teacher, Argentina", "es": "Docente de intercambio, Argentina" },
+      "audiences": ["recruiting"]
+    },
+    {
+      "id": "s4",
+      "country": "usa",
+      "band": "royal",
+      "tag": { "en": "Program history", "es": "Historia del programa" },
+      "year": "1996",
+      "title": { "en": "The kitchen-table idea", "es": "La idea en la mesa familiar" },
+      "excerpt": {
+        "en": "The founding idea connected one educator with thousands of students over a career.",
+        "es": "La idea fundadora conecto a un educador con miles de estudiantes durante una carrera."
+      },
+      "author": "RITE Archive",
+      "role": { "en": "Program history", "es": "Historia del programa" },
+      "audiences": ["recruiting"]
+    }
+  ]
+}
