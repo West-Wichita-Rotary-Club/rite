@@ -27,7 +27,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "country", "functions", "participationYears", "place", "summary"],
+        "required": ["id", "name", "country", "participation", "place", "summary"],
         "properties": {
           "id": {
             "type": "string",
@@ -45,19 +45,32 @@
             "description": "Audience landing views that surface this profile (alumni, active, recruiting). Closed set. A profile with no audiences tag is treated as recruiting-visible by default. Program leaders are typically tagged for both alumni and recruiting since they are strong public-facing recruiting voices.",
             "items": { "type": "string", "enum": ["alumni", "active", "recruiting"] }
           },
-          "functions": {
+          "participation": {
             "type": "array",
+            "description": "One or more role/years records. A person's role can differ across years (e.g. teacher one year, host in later years, leader after that), so participation is not a single flat role list.",
             "items": {
-              "type": "string",
-              "enum": ["leader", "host", "teacher"]
+              "type": "object",
+              "required": ["role"],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "enum": ["leader", "host", "teacher"]
+                },
+                "years": {
+                  "type": "array",
+                  "items": { "type": "integer" },
+                  "description": "Explicit discrete years this role was held (single year, or a list of specific non-contiguous years). Use `range` instead when the role spanned a known contiguous span."
+                },
+                "range": {
+                  "type": "object",
+                  "description": "A contiguous year span for this role, used instead of `years` when the role was held continuously and no unconfirmed transition year should be implied.",
+                  "properties": {
+                    "start": { "type": "integer" },
+                    "end": { "type": "integer" }
+                  }
+                }
+              }
             }
-          },
-          "participationYears": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            },
-            "description": "Specific years of RITE participation. Empty means the year list still needs confirmation."
           },
           "participationYearNote": {
             "type": "object",

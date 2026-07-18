@@ -35,6 +35,7 @@ The prototype is feature-local reference material for this repo. It is not the p
 
 - `docs/` contains the GitHub Pages public preview derived from the accepted prototype.
 - The preview is intentionally static: mocked API, registration, resource, and submission behavior runs locally in browser JavaScript.
-- `docs/content/alumni.json` drives the public preview alumni directory and static profile pages.
+- `docs/content/alumni.json` drives the public preview alumni directory and static profile pages, modeling each person's participation as one or more role/years records rather than a single flat role and year list.
 - Alumni profile pages use static hash routes and reserve sections for reviewed memories, pictures, and suggestions.
+- The preview also mocks the future member account lifecycle end to end for visioning and feedback: registration creates a browser-local mock account (email-only, no password) and signs the visitor in; a signed-in member can claim alumni status (country plus a year/role participation history, matched to an existing profile or self-declared) and compose memories with photos, all pending review and stored only in that browser's `localStorage`. None of this writes back to `docs/content/alumni.json` or is visible to any other visitor.
 - The preview does not replace the planned production .NET API, SQLite persistence, Azure media storage, or standalone React app.
