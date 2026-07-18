@@ -879,6 +879,96 @@ textarea:focus-visible {
   color: #dfe9f7;
 }
 
+.mock-banner.warning {
+  background: #fff8e8;
+  border-bottom: 1px solid #f3d99c;
+}
+
+.login-notice {
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.account-page {
+  display: grid;
+  gap: 22px;
+}
+
+.pending-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: var(--white);
+  background: var(--cranberry);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  vertical-align: middle;
+}
+
+.claim-row {
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--mist);
+}
+
+.claim-match {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--mist);
+}
+
+.claim-match-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.memory-photo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.memory-photo-thumb {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--mist);
+}
+
+.memory-photo-draft {
+  position: relative;
+  display: inline-block;
+}
+
+.memory-photo-draft .button {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.account-danger {
+  padding-top: 8px;
+}
+
 .hidden {
   display: none !important;
 }
@@ -900,6 +990,7 @@ textarea:focus-visible {
 
   .header-actions {
     width: 100%;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 
