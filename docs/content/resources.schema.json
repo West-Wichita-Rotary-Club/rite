@@ -1,0 +1,49 @@
+{
+  "title": "RITE Resource Content",
+  "type": "object",
+  "required": ["modelVersion", "resources"],
+  "properties": {
+    "modelVersion": {
+      "type": "string",
+      "description": "Version date for the static preview content model."
+    },
+    "modelNotes": {
+      "type": "object",
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "body"],
+        "properties": {
+          "id": { "type": "string", "description": "Stable content id for the resource." },
+          "title": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "body": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "audiences": {
+            "type": "array",
+            "description": "Audience landing views that surface this resource. Closed set. A resource with no audiences tag is treated as recruiting-visible by default.",
+            "items": { "type": "string", "enum": ["alumni", "active", "recruiting"] }
+          }
+        }
+      }
+    }
+  },
+  "reviewPolicy": {
+    "note": "Every entry requires recorded product-owner (or, in production, editor/administrator) sign-off before publication, per backbone principle 3. See bold-docs/features/0003-three-audience-experience/resource-candidates.md for this feature's approval record."
+  },
+  "productionMapping": {
+    "note": "Static preview content only. In the future .NET API / SQLite model, each resource maps to a reviewed, editor-approved Resource entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values."
+  }
+}

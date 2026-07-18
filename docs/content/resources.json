@@ -1,0 +1,36 @@
+{
+  "modelVersion": "2026-07-18",
+  "modelNotes": {
+    "en": "Static preview resource content. audiences marks which audience landing views (alumni, active, recruiting) surface each resource; an item with no audiences tag is treated as recruiting-visible by default. Every entry here has recorded product-owner sign-off; see bold-docs/features/0003-three-audience-experience/resource-candidates.md.",
+    "es": "Contenido estatico de recursos de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada recurso; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto. Cada entrada aqui cuenta con aprobacion registrada del dueno del producto."
+  },
+  "resources": [
+    {
+      "id": "r1",
+      "title": { "en": "Weather journal lesson plan", "es": "Plan de clase del diario del clima" },
+      "body": {
+        "en": "Mock curriculum item for bilingual science and geography exchange.",
+        "es": "Recurso simulado para ciencias y geografia bilingue."
+      },
+      "audiences": ["active", "recruiting"]
+    },
+    {
+      "id": "r2",
+      "title": { "en": "Host family orientation", "es": "Orientacion para familias anfitrionas" },
+      "body": {
+        "en": "Mock training module for semester expectations and privacy.",
+        "es": "Modulo simulado sobre expectativas y privacidad."
+      },
+      "audiences": ["active", "recruiting"]
+    },
+    {
+      "id": "r3",
+      "title": { "en": "Replication toolkit", "es": "Guia de replicacion" },
+      "body": {
+        "en": "Mock guide for Rotary clubs planning a teacher exchange.",
+        "es": "Guia simulada para clubes que planean un intercambio docente."
+      },
+      "audiences": ["recruiting"]
+    }
+  ]
+}

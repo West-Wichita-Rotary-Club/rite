@@ -61,6 +61,7 @@
       "id": "armida-hight",
       "name": "Armida Hight",
       "country": "usa",
+      "audiences": ["alumni", "recruiting"],
       "functions": [
         "leader"
       ],
@@ -91,6 +92,7 @@
       "id": "ayelen-usandizaga",
       "name": "Ayelen Usandizaga",
       "country": "argentina",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -152,6 +154,7 @@
       "id": "belen-moran-galvarici",
       "name": "Belen Moran Galvarici",
       "country": "argentina",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -213,6 +216,7 @@
       "id": "esteban-almengor",
       "name": "Esteban Almengor",
       "country": "panama",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -274,6 +278,7 @@
       "id": "dayra-gonzalez",
       "name": "Dayra Gonzalez",
       "country": "panama",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -335,6 +340,7 @@
       "id": "ivan-guerra",
       "name": "Ivan Guerra",
       "country": "panama",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -365,6 +371,7 @@
       "id": "ingrid-villamonte",
       "name": "Ingrid Villamonte",
       "country": "panama",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -395,6 +402,7 @@
       "id": "gimena-rios",
       "name": "Gimena Rios",
       "country": "argentina",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -425,6 +433,7 @@
       "id": "florencia-zappia",
       "name": "Florencia Zappia",
       "country": "argentina",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -455,6 +464,7 @@
       "id": "marianne-lopez",
       "name": "Marianne Lopez",
       "country": "panama",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -485,6 +495,7 @@
       "id": "lourdes-rodriguez",
       "name": "Lourdes Rodriguez",
       "country": "panama",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -515,6 +526,7 @@
       "id": "leticia-torielli",
       "name": "Leticia Torielli",
       "country": "argentina",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -545,6 +557,7 @@
       "id": "mauro-coletti",
       "name": "Mauro Coletti",
       "country": "argentina",
+      "audiences": ["alumni"],
       "functions": [
         "teacher"
       ],
@@ -575,6 +588,7 @@
       "id": "mark-hazleton",
       "name": "Mark Hazleton",
       "country": "usa",
+      "audiences": ["alumni"],
       "functions": [
         "host"
       ],
@@ -606,6 +620,7 @@
       "id": "lesley-hazleton",
       "name": "Lesley Hazleton",
       "country": "usa",
+      "audiences": ["alumni"],
       "functions": [
         "host"
       ],
@@ -637,6 +652,7 @@
       "id": "dalia-hale",
       "name": "Dalia Hale",
       "country": "usa",
+      "audiences": ["alumni", "recruiting"],
       "functions": [
         "leader",
         "host"
@@ -702,6 +718,7 @@
       "id": "shelli-kadel",
       "name": "Shelli Kadel",
       "country": "usa",
+      "audiences": ["alumni", "recruiting"],
       "functions": [
         "leader",
         "host"
@@ -767,6 +784,7 @@
       "id": "ed-frey",
       "name": "Ed Frey",
       "country": "usa",
+      "audiences": ["alumni"],
       "functions": [
         "host"
       ],
@@ -798,6 +816,7 @@
       "id": "robyn-sullivan",
       "name": "Robyn Sullivan",
       "country": "usa",
+      "audiences": ["alumni"],
       "functions": [
         "host"
       ],
@@ -829,6 +848,7 @@
       "id": "greg-sullivan",
       "name": "Greg Sullivan",
       "country": "usa",
+      "audiences": ["alumni"],
       "functions": [
         "host"
       ],
@@ -860,6 +880,7 @@
       "id": "mark-hansen",
       "name": "Mark Hansen",
       "country": "usa",
+      "audiences": ["alumni"],
       "functions": [
         "host"
       ],

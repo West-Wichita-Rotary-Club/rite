@@ -824,6 +824,32 @@ textarea:focus-visible {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
+.audience-cards {
+  margin-top: 8px;
+}
+
+.audience-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.audience-card.current {
+  border-top-width: 8px;
+}
+
+.audience-cta {
+  margin-top: 34px;
+}
+
+.section h2.card-title {
+  margin-top: 40px;
+}
+
+.section h2.card-title:first-of-type {
+  margin-top: 0;
+}
+
 .feedback-strip {
   background: var(--mist);
   border-top: 1px solid var(--border);
