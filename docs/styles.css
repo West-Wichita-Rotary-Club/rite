@@ -1,3 +1,7 @@
+/* Fonts sourced from the West Wichita Rotary design system
+   (bold-docs/features/0001-static-prototype-preview/prototype/_ds/west-wichita-rotary-design-system-51609796-e93d-4753-840e-30196038f3b2/tokens/typography.css) */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+
 :root {
   --rotary-gold: #f7a81b;
   --royal-blue: #17458f;
@@ -13,8 +17,8 @@
   --mist: #f4f6f9;
   --white: #ffffff;
   --border: #e2e6ec;
-  --display: "Arial Narrow", "Roboto Condensed", "Segoe UI", sans-serif;
-  --body: "Segoe UI", Arial, sans-serif;
+  --display: "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Open Sans", "Segoe UI", Arial, sans-serif;
   --shadow-card: 0 1px 3px rgba(23, 69, 143, 0.08);
 }
 

@@ -1,0 +1,26 @@
+<!-- thumbnail: root brand tile, not a dsCard -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{margin:0;padding:0;width:1280px;height:854px;overflow:hidden;}
+  .tile{display:flex;width:1280px;height:854px;}
+  .main{flex:1;background:var(--white);display:flex;align-items:center;justify-content:center;padding:0 60px;}
+  .main img{max-width:78%;max-height:60%;object-fit:contain;}
+  .strip{width:120px;display:flex;flex-direction:column;}
+  .strip div{flex:1;}
+</style>
+</head>
+<body>
+  <div class="tile">
+    <div class="main"><img src="assets/logos/WestWichitaRotary.png" alt=""></div>
+    <div class="strip">
+      <div style="background:#f7a81b;"></div>
+      <div style="background:#00a2e0;"></div>
+      <div style="background:#0067c8;"></div>
+      <div style="background:#17458f;"></div>
+    </div>
+  </div>
+</body>
+</html>
