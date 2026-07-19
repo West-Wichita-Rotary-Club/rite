@@ -20,7 +20,7 @@ Profiles include:
 
 ## Review Workflow
 
-Members can submit stories, classroom projects, curriculum resources, and media. Editors and administrators review submissions before publication for:
+Members can submit stories, classroom projects, curriculum resources, and media. Reviewers, translators, historians/archivists, and publishers review submissions before publication for:
 - Historical accuracy.
 - Student and child privacy.
 - School privacy.
@@ -28,12 +28,25 @@ Members can submit stories, classroom projects, curriculum resources, and media.
 - Bilingual quality.
 - Fit with RITE archive scope.
 
+## Roles
+
+Ratified 2026-07-19 (`creative-brief.md` §20), replacing the prior four-role model:
+
+- **Contributor** - a registered member who creates and edits their own drafts (stories, media, corrections).
+- **Reviewer** - checks a submission for completeness, relevance, and safety (child privacy, school privacy, appropriate media use) before it proceeds.
+- **Translator** - creates or reviews Spanish/English translations; AI-assisted drafts require this role's sign-off before publication.
+- **Historian or Archivist** - verifies dates, people, places, and historical accuracy against source material.
+- **Publisher** - gives final approval for public release.
+- **Administrator** - manages users, roles, access, publication state, and system configuration.
+
+One person may hold multiple roles; a given submission need not pass through every role (English-only content skips Translator, for example).
+
 ## Access Model
 
 - Public visitors can read approved public archive content.
-- Registered members can access approved member areas after review.
-- Editors can review and prepare submissions.
-- Administrators can manage users, roles, publication state, and system configuration.
+- Registered members (Contributors) can submit stories, media, and profile claims for review; they can access approved member areas after review.
+- Reviewer, Translator, Historian/Archivist, and Publisher roles review and approve submissions before they become public.
+- Administrators manage users, roles, publication state, and system configuration.
 
 ## Translation Governance
 

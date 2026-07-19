@@ -9,3 +9,4 @@ Product Owner TL;DR: These docs describe the current intended RITE system. They 
 - `privacy-and-governance.md` - roles, permissions, review workflow, and privacy rules.
 - `design-system.md` - West Wichita Rotary brand and UI conventions discovered from the prototype design system.
 - `prototype.md` - how to use the feature-local prototype as reference material without treating it as final site source.
+- `creative-brief.md` - vision, messaging, brand personality, visual direction, information architecture, and content strategy for the RITE website.

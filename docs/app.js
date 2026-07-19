@@ -66,7 +66,7 @@
       homeTitle: "From archive to community platform",
       homeIntro: "This static preview demonstrates the future public experience while the production .NET API, SQLite database, and React app are still being built.",
       stats: ["Inbound and outbound teachers since 1996", "Teachers received from Panama", "Teachers received from Argentina", "Years of partnership"],
-      areasAlt: "Rotary Areas of Focus",
+      areasAlt: "RITE: Teachers Crossing Borders — connecting educators in Wichita, Panama, and Argentina",
       nav: {
         history: "History",
         stories: "Stories",
@@ -258,7 +258,7 @@
       homeTitle: "Del archivo a una plataforma comunitaria",
       homeIntro: "Esta vista previa estatica muestra la futura experiencia publica mientras se construyen la API .NET, la base SQLite y la aplicacion React.",
       stats: ["Docentes enviados y recibidos desde 1996", "Docentes recibidos de Panama", "Docentes recibidos de Argentina", "Anos de alianza"],
-      areasAlt: "Areas de enfoque de Rotary",
+      areasAlt: "RITE: Docentes cruzando fronteras — conectando educadores en Wichita, Panama y Argentina",
       nav: {
         history: "Historia",
         stories: "Historias",
@@ -941,7 +941,7 @@
             </div>
           </div>
           <div class="hero-panel">
-            <img src="assets/areas-of-focus.png" alt="${escapeHtml(t("areasAlt"))}">
+            <img src="assets/RITE-Hero-Graphic.jpg" alt="${escapeHtml(t("areasAlt"))}">
           </div>
         </div>
       </section>
