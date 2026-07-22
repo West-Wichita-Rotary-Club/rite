@@ -1,0 +1,56 @@
+{
+  "title": "RITE Program History / Timeline Content",
+  "type": "object",
+  "required": ["modelVersion", "milestones"],
+  "properties": {
+    "modelVersion": {
+      "type": "string",
+      "description": "Version date for the static preview content model."
+    },
+    "modelNotes": {
+      "type": "object",
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "year", "title", "body"],
+        "properties": {
+          "id": { "type": "string", "description": "Stable content id for the milestone." },
+          "year": { "type": "string", "description": "Display year or year range, e.g. \"1996\" or \"2020-2023\"." },
+          "title": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "body": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "claimStatus": {
+            "type": "string",
+            "enum": ["verified_official", "verified_official_but_dated", "verified_drive", "partly_verified_official", "synthesized", "inferred", "needs_confirmation"],
+            "description": "Claim status from the RITE research package's claim_status_legend. needs_confirmation material must not be published."
+          },
+          "sourceNote": {
+            "type": "object",
+            "description": "Optional human-readable note on where this milestone's facts came from.",
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "lastVerified": {
+            "type": "string",
+            "description": "ISO date this milestone's facts were last verified against source material."
+          }
+        }
+      }
+    }
+  },
+  "productionMapping": {
+    "note": "Static preview content only. In the future .NET API / SQLite model, each milestone maps to a reviewed TimelineEvent entity. claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record, matching the same fields on Story, Resource, and participant profiles."
+  }
+}

@@ -12,9 +12,10 @@ The prototype is feature-local reference material for this repo. It is not the p
 - Bilingual English/Spanish content model.
 - Main flows: home, history timeline, story archive/detail, alumni directory, schools/clubs, registration.
 - Personas and registration fields.
-- Timeline milestones and seed narrative.
 - West Wichita Rotary visual treatment and design tokens.
 - Component behavior and visual patterns.
+
+**Superseded (2026-07-21):** the prototype's original timeline milestones and seed narrative are no longer the source of truth for factual content. Feature `0004-research-content-integration` replaced them with `docs/content/timeline.json`, sourced from the verified research package at `bold-docs/samples/rite_program_website_content.json` — treat that package, not the 0001 prototype's invented seed narrative, as the current source for history, statistics, and program copy. The prototype remains the reference for structure, flows, and visual treatment not yet reconciled against real content.
 
 ## What Not To Treat As Production Direction
 

@@ -1,69 +1,77 @@
 {
-  "modelVersion": "2026-07-18",
+  "modelVersion": "2026-07-21",
   "modelNotes": {
-    "en": "Static preview story archive content. audiences marks which audience landing views (alumni, active, recruiting) surface each story; an item with no audiences tag is treated as recruiting-visible by default.",
-    "es": "Contenido estatico del archivo de historias de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada historia; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto."
+    "en": "Static preview story archive content. audiences marks which audience landing views (alumni, active, recruiting) surface each story; an item with no audiences tag is treated as recruiting-visible by default. Stories s1-s3 from the 2026-07-18 version were retired as unsourced invented content (see bold-docs/features/0004-research-content-integration/content-audit.md); s4 was rewritten with verified facts; s5-s7 are new, sourced from the RITE research package. Spanish translations are model-drafted and unreviewed.",
+    "es": "Contenido estatico del archivo de historias de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada historia; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto. Las historias s1-s3 de la version 2026-07-18 se retiraron por ser contenido inventado sin fuente; s4 se reescribio con hechos verificados; s5-s7 son nuevas, basadas en el paquete de investigacion de RITE. Las traducciones al espanol son generadas por modelo y no revisadas."
   },
   "stories": [
-    {
-      "id": "s1",
-      "country": "panama",
-      "band": "azure",
-      "tag": { "en": "Teacher story", "es": "Historia docente" },
-      "year": "2019",
-      "title": { "en": "From Panama City to Pleasant Valley", "es": "De Ciudad de Panama a Pleasant Valley" },
-      "excerpt": {
-        "en": "Maria co-taught ESL in Wichita and helped build a sister-school partnership that still connects classrooms.",
-        "es": "Maria coenseno ESL en Wichita y ayudo a crear una alianza escolar que aun conecta aulas."
-      },
-      "author": "Maria Camarena",
-      "role": { "en": "Inbound teacher, Panama", "es": "Docente de intercambio, Panama" },
-      "audiences": ["alumni", "recruiting"]
-    },
-    {
-      "id": "s2",
-      "country": "usa",
-      "band": "gold",
-      "tag": { "en": "Host family", "es": "Familia anfitriona" },
-      "year": "2023",
-      "title": { "en": "Twelve years, nine teachers, one guest room", "es": "Doce anos, nueve docentes, una habitacion" },
-      "excerpt": {
-        "en": "The Kadel family story models how hosting turns exchange logistics into lifelong relationships.",
-        "es": "La historia de la familia Kadel muestra como hospedar crea relaciones duraderas."
-      },
-      "author": "Kadel Family",
-      "role": { "en": "Host family", "es": "Familia anfitriona" },
-      "audiences": ["alumni", "recruiting"]
-    },
-    {
-      "id": "s3",
-      "country": "argentina",
-      "band": "cranberry",
-      "tag": { "en": "Classroom exchange", "es": "Intercambio en aula" },
-      "year": "2018",
-      "title": { "en": "A weather journal across hemispheres", "es": "Un diario del clima entre hemisferios" },
-      "excerpt": {
-        "en": "A daily classroom habit became a bilingual lesson plan on seasons, measurement, and geography.",
-        "es": "Un habito diario se convirtio en un plan bilingue sobre estaciones, medicion y geografia."
-      },
-      "author": "Lucia Ferrero",
-      "role": { "en": "Inbound teacher, Argentina", "es": "Docente de intercambio, Argentina" },
-      "audiences": ["recruiting"]
-    },
     {
       "id": "s4",
       "country": "usa",
       "band": "royal",
       "tag": { "en": "Program history", "es": "Historia del programa" },
       "year": "1996",
-      "title": { "en": "The kitchen-table idea", "es": "La idea en la mesa familiar" },
+      "title": { "en": "A Rotary partnership begins", "es": "Comienza una alianza rotaria" },
       "excerpt": {
-        "en": "The founding idea connected one educator with thousands of students over a career.",
-        "es": "La idea fundadora conecto a un educador con miles de estudiantes durante una carrera."
+        "en": "Ralph and Armida Hight founded RITE as a joint project of the Rotary Club of West Wichita and the Rotary Club of West Sedgwick County-Sunrise, connecting one classroom exchange with three decades of teachers.",
+        "es": "Ralph y Armida Hight fundaron RITE como un proyecto conjunto del Club Rotario de West Wichita y el Club Rotario de West Sedgwick County-Sunrise, conectando un intercambio de aula con tres decadas de docentes."
       },
       "author": "RITE Archive",
       "role": { "en": "Program history", "es": "Historia del programa" },
-      "audiences": ["recruiting"]
+      "audiences": ["recruiting"],
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "s5",
+      "country": "usa",
+      "band": "azure",
+      "tag": { "en": "Outbound teacher story", "es": "Historia de docente de envio" },
+      "year": "2025",
+      "title": { "en": "Preserving seminar continuity in David", "es": "Preservando la continuidad del seminario en David" },
+      "excerpt": {
+        "en": "Katie Brinkman, a Wichita Spanish teacher and returning RITE participant, helped preserve seminar continuity in David and strengthen her own Spanish proficiency while supporting teachers after the formal program ended.",
+        "es": "Katie Brinkman, docente de espanol de Wichita y participante recurrente de RITE, ayudo a preservar la continuidad del seminario en David y fortalecer su propio dominio del espanol, apoyando a los docentes despues de terminado el programa formal."
+      },
+      "author": "Katie Brinkman",
+      "role": { "en": "Outbound teacher, Wichita", "es": "Docente de envio, Wichita" },
+      "audiences": ["alumni", "recruiting"],
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "s6",
+      "country": "usa",
+      "band": "turquoise",
+      "tag": { "en": "Outbound teacher story", "es": "Historia de docente de envio" },
+      "year": "2025",
+      "title": { "en": "Expanding a teaching toolbox in David and the Comarca", "es": "Ampliando un repertorio de ensenanza en David y la Comarca" },
+      "excerpt": {
+        "en": "Gaby Amparan, a Wichita English teacher and fluent Spanish speaker, led seminar work with teachers in David and the Comarca, expanding her own teaching toolbox and inspiring students and educators beyond her home school.",
+        "es": "Gaby Amparan, docente de ingles de Wichita y hablante fluida de espanol, dirigio el trabajo del seminario con docentes de David y la Comarca, ampliando su propio repertorio de ensenanza e inspirando a estudiantes y educadores mas alla de su escuela."
+      },
+      "author": "Gaby Amparan",
+      "role": { "en": "Outbound teacher, Wichita", "es": "Docente de envio, Wichita" },
+      "audiences": ["alumni", "recruiting"],
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "s7",
+      "country": "panama",
+      "band": "gold",
+      "tag": { "en": "Inbound cohort", "es": "Cohorte de recepcion" },
+      "year": "2026",
+      "title": { "en": "Four teachers, one cohort, two countries", "es": "Cuatro docentes, una cohorte, dos paises" },
+      "excerpt": {
+        "en": "Lourdes Rodriguez and Marianne Lopez from Panama, and Leticia Torielli and Mauro Coletti from Argentina, arrived in Wichita as a team, learning, growing, and building relationships together with host families, Wichita teachers, and program leaders.",
+        "es": "Lourdes Rodriguez y Marianne Lopez, de Panama, y Leticia Torielli y Mauro Coletti, de Argentina, llegaron a Wichita como un equipo, aprendiendo, creciendo y construyendo relaciones junto a familias anfitrionas, docentes de Wichita y lideres del programa."
+      },
+      "author": "RITE Archive",
+      "role": { "en": "2026 inbound cohort", "es": "Cohorte de recepcion 2026" },
+      "audiences": ["alumni", "recruiting"],
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
     }
   ]
 }

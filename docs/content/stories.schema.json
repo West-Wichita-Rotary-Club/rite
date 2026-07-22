@@ -49,12 +49,26 @@
             "type": "array",
             "description": "Audience landing views that surface this story. Closed set. A story with no audiences tag is treated as recruiting-visible by default.",
             "items": { "type": "string", "enum": ["alumni", "active", "recruiting"] }
+          },
+          "claimStatus": {
+            "type": "string",
+            "enum": ["verified_official", "verified_official_but_dated", "verified_drive", "partly_verified_official", "synthesized", "inferred", "needs_confirmation"],
+            "description": "Claim status from the RITE research package's claim_status_legend. needs_confirmation material must not be published."
+          },
+          "sourceNote": {
+            "type": "object",
+            "description": "Optional human-readable note on where this story's facts came from.",
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "lastVerified": {
+            "type": "string",
+            "description": "ISO date this story's facts were last verified against source material."
           }
         }
       }
     }
   },
   "productionMapping": {
-    "note": "Static preview content only. In the future .NET API / SQLite model, each story maps to a reviewed, editor-approved Story entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values, so the same story record can be queried per audience without duplication."
+    "note": "Static preview content only. In the future .NET API / SQLite model, each story maps to a reviewed, editor-approved Story entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values, so the same story record can be queried per audience without duplication. claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record."
   }
 }

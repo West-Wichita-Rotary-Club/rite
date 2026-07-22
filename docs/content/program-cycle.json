@@ -1,0 +1,73 @@
+{
+  "modelVersion": "2026-07-21",
+  "modelNotes": {
+    "en": "Static preview annual program cycle content sourced from the RITE research package's operating_model.annual_cycle. Spanish translations are model-drafted and unreviewed; see documentation-review.md.",
+    "es": "Contenido estatico del ciclo anual del programa basado en operating_model.annual_cycle del paquete de investigacion de RITE. Las traducciones al espanol son generadas por modelo y no revisadas."
+  },
+  "phases": [
+    {
+      "id": "phase-inbound-prep",
+      "direction": "inbound",
+      "period": { "en": "Before mid-January", "es": "Antes de mediados de enero" },
+      "title": { "en": "Inbound preparation", "es": "Preparacion de recepcion" },
+      "body": {
+        "en": "Partner networks help select participating teachers. Organizers confirm travel and schedule, recruit and match host families, build the school-visit schedule, and plan community and Rotary activities.",
+        "es": "Las redes de socios ayudan a seleccionar a los docentes participantes. Los organizadores confirman viajes y horarios, reclutan y emparejan familias anfitrionas, arman el calendario de visitas escolares y planifican actividades comunitarias y rotarias."
+      },
+      "claimStatus": "partly_verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "phase-inbound",
+      "direction": "inbound",
+      "period": { "en": "Mid-January to mid-February", "es": "De mediados de enero a mediados de febrero" },
+      "title": { "en": "Inbound program (about four weeks)", "es": "Programa de recepcion (unas cuatro semanas)" },
+      "body": {
+        "en": "Teachers of English from Panama and Argentina live with Wichita-area host families, visit a variety of schools, observe classroom practices, participate in Rotary and community activities, and share their own professional and cultural perspectives.",
+        "es": "Docentes de ingles de Panama y Argentina viven con familias anfitrionas del area de Wichita, visitan diversas escuelas, observan practicas de aula, participan en actividades rotarias y comunitarias, y comparten sus propias perspectivas profesionales y culturales."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "phase-outbound-prep",
+      "direction": "outbound",
+      "period": { "en": "School year and spring", "es": "Ano escolar y primavera" },
+      "title": { "en": "Outbound preparation", "es": "Preparacion de envio" },
+      "body": {
+        "en": "Wichita-area educators are selected and develop the seminar curriculum, prepare print and digital resources, and coordinate with Panamanian schools and Rotary partners.",
+        "es": "Se selecciona a educadores del area de Wichita, quienes desarrollan el curriculo del seminario, preparan recursos impresos y digitales, y coordinan con escuelas panamenas y socios rotarios."
+      },
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "phase-outbound",
+      "direction": "outbound",
+      "period": { "en": "June and July, summer break", "es": "Junio y julio, vacaciones de verano" },
+      "title": { "en": "Outbound program (about four weeks, including a two-week seminar)", "es": "Programa de envio (unas cuatro semanas, con un seminario de dos semanas)" },
+      "body": {
+        "en": "Wichita-area teachers travel to Panama, visit schools, share teaching resources and materials, and conduct a practical two-week seminar for teachers of English while collaborating with and learning from local educators.",
+        "es": "Docentes del area de Wichita viajan a Panama, visitan escuelas, comparten recursos y materiales didacticos, y dictan un seminario practico de dos semanas para docentes de ingles, colaborando y aprendiendo de educadores locales."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "phase-post-program",
+      "direction": "shared",
+      "period": { "en": "After return", "es": "Despues del regreso" },
+      "title": { "en": "Post-program sharing", "es": "Difusion despues del programa" },
+      "body": {
+        "en": "Teachers present their experiences to Rotary clubs, share classroom strategies with colleagues, maintain professional connections, and apply what they learned in their home schools.",
+        "es": "Los docentes presentan sus experiencias a los clubes rotarios, comparten estrategias de aula con colegas, mantienen conexiones profesionales y aplican lo aprendido en sus escuelas de origen."
+      },
+      "claimStatus": "verified_official",
+      "sourceNote": {
+        "en": "Combines verified public reporting with synthesized description of typical follow-through.",
+        "es": "Combina informacion publica verificada con una descripcion sintetizada del seguimiento tipico."
+      },
+      "lastVerified": "2026-07-21"
+    }
+  ]
+}

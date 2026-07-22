@@ -1,36 +1,86 @@
 {
-  "modelVersion": "2026-07-18",
+  "modelVersion": "2026-07-21",
   "modelNotes": {
-    "en": "Static preview resource content. audiences marks which audience landing views (alumni, active, recruiting) surface each resource; an item with no audiences tag is treated as recruiting-visible by default. Every entry here has recorded product-owner sign-off; see bold-docs/features/0003-three-audience-experience/resource-candidates.md.",
-    "es": "Contenido estatico de recursos de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada recurso; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto. Cada entrada aqui cuenta con aprobacion registrada del dueno del producto."
+    "en": "Static preview resource content. audiences marks which audience landing views (alumni, active, recruiting) surface each resource; an item with no audiences tag is treated as recruiting-visible by default. Every entry here has recorded product-owner sign-off; see bold-docs/features/0003-three-audience-experience/resource-candidates.md and bold-docs/features/0004-research-content-integration/content-candidates.md. r1 (\"Weather journal lesson plan\") was retired as unsourced invented content; r2 and r3 were revised with real, synthesized content; r4-r8 are new curriculum/toolkit resources sourced from the research package's seminar_and_curriculum. Spanish translations are model-drafted and unreviewed.",
+    "es": "Contenido estatico de recursos de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada recurso; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto. r1 se retiro por ser contenido inventado sin fuente; r2 y r3 se revisaron con contenido real sintetizado; r4-r8 son nuevos recursos curriculares basados en el paquete de investigacion. Las traducciones al espanol son generadas por modelo y no revisadas."
   },
   "resources": [
-    {
-      "id": "r1",
-      "title": { "en": "Weather journal lesson plan", "es": "Plan de clase del diario del clima" },
-      "body": {
-        "en": "Mock curriculum item for bilingual science and geography exchange.",
-        "es": "Recurso simulado para ciencias y geografia bilingue."
-      },
-      "audiences": ["active", "recruiting"]
-    },
     {
       "id": "r2",
       "title": { "en": "Host family orientation", "es": "Orientacion para familias anfitrionas" },
       "body": {
-        "en": "Mock training module for semester expectations and privacy.",
-        "es": "Modulo simulado sobre expectativas y privacidad."
+        "en": "What to expect before, during, and after hosting: reviewing the program schedule, discussing transportation and meals, including your guest in everyday family life, and sharing feedback with the RITE committee afterward.",
+        "es": "Que esperar antes, durante y despues de hospedar: revisar el calendario del programa, conversar sobre transporte y comidas, incluir a su huesped en la vida familiar cotidiana, y compartir comentarios con el comite de RITE al finalizar."
       },
-      "audiences": ["active", "recruiting"]
+      "audiences": ["active", "recruiting"],
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
     },
     {
       "id": "r3",
       "title": { "en": "Replication toolkit", "es": "Guia de replicacion" },
       "body": {
-        "en": "Mock guide for Rotary clubs planning a teacher exchange.",
-        "es": "Guia simulada para clubes que planean un intercambio docente."
+        "en": "A guide for Rotary clubs interested in starting a similar teacher exchange, covering partner selection, school relationships, program leadership, hosting, and lessons from three decades of RITE.",
+        "es": "Una guia para clubes rotarios interesados en iniciar un intercambio docente similar, que cubre seleccion de socios, relaciones escolares, liderazgo del programa, hospedaje y lecciones de tres decadas de RITE."
       },
-      "audiences": ["recruiting"]
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "r4",
+      "title": { "en": "Sound Anchors & Pronunciation Basics", "es": "Anclas de sonido y bases de pronunciacion" },
+      "body": {
+        "en": "Why English pronunciation and spelling can be inconsistent, and how picture, chant, motion, and sound anchors help students hear, feel, and reproduce English sounds, including schwa, stress, and minimal pairs.",
+        "es": "Por que la pronunciacion y ortografia del ingles pueden ser inconsistentes, y como las anclas de imagen, canto, movimiento y sonido ayudan a los estudiantes a escuchar, sentir y reproducir sonidos del ingles, incluyendo la schwa, el acento y los pares minimos."
+      },
+      "audiences": ["active", "recruiting"],
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "r5",
+      "title": { "en": "Sight Words & Reading Fluency", "es": "Palabras de uso frecuente y fluidez lectora" },
+      "body": {
+        "en": "Routines for decodable and high-frequency words, short and long vowel patterns, and close reading, with low-resource versions using hand-drawn cards, word walls, and paper word banks.",
+        "es": "Rutinas para palabras decodificables y de alta frecuencia, patrones de vocales cortas y largas, y lectura minuciosa, con versiones de bajos recursos usando tarjetas dibujadas a mano, murales de palabras y bancos de palabras en papel."
+      },
+      "audiences": ["active", "recruiting"],
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "r6",
+      "title": { "en": "Vocabulary, Cognates & Comprehensible Input", "es": "Vocabulario, cognados e insumo comprensible" },
+      "body": {
+        "en": "Total Physical Response, storytelling, Spanish-English cognates, and Picture Word Inductive Model (PWIM) strategies that build vocabulary and sentence-level output from images and comprehensible input.",
+        "es": "Respuesta fisica total, narracion de historias, cognados espanol-ingles y estrategias del Modelo Inductivo de Palabras e Imagenes (PWIM) que construyen vocabulario y produccion de oraciones a partir de imagenes e insumo comprensible."
+      },
+      "audiences": ["active", "recruiting"],
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "r7",
+      "title": { "en": "Speaking, Feedback & the Strategy Showcase", "es": "Expresion oral, retroalimentacion y la muestra de estrategias" },
+      "body": {
+        "en": "Information-gap and role-play speaking activities, structured peer feedback, and the seminar's final Strategy Showcase, where each teacher designs and demonstrates an adaptable, low-resource mini-lesson.",
+        "es": "Actividades de expresion oral con vacio de informacion y juego de roles, retroalimentacion estructurada entre pares, y la muestra final de estrategias del seminario, donde cada docente disena y demuestra una mini-clase adaptable de bajos recursos."
+      },
+      "audiences": ["active", "recruiting"],
+      "claimStatus": "synthesized",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "r8",
+      "title": { "en": "CHAMPS Classroom Management Framework", "es": "Marco de manejo de aula CHAMPS" },
+      "body": {
+        "en": "A classroom-management framework covering conversation level, how to ask for help, activity, movement, participation, and success criteria, with a simplified variant for younger learners.",
+        "es": "Un marco de manejo de aula que cubre nivel de conversacion, como pedir ayuda, actividad, movimiento, participacion y criterios de exito, con una variante simplificada para estudiantes mas jovenes."
+      },
+      "audiences": ["active", "recruiting"],
+      "claimStatus": "verified_drive",
+      "lastVerified": "2026-07-21"
     }
   ]
 }

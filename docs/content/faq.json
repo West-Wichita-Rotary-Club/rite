@@ -1,0 +1,229 @@
+{
+  "modelVersion": "2026-07-21",
+  "modelNotes": {
+    "en": "Static preview FAQ content sourced from the RITE research package's faq_draft and host_family_faq_draft. Spanish translations are model-drafted and unreviewed; see documentation-review.md. All entries carry claimStatus: synthesized (website-ready summaries derived from verified sources).",
+    "es": "Contenido estatico de preguntas frecuentes basado en faq_draft y host_family_faq_draft del paquete de investigacion de RITE. Las traducciones al espanol son generadas por modelo y no revisadas. Todas las entradas tienen claimStatus: synthesized."
+  },
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": { "en": "What does RITE stand for?", "es": "Que significa RITE?" },
+      "answer": {
+        "en": "RITE stands for Rotary Intercountry Teacher Exchange. Some historical materials use minor spelling variations, but this is the recommended public name.",
+        "es": "RITE significa Rotary Intercountry Teacher Exchange (Intercambio Internacional de Docentes de Rotary). Algunos materiales historicos usan variaciones menores de ortografia, pero este es el nombre publico recomendado."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-2",
+      "question": { "en": "What is the RITE program?", "es": "Que es el programa RITE?" },
+      "answer": {
+        "en": "RITE is a Rotary-led teacher exchange connecting the Wichita area with educators in Panama and Argentina. It combines professional development, school visits, cultural immersion, host-family experiences, and long-term relationships.",
+        "es": "RITE es un intercambio docente liderado por Rotary que conecta el area de Wichita con educadores en Panama y Argentina. Combina desarrollo profesional, visitas escolares, inmersion cultural, experiencias con familias anfitrionas y relaciones de largo plazo."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-3",
+      "question": { "en": "How does the inbound program work?", "es": "Como funciona el programa de recepcion?" },
+      "answer": {
+        "en": "Teachers from Panama and Argentina typically spend about four weeks in the Wichita area from mid-January to mid-February. They live with host families, visit schools, participate in community activities, and experience English in everyday settings.",
+        "es": "Los docentes de Panama y Argentina suelen pasar unas cuatro semanas en el area de Wichita, de mediados de enero a mediados de febrero. Viven con familias anfitrionas, visitan escuelas, participan en actividades comunitarias y viven el ingles en la vida diaria."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-4",
+      "question": { "en": "How does the outbound program work?", "es": "Como funciona el programa de envio?" },
+      "answer": {
+        "en": "Selected Wichita-area teachers travel to Panama for approximately four weeks during summer break. They visit schools, collaborate with educators, share materials, and lead a practical seminar for teachers of English.",
+        "es": "Los docentes seleccionados del area de Wichita viajan a Panama por aproximadamente cuatro semanas durante las vacaciones de verano. Visitan escuelas, colaboran con educadores, comparten materiales y dirigen un seminario practico para docentes de ingles."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-5",
+      "question": { "en": "Is RITE only for English teachers?", "es": "RITE es solo para docentes de ingles?" },
+      "answer": {
+        "en": "The program centers on English education, and inbound participants are commonly teachers of English. Public outbound profiles include educators with backgrounds in English, Spanish, literacy, and related teaching fields. Current eligibility should be confirmed by the committee.",
+        "es": "El programa se centra en la ensenanza del ingles, y los participantes de recepcion suelen ser docentes de ingles. Los perfiles publicos de envio incluyen educadores con experiencia en ingles, espanol, alfabetizacion y areas relacionadas. La elegibilidad actual debe confirmarla el comite."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-6",
+      "question": { "en": "Do outbound teachers need to speak Spanish?", "es": "Los docentes de envio necesitan hablar espanol?" },
+      "answer": {
+        "en": "Spanish ability is clearly useful, and several public participant profiles highlight it, but the available sources do not establish a current formal requirement.",
+        "es": "Saber espanol es claramente util, y varios perfiles publicos de participantes lo destacan, pero las fuentes disponibles no establecen un requisito formal actual."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-7",
+      "question": { "en": "What do teachers study in the seminar?", "es": "Que estudian los docentes en el seminario?" },
+      "answer": {
+        "en": "Topics include pronunciation, phonics, sight words, vocabulary, comprehensible input, TPR, PWIM, sentence building, reading, writing, speaking, classroom management, differentiation, assessment, and low-resource adaptations.",
+        "es": "Los temas incluyen pronunciacion, fonetica, palabras de uso frecuente, vocabulario, insumo comprensible, TPR, PWIM, construccion de oraciones, lectura, escritura, expresion oral, manejo de aula, diferenciacion, evaluacion y adaptaciones de bajos recursos."
+      },
+      "audiences": ["recruiting", "active"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-8",
+      "question": { "en": "What is a host family?", "es": "Que es una familia anfitriona?" },
+      "answer": {
+        "en": "A host family welcomes an inbound teacher into a Wichita-area home, supports everyday cultural and language immersion, and helps the teacher connect with the local schedule and community.",
+        "es": "Una familia anfitriona recibe a un docente de recepcion en un hogar del area de Wichita, apoya la inmersion cultural y linguistica cotidiana, y ayuda al docente a conectarse con el horario y la comunidad local."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-9",
+      "question": { "en": "How long does hosting last?", "es": "Cuanto dura el hospedaje?" },
+      "answer": {
+        "en": "The inbound program lasts approximately four weeks, but the exact length of an individual host assignment and whether teachers rotate among households must be confirmed for each program year.",
+        "es": "El programa de recepcion dura aproximadamente cuatro semanas, pero la duracion exacta de cada asignacion de hospedaje y si los docentes rotan entre hogares debe confirmarse cada ano del programa."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-10",
+      "question": { "en": "Who organizes RITE?", "es": "Quien organiza RITE?" },
+      "answer": {
+        "en": "The program was founded by Ralph and Armida Hight and has been supported by West Wichita and West Sedgwick County-Sunrise Rotary clubs, with additional area clubs participating. Official sources identify Dalia Hale and Shelli Kadel as long-term organizers. Current roles should be verified before publication.",
+        "es": "El programa fue fundado por Ralph y Armida Hight y ha sido apoyado por los clubes rotarios de West Wichita y West Sedgwick County-Sunrise, con la participacion de otros clubes del area. Las fuentes oficiales identifican a Dalia Hale y Shelli Kadel como organizadoras de largo plazo. Los roles actuales deben verificarse antes de publicar."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-11",
+      "question": { "en": "Which Rotary district is involved?", "es": "Que distrito de Rotary participa?" },
+      "answer": {
+        "en": "The current district is Rotary District 5680. Older documents may refer to District 5690, which merged with District 5670 to form District 5680 in 2019.",
+        "es": "El distrito actual es el Distrito 5680 de Rotary. Documentos anteriores pueden mencionar el Distrito 5690, que se fusiono con el Distrito 5670 para formar el Distrito 5680 en 2019."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "verified_official"
+    },
+    {
+      "id": "faq-12",
+      "question": { "en": "How much does the program cost?", "es": "Cuanto cuesta el programa?" },
+      "answer": {
+        "en": "Current participant costs, program coverage, sponsorship, and reimbursement policies were not available in the reviewed sources. Publish details only after committee approval.",
+        "es": "Los costos actuales para participantes, la cobertura del programa, el patrocinio y las politicas de reembolso no estaban disponibles en las fuentes revisadas. Los detalles se publicaran solo tras la aprobacion del comite."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-13",
+      "question": { "en": "How do I apply?", "es": "Como puedo postularme?" },
+      "answer": {
+        "en": "Application procedures and deadlines should be posted once approved for the current cycle. Until then, interested teachers or hosts should use the official RITE contact route.",
+        "es": "Los procedimientos y plazos de postulacion se publicaran una vez aprobados para el ciclo actual. Mientras tanto, los docentes o familias interesadas deben usar el canal de contacto oficial de RITE."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-14",
+      "question": { "en": "Can our school participate?", "es": "Nuestra escuela puede participar?" },
+      "answer": {
+        "en": "Schools can potentially host observations, demonstrations, conversations, or other professional exchange activities. The current school-partner process should be coordinated through the RITE committee.",
+        "es": "Las escuelas pueden potencialmente recibir observaciones, demostraciones, conversaciones u otras actividades de intercambio profesional. El proceso actual para escuelas asociadas debe coordinarse a traves del comite de RITE."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-15",
+      "question": { "en": "Can I donate teaching materials?", "es": "Puedo donar materiales de ensenanza?" },
+      "answer": {
+        "en": "The outbound program has historically included materials and resources. Current needs, shipping constraints, and approved donation processes should be confirmed before collecting supplies.",
+        "es": "El programa de envio ha incluido historicamente materiales y recursos. Las necesidades actuales, las limitaciones de envio y los procesos de donacion aprobados deben confirmarse antes de recolectar utiles."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "faq-16",
+      "question": { "en": "How is impact measured?", "es": "Como se mide el impacto?" },
+      "answer": {
+        "en": "Historical participation counts are available, but the website should add annual reporting on teachers, schools, host families, professional-development hours, strategy use, student reach, and continuing relationships.",
+        "es": "Existen conteos historicos de participacion, pero el sitio debe agregar reportes anuales sobre docentes, escuelas, familias anfitrionas, horas de desarrollo profesional, uso de estrategias, alcance estudiantil y relaciones continuas."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "host-faq-1",
+      "question": { "en": "How long would a teacher stay with us?", "es": "Por cuanto tiempo se quedaria un docente con nosotros?" },
+      "answer": {
+        "en": "The overall inbound program is approximately four weeks, but the exact host assignment length and whether teachers rotate among households must be confirmed for each year.",
+        "es": "El programa de recepcion dura en total aproximadamente cuatro semanas, pero la duracion exacta de la asignacion y si los docentes rotan entre hogares debe confirmarse cada ano."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "host-faq-2",
+      "question": { "en": "Do we need to be a Rotary family?", "es": "Necesitamos ser una familia rotaria?" },
+      "answer": {
+        "en": "Host families have historically been recruited through area Rotary clubs. Current eligibility for non-Rotary households should be confirmed with the RITE committee.",
+        "es": "Las familias anfitrionas historicamente se han reclutado a traves de clubes rotarios del area. La elegibilidad actual para hogares no rotarios debe confirmarse con el comite de RITE."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "host-faq-3",
+      "question": { "en": "What does a host family provide?", "es": "Que proporciona una familia anfitriona?" },
+      "answer": {
+        "en": "A safe and comfortable home base, agreed meals and transportation support, everyday conversation, and inclusion in family and community life. Exact requirements should be provided during host orientation.",
+        "es": "Un hogar seguro y comodo, comidas y apoyo de transporte acordados, conversacion cotidiana e inclusion en la vida familiar y comunitaria. Los requisitos exactos se entregan durante la orientacion para anfitriones."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "host-faq-4",
+      "question": { "en": "Do we have to entertain our guest every day?", "es": "Debemos entretener a nuestro huesped todos los dias?" },
+      "answer": {
+        "en": "No. Visiting teachers have a professional schedule and also need personal time. Ordinary family life is an important part of the cultural exchange.",
+        "es": "No. Los docentes visitantes tienen un horario profesional y tambien necesitan tiempo personal. La vida familiar cotidiana es una parte importante del intercambio cultural."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "host-faq-5",
+      "question": { "en": "How are teachers and families matched?", "es": "Como se emparejan docentes y familias?" },
+      "answer": {
+        "en": "The program collects household and participant information to consider practical and personal compatibility. The current matching process should be described by the host-family coordinator.",
+        "es": "El programa recopila informacion del hogar y del participante para considerar la compatibilidad practica y personal. El proceso actual de emparejamiento debe ser descrito por la coordinadora de familias anfitrionas."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    },
+    {
+      "id": "host-faq-6",
+      "question": { "en": "What support is available?", "es": "Que apoyo esta disponible?" },
+      "answer": {
+        "en": "The RITE committee coordinates the program and should provide schedules, contacts, expectations, and help when questions or problems arise. Specific emergency and after-hours procedures are published only after committee approval.",
+        "es": "El comite de RITE coordina el programa y debe proporcionar horarios, contactos, expectativas y ayuda ante preguntas o problemas. Los procedimientos especificos de emergencia y fuera de horario se publican solo tras la aprobacion del comite."
+      },
+      "audiences": ["recruiting"],
+      "claimStatus": "synthesized"
+    }
+  ]
+}

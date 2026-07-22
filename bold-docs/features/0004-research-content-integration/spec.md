@@ -1,0 +1,129 @@
+---
+tier: Feature
+feature_id: 0004-research-content-integration
+status: Complete
+branch: 0004-research-content-integration
+created_at: 2026-07-21
+source_request: "Research Content Integration and Site Revision — use bold-docs/samples/rite_program_website_content.json (a fresh research/content package, not an iteration of existing content) to improve the POC website."
+source_material: bold-docs/samples/rite_program_website_content.json
+---
+
+# Research Content Integration and Site Revision
+
+**Status**: Complete
+**Tier**: Feature
+
+Product Owner TL;DR: A researched content package for RITE now exists — verified program history, ready-to-publish website copy, an FAQ, permission-vetted participant profiles, curriculum detail, impact statistics, and a claim-status system that marks every fact as verified, synthesized, or needing confirmation. This feature integrates that package into the static preview: real copy replaces placeholder copy, the content model gains verification metadata, and the recruiting experience gains the missing "How the Exchange Works," "Host a Teacher," and "Impact" content the research recommends. Nothing ships without the same product-owner sign-off gate that already governs resources.
+
+## Intent
+
+The current preview proved the three-audience structure (0003) but runs on thin, partly invented content. The research package at `bold-docs/samples/rite_program_website_content.json` changes what the POC can be: a site whose copy, facts, and profiles are real, sourced, and editorially governed.
+
+Product-owner feedback from a phone review of the current preview (2026-07-21) also folds in here: the site must be genuinely mobile-first (navigation especially), lead with an upbeat, participation-and-funding-forward tone rather than history, unify the currently disjointed participation and personal-story content, and widen "teacher impact" beyond the exchange travelers themselves.
+
+The integration has six thrusts:
+
+1. **Copy revision.** Replace placeholder hero, section, and audience-landing copy with the package's `website_copy_library` and `program_identity` copy (e.g. "Teach. Learn. Connect.", the "More than a trip. More than a seminar." what-is-RITE section, the "Open your home. Expand your world." host copy), and add the drafted FAQ. Canonical naming follows the package's style rule: "Rotary Intercountry Teacher Exchange (RITE)" on first reference, "RITE" thereafter.
+2. **Verified facts.** Ground the history/timeline, founding story (1996, Ralph and Armida Hight, West Wichita + Sunrise Rotary), District 5690→5680 explanation, and impact statistics (presented explicitly as "as reported January 2023" per the package's publication instruction) in the sourced material.
+3. **Content-model extension.** Add claim-status/verification metadata (`claimStatus`, `sourceNote`, `lastVerified` or equivalent) to the content schemas, and add four new static content collections: FAQ, timeline/history, impact records, and program-cycle/annual-map data. The shape should map forward to the production API/SQLite model, echoing the package's `implementation_recommendations` entities.
+4. **Recruiting-experience gaps.** Fill the biggest holes the package's recommended information architecture exposes in the recruiting path: how the exchange works (annual cycle, inbound/outbound structure), host-family recruitment as a first-class path, and an impact section. Seed new alumni/story/resource records from the package's permission-vetted participant examples and curriculum material — subject to sign-off (below). Curriculum and teaching-toolkit material from `seminar_and_curriculum` is seeded as `resource` records surfaced in the Community destination's resources section, not a standalone Teaching Toolkit page — consistent with the ratified big-3 nav carrying exactly three destinations.
+5. **Tone and information architecture.** Lead with an active, vibrant, forward-looking community seeking participation and funding — not with history. "History" leaves the top navigation and nests inside About; the timeline and founding story remain reachable and respected, but they support the pitch rather than lead it. Resolve the disjointed split between the participation section and the about/history personal stories: personal stories are the program's strongest asset and should be woven into the participation path as evidence ("here's what participating looks like"), not stranded in a separate archival section.
+6. **Mobile-first revision.** The preview must render well on phones as the primary target, not as an afterthought. Navigation components are the known worst offenders and get redesigned mobile-first; all revised and new views are built and verified at phone widths first, then scaled up.
+
+Two messaging requirements shape the impact and story content throughout:
+
+- **The multiplier is the story.** Teacher impact is not limited to the exchange travelers. Outbound teachers carry lessons and resources into large teacher-training sessions in Panama, so the far larger population is the teachers who attend those seminars and the students they reach afterward — the package's `benefits_to_participating_teachers_in_panama`, "Seminar attendees" impact dimension, and impact-chain material support this directly. Impact framing distinguishes exchange teachers from benefiting teachers and leads with the multiplier.
+- **The inbound cohort models diversity and teamwork.** Teachers from Panama and Argentina arrive as a collective team that learns, grows, and socializes together with host families, Wichita teachers, and program leaders — a living example of cross-cultural collaboration. Inbound content presents the cohort experience and its community connections, not just individual profiles.
+
+This is a static-preview revision, not the production build: everything stays within the 0001/0003 constraints (static JSON content, no backend, browser-only mock features).
+
+## Editorial governance (backbone principle 3)
+
+The package itself mandates review discipline, and it aligns with the backbone's publication gate:
+
+- Every seeded content record carries the package's claim status; `needs_confirmation` material is not published.
+- Named individuals (2025/2026 participants, founders, coordinators) are seeded only with recorded product-owner sign-off per name, mirroring the 0003 resource sign-off log.
+- The dated 2023 statistics are always presented with their as-of date; no invented current totals.
+- No photos from the research Drive are used — the package explicitly withholds photo publication rights.
+- Financial/donation copy avoids deductibility or designated-use promises per the package's publication warning.
+
+## Acceptance Criteria
+
+- The recruiting/education path (hero, home, recruit landing) uses copy drawn from the research package's copy library verbatim, led by the "Teach. Learn. Connect." hero, with the canonical program name style applied site-wide.
+- An FAQ section exists, populated from the package's FAQ draft, tagged for the appropriate audiences.
+- A "How the Exchange Works" presentation exists in the recruiting path covering the annual cycle and the inbound/outbound structure, sourced from `operating_model`.
+- Host-family recruitment appears as a first-class recruiting path using the package's host-page copy and host FAQ.
+- An impact presentation exists as dashboard-style stat tiles using only verified figures, each tile labeled with its as-of date, the 2026 cohort shown as the current-year figure, all framed per the package's publication instructions.
+- The history/timeline content reflects the package's verified timeline, founders, and district-merger note.
+- Content schemas carry claim-status/verification metadata, each documented with a `productionMapping` note describing its future API/SQLite entity (matching the pattern in `docs/content/resources.schema.json`); seeded records populate it.
+- Each of the four new content fetches (FAQ, timeline, impact, program-cycle) has loading and error states matching the existing `alumniLoadStatus`/`alumniLoadError` pattern; a fetch failure degrades gracefully without leaving its section blank or breaking the rest of the page.
+- Curriculum/teaching-toolkit content from `seminar_and_curriculum` (seminar modules, teaching strategies, resource downloads) is seeded as `resource` records and surfaced within the Community destination's resources section — no standalone "Teaching Toolkit" page or fourth primary destination is introduced.
+- New participant/story/resource records seeded from the package have per-record product-owner sign-off recorded in this feature's folder before appearing in committed content JSON; no `needs_confirmation` material is published.
+- No photos from the research Drive appear, and none of the private-data categories `privacy-and-governance.md` withholds from candidate extraction (contact details, addresses, dates of birth, emergency contacts, allergies, or other sensitive personal data) appear; no financial promises appear.
+- All new visible copy exists in both English and Spanish (translation of the package's English-only copy is in scope) and renders under the Spanish toggle.
+- Existing preview content has been audited against the research package: superseded content is replaced, unsourced invented content is retired, and no contradictions between old and new content remain visible.
+- All new visible copy's Spanish translations are model-drafted and flagged as unreviewed in content metadata.
+- The three-audience structure, audience tagging, mock member simulation, and static/no-backend constraints from 0003 are preserved and still function.
+- The top navigation carries exactly three primary destinations (the ratified big 3: About RITE, Participate, Community) plus header utilities; deeper sections, including History, are reached through sub-navigation within each destination's landing view rather than the top level.
+- The default recruiting experience leads with active-community, participation, and support/funding messaging rather than history.
+- A "Support RITE" path exists as a soft contact/interest form only — no donate-now mechanism, no tax-status or deductibility language, no commitment to any giving vehicle.
+- Personal stories are surfaced within the participation path as recruiting evidence; participation and stories no longer read as two disconnected sections.
+- Impact content distinguishes exchange teachers from the wider population of benefiting teachers (Panama seminar attendees and their students) and leads with that multiplier effect.
+- Inbound program content presents the Panama/Argentina cohort as a collective team learning and socializing with hosts, Wichita teachers, and program leaders — diversity and teamwork framing, not only individual profiles.
+- Navigation components render and operate well on phone-width viewports (no overflow, no unusable menus); all revised and new views are verified at mobile widths as the primary target.
+- UI continues to follow the West Wichita Rotary design system and remains responsive from phone widths up.
+
+## Decisions (product owner, 2026-07-21)
+
+- **Funding CTA stays simple and soft.** A "Support RITE" presence with a contact/interest form only — no donate-now button, no payment path, no tax language. The giving vehicle is genuinely undecided (dedicated 501(c)(3) vs. targeted/dedicated giving through the West Wichita Rotary Foundation), so the preview must not paint the club into a corner: copy invites conversation about supporting RITE and nothing more. Resolves open question 9.
+- **Top navigation follows a "big 3" model.** Navigation real estate is scarce, especially on phones. Instead of chunking every section into the top bar, the top level carries three primary destinations, and each destination carries a stronger sub-navigation within its landing view. The specific big 3 grouping is proposed under open question 10.
+
+## Open Questions
+
+1. ~~Participant names.~~ Resolved (clarify, 2026-07-21): **all named individuals in the package are approved for the preview** — founders, the full 2026 inbound cohort (including the two partly-verified Argentina profiles), and the 2025 outbound teachers. Each seeded name still gets its per-record sign-off line in this feature's folder; the partly-verified profiles carry their claim status visibly in the content metadata.
+2. ~~Synthesized copy.~~ Resolved (clarify, 2026-07-21): `synthesized`-status copy ships verbatim in the preview.
+3. ~~Hero choice.~~ Resolved (clarify, 2026-07-21): **"Teach. Learn. Connect."** leads the hero.
+4. ~~IA scope.~~ Resolved (clarify, 2026-07-21): the package's recommended pages map onto the ratified big-3 IA (open question 10) as follows — Home remains the existing landing/hero page; About RITE, How the Exchange Works, Impact, History, and FAQ nest under **About RITE**; For Teachers, Host a Teacher, and Stories nest under **Participate**; Stories and Resources live under **Community**. **Gallery is out of scope** (photo-rights position, consistent with editorial governance). **Teaching Toolkit has no standalone page**: its seminar modules, teaching strategies, and downloadable curriculum resources are seeded as `resource` records (per the package's `suggested_entities.resource` shape) and surfaced in the Community destination's existing resources section alongside 0003's alumni resources — not a fourth primary destination.
+5. ~~Spanish translation.~~ Resolved (clarify, 2026-07-21): model-drafted Spanish is acceptable for the preview, matching prior features; translations are flagged as unreviewed in content metadata, and the package's professional-review recommendation is deferred to production.
+6. ~~Statistics presentation.~~ Resolved (clarify, 2026-07-21): dashboard-style stat tiles, each carrying a small as-of date label; the 2026 cohort (4 inbound: 2 Panama, 2 Argentina) is approved and shown as the current-year figure.
+7. ~~Existing invented content.~~ Resolved (clarify, 2026-07-21): replace/retire. Tasks include a content audit — anything the package supersedes is replaced, anything invented without a source basis is retired, so the preview ends up fully sourced.
+8. **Source file location.** Open, but low-stakes: unless overridden during tasks, the research JSON stays at `bold-docs/samples/rite_program_website_content.json` as the upstream source of truth and derived records are copied into `docs/content/` (the spec's content-model thrust already assumes this shape).
+9. ~~Funding call to action.~~ Resolved — see Decisions: simple "Support RITE" contact/interest form, no donate button, no tax or vehicle commitments.
+10. ~~The big 3.~~ Resolved — ratified 2026-07-21: **About RITE** (what RITE is, how the exchange works, impact, history nested, FAQ) · **Participate** (exchange and benefiting teachers, host families, volunteers, Support RITE, stories woven in) · **Community** (stories, alumni directory, resources, current-participant view). Language toggle and sign-in/account remain header utilities outside the big 3.
+
+## Tasks
+
+- [X] T001 [P] Add claim-status/verification metadata (`claimStatus`, `sourceNote`, `lastVerified`) to `docs/content/alumni.schema.json`, `docs/content/stories.schema.json`, and `docs/content/resources.schema.json`, matching `implementation_recommendations.content_model` and documenting the future API/SQLite mapping
+- [X] T002 [P] Add `docs/content/faq.schema.json` documenting the FAQ entry shape (bilingual question/answer, `audiences` tags, claim-status metadata) sourced from the package's `faq_draft`
+- [X] T003 [P] Add `docs/content/timeline.schema.json` documenting the program history/timeline entry shape (year, event, claim-status metadata) sourced from `program_history`
+- [X] T004 [P] Add `docs/content/impact.schema.json` documenting the impact-statistic record shape (metric, value, unit, `as_of` date, exchange-vs-benefiting-teacher distinction, claim-status metadata), matching `implementation_recommendations.suggested_entities.impact_record`
+- [X] T005 [P] Add `docs/content/program-cycle.schema.json` documenting the annual exchange-cycle shape (inbound/outbound phases, dates, four-week/two-week structure) sourced from `operating_model`
+- [X] T006 [P] Draft the candidate list of new participant/story/resource records to seed from the package (2026 inbound cohort incl. the two partly-verified Argentina profiles, 2025 outbound teachers, founders, curriculum/toolkit resources from `seminar_and_curriculum`) in `bold-docs/features/0004-research-content-integration/content-candidates.md`, and record per-record product-owner sign-off there (name, date, channel — same format as `bold-docs/features/0003-three-audience-experience/resource-candidates.md`) before any record is committed to content JSON — satisfies backbone principle 3 and resolved open question 1
+- [X] T007 [P] Audit existing content in `docs/app.js` and `docs/content/*.json` against the research package and log findings (superseded content to replace, unsourced invented content to retire) in `bold-docs/features/0004-research-content-integration/content-audit.md`
+- [X] T008 [P] Populate `docs/content/faq.json` (conforming to T002's schema) from the package's `faq_draft`, tagged for the appropriate audiences (depends on T002)
+- [X] T009 [P] Populate `docs/content/timeline.json` from `program_history` with the 1996 founding (Ralph and Armida Hight, West Wichita + Sunrise Rotary), the District 5690→5680 explanation, and claim-status metadata (depends on T003)
+- [X] T010 [P] Populate `docs/content/impact.json` from `impact_and_statistics`, each record carrying its `as_of` date (e.g. "as reported January 2023"), distinguishing exchange-teacher figures from wider benefiting-teacher figures (Panama seminar attendees and their students), and including the approved 2026 cohort (4 inbound: 2 Panama, 2 Argentina) as the current-year figure (depends on T004)
+- [X] T011 [P] Populate `docs/content/program-cycle.json` from `operating_model` describing the annual cycle, inbound/outbound structure, and four-week/two-week seminar structure (depends on T005)
+- [X] T012 [P] Update `docs/content/alumni.json` with the sign-off-approved 2026 inbound cohort and 2025 outbound teacher records from T006, including claim-status metadata (partly-verified Argentina profiles flagged) (depends on T006, T001)
+- [X] T013 [P] Update `docs/content/stories.json` with sign-off-approved participant stories from T006, tagged to surface within the Participate path as recruiting evidence and within Community (depends on T006, T001)
+- [X] T014 [P] Update `docs/content/resources.json` with sign-off-approved curriculum/teaching-toolkit resources from T006, surfaced in the Community resources section — no standalone Teaching Toolkit page (depends on T006, T001)
+- [X] T015 Retire/replace the invented content identified in T007's audit across `docs/app.js` and `docs/content/*.json`, leaving no contradictions between old and new content (depends on T007)
+- [X] T016 Rework the top navigation in `docs/app.js` (`renderHeader`, `nav` array) to carry exactly the ratified big-3 destinations (About RITE, Participate, Community) plus header utilities (language toggle, sign-in/account); remove `history` from the top-level nav array
+- [X] T017 Redesign the nav and child-nav markup/interaction in `docs/app.js` and `docs/styles.css` mobile-first — verify no overflow and usable menus at phone widths before scaling desktop styles (depends on T016)
+- [X] T017a Add loading and error states for the four new content fetches (FAQ, timeline, impact, program-cycle) in `docs/app.js`, matching the existing `alumniLoadStatus`/`alumniLoadError` pattern, so a failed fetch degrades that section gracefully instead of leaving it blank or breaking the rest of the page (depends on T008, T009, T010, T011) (resolves: critic R3, checklist CHK001)
+- [X] T018 Add the "About RITE" landing view in `docs/app.js`: mission, why RITE exists, "How the Exchange Works" fed by `docs/content/program-cycle.json`, an impact stat-tile dashboard fed by `docs/content/impact.json`, history/timeline nested via sub-navigation fed by `docs/content/timeline.json`, and FAQ fed by `docs/content/faq.json`, using T017a's loading/error-state handling for all four fetches (depends on T009, T010, T011, T008, T016, T017a)
+- [X] T019 Add the "Participate" landing view in `docs/app.js` consolidating exchange-teacher and benefiting-teacher paths, host-family recruitment (Host a Teacher copy + host FAQ from `website_copy_library`/`faq_draft`), a volunteer path, a "Support RITE" soft contact/interest form (no donate button, no tax or giving-vehicle language), and personal stories from `docs/content/stories.json` woven in as recruiting evidence; any submitted-input echoed back to the visitor (e.g. a mock confirmation) must go through the existing `escapeHtml()` helper, matching the rest of `docs/app.js` (depends on T013, T016) (resolves: critic R2, checklist CHK003)
+- [X] T020 Add the "Community" landing view in `docs/app.js` (reworking the existing alumni/active landings into it) combining stories, the alumni directory, resources (including curriculum/toolkit resources from T014), and the current-participant view, preserving the existing directory privacy presentation (depends on T014, T013, T016)
+- [X] T021 Update routing/state in `docs/app.js` (`state.view`, `render()`) to map the new About RITE / Participate / Community views and their sub-navigation, preserving existing deep-link state (`state.storyFilter`, `state.selectedStoryId`, `state.selectedAlumniId`) (depends on T018, T019, T020)
+- [X] T022 Replace the hero and home-view copy in `docs/app.js` with the package's `website_copy_library`/`program_identity` copy verbatim, led by "Teach. Learn. Connect.", applying the canonical "Rotary Intercountry Teacher Exchange (RITE)" first-reference / "RITE" thereafter naming rule site-wide (depends on T021)
+- [X] T023 Update the "what is RITE" section copy in `docs/app.js` with the "More than a trip. More than a seminar." copy from `website_copy_library` (depends on T018)
+- [X] T024 Add the "Open your home. Expand your world." host-family copy to the Host a Teacher section built in T019 (depends on T019)
+- [X] T025 Add inbound-cohort collective-team framing (Panama/Argentina teachers as a team learning and socializing with host families, Wichita teachers, and program leaders) to the Community/inbound content built in T020, sourced from `public_participant_examples` and `why_rite_exists` (depends on T020)
+- [X] T026 Add multiplier-impact framing (exchange teachers vs. the wider benefiting-teacher population — Panama seminar attendees and their students) to the impact dashboard built in T018, sourced from `teacher_value.benefits_to_participating_teachers_in_panama` and `impact_and_statistics` (depends on T018, T010)
+- [X] T027 Verify no photos from the research Drive and no financial/donation deductibility or designated-use promises appear anywhere in the revised `docs/app.js` content and `docs/content/*.json`, per the package's publication warnings (depends on T015, T019, T022-T026)
+- [X] T028 [P] Style the About RITE / Participate / Community landing views, sub-navigation, FAQ, and impact stat-tile dashboard in `docs/styles.css` using West Wichita Rotary design-system tokens, responsive from phone widths up (depends on T018, T019, T020)
+- [X] T029 Add Spanish translations for all new/revised copy in `docs/app.js` (hero, About RITE, Participate, Community, FAQ, impact tiles, Support RITE form) and flag them as unreviewed/model-drafted in the relevant content metadata (depends on T022, T023, T024, T025, T026)
+- [X] T030 Verify every new and revised label/view renders correctly with the Spanish language toggle active (depends on T029)
+- [X] T031 [P] Update `docs/README.md` describing the new content documents (`faq.json`, `timeline.json`, `impact.json`, `program-cycle.json`), the big-3 navigation, and the claim-status content model
+- [X] T032 Verify locally through a static server, mobile width first then desktop: big-3 navigation renders and operates on phone widths with no overflow, About RITE/Participate/Community content loads correctly, FAQ/impact/timeline/program-cycle JSON fetch with loading/error states, hero reads "Teach. Learn. Connect.", History is reachable only within About (not top nav), the Support RITE form has no donate mechanism, the EN/ES toggle covers all new copy, existing three-audience/mock-registration/static-only behavior from 0003 still functions **including a returning demo user's existing `localStorage` mock account, claim, and memory data resolving correctly against the reworked routing/state**, and no console errors or broken deep links appear (depends on T015–T031, T017a) (resolves: critic R1, checklist CHK002)
+- [X] T033 Review every doc in `bold-docs/system/` (`README.md`, `architecture.md`, `creative-brief.md`, `design-system.md`, `privacy-and-governance.md`, `product.md`, `prototype.md`) and `docs/README.md` against this feature's ratified decisions and current repo state; log a current/needs-update/obsolete classification for each in `bold-docs/features/0004-research-content-integration/documentation-review.md`. Update in place any doc that is not 100% current — at minimum reconciling analyze findings S1 (`creative-brief.md` §14's now-superseded IA resolution), S2 (the translation-review-before-publication conflict in `creative-brief.md`/`privacy-and-governance.md`), and S3 (`product.md`'s incomplete historical anchors) — and flag any doc that is wholly superseded as an archival candidate for `bold.ship harvest` to action (harvest is the only command that writes to `.archive/`, so this task classifies and updates but does not move files itself) (resolves: analyze S1, S2, S3) (depends on T001–T032)
