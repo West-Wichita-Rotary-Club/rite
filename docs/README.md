@@ -1,6 +1,6 @@
 # RITE Static Preview
 
-Product Owner TL;DR: This folder is the GitHub Pages preview for the RITE prototype. It is static, self-contained, and mocks future API behavior locally. The preview serves three audiences — alumni, current participants, and recruiting prospects — with recruiting/education as the default anonymous-visitor experience.
+Product Owner TL;DR: This folder is the GitHub Pages preview for the RITE prototype. It is static, self-contained, and mocks future API behavior locally. Navigation follows a "big 3" model — About RITE, Participate, Community — with content sourced from a researched content package and every claim tagged with a verification status. The default anonymous-visitor experience leads with active-community and participation messaging rather than history.
 
 ## Run Locally
 
@@ -13,23 +13,26 @@ cd docs
 python -m http.server 8080
 ```
 
-The preview loads static JSON content from `content/alumni.json`, `content/stories.json`, and `content/resources.json`, so direct `file://` opening may not show JSON-driven content in some browsers.
+The preview loads static JSON content from `content/*.json`, so direct `file://` opening may not show JSON-driven content in some browsers.
 
-## Three-Audience Structure
+## Big-3 Navigation
 
-- The home view leads with a "what is RITE" education-first hero, then three audience entry cards: About RITE (recruiting/education), Alumni, and Current participants.
-- Each audience has its own landing view (`recruit`, `alumniLanding`, `activeLanding`) that curates and links existing sections rather than duplicating content.
-- Stories, resources, and alumni profiles all carry an `audiences` tag (`alumni`, `active`, `recruiting`) so the same content record can surface in more than one audience view. An untagged item defaults to `recruiting`-visible.
-- The active-participant view shows reviewed public-safe resources only, framed as free resources that participation enhances further.
-- The register form leads with a recruit-first interest intent; role/persona selection is one field among several rather than the opening question.
+- The top navigation carries exactly three primary destinations plus header utilities (language toggle, sign-in/account): **About RITE** (`about`) — mission, how the exchange works, impact stat tiles, with History (`history`) and FAQ (`faq`) reached via its sub-navigation; **Participate** (`participate`) — teacher and host-family paths, a volunteer/schools link, stories woven in as recruiting evidence, and the "Support RITE" soft interest form; **Community** (`community`) — the inbound cohort's collective-team story, the alumni directory (`directory`), curriculum/toolkit resources (`resources`), and the current-participant view.
+- The home view still leads with three audience entry cards (recruiting-focused, alumni, active) from the 0003 three-audience model, now routing into the big-3 views above rather than into dedicated per-audience landing views — the `audiences` tagging system underneath is unchanged.
+- `state.view` values `recruit`, `alumniLanding`, and `activeLanding` from the pre-0004 preview are aliased to `participate`/`community`/`community` respectively in `docs/app.js`, so any code or bookmark still referencing the old names resolves to the new view.
 
 ## Static Content Model
 
-- `content/alumni.json` contains the published static alumni profile content used by the directory.
-- `content/alumni.schema.json` documents the preview JSON shape for future SQLite/API mapping.
-- `content/stories.json` / `content/stories.schema.json` contain the story archive content, including `audiences` tags.
-- `content/resources.json` / `content/resources.schema.json` contain the resource content, including `audiences` tags. Every resource entry requires recorded product-owner sign-off before publication — see `bold-docs/features/0003-three-audience-experience/resource-candidates.md`.
-- Country and function labels are bilingual inside the JSON so the static preview can render English and Spanish without an API.
+- `content/alumni.json` / `.schema.json` — alumni and community profiles used by the directory.
+- `content/stories.json` / `.schema.json` — the story archive.
+- `content/resources.json` / `.schema.json` — curriculum, toolkit, and replication resources. Every entry requires recorded product-owner sign-off before publication — see `bold-docs/features/0003-three-audience-experience/resource-candidates.md` and `bold-docs/features/0004-research-content-integration/content-candidates.md`.
+- `content/faq.json` / `.schema.json` — general and host-family FAQ entries (`faq-*` and `host-faq-*` ids), sourced from the RITE research package's `faq_draft`.
+- `content/timeline.json` / `.schema.json` — the verified program history/timeline, replacing the milestones previously hard-coded in `docs/app.js`.
+- `content/impact.json` / `.schema.json` — impact stat-tile figures, each carrying an `asOf` date and a `dimension` (`exchange-teachers`, `benefiting-teachers`, or `program`) so no figure reads as a current live total.
+- `content/program-cycle.json` / `.schema.json` — the annual inbound/outbound exchange cycle behind the "How the Exchange Works" section.
+- Stories, resources, alumni profiles, and FAQ entries carry an `audiences` tag (`alumni`, `active`, `recruiting`) so the same content record can surface in more than one part of the site. An untagged item defaults to `recruiting`-visible.
+- Every content type also carries claim-status/verification metadata (`claimStatus`, optional `sourceNote`, `lastVerified`) documented per schema with a `productionMapping` note describing its future API/SQLite entity. `claimStatus` values come from the research package's `claim_status_legend`, extended with `verified_official_but_dated` and `partly_verified_official` for figures and profiles the package itself flags with those nuances. `needs_confirmation` material is never published.
+- Country and function labels are bilingual inside the JSON so the static preview can render English and Spanish without an API. Spanish translations across all content added or revised in feature 0004 are model-drafted and unreviewed (flagged in each file's `modelNotes`).
 - Alumni/community profiles are content records, not site-member accounts. Future authenticated membership should be modeled separately and can link to these profiles when appropriate.
 - Each profile carries a `participation` array of role/years records instead of a single flat role and year list, so a person's role can differ across years (e.g. teacher one year, host in later years, leader after that) without asserting a transition year nobody actually confirmed.
 - Each profile can include optional `memories`, `pictures`, and `suggestions` collections. In the preview these are static placeholders for future reviewed archive content.

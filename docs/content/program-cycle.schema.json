@@ -1,0 +1,65 @@
+{
+  "title": "RITE Annual Program Cycle Content",
+  "type": "object",
+  "required": ["modelVersion", "phases"],
+  "properties": {
+    "modelVersion": {
+      "type": "string",
+      "description": "Version date for the static preview content model."
+    },
+    "modelNotes": {
+      "type": "object",
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "direction", "period", "title", "body"],
+        "properties": {
+          "id": { "type": "string", "description": "Stable content id for the phase." },
+          "direction": {
+            "type": "string",
+            "enum": ["inbound", "outbound", "shared"],
+            "description": "Whether this phase belongs to the inbound (Panama/Argentina to Wichita) or outbound (Wichita to Panama) program, or is shared by both (e.g. post-program sharing)."
+          },
+          "period": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "title": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "body": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "claimStatus": {
+            "type": "string",
+            "enum": ["verified_official", "verified_official_but_dated", "verified_drive", "partly_verified_official", "synthesized", "inferred", "needs_confirmation"],
+            "description": "Claim status from the RITE research package's claim_status_legend. needs_confirmation material must not be published."
+          },
+          "sourceNote": {
+            "type": "object",
+            "description": "Optional human-readable note on where this phase's facts came from.",
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "lastVerified": {
+            "type": "string",
+            "description": "ISO date this phase's facts were last verified against source material."
+          }
+        }
+      }
+    }
+  },
+  "productionMapping": {
+    "note": "Static preview content only. In the future .NET API / SQLite model, each phase maps to a reviewed ProgramCyclePhase entity tied to a given ProgramYear/Exchange record. claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record."
+  }
+}

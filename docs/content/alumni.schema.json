@@ -180,9 +180,26 @@
               "confirmedAt": { "type": "string" },
               "scope": { "type": "string" }
             }
+          },
+          "claimStatus": {
+            "type": "string",
+            "enum": ["verified_official", "verified_official_but_dated", "verified_drive", "partly_verified_official", "synthesized", "inferred", "needs_confirmation"],
+            "description": "Claim status from the RITE research package's claim_status_legend. needs_confirmation material must not be published."
+          },
+          "sourceNote": {
+            "type": "object",
+            "description": "Optional human-readable note on where this profile's facts came from.",
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "lastVerified": {
+            "type": "string",
+            "description": "ISO date this profile's facts were last verified against source material."
           }
         }
       }
     }
+  },
+  "productionMapping": {
+    "note": "Static preview content only. In the future .NET API / SQLite model, each profile maps to a reviewed Person/ParticipantProfile entity; claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record, matching the same fields on Story and Resource."
   }
 }

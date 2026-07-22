@@ -1,0 +1,109 @@
+{
+  "modelVersion": "2026-07-21",
+  "modelNotes": {
+    "en": "Static preview program history content sourced from the RITE research package's program_history. Spanish translations are model-drafted and unreviewed; see documentation-review.md.",
+    "es": "Contenido estatico de historia del programa basado en program_history del paquete de investigacion de RITE. Las traducciones al espanol son generadas por modelo y no revisadas."
+  },
+  "milestones": [
+    {
+      "id": "t-1996",
+      "year": "1996",
+      "title": { "en": "The founding", "es": "La fundacion" },
+      "body": {
+        "en": "Ralph and Armida Hight initiated RITE as a joint project of the Rotary Club of West Wichita and the Rotary Club of West Sedgwick County-Sunrise.",
+        "es": "Ralph y Armida Hight iniciaron RITE como un proyecto conjunto del Club Rotario de West Wichita y el Club Rotario de West Sedgwick County-Sunrise."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-1996-2001",
+      "year": "1996-2001",
+      "title": { "en": "The Mexico era", "es": "La era de Mexico" },
+      "body": {
+        "en": "The outbound program sent Wichita-area teachers to Mexico. A 2023 official program page reported 13 outbound teachers during this period.",
+        "es": "El programa de envio llevo a docentes del area de Wichita a Mexico. Una pagina oficial del programa de 2023 reporto 13 docentes de envio durante este periodo."
+      },
+      "claimStatus": "verified_official_but_dated",
+      "sourceNote": {
+        "en": "Historical count is dated to a 2023 source.",
+        "es": "El conteo historico esta fechado a una fuente de 2023."
+      },
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-2001",
+      "year": "2001-present",
+      "title": { "en": "Panama and Argentina expansion", "es": "Expansion a Panama y Argentina" },
+      "body": {
+        "en": "The outbound destination shifted to Panama in 2001. As reported January 2023, the program had welcomed 39 inbound teachers from Panama and 45 from Argentina, and sent 61 outbound teachers to Panama since 2001.",
+        "es": "El destino de envio cambio a Panama en 2001. Segun lo reportado en enero de 2023, el programa habia recibido 39 docentes de recepcion de Panama y 45 de Argentina, y enviado 61 docentes a Panama desde 2001."
+      },
+      "claimStatus": "verified_official_but_dated",
+      "sourceNote": {
+        "en": "Figures presented only as reported January 2023, per the package's publication instruction; not a current total.",
+        "es": "Cifras presentadas solo como reportadas en enero de 2023, segun la instruccion de publicacion del paquete; no es un total actual."
+      },
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-2010",
+      "year": "2010",
+      "title": { "en": "Leadership continuity", "es": "Continuidad del liderazgo" },
+      "body": {
+        "en": "Dalia Hale and Shelli Kadel assumed major organizing responsibilities, including program coordination and host-family placement.",
+        "es": "Dalia Hale y Shelli Kadel asumieron responsabilidades importantes de organizacion, incluyendo la coordinacion del programa y la colocacion de familias anfitrionas."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-2019",
+      "year": "2019",
+      "title": { "en": "District merger", "es": "Fusion de distritos" },
+      "body": {
+        "en": "Rotary Districts 5670 and 5690 merged to form Rotary District 5680, effective July 1, 2019, the district RITE is organized under today.",
+        "es": "Los Distritos Rotarios 5670 y 5690 se fusionaron para formar el Distrito Rotario 5680, a partir del 1 de julio de 2019, el distrito bajo el cual se organiza RITE hoy."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-2020-2023",
+      "year": "2020-2023",
+      "title": { "en": "Pandemic pause and recovery", "es": "Pausa por pandemia y recuperacion" },
+      "body": {
+        "en": "Outbound activity paused during the COVID-19 period (2020-2022). In 2023, official program materials described plans to resume outbound travel following the hiatus.",
+        "es": "La actividad de envio se pauso durante el periodo de COVID-19 (2020-2022). En 2023, los materiales oficiales del programa describieron planes para reanudar los viajes de envio tras la pausa."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-2025",
+      "year": "2025",
+      "title": { "en": "Program improvements in Panama", "es": "Mejoras del programa en Panama" },
+      "body": {
+        "en": "Dalia Hale traveled to Panama with outbound teachers to help implement program improvements.",
+        "es": "Dalia Hale viajo a Panama con docentes de envio para ayudar a implementar mejoras del programa."
+      },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "t-2026",
+      "year": "2026",
+      "title": { "en": "A four-teacher cohort, and a 30-year milestone", "es": "Una cohorte de cuatro docentes, y un hito de 30 anos" },
+      "body": {
+        "en": "Four inbound teachers, two from Panama and two from Argentina, were welcomed to Wichita and stayed through mid-February, as RITE approaches its 30th year based on its 1996 founding.",
+        "es": "Cuatro docentes de recepcion, dos de Panama y dos de Argentina, fueron recibidos en Wichita y se quedaron hasta mediados de febrero, mientras RITE se acerca a su 30 aniversario basado en su fundacion en 1996."
+      },
+      "claimStatus": "verified_official",
+      "sourceNote": {
+        "en": "The 2026 inbound cohort is verified_official. The '30th year' framing is inferred from the 1996 founding date and has not been formally confirmed as an official anniversary by the committee.",
+        "es": "La cohorte de recepcion de 2026 esta verified_official. El marco del '30 aniversario' es inferido a partir de la fecha de fundacion de 1996 y no ha sido confirmado formalmente por el comite."
+      },
+      "lastVerified": "2026-07-21"
+    }
+  ]
+}

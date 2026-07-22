@@ -78,8 +78,8 @@
         "es": "Distrito 5680 de Rotary"
       },
       "summary": {
-        "en": "Founding leader whose vision helped begin the teacher exchange in 1996.",
-        "es": "Lider fundadora cuya vision ayudo a iniciar el intercambio docente en 1996."
+        "en": "Co-founder, with Ralph Hight, of RITE in 1996 as a joint project of the Rotary Club of West Wichita and the Rotary Club of West Sedgwick County-Sunrise.",
+        "es": "Cofundadora, junto con Ralph Hight, de RITE en 1996 como proyecto conjunto del Club Rotario de West Wichita y el Club Rotario de West Sedgwick County-Sunrise."
       },
       "memories": [],
       "pictures": [],
@@ -91,7 +91,54 @@
           }
         }
       ],
-      "privacy": "public-preview"
+      "privacy": "public-preview",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "ralph-hight",
+      "name": "Ralph Hight",
+      "country": "usa",
+      "audiences": [
+        "alumni",
+        "recruiting"
+      ],
+      "participation": [
+        {
+          "role": "leader",
+          "years": [
+            1996
+          ]
+        }
+      ],
+      "place": {
+        "en": "Rotary District 5680",
+        "es": "Distrito 5680 de Rotary"
+      },
+      "summary": {
+        "en": "Co-founder, with Armida Hight, of RITE in 1996 as a joint project of the Rotary Club of West Wichita and the Rotary Club of West Sedgwick County-Sunrise.",
+        "es": "Cofundador, junto con Armida Hight, de RITE en 1996 como proyecto conjunto del Club Rotario de West Wichita y el Club Rotario de West Sedgwick County-Sunrise."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [
+        {
+          "text": {
+            "en": "Add founding-era photos or documents once archive permissions are confirmed.",
+            "es": "Agregar fotos o documentos de la etapa fundadora cuando se confirmen permisos de archivo."
+          }
+        }
+      ],
+      "privacy": "public-preview",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "Claude Code chat (clarify)",
+        "confirmedAt": "2026-07-21",
+        "scope": "Public-safe founder profile fields only; see content-candidates.md item 1."
+      }
     },
     {
       "id": "ayelen-usandizaga",
@@ -524,6 +571,8 @@
       "pictures": [],
       "suggestions": [],
       "privacy": "public-preview",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
       "approval": {
         "status": "approved-for-public-preview",
         "confirmedBy": "product-owner",
@@ -559,6 +608,8 @@
       "pictures": [],
       "suggestions": [],
       "privacy": "public-preview",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
       "approval": {
         "status": "approved-for-public-preview",
         "confirmedBy": "product-owner",
@@ -594,6 +645,12 @@
       "pictures": [],
       "suggestions": [],
       "privacy": "public-preview",
+      "claimStatus": "partly_verified_official",
+      "sourceNote": {
+        "en": "Additional profile details should be checked against the complete official profile before further publication.",
+        "es": "Los detalles adicionales del perfil deben verificarse contra el perfil oficial completo antes de futuras publicaciones."
+      },
+      "lastVerified": "2026-07-21",
       "approval": {
         "status": "approved-for-public-preview",
         "confirmedBy": "product-owner",
@@ -629,6 +686,12 @@
       "pictures": [],
       "suggestions": [],
       "privacy": "public-preview",
+      "claimStatus": "partly_verified_official",
+      "sourceNote": {
+        "en": "Additional profile details should be checked against the complete official profile before further publication.",
+        "es": "Los detalles adicionales del perfil deben verificarse contra el perfil oficial completo antes de futuras publicaciones."
+      },
+      "lastVerified": "2026-07-21",
       "approval": {
         "status": "approved-for-public-preview",
         "confirmedBy": "product-owner",
@@ -738,9 +801,11 @@
         "es": "Wichita, Kansas"
       },
       "summary": {
-        "en": "RITE chair listed in 2024 and 2026 host-family grids and host-family participant in both years.",
-        "es": "Presidenta/coordinadora de RITE indicada en las listas de familias anfitrionas de 2024 y 2026, y participante como anfitriona en ambos anos."
+        "en": "RITE coordinator for the Wichita area, coordinating since 2010 according to official Rotary sources; listed in 2024 and 2026 host-family grids and a host-family participant in both years.",
+        "es": "Coordinadora de RITE para el area de Wichita desde 2010 segun fuentes oficiales de Rotary; indicada en las listas de familias anfitrionas de 2024 y 2026, y participante como anfitriona en ambos anos."
       },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
       "memories": [
         {
           "title": {
@@ -800,9 +865,11 @@
         "es": "Wichita, Kansas"
       },
       "summary": {
-        "en": "RITE co-chair listed in 2024 and 2026 host-family grids and host-family participant in 2026.",
-        "es": "Copresidenta/coordinadora de RITE indicada en las listas de familias anfitrionas de 2024 y 2026, y participante como anfitriona en 2026."
+        "en": "Long-term organizer associated with host-family coordination and placement; listed in 2024 and 2026 host-family grids and a host-family participant in 2026.",
+        "es": "Organizadora de largo plazo asociada a la coordinacion y colocacion de familias anfitrionas; indicada en las listas de familias anfitrionas de 2024 y 2026, y participante como anfitriona en 2026."
       },
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
       "memories": [
         {
           "title": {
@@ -982,6 +1049,82 @@
         "confirmationChannel": "WhatsApp",
         "confirmedAt": "2026-07-16",
         "scope": "Public-safe participant profile fields only; sensitive fields remain excluded."
+      }
+    },
+    {
+      "id": "katie-brinkman",
+      "name": "Katie Brinkman",
+      "country": "usa",
+      "audiences": [
+        "alumni",
+        "recruiting"
+      ],
+      "participation": [
+        {
+          "role": "teacher",
+          "years": [
+            2025
+          ]
+        }
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "A Wichita Spanish teacher and returning RITE participant whose continued work in David helped preserve seminar continuity, strengthen Spanish proficiency, and support teachers after the formal program.",
+        "es": "Docente de espanol de Wichita y participante recurrente de RITE, cuyo trabajo continuo en David ayudo a preservar la continuidad del seminario, fortalecer su dominio del espanol y apoyar a los docentes despues del programa formal."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "Claude Code chat (clarify)",
+        "confirmedAt": "2026-07-21",
+        "scope": "Public-safe participant profile fields only; see content-candidates.md item 2."
+      }
+    },
+    {
+      "id": "gaby-amparan",
+      "name": "Gaby Amparan",
+      "country": "usa",
+      "audiences": [
+        "alumni",
+        "recruiting"
+      ],
+      "participation": [
+        {
+          "role": "teacher",
+          "years": [
+            2025
+          ]
+        }
+      ],
+      "place": {
+        "en": "Wichita, Kansas",
+        "es": "Wichita, Kansas"
+      },
+      "summary": {
+        "en": "A Wichita English teacher and fluent Spanish speaker who led seminar work with teachers in David and the Comarca, and whose public reflection emphasized expanding her teaching toolbox and inspiring students and educators beyond her home school.",
+        "es": "Docente de ingles de Wichita y hablante fluida de espanol, que dirigio el trabajo del seminario con docentes de David y la Comarca, y cuya reflexion publica destaco la ampliacion de su repertorio de ensenanza y la inspiracion a estudiantes y educadores mas alla de su escuela."
+      },
+      "memories": [],
+      "pictures": [],
+      "suggestions": [],
+      "privacy": "public-preview",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21",
+      "approval": {
+        "status": "approved-for-public-preview",
+        "confirmedBy": "product-owner",
+        "confirmationChannel": "Claude Code chat (clarify)",
+        "confirmedAt": "2026-07-21",
+        "scope": "Public-safe participant profile fields only; see content-candidates.md item 3."
       }
     }
   ]

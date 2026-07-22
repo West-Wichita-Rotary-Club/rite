@@ -1,0 +1,62 @@
+{
+  "title": "RITE Impact Statistics Content",
+  "type": "object",
+  "required": ["modelVersion", "metrics"],
+  "properties": {
+    "modelVersion": {
+      "type": "string",
+      "description": "Version date for the static preview content model."
+    },
+    "modelNotes": {
+      "type": "object",
+      "properties": {
+        "en": { "type": "string" },
+        "es": { "type": "string" }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "value", "label", "asOf", "dimension"],
+        "properties": {
+          "id": { "type": "string", "description": "Stable content id for the metric tile." },
+          "value": { "type": "string", "description": "Display value, e.g. \"39\" or \"4\"." },
+          "label": {
+            "type": "object",
+            "required": ["en", "es"],
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "asOf": {
+            "type": "object",
+            "required": ["en", "es"],
+            "description": "Bilingual, human-readable as-of date shown on the tile, e.g. \"As reported January 2023\". Required on every tile so no figure reads as a current live total.",
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "dimension": {
+            "type": "string",
+            "enum": ["exchange-teachers", "benefiting-teachers", "program"],
+            "description": "Distinguishes teachers who traveled on exchange from the wider population of benefiting teachers (e.g. Panama seminar attendees) the multiplier framing describes, versus general program metrics."
+          },
+          "claimStatus": {
+            "type": "string",
+            "enum": ["verified_official", "verified_official_but_dated", "verified_drive", "partly_verified_official", "synthesized", "inferred", "needs_confirmation"],
+            "description": "Claim status from the RITE research package's claim_status_legend. needs_confirmation material must not be published."
+          },
+          "sourceNote": {
+            "type": "object",
+            "description": "Optional human-readable note on where this figure came from.",
+            "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
+          },
+          "lastVerified": {
+            "type": "string",
+            "description": "ISO date this figure was last verified against source material."
+          }
+        }
+      }
+    }
+  },
+  "productionMapping": {
+    "note": "Static preview content only. In the future .NET API / SQLite model, each metric maps to a reviewed ImpactRecord entity (year, metric, value, unit, source, as_of, verification_status per the research package's suggested_entities.impact_record). claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record."
+  }
+}

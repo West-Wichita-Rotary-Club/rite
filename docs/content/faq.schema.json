@@ -1,7 +1,7 @@
 {
-  "title": "RITE Resource Content",
+  "title": "RITE FAQ Content",
   "type": "object",
-  "required": ["modelVersion", "resources"],
+  "required": ["modelVersion", "faqs"],
   "properties": {
     "modelVersion": {
       "type": "string",
@@ -14,26 +14,26 @@
         "es": { "type": "string" }
       }
     },
-    "resources": {
+    "faqs": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "title", "body"],
+        "required": ["id", "question", "answer"],
         "properties": {
-          "id": { "type": "string", "description": "Stable content id for the resource." },
-          "title": {
+          "id": { "type": "string", "description": "Stable content id for the FAQ entry." },
+          "question": {
             "type": "object",
             "required": ["en", "es"],
             "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
           },
-          "body": {
+          "answer": {
             "type": "object",
             "required": ["en", "es"],
             "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
           },
           "audiences": {
             "type": "array",
-            "description": "Audience landing views that surface this resource. Closed set. A resource with no audiences tag is treated as recruiting-visible by default.",
+            "description": "Audience landing views that surface this FAQ entry. Closed set. An entry with no audiences tag is treated as recruiting-visible by default.",
             "items": { "type": "string", "enum": ["alumni", "active", "recruiting"] }
           },
           "claimStatus": {
@@ -43,21 +43,18 @@
           },
           "sourceNote": {
             "type": "object",
-            "description": "Optional human-readable note on where this resource's content came from.",
+            "description": "Optional human-readable note on where this answer's facts came from.",
             "properties": { "en": { "type": "string" }, "es": { "type": "string" } }
           },
           "lastVerified": {
             "type": "string",
-            "description": "ISO date this resource's content was last verified against source material."
+            "description": "ISO date this answer was last verified against source material."
           }
         }
       }
     }
   },
-  "reviewPolicy": {
-    "note": "Every entry requires recorded product-owner (or, in production, editor/administrator) sign-off before publication, per backbone principle 3. See bold-docs/features/0003-three-audience-experience/resource-candidates.md and bold-docs/features/0004-research-content-integration/content-candidates.md for this and the prior feature's approval records."
-  },
   "productionMapping": {
-    "note": "Static preview content only. In the future .NET API / SQLite model, each resource maps to a reviewed, editor-approved Resource entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values. claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record."
+    "note": "Static preview content only. In the future .NET API / SQLite model, each FAQ entry maps to a reviewed FaqEntry entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values. claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record."
   }
 }

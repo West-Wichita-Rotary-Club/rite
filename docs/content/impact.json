@@ -1,0 +1,67 @@
+{
+  "modelVersion": "2026-07-21",
+  "modelNotes": {
+    "en": "Static preview impact statistics sourced from the RITE research package's impact_and_statistics. Every tile carries an as-of date; none are presented as a current live total. The multiplier framing (exchange teachers vs. the wider population of benefiting teachers reached through outbound seminars) is presented as narrative copy around these tiles rather than as a fabricated figure, since the research package provides no verified count of benefiting teachers or students. Spanish translations are model-drafted and unreviewed; see documentation-review.md.",
+    "es": "Estadisticas de impacto de la vista previa estatica basadas en impact_and_statistics del paquete de investigacion de RITE. Cada tarjeta indica su fecha de referencia; ninguna se presenta como un total actual. El marco del efecto multiplicador se presenta como texto narrativo, no como una cifra inventada. Las traducciones al espanol son generadas por modelo y no revisadas."
+  },
+  "metrics": [
+    {
+      "id": "impact-panama-inbound",
+      "value": "39",
+      "label": { "en": "Teachers received from Panama", "es": "Docentes recibidos de Panama" },
+      "asOf": { "en": "As reported January 2023", "es": "Segun lo reportado en enero de 2023" },
+      "dimension": "exchange-teachers",
+      "claimStatus": "verified_official_but_dated",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "impact-argentina-inbound",
+      "value": "45",
+      "label": { "en": "Teachers received from Argentina", "es": "Docentes recibidos de Argentina" },
+      "asOf": { "en": "As reported January 2023", "es": "Segun lo reportado en enero de 2023" },
+      "dimension": "exchange-teachers",
+      "claimStatus": "verified_official_but_dated",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "impact-mexico-outbound",
+      "value": "13",
+      "label": { "en": "Teachers sent to Mexico, 1996-2001", "es": "Docentes enviados a Mexico, 1996-2001" },
+      "asOf": { "en": "As reported January 2023", "es": "Segun lo reportado en enero de 2023" },
+      "dimension": "exchange-teachers",
+      "claimStatus": "verified_official_but_dated",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "impact-panama-outbound",
+      "value": "61",
+      "label": { "en": "Teachers sent to Panama since 2001", "es": "Docentes enviados a Panama desde 2001" },
+      "asOf": { "en": "As reported January 2023", "es": "Segun lo reportado en enero de 2023" },
+      "dimension": "exchange-teachers",
+      "claimStatus": "verified_official_but_dated",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "impact-2026-cohort",
+      "value": "4",
+      "label": { "en": "2026 inbound cohort (2 Panama, 2 Argentina)", "es": "Cohorte de recepcion 2026 (2 de Panama, 2 de Argentina)" },
+      "asOf": { "en": "2026 program year", "es": "Ano de programa 2026" },
+      "dimension": "exchange-teachers",
+      "claimStatus": "verified_official",
+      "lastVerified": "2026-07-21"
+    },
+    {
+      "id": "impact-years",
+      "value": "30",
+      "label": { "en": "Years connecting Wichita, Panama, and Argentina", "es": "Anos conectando Wichita, Panama y Argentina" },
+      "asOf": { "en": "Since 1996", "es": "Desde 1996" },
+      "dimension": "program",
+      "claimStatus": "inferred",
+      "sourceNote": {
+        "en": "The 30-year figure is inferred from the 1996 founding date and has not been formally confirmed as an official anniversary by the committee.",
+        "es": "La cifra de 30 anos es inferida a partir de la fecha de fundacion de 1996 y no ha sido confirmada formalmente por el comite."
+      },
+      "lastVerified": "2026-07-21"
+    }
+  ]
+}

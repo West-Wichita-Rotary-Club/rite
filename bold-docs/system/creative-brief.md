@@ -2,11 +2,11 @@
 
 Product Owner TL;DR: This is the creative direction for the RITE Community Archive and Storytelling Platform - vision, messaging, brand personality, visual direction, information architecture, and content strategy for a bilingual site that explains RITE, preserves its history, and lets the Wichita/Panama/Argentina community contribute stories and media. It complements `product.md` (scope and roadmap), `design-system.md` (brand tokens and components), `architecture.md` (technical direction), and `privacy-and-governance.md` (consent and review workflow) - see those for system-level detail this brief assumes.
 
-## Alignment Resolution Log (2026-07-19)
+## Alignment Resolution Log (2026-07-19, updated 2026-07-21)
 
 This brief was checked against what is actually ratified and built (`backbone.md`, `product.md`, `privacy-and-governance.md`, and feature `0003-three-audience-experience`, ratified 2026-07-18). Four conflicts surfaced and were resolved by the product owner:
 
-1. **Information architecture (§14).** The three-audience front-door model (alumni / active / recruiting) - the site's actual, most recently ratified navigation structure - stays primary. This brief's topic-based page list (What Is RITE?, Our Story, Exchanges, Partners, Resources, etc.) is content organized *within* that structure and the existing topic nav (History/Stories/Schools & Clubs/Resources), not a replacement top-level nav. See the note at the top of §14.
+1. **Information architecture (§14) — superseded 2026-07-21.** The 2026-07-19 resolution below said the three-audience front-door model (alumni / active / recruiting) should stay primary and that topic content should live *within* the existing topic nav (History/Stories/Schools & Clubs/Resources) rather than a replacement top-level nav. Feature `0004-research-content-integration` (ratified 2026-07-21) replaced that topic nav with a "big 3" top-level structure — **About RITE**, **Participate**, **Community** — for exactly the reason §14 anticipated: navigation real estate is scarce, especially on phones. The audience-tagging system underneath (the `alumni`/`active`/`recruiting` tags on Story, Resource, and profile records, and the three audience entry cards on Home) is unchanged and still routes into the big-3 views. See the current §14 for the shipped structure.
 2. **Editorial roles (§20).** This brief's six-role model (Contributor, Reviewer, Translator, Historian/Archivist, Publisher, Administrator) is now the ratified target, replacing the prior four-role model. `privacy-and-governance.md` has been updated to match.
 3. **Contribution model (§19).** The no-account "Quick Contribution" path is approved to build, extending what feature `0003-mock-registration-login` shipped (account-only contribution). It needs its own feature spec before implementation - not yet scheduled.
 4. **Persona scope (§8).** This brief's eight audience segments are content/messaging lenses, not new account types. The five ratified registration personas in `backbone.md` principle 5 (Teachers, Host families, Rotary leaders, Coordinators, School administrators) are unchanged.
@@ -534,7 +534,20 @@ For production:
 
 # 14. Information Architecture
 
-**Resolved (2026-07-19):** the site's actual primary IA is the three-audience front-door model shipped in feature `0003-three-audience-experience` (ratified 2026-07-18) - alumni, active participants, and recruiting prospects, with the anonymous default oriented toward recruiting and education. That structure stays primary. The page list and topic groupings below describe content and should be organized *within* the audience landing views and the existing topic nav (History, Stories, Schools & Clubs, Resources, plus the Alumni directory) rather than stood up as a parallel top-level nav. Where a page below doesn't map cleanly onto an existing audience view or topic section, that's a signal to extend the current structure rather than fork a new one alongside it.
+**Resolved (2026-07-21, supersedes the 2026-07-19 resolution below):** the site's shipped top-level IA is the "big 3" model from feature `0004-research-content-integration` — exactly three primary nav destinations plus header utilities (language toggle, sign-in/account):
+
+- **About RITE** — mission, why RITE exists, how the exchange works, impact stat tiles, with History and FAQ reached via its sub-navigation.
+- **Participate** — teacher and host-family paths, a volunteer/schools link, personal stories woven in as recruiting evidence, and the "Support RITE" soft interest form.
+- **Community** — the inbound cohort's collective-team story, the alumni directory, curriculum/toolkit resources, and the current-participant view.
+
+The three-audience front-door model from `0003-three-audience-experience` (alumni / active / recruiting) is preserved underneath this, not replaced: Story, Resource, and profile records still carry the same `audiences` tags, and Home still leads with three audience entry cards — they now route into the big-3 views above instead of into dedicated per-audience landing views. The page list and topic groupings below (§14's original brief content) describe content and should be organized within the big-3 destinations and their sub-navigation rather than stood up as a separate parallel nav.
+
+<details>
+<summary>2026-07-19 resolution (superseded)</summary>
+
+the site's actual primary IA is the three-audience front-door model shipped in feature `0003-three-audience-experience` (ratified 2026-07-18) - alumni, active participants, and recruiting prospects, with the anonymous default oriented toward recruiting and education. That structure stays primary. The page list and topic groupings below describe content and should be organized *within* the audience landing views and the existing topic nav (History, Stories, Schools & Clubs, Resources, plus the Alumni directory) rather than stood up as a parallel top-level nav. Where a page below doesn't map cleanly onto an existing audience view or topic section, that's a signal to extend the current structure rather than fork a new one alongside it.
+
+</details>
 
 ## Primary Navigation
 
@@ -984,6 +997,8 @@ Each translated item should record:
 ## Translation Principle
 
 AI may assist with first drafts, but official historical content should be reviewed by a fluent human editor before publication.
+
+**Static-preview note (added 2026-07-21):** this principle governs *production* publication. Features `0003-three-audience-experience` and `0004-research-content-integration` ship model-drafted Spanish in the static preview (`docs/`) with translations explicitly flagged as unreviewed in each content file's `modelNotes` — the preview is evidence/visioning material, not production publication, and the professional-review step this principle requires is deferred to the production build per `bold-docs/system/prototype.md`.
 
 ---
 

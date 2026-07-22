@@ -52,6 +52,8 @@ One person may hold multiple roles; a given submission need not pass through eve
 
 English and Spanish are first-class. AI-assisted translation may be used for draft content, but fluent reviewers must verify translations before publication.
 
+**Static-preview note (added 2026-07-21):** this governs *production* publication. The static preview (`docs/`) ships model-drafted Spanish flagged as unreviewed in content metadata (see features `0003-three-audience-experience` and `0004-research-content-integration`) — the preview is visioning/evidence material per `prototype.md`, not the production publication this rule targets. The human-review step still applies before any of this content ships in production.
+
 ## Directory Privacy
 
 The alumni directory is private member functionality. Contact details and sensitive profile data should be visible only to approved members with appropriate access.
