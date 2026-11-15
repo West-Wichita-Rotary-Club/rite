@@ -38,6 +38,7 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    itself (Principles I and II), and close the remaining open items from that review: Spanish
    translations of any newly ratified copy, and the stakeholder one-pager that review deferred
    to a follow-up implementation feature.
+   - [ps-001: Apply ratified mission statement to the constitution](specs/ps-001-amend-constitution-mission.md)
 2. **Production Platform Foundation** — stand up the real ASP.NET Core + SQLite + React stack
    (constitution Principle IX); migrate the `docs/` content model and the mocked
    localStorage-backed registration/login/profiles into it for real.
@@ -48,7 +49,7 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 5. **Quality & Sustainability** — establish real test coverage and a CI gate (currently zero);
    address the bus-factor-of-1 risk named in the 2026-11-15 commit audit.
 
-No Prospective Specs exist yet under any theme. Add one with
+`ps-001` is the only Prospective Spec recorded so far. Add another with
 `/devspark-roadmap add a Prospective Spec for <outcome>`.
 
 ## Decisions
