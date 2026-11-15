@@ -432,3 +432,6 @@ FodyWeavers.xsd
 
 # DevSpark — personal overrides (never commit)
 .devspark.work/*/commands/
+
+# Generated at deploy time by .github/workflows/pages.yml — never commit a local copy.
+docs/build-info.json
