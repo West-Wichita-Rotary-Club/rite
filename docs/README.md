@@ -25,7 +25,7 @@ The preview loads static JSON content from `content/*.json`, so direct `file://`
 
 - `content/alumni.json` / `.schema.json` — alumni and community profiles used by the directory.
 - `content/stories.json` / `.schema.json` — the story archive.
-- `content/resources.json` / `.schema.json` — curriculum, toolkit, and replication resources. Every entry requires recorded product-owner sign-off before publication — see `bold-docs/features/0003-three-audience-experience/resource-candidates.md` and `bold-docs/features/0004-research-content-integration/content-candidates.md`.
+- `content/resources.json` / `.schema.json` — curriculum, toolkit, and replication resources. Every entry requires recorded product-owner sign-off before publication — see `.archive/bold-docs/features/0003-three-audience-experience/resource-candidates.md` and `.archive/bold-docs/features/0004-research-content-integration/content-candidates.md`.
 - `content/faq.json` / `.schema.json` — general and host-family FAQ entries (`faq-*` and `host-faq-*` ids), sourced from the RITE research package's `faq_draft`.
 - `content/timeline.json` / `.schema.json` — the verified program history/timeline, replacing the milestones previously hard-coded in `docs/app.js`.
 - `content/impact.json` / `.schema.json` — impact stat-tile figures, each carrying an `asOf` date and a `dimension` (`exchange-teachers`, `benefiting-teachers`, or `program`) so no figure reads as a current live total.

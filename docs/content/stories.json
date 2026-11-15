@@ -1,7 +1,7 @@
 {
   "modelVersion": "2026-07-21",
   "modelNotes": {
-    "en": "Static preview story archive content. audiences marks which audience landing views (alumni, active, recruiting) surface each story; an item with no audiences tag is treated as recruiting-visible by default. Stories s1-s3 from the 2026-07-18 version were retired as unsourced invented content (see bold-docs/features/0004-research-content-integration/content-audit.md); s4 was rewritten with verified facts; s5-s7 are new, sourced from the RITE research package. Spanish translations are model-drafted and unreviewed.",
+    "en": "Static preview story archive content. audiences marks which audience landing views (alumni, active, recruiting) surface each story; an item with no audiences tag is treated as recruiting-visible by default. Stories s1-s3 from the 2026-07-18 version were retired as unsourced invented content (see .archive/bold-docs/features/0004-research-content-integration/content-audit.md); s4 was rewritten with verified facts; s5-s7 are new, sourced from the RITE research package. Spanish translations are model-drafted and unreviewed.",
     "es": "Contenido estatico del archivo de historias de la vista previa. audiences indica en que vistas de audiencia (alumni, active, recruiting) aparece cada historia; un elemento sin la etiqueta audiences se trata como visible solo para recruiting por defecto. Las historias s1-s3 de la version 2026-07-18 se retiraron por ser contenido inventado sin fuente; s4 se reescribio con hechos verificados; s5-s7 son nuevas, basadas en el paquete de investigacion de RITE. Las traducciones al espanol son generadas por modelo y no revisadas."
   },
   "stories": [

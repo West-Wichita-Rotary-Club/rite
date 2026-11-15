@@ -1,6 +1,6 @@
 # RITE Constitution
 
-> Migrated from `bold-docs/backbone.md` (Bold's product-identity source of truth) during the
+> Migrated from `.archive/bold-docs/backbone.md` (Bold's product-identity source of truth) during the
 > 2026-11-15 switch from Bold to DevSpark. The original file is preserved in full at
 > `.archive/bold-docs/backbone.md` for history. Principle numbering and status tags
 > (`enforced`/`adopting`) carry over unchanged from that source; nothing below is a new decision.
@@ -100,7 +100,7 @@ before treating the app as production-ready.
 - **Roadmap (Phase 3):** automated host-family matching, participant dashboards, interactive
   impact reporting maps.
 - Every ratified decision and its date should be traceable, the same discipline the prior Bold
-  workflow applied via feature specs and the `bold-docs/system/creative-brief.md` resolution log
+  workflow applied via feature specs and the `.archive/bold-docs/system/creative-brief.md` resolution log
   (both preserved at `.archive/bold-docs/`).
 
 ## Governance
