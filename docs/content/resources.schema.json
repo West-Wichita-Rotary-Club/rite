@@ -55,7 +55,7 @@
     }
   },
   "reviewPolicy": {
-    "note": "Every entry requires recorded product-owner (or, in production, editor/administrator) sign-off before publication, per backbone principle 3. See .archive/bold-docs/features/0003-three-audience-experience/resource-candidates.md and .archive/bold-docs/features/0004-research-content-integration/content-candidates.md for this and the prior feature's approval records."
+    "note": "Every entry requires recorded product-owner (or, in production, editor/administrator) sign-off before publication, per constitution principle III. Approval records for this and the prior feature were recorded during features 0003 and 0004's resource-review passes."
   },
   "productionMapping": {
     "note": "Static preview content only. In the future .NET API / SQLite model, each resource maps to a reviewed, editor-approved Resource entity with a many-to-many relation to an Audience lookup table carrying the same alumni/active/recruiting values. claimStatus, sourceNote, and lastVerified map to fields on that entity's verification record."

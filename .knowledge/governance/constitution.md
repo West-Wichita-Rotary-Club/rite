@@ -1,9 +1,9 @@
 # RITE Constitution
 
-> Migrated from `.archive/bold-docs/backbone.md` (Bold's product-identity source of truth) during the
-> 2026-11-15 switch from Bold to DevSpark. The original file is preserved in full at
-> `.archive/bold-docs/backbone.md` for history. Principle numbering and status tags
-> (`enforced`/`adopting`) carry over unchanged from that source; nothing below is a new decision.
+> Migrated from Bold's `backbone.md` (its product-identity source of truth) during the 2026-11-15
+> switch from Bold to DevSpark. Principle numbering and status tags (`enforced`/`adopting`) carry
+> over unchanged from that source; nothing below is a new decision. The prior Bold workflow's
+> history is preserved in this repository's own archived work-product history, per Git.
 
 Product Owner TL;DR: RITE is the Rotary Inter-country Teacher Exchange community archive — a
 bilingual platform preserving RITE history, connecting alumni, and supporting future participation
@@ -21,14 +21,13 @@ program preserving the teacher exchange begun in 1996.
 Core scope includes the history timeline, story archive, alumni directory, school and club
 profiles, community registration, resource sharing, and future participant workflows.
 
-**Pending amendment, ratified 2026-11-15, not yet applied here:** per
-`.archive/bold-docs/features/0005-awareness-first-mission-review/spec.md`, the product owner has
-ratified shifting this principle's framing from "living archive" toward awareness, communication,
-and learning about an active program: *"RITE builds awareness of an active teacher exchange,
-connects the people who make it possible, and helps them learn from one another."* That
-amendment — along with Principle I's wording, which the same review also implicates — is scoped to
-a follow-up implementation feature and should be applied here through `/devspark-evolve-constitution`
-once that feature runs, not silently folded into this migration.
+**Pending amendment, ratified 2026-11-15, not yet applied here:** the product owner has ratified
+shifting this principle's framing from "living archive" toward awareness, communication, and
+learning about an active program: *"RITE builds awareness of an active teacher exchange, connects
+the people who make it possible, and helps them learn from one another."* That amendment — along
+with Principle I's wording, which the same review also implicated — is scoped to a follow-up
+implementation feature and should be applied here through `/devspark-evolve-constitution` once
+that feature runs, not silently folded into this migration.
 
 ### III. Privacy Review Gates Publication (NON-NEGOTIABLE)
 
@@ -48,9 +47,9 @@ users; anonymous visitors can read approved public archive content.
 
 ### VI. The Prototype Is Product Evidence
 
-`.archive/bold-docs/features/0001-static-prototype-preview/prototype/` is the archived feature
-prototype and should be used as reference material for product intent, flows, content, and visual
-direction until fully replaced by production implementation; it is not final site source.
+The original static-prototype-preview feature's prototype, preserved in this repository's history,
+should be used as reference material for product intent, flows, content, and visual direction
+until fully replaced by production implementation; it is not final site source.
 
 ### VII. Use the West Wichita Rotary Design System (NON-NEGOTIABLE)
 
@@ -100,12 +99,11 @@ before treating the app as production-ready.
 - **Roadmap (Phase 3):** automated host-family matching, participant dashboards, interactive
   impact reporting maps.
 - Every ratified decision and its date should be traceable, the same discipline the prior Bold
-  workflow applied via feature specs and the `.archive/bold-docs/system/creative-brief.md` resolution log
-  (both preserved at `.archive/bold-docs/`).
+  workflow applied via feature specs and its creative brief's resolution log.
 
 ## Governance
 
-This constitution supersedes `.archive/bold-docs/backbone.md` as RITE's current, authoritative
+This constitution supersedes Bold's `backbone.md` as RITE's current, authoritative
 product-identity document. Amendments follow DevSpark's own governance commands
 (`/devspark-evolve-constitution`, `/devspark-discover-constitution`) rather than direct edits.
 

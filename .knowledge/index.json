@@ -1,0 +1,60 @@
+{
+  "generated": {
+    "by": "build-knowledge-index",
+    "at": "2026-11-15T16:23:27Z"
+  },
+  "roots": [
+    {
+      "path": ".devspark/",
+      "owner": "framework",
+      "purpose": "framework payload"
+    },
+    {
+      "path": ".devspark.work/",
+      "owner": "repo",
+      "purpose": "work products"
+    },
+    {
+      "path": ".knowledge/",
+      "owner": "repo",
+      "purpose": "current authoritative knowledge and published user-facing guidance"
+    },
+    {
+      "path": ".archive/",
+      "owner": "repo",
+      "purpose": "landing place for old work products, grouped by release"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "governance-constitution",
+      "type": "governance",
+      "form": "flat-document",
+      "role": "governance",
+      "path": ".knowledge/governance/constitution.md",
+      "title": "RITE Constitution",
+      "headings": [
+        "RITE Constitution",
+        "Core Principles",
+        "I. Product Identity Is Fixed (NON-NEGOTIABLE)",
+        "II. The Product Is a Living Archive and Community Platform (NON-NEGOTIABLE — pending ratified amendment)",
+        "III. Privacy Review Gates Publication (NON-NEGOTIABLE)",
+        "IV. English and Spanish Are First-Class (NON-NEGOTIABLE)",
+        "V. Primary Personas Are Explicit (NON-NEGOTIABLE)",
+        "VI. The Prototype Is Product Evidence",
+        "VII. Use the West Wichita Rotary Design System (NON-NEGOTIABLE)",
+        "VIII. Use System Primitives and Tokens in Production UI (adopting)",
+        "IX. Production Architecture Is .NET API Plus Standalone React (NON-NEGOTIABLE)",
+        "X. Azure Is the Hosting and Media Direction (adopting)",
+        "XI. Testing and CI Are Not Yet Established (adopting)",
+        "Additional Constraints",
+        "Development Workflow",
+        "Governance"
+      ]
+    }
+  ],
+  "edges": [],
+  "dangling_references": [],
+  "entities": [],
+  "stale_entities": []
+}
