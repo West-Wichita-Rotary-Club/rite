@@ -42,14 +42,20 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 2. **Production Platform Foundation** — stand up the real ASP.NET Core + SQLite + React stack
    (constitution Principle IX); migrate the `docs/` content model and the mocked
    localStorage-backed registration/login/profiles into it for real.
+   - [ps-002: Stand up the production platform foundation](specs/ps-002-platform-foundation.md)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
+   - [ps-003: School and club profile pages](specs/ps-003-school-club-pages.md)
 4. **Engagement & Insight** — automated host-family matching, participant dashboards,
    interactive impact reporting maps.
+   - [ps-004: Participant dashboards](specs/ps-004-participant-dashboards.md)
 5. **Quality & Sustainability** — establish real test coverage and a CI gate (currently zero);
    address the bus-factor-of-1 risk named in the 2026-11-15 commit audit.
+   - [ps-005: Establish test coverage and a CI gate](specs/ps-005-test-coverage-ci.md)
 
-`ps-001` is the only Prospective Spec recorded so far. Add another with
+`ps-001`–`ps-005` are the Prospective Specs recorded so far — each the first right-sized increment
+under its theme; the remaining bundled outcomes named in Themes 3 and 4 above are intentionally
+deferred to later specs under those same themes. Add another with
 `/devspark-roadmap add a Prospective Spec for <outcome>`.
 
 ## Decisions
@@ -58,6 +64,10 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   and approved by the product owner in this session. Basis: the ratified 2026-11-15 mission
   statement, the constitution's existing Phase 1–3 roadmap sketch, and the gaps surfaced by the
   same day's site audit and commit audit.
+- **2026-11-15** — The bus-factor-of-1 risk named in the 2026-11-15 commit audit is tracked here
+  as an accepted, known risk for this volunteer-run program, not as a Prospective Spec: it is not
+  an application capability to deliver. Revisit explicitly (a documented handoff path, or a second
+  active contributor) rather than leaving it implicit indefinitely.
 
 ## Delivered
 
