@@ -1,15 +1,17 @@
 ---
 tier: Feature
 feature_id: 0005-awareness-first-mission-review
-status: Draft
+status: Complete
 branch: 0005-awareness-first-mission-review
 created_at: 2026-07-22
+ratified_at: 2026-11-15
+completed_at: 2026-11-15
 source_request: "Write up the formal review with ideas for how to influence/change the RITE site" — following a conversation where the product owner said RITE's mission has changed to lead with awareness, communication, and learning rather than looking back at history, and asked for a benchmark review of rotaryyouthexchangekansas.org (a sister Rotary exchange program, not RITE) for inspiration.
 ---
 
 # Awareness-First Mission Review
 
-**Status**: Draft
+**Status**: Complete (ratified 2026-11-15)
 **Tier**: Feature
 
 Product Owner TL;DR: The product owner now wants RITE to lead with awareness, communication, and learning about an active program — not with "living archive" / history-first framing. That's bigger than a copy tweak: `bold-docs/backbone.md` principles 1 and 2 currently define RITE's product identity itself around preservation and archive. This feature is the formal review that documents the case for that shift, benchmarks a comparable sister program (Rotary Youth Exchange Kansas) for concrete patterns worth borrowing, and lays out specific, individually-reviewable proposed changes — packaged so former teachers, host families, and program leaders can react to it and the product owner can ratify a decision. It does not touch `docs/` production content; implementation is a follow-up feature once stakeholder buy-in is recorded, the same sequencing 0004 followed after its own tone/IA decisions were ratified 2026-07-21. The product owner has already ratified two points during this review (2026-07-22): History stays exactly where 0004 put it (nested under About, no further demotion), and the RYE Kansas benchmark must be read through the gap between the two programs — RITE is less publicly known, is a ~4-week adult-teacher commitment rather than a year-long teen exchange, and sells on professional multiplier impact rather than personal transformation. See Decisions below.
@@ -23,6 +25,16 @@ Three things converged to trigger this review:
 3. **A useful external benchmark.** `rotaryyouthexchangekansas.org` (Rotary Youth Exchange, Districts 5710/5680 — a different program, not RITE) demonstrates several concrete patterns for leading with mission and action while treating history as a credibility badge rather than a destination. Full findings below.
 
 The purpose of this feature is to turn all three into a single, formal, stakeholder-reviewable document — not to edit `docs/app.js` or any shipped content yet.
+
+## Backbone Principles At Stake
+
+Quoted verbatim from `bold-docs/backbone.md` (both `status: enforced`) — a ratified mission reframe (Proposed Change 1 below) would need to formally amend these, not just change site copy around them:
+
+> 1. **Product identity is fixed.** RITE means Rotary Inter-country Teacher Exchange, a West Wichita Rotary / Rotary District 5680 program preserving the teacher exchange begun in 1996.
+>
+> 2. **The product is a living archive and community platform.** Core scope includes the history timeline, story archive, alumni directory, school and club profiles, community registration, resource sharing, and future participant workflows.
+
+No amendment to either principle happens as part of this review — this document only identifies that they are the specific principles a ratified change would need to revise, and that the amendment itself (who edits `backbone.md`, what review it gets, and whether it happens before or after the follow-up implementation feature starts building) is an explicit step of that follow-up feature's scope, not an incidental edit buried in a later content PR.
 
 ## Benchmark Findings: Rotary Youth Exchange Kansas
 
@@ -49,16 +61,27 @@ These are cited as existing proof that a sister Rotary exchange program already 
 - **This review must also be produced as a short, non-technical one-pager (or shareable rendered page) separate from this spec.** Former teachers, host families, and program leaders are the audience, and asking them to read a repo-hosted spec.md is a real barrier to real feedback. Producing that one-pager is deferred as a follow-up task (not part of this spec's Acceptance Criteria, which cover the internal spec document itself). Resolves open question 4 below.
 - **Stakeholder feedback closes 2026-08-21 (two weeks from this review's 2026-08-07 clarification pass), after which the product owner ratifies a decision.** Resolves open question 5 below.
 
+## Ratification (product owner, 2026-11-15)
+
+The 2026-08-21 feedback window closed with no recorded objections, and the broader-outreach email / one-pager planned to precede ratification (Decisions above, Open Questions 3-4) was never produced. Rather than leave this feature stalled indefinitely, the product owner reviewed the outstanding items directly in a planning session on 2026-11-15 and made the final calls needed to close this review out, superseding the "broader outreach must happen first" sequencing from the 2026-08-07 decisions:
+
+- **The mission-statement reframe (Proposed Change 1) is ratified as drafted.** Final wording: *"RITE builds awareness of an active teacher exchange, connects the people who make it possible, and helps them learn from one another."* This is the candidate direction already in this spec — no change in substance, just promoted from candidate to ratified. Resolves Open Question 1.
+- **Proposed Changes 3, 4, 5, and 6** (benefits/how-it-works list, one real story in context, program calendar/cycle view, forms closer to the decision point) are ratified as reframed in this document — no further changes to their wording were requested.
+- **Three months of silence following the informal positive signal already in hand (Intent, point 2) is treated as sufficient, in place of the broader-outreach email this review originally called for.** The product owner, not a stakeholder vote, is this repo's decision-maker for mixed or absent feedback (per Stakeholder Review Process above) and is exercising that authority to close this out now rather than let it stay unratified indefinitely.
+- **Implementation — including the actual amendment of `bold-docs/backbone.md` principles 1-2, the Spanish-language equivalents of any new copy (per the Bilingual note under Proposed Changes), and the one-pager that was never produced — is scoped to a follow-up implementation feature, not this one.** This feature's Acceptance Criteria are about the review document itself and are unaffected by ratification; no file under `docs/` or `bold-docs/backbone.md` changes as part of 0005.
+
 ## Proposed Changes
 
 Each item below is written to stand alone, so a stakeholder can agree, disagree, or ask a question about it individually rather than approving or rejecting the whole review at once. Items marked **(rejected)** or **(reframed)** already reflect the product owner's 2026-07-22 decisions above.
 
-1. **Revise the mission statement itself.** Replace "RITE is a living archive and community platform" framing (backbone principle 2, `project.json` `product.summary`) with language centered on awareness, communication, and learning about an active, ongoing exchange — while still doing more explaining/educating than RYE Kansas's compressed model, since RITE isn't yet publicly recognized the way Youth Exchange is. Candidate direction: *"RITE builds awareness of an active teacher exchange, connects the people who make it possible, and helps them learn from one another"* — exact wording open for stakeholder input (see Open Questions).
+1. **(ratified, 2026-11-15)** Revise the mission statement itself. Replace "RITE is a living archive and community platform" framing (backbone principle 2, `project.json` `product.summary`) with language centered on awareness, communication, and learning about an active, ongoing exchange — while still doing more explaining/educating than RYE Kansas's compressed model, since RITE isn't yet publicly recognized the way Youth Exchange is. **Ratified wording:** *"RITE builds awareness of an active teacher exchange, connects the people who make it possible, and helps them learn from one another."* See Ratification above.
 2. ~~Demote history further than 0004 already did.~~ **(rejected, 2026-07-22)** — History stays nested under About exactly as 0004 shipped it. No badge-only treatment.
 3. **(reframed)** Adopt a "Program Benefits" / "How the Exchange Works" list pattern, mirroring RYE Kansas's short, concrete bullets — but written around a ~4-week professional exchange for an adult teacher, not a year-long immersive experience for a teenager. Benefit language should speak to professional development and classroom impact, not personal-growth-abroad framing.
 4. **(reframed)** Feature one real story in context, not a story archive as a primary destination. Keep the full Community story archive, but pull a single current, real story (e.g., a 2026 inbound teacher or 2025 outbound teacher already sourced in 0004's content) directly into the Home/About/Participate flow at the decision point — framed around the teacher's professional impact and the many children it reaches, not a personal cultural-immersion narrative.
 5. **(reframed)** Add a literal program calendar/cycle view, extending 0004's `program-cycle.json` (already modeled from `operating_model`), scaled to RITE's actual annual cycle and ~4-week/2-week seminar structure — not a year-long timeline like RYE's application calendar.
 6. **Bring interest/request forms closer to the point of decision.** RYE Kansas embeds request-info forms directly on the Students/Host pages. Evaluate whether RITE's "Support RITE" soft interest form (shipped in 0004) and any future teacher/host interest paths should move from a single consolidated location to being embedded at the relevant decision points — keeping the ask *very* soft per the funding decision above.
+
+**Bilingual note:** Proposed Changes 1, 3, and 4 all introduce new English-language user-facing copy (mission statement, benefits/how-it-works list, featured-story placement). Backbone principle 4 ("English and Spanish are first-class," `status: enforced`) and `project.json`'s `content.translation_policy` (AI-assisted translation with fluent-reviewer verification before publication) apply to any of this copy that ships. This review doesn't need to produce Spanish wording itself — that belongs to the follow-up implementation feature — but no ratified English wording ships without its Spanish equivalent going through the same review.
 
 ## Stakeholder Review Process
 
@@ -81,8 +104,26 @@ Each item below is written to stand alone, so a stakeholder can agree, disagree,
 
 ## Open Questions
 
-1. **Exact mission-statement wording.** A candidate direction is offered above; final wording is open pending stakeholder and product-owner input.
+1. ~~Exact mission-statement wording.~~ Resolved (product owner, 2026-11-15): **"RITE builds awareness of an active teacher exchange, connects the people who make it possible, and helps them learn from one another."** See Ratification above.
 2. ~~How far History gets demoted.~~ Resolved (product owner, 2026-07-22): **stays exactly where 0004 put it — nested under About, no badge-only treatment.**
 3. ~~Which stakeholder group ratifies.~~ Resolved (product owner, 2026-08-07): **the broader-outreach email must specifically surface these numbered proposed changes before ratification; informal signal on the general preview alone is not sufficient.**
 4. ~~Format for circulation.~~ Resolved (product owner, 2026-08-07): **yes, produce a short non-technical one-pager/shareable rendered page separate from this spec — a follow-up task, not an edit to this document.**
 5. ~~Deadline for feedback.~~ Resolved (product owner, 2026-08-07): **feedback closes 2026-08-21.**
+
+## Tasks
+
+Generated 2026-11-15 against the ratified spec. Each traces to an Acceptance Criterion above; all content tasks are already satisfied by this document as written. T015 is explicitly out of this feature's Acceptance Criteria (see Decisions/Open Question 4) and carried over as deferred scope rather than left untracked.
+
+- [x] T001 Create `spec.md` with a current-state summary (backbone principles 1-2, existing `creative-brief.md` resolution log), the benchmark findings, and a numbered list of proposed changes (resolves: AC1)
+- [x] T002 Write every Proposed Change as a standalone item a non-technical stakeholder can react to without reading code or prior specs (resolves: AC2)
+- [x] T003 Separate ratified Decisions/Ratification sections from the still-individually-reviewable Proposed Changes list (resolves: AC3)
+- [x] T004 Document which stakeholder group already gave informal input versus who the (since-superseded) broader outreach targeted (resolves: AC4)
+- [x] T005 Confirm and state that no file under `docs/` changes as part of this feature (resolves: AC5)
+- [x] T006 Add a "Backbone Principles At Stake" section quoting principles 1 and 2 verbatim and flagging them as the amendment target (resolves: AC6; also resolves: `gates/analyze.md` finding 1, `gates/critic.md` finding 1)
+- [x] T007 Cite `rotaryyouthexchangekansas.org` with the 2026-07-22 review date in Benchmark Findings, paraphrased rather than verbatim-copied (resolves: AC7)
+- [x] T008 Document where the RYE Kansas benchmark does not transfer to RITE (public recognition, commitment length, participant framing) (resolves: AC8)
+- [x] T009 State plainly that History's placement (nested under About, per 0004) is unchanged by this review (resolves: AC9)
+- [x] T010 Add the "Bilingual note" addressing backbone principle 4 for all new copy in Proposed Changes (resolves: `gates/analyze.md` finding 3, `gates/critic.md` finding 4)
+- [x] T011 Add a third entry to `bold-docs/system/creative-brief.md`'s Alignment Resolution Log reflecting this feature's decisions and ratification (resolves: `gates/analyze.md` finding 2)
+- [x] T012 Record the product owner's 2026-11-15 ratification decision (mission wording finalized, outreach-sequencing override, implementation scope deferred) in a dedicated Ratification section (resolves: `gates/analyze.md` finding 4, `gates/critic.md` finding 2)
+- [ ] T013 [DEFERRED] Produce the stakeholder one-pager and, if still wanted post-ratification, circulate it — scoped to the follow-up implementation feature, not this feature's Acceptance Criteria (tracks: `gates/critic.md` finding 3, `checklist.md` CHK003)
