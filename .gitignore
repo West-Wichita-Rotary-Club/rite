@@ -427,7 +427,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-.bold/.backup/
-
 # Local source evidence may contain private participant/contact details.
-bold-docs/samples/
+.archive/bold-docs/samples/
+
+# DevSpark — personal overrides (never commit)
+.devspark.work/*/commands/
