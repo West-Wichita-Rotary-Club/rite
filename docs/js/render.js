@@ -1260,6 +1260,21 @@ function renderFilters(kind, selected) {
   `;
 }
 
+function renderBuildInfo() {
+  if (state.buildInfoLoadStatus !== "ready" || !state.buildInfo || !state.buildInfo.builtAt) {
+    return "";
+  }
+  const builtAt = new Date(state.buildInfo.builtAt);
+  if (Number.isNaN(builtAt.getTime())) {
+    return "";
+  }
+  const formatted = new Intl.DateTimeFormat(state.lang === "es" ? "es" : "en", {
+    dateStyle: "medium",
+    timeStyle: "short"
+  }).format(builtAt);
+  return ` · ${escapeHtml(t("labels.builtLabel"))}: ${escapeHtml(formatted)}`;
+}
+
 function renderFooter() {
   return `
     <footer class="footer">
@@ -1268,7 +1283,7 @@ function renderFooter() {
           <strong>${escapeHtml(t("footerTitle"))}</strong>
           <p>${escapeHtml(t("footerSub"))}</p>
         </div>
-        <p>${escapeHtml(t("motto"))} · ${escapeHtml(t("labels.noNetwork"))}</p>
+        <p>${escapeHtml(t("motto"))} · ${escapeHtml(t("labels.noNetwork"))}${renderBuildInfo()}</p>
       </div>
     </footer>
   `;

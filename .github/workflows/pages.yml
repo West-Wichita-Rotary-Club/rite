@@ -26,6 +26,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Write build info
+        run: |
+          printf '{"builtAt":"%s","commit":"%s"}\n' \
+            "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$GITHUB_SHA" > docs/build-info.json
       - name: Upload static preview
         uses: actions/upload-pages-artifact@v3
         with:

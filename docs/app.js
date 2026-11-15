@@ -8,7 +8,8 @@ import {
   loadFaqContent,
   loadTimelineContent,
   loadImpactContent,
-  loadProgramCycleContent
+  loadProgramCycleContent,
+  loadBuildInfo
 } from "./js/content.js";
 
 initAccountState();
@@ -23,3 +24,4 @@ loadFaqContent();
 loadTimelineContent();
 loadImpactContent();
 loadProgramCycleContent();
+loadBuildInfo();

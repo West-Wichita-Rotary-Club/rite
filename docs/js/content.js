@@ -8,6 +8,7 @@ const FAQ_CONTENT_URL = "content/faq.json";
 const TIMELINE_CONTENT_URL = "content/timeline.json";
 const IMPACT_CONTENT_URL = "content/impact.json";
 const PROGRAM_CYCLE_CONTENT_URL = "content/program-cycle.json";
+const BUILD_INFO_URL = "build-info.json";
 
 export const palette = {
   azure: "azure",
@@ -118,6 +119,23 @@ export async function loadProgramCycleContent() {
     state.programCycleLoadStatus = "ready";
   } catch (_error) {
     state.programCycleLoadStatus = "error";
+  }
+  render();
+}
+
+export async function loadBuildInfo() {
+  // build-info.json only exists on a deployed GitHub Pages build (see
+  // .github/workflows/pages.yml) — its absence in local/dev preview is
+  // normal, not an error the footer should alarm the user with.
+  try {
+    const response = await window.fetch(BUILD_INFO_URL, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Build info returned ${response.status}`);
+    }
+    state.buildInfo = await response.json();
+    state.buildInfoLoadStatus = "ready";
+  } catch (_error) {
+    state.buildInfoLoadStatus = "error";
   }
   render();
 }

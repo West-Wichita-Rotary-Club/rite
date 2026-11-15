@@ -20,6 +20,8 @@ export const state = {
   impactLoadStatus: "loading",
   programCycleContent: null,
   programCycleLoadStatus: "loading",
+  buildInfo: null,
+  buildInfoLoadStatus: "loading",
   submissions: [],
   storageAvailable: false,
   accounts: {},
