@@ -1,7 +1,7 @@
 {
   "generated": {
     "by": "build-knowledge-index",
-    "at": "2026-11-15T16:23:27Z"
+    "at": "2026-11-15T17:02:52Z"
   },
   "roots": [
     {
@@ -26,6 +26,21 @@
     }
   ],
   "nodes": [
+    {
+      "id": "architecture-site-frontend",
+      "type": "architecture",
+      "form": "flat-document",
+      "role": "architecture",
+      "path": ".knowledge/architecture/site-frontend.md",
+      "title": "RITE Static Preview — Frontend Structure",
+      "headings": [
+        "RITE Static Preview — Frontend Structure",
+        "Module map",
+        "Why this shape",
+        "Known gaps (inherited from the prior single-file version, not introduced here)",
+        "Source of truth"
+      ]
+    },
     {
       "id": "governance-constitution",
       "type": "governance",
