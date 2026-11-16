@@ -435,3 +435,8 @@ FodyWeavers.xsd
 
 # Generated at deploy time by .github/workflows/pages.yml — never commit a local copy.
 docs/build-info.json
+
+# SQLite database Rite.Api re-seeds from docs/content/*.json on every startup — never commit it.
+*.db
+*.db-shm
+*.db-wal
