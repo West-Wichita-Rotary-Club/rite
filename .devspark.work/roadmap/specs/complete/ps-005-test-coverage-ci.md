@@ -1,11 +1,12 @@
 ---
 id: ps-005
 title: Establish test coverage and a CI gate
-status: proposed
+status: complete
 order: 10
 depends_on: []
 blockers: []
-delivery: []
+delivery:
+  - https://github.com/West-Wichita-Rotary-Club/rite/pull/9
 ---
 
 # ps-005: Establish test coverage and a CI gate

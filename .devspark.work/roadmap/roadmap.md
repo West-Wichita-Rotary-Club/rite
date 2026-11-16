@@ -24,9 +24,11 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   a standalone React site (constitution Principle IX), with Azure hosting and Blob Storage for
   media (Principle X, `adopting`). No package manager or dependency manifest exists in the
   repository yet.
-- **Known gaps**: zero test files repository-wide and no CI gate (Principle XI, `adopting`;
-  confirmed in the 2026-11-15 site audit). A single contributor accounts for 100% of commit
-  history — bus factor 1 (`.devspark.work/audit/commit-audit-2026-11-15.md`).
+- **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
+  (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
+  Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
+  until ps-005 delivered them 2026-11-16.
+
 ## Themes
 
 1. **Mission & Identity Alignment** — apply the ratified mission statement to the constitution
@@ -44,9 +46,9 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 4. **Engagement & Insight** — automated host-family matching, participant dashboards,
    interactive impact reporting maps.
    - [ps-004: Participant dashboards](specs/ps-004-participant-dashboards.md)
-5. **Quality & Sustainability** — establish real test coverage and a CI gate (currently zero);
-   address the bus-factor-of-1 risk named in the 2026-11-15 commit audit.
-   - [ps-005: Establish test coverage and a CI gate](specs/ps-005-test-coverage-ci.md)
+5. **Quality & Sustainability** — establish real test coverage and a CI gate (delivered by
+   ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
+   - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
 
 `ps-001`–`ps-005` are the Prospective Specs recorded so far — each the first right-sized increment
 under its theme; the remaining bundled outcomes named in Themes 3 and 4 above are intentionally
@@ -70,3 +72,9 @@ deferred to later specs under those same themes. Add another with
   Constitution bumped 1.0.0 → 1.1.0; Principles I and II now match the ratified mission
   statement, pending-amendment note removed. Delivered via
   [West-Wichita-Rotary-Club/rite#8](https://github.com/West-Wichita-Rotary-Club/rite/pull/8).
+- **2026-11-16** — [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md).
+  A 25-test suite now covers `docs/js` (state, i18n, content, account, router) via Node's
+  built-in test runner, plus a lint script; a new GitHub Actions workflow runs both on every
+  pull request and is a required status check on `main`. `render.js` and the DOM-touching
+  router functions are left for a future increment. Delivered via
+  [West-Wichita-Rotary-Club/rite#9](https://github.com/West-Wichita-Rotary-Club/rite/pull/9).
