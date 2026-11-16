@@ -1,3 +1,19 @@
+<!--
+SYNC IMPACT REPORT
+Version change: 1.1.0 (was 1.0.0 migrated)
+Modified principles:
+  - I. Product Identity Is Fixed (NON-NEGOTIABLE) — wording updated to include the awareness/
+    connection/shared-learning framing; title and non-negotiable status unchanged.
+  - II. The Product Is a Living Archive and Community Platform → II. The Product Builds Awareness,
+    Connection, and Shared Learning — retitled and reworded to the ratified mission statement;
+    scope list unchanged; pending-amendment note removed.
+Added sections: none
+Removed sections: none
+Templates requiring updates: none — no other durable file (code, test, or .knowledge/ document)
+  referenced the prior "living archive" framing as current.
+Follow-up TODOs: none
+-->
+
 # RITE Constitution
 
 > Migrated from Bold's `backbone.md` (its product-identity source of truth) during the 2026-11-15
@@ -14,20 +30,16 @@ across Wichita, Panama, and Argentina. These are the non-negotiable rules for bu
 ### I. Product Identity Is Fixed (NON-NEGOTIABLE)
 
 RITE means Rotary Inter-country Teacher Exchange, a West Wichita Rotary / Rotary District 5680
-program preserving the teacher exchange begun in 1996.
+program that builds awareness of an active teacher exchange begun in 1996, connects the people who
+make it possible, and helps them learn from one another.
 
-### II. The Product Is a Living Archive and Community Platform (NON-NEGOTIABLE — pending ratified amendment)
+### II. The Product Builds Awareness, Connection, and Shared Learning (NON-NEGOTIABLE)
 
-Core scope includes the history timeline, story archive, alumni directory, school and club
-profiles, community registration, resource sharing, and future participant workflows.
-
-**Pending amendment, ratified 2026-11-15, not yet applied here:** the product owner has ratified
-shifting this principle's framing from "living archive" toward awareness, communication, and
-learning about an active program: *"RITE builds awareness of an active teacher exchange, connects
-the people who make it possible, and helps them learn from one another."* That amendment — along
-with Principle I's wording, which the same review also implicated — is scoped to a follow-up
-implementation feature and should be applied here through `/devspark-evolve-constitution` once
-that feature runs, not silently folded into this migration.
+RITE builds awareness of an active teacher exchange, connects the people who make it possible, and
+helps them learn from one another. Core scope includes the history timeline, story archive, alumni
+directory, school and club profiles, community registration, resource sharing, and future
+participant workflows — understood as serving that awareness-and-connection purpose, not as an
+archive for its own sake.
 
 ### III. Privacy Review Gates Publication (NON-NEGOTIABLE)
 
@@ -107,5 +119,5 @@ This constitution supersedes Bold's `backbone.md` as RITE's current, authoritati
 product-identity document. Amendments follow DevSpark's own governance commands
 (`/devspark-evolve-constitution`, `/devspark-discover-constitution`) rather than direct edits.
 
-**Version**: 1.0.0 (migrated) | **Originally ratified**: 2026-07-15 (as Bold backbone) |
-**Migrated to DevSpark**: 2026-11-15
+**Version**: 1.1.0 | **Originally ratified**: 2026-07-15 (as Bold backbone) |
+**Migrated to DevSpark**: 2026-11-15 | **Last Amended**: 2026-11-16
