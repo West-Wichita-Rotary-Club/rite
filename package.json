@@ -1,0 +1,10 @@
+{
+  "name": "rite-docs-preview",
+  "private": true,
+  "type": "module",
+  "description": "Test and lint tooling for the static docs/ preview (see .knowledge/architecture/site-frontend.md).",
+  "scripts": {
+    "test": "node --test docs/js/__tests__/account.test.js docs/js/__tests__/content.test.js docs/js/__tests__/i18n.test.js docs/js/__tests__/router.test.js docs/js/__tests__/state.test.js",
+    "lint": "node scripts/check-syntax.mjs"
+  }
+}
