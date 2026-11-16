@@ -1,11 +1,12 @@
 ---
 id: ps-001
 title: Apply ratified mission statement to the constitution
-status: proposed
+status: complete
 order: 10
 depends_on: []
 blockers: []
-delivery: []
+delivery:
+  - https://github.com/West-Wichita-Rotary-Club/rite/pull/8
 ---
 
 # ps-001: Apply ratified mission statement to the constitution

@@ -27,18 +27,13 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 - **Known gaps**: zero test files repository-wide and no CI gate (Principle XI, `adopting`;
   confirmed in the 2026-11-15 site audit). A single contributor accounts for 100% of commit
   history — bus factor 1 (`.devspark.work/audit/commit-audit-2026-11-15.md`).
-- **In motion**: the mission statement above was ratified 2026-11-15, but the constitution
-  itself still carries the prior "living archive" framing — Principle II is explicitly flagged
-  `pending ratified amendment`, deferred to `/devspark-evolve-constitution`
-  (`.knowledge/governance/constitution.md`).
-
 ## Themes
 
 1. **Mission & Identity Alignment** — apply the ratified mission statement to the constitution
    itself (Principles I and II), and close the remaining open items from that review: Spanish
    translations of any newly ratified copy, and the stakeholder one-pager that review deferred
    to a follow-up implementation feature.
-   - [ps-001: Apply ratified mission statement to the constitution](specs/ps-001-amend-constitution-mission.md)
+   - [ps-001: Apply ratified mission statement to the constitution](specs/complete/ps-001-amend-constitution-mission.md)
 2. **Production Platform Foundation** — stand up the real ASP.NET Core + SQLite + React stack
    (constitution Principle IX); migrate the `docs/` content model and the mocked
    localStorage-backed registration/login/profiles into it for real.
@@ -71,4 +66,7 @@ deferred to later specs under those same themes. Add another with
 
 ## Delivered
 
-None yet.
+- **2026-11-16** — [ps-001: Apply ratified mission statement to the constitution](specs/complete/ps-001-amend-constitution-mission.md).
+  Constitution bumped 1.0.0 → 1.1.0; Principles I and II now match the ratified mission
+  statement, pending-amendment note removed. Delivered via
+  [West-Wichita-Rotary-Club/rite#8](https://github.com/West-Wichita-Rotary-Club/rite/pull/8).
