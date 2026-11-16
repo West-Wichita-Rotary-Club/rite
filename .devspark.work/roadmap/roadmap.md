@@ -39,7 +39,11 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 2. **Production Platform Foundation** — stand up the real ASP.NET Core + SQLite + React stack
    (constitution Principle IX); migrate the `docs/` content model and the mocked
    localStorage-backed registration/login/profiles into it for real.
-   - [ps-002: Stand up the production platform foundation](specs/ps-002-platform-foundation.md)
+   - ~~[ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)~~
+     — dropped 2026-11-16, oversized; decomposed into ps-006 and ps-007 below.
+   - [ps-006: Stand up the ASP.NET Core Web API and SQLite database](specs/ps-006-platform-api.md)
+   - [ps-007: Stand up the standalone React site on the new API](specs/ps-007-platform-react-site.md)
+     (depends on ps-006)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/ps-003-school-club-pages.md)
@@ -50,10 +54,10 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
    - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
 
-`ps-001`–`ps-005` are the Prospective Specs recorded so far — each the first right-sized increment
-under its theme; the remaining bundled outcomes named in Themes 3 and 4 above are intentionally
-deferred to later specs under those same themes. Add another with
-`/devspark-roadmap add a Prospective Spec for <outcome>`.
+`ps-001` through `ps-007` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
+ps-006/ps-007; see Decisions) — each a right-sized increment under its theme; the remaining
+bundled outcomes named in Themes 3 and 4 above are intentionally deferred to later specs under
+those same themes. Add another with `/devspark-roadmap add a Prospective Spec for <outcome>`.
 
 ## Decisions
 
@@ -65,6 +69,10 @@ deferred to later specs under those same themes. Add another with
   as an accepted, known risk for this volunteer-run program, not as a Prospective Spec: it is not
   an application capability to deliver. Revisit explicitly (a documented handoff path, or a second
   active contributor) rather than leaving it implicit indefinitely.
+- **2026-11-16** — ps-002 failed the right-sizing test: it bundled the API+database, the React
+  UI, and deciding `docs/`'s fate into one PS. Developer-approved decomposition: ps-002 marked
+  `dropped`; ps-006 (API + database) and ps-007 (React site, depends on ps-006) carry the outcome
+  forward as separately shippable increments.
 
 ## Delivered
 
@@ -78,3 +86,6 @@ deferred to later specs under those same themes. Add another with
   pull request and is a required status check on `main`. `render.js` and the DOM-touching
   router functions are left for a future increment. Delivered via
   [West-Wichita-Rotary-Club/rite#9](https://github.com/West-Wichita-Rotary-Club/rite/pull/9).
+- **2026-11-16** — [ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)
+  — dropped, oversized; never delivered. Replaced by
+  [ps-006](specs/ps-006-platform-api.md) and [ps-007](specs/ps-007-platform-react-site.md).
