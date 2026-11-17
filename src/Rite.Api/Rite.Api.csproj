@@ -9,7 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ApiTestSpark" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <!-- Pin past the transitive Microsoft.OpenApi 2.0.0 pulled in by
+         Microsoft.AspNetCore.OpenApi 10.0.0 (GHSA-v5pm-xwqc-g5wc; fixed in 2.7.5+). -->
+    <PackageReference Include="Microsoft.OpenApi" Version="2.13.1" />
     <!-- Pin past the transitive SQLitePCLRaw.lib.e_sqlite3 2.1.11 pulled in by
          EF Core 10.0.0's Sqlite provider (GHSA-2m69-gcr7-jv3q). -->
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
