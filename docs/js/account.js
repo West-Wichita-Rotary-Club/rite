@@ -9,6 +9,7 @@ export const MAX_PHOTOS_PER_MEMORY = 3;
 export const MAX_MEMORIES_PER_MEMBER = 10;
 const MIN_PARTICIPATION_YEAR = 1996;
 export const CLAIM_ROLES = ["leader", "host", "teacher"];
+const PROFILE_COMPLETENESS_FIELDS = ["name", "role", "country", "city", "languages", "years", "bio"];
 
 export class StorageBudgetError extends Error {}
 
@@ -248,6 +249,16 @@ export function blankClaimDraft(existingClaim) {
     matchedProfileId: "",
     selfDeclaredName: ""
   };
+}
+
+export function profileCompleteness(account) {
+  if (!account) {
+    return 0;
+  }
+  const filled = PROFILE_COMPLETENESS_FIELDS.filter(
+    (field) => String(account[field] || "").trim().length > 0
+  ).length;
+  return Math.round((filled / PROFILE_COMPLETENESS_FIELDS.length) * 100);
 }
 
 export function blankMemoryDraft(existingMemory) {

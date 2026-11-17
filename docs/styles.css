@@ -352,6 +352,11 @@ textarea:focus-visible {
   border-top: 6px solid var(--rotary-gold);
 }
 
+.dashboard-summary-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0;
+}
+
 .stat-number {
   color: var(--azure);
   font-size: 34px;
