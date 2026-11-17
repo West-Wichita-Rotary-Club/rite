@@ -12,7 +12,8 @@ delivery: []
 
 ## Outcome
 
-A standalone React site exists, deployed to Azure, consuming ps-006's API for every non-account
+A standalone React site exists, deployed to the existing VM (the same host serving ps-006's API
+at `rite.makeboldspark.com`), consuming ps-006's API for every non-account
 content surface (history timeline, story archive, alumni directory, resources, FAQ, school/club
 profiles, impact metrics), becoming the real production target per constitution Principle IX.
 The static `docs/` preview's fate — retired, redirected, or kept as a fallback — is decided and
@@ -30,7 +31,9 @@ them: the static `docs/` site remains the only deployed UI, built from six ES mo
 **In scope:** a React project scaffold; routing and pages for the seven content surfaces above,
 calling ps-006's API; bilingual (English/Spanish) UI reusing or adapting `docs/`'s existing
 content model and West Wichita Rotary design-system tokens (constitution Principle VII);
-deployment to Azure; an explicit decision and implementation for `docs/`'s status once this ships.
+deployment to the existing VM (see roadmap Decisions; a specific hostname for this site is part
+of this PS's own scope); an explicit decision and implementation for `docs/`'s status once this
+ships.
 
 **Out of scope:** accounts, login, claims, and memory/profile submission UI — still mocked and
 static for now, matching the account-system exclusion already recorded for this theme; that
@@ -52,7 +55,8 @@ oversized ps-002 on 2026-11-16 (see roadmap Decisions).
 
 ## Completion Expectations
 
-The React site is deployed to Azure and reachable, serving every non-account content surface from
-ps-006's real API instead of static JSON fetches; `docs/`'s fate is decided and implemented.
+The React site is deployed to the existing VM and reachable, serving every non-account content
+surface from ps-006's real API instead of static JSON fetches; `docs/`'s fate is decided and
+implemented.
 Recognized complete once that deployment is live and reviewed, with at least one delivery
 reference recorded.

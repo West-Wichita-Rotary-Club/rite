@@ -21,15 +21,16 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   key counts confirmed clean across every content file in the 2026-11-15 site audit
   (`.devspark.work/audit/2026-11-15_results.md`).
 - **Planned, not started**: the production architecture is ASP.NET Core MVC/Web API + SQLite +
-  a standalone React site (constitution Principle IX), with Azure hosting and Blob Storage for
-  media (Principle X, `adopting`). No package manager or dependency manifest exists in the
-  repository yet.
+  a standalone React site (constitution Principle IX). Hosting direction has moved from
+  Principle X's Azure plan to an existing VM (see Decisions) — the constitution has not yet been
+  amended to match; media storage strategy (Blob Storage vs. VM-local) is still open. No package
+  manager or dependency manifest exists in the repository yet.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
-  until ps-005 delivered them 2026-11-16. No Azure resource has been provisioned yet (Principle X,
-  `adopting`) — ps-006 delivered a deployable API and workflow, but actual deployment is an open
-  follow-up (see Decisions).
+  until ps-005 delivered them 2026-11-16. ps-006 delivered a deployable API and workflow, but it
+  is not yet deployed anywhere — the target is now an existing VM, with the API to be reachable
+  at `rite.makeboldspark.com` (see Decisions), not the Azure Web App ps-006 was written against.
 
 ## Themes
 
@@ -44,7 +45,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - ~~[ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)~~
      — dropped 2026-11-16, oversized; decomposed into ps-006 and ps-007 below.
    - [ps-006: Stand up the ASP.NET Core Web API and SQLite database](specs/complete/ps-006-platform-api.md)
-     (delivered 2026-11-16; Azure deployment itself is a tracked follow-up, see Decisions)
+     (delivered 2026-11-16; deployment to the existing VM at `rite.makeboldspark.com` is a
+     tracked follow-up, see Decisions)
    - [ps-007: Stand up the standalone React site on the new API](specs/ps-007-platform-react-site.md)
      (depends on ps-006, now unblocked)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
@@ -79,8 +81,15 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
 - **2026-11-16** — ps-006 closed out as `complete` even though its own Completion Expectations
   named live Azure deployment as the bar: the API, database, and tests are real and merged, but no
   Azure Web App has been provisioned and the deploy workflow has never been run. Developer-approved
-  at closeout: track actual Azure deployment as an open follow-up here rather than reopening ps-006
-  or blocking ps-007 on it. Revisit when an Azure subscription/Web App is available to deploy to.
+  at closeout: track actual deployment as an open follow-up here rather than reopening ps-006 or
+  blocking ps-007 on it.
+- **2026-11-16** — Deployment target changed from Azure (constitution Principle X) to an existing
+  VM: the API ships to that VM, reachable at `rite.makeboldspark.com`. Developer-stated direction.
+  ps-006's and ps-007's Azure-specific text (deploy workflow, Completion Expectations) is now
+  superseded by this decision; ps-007 updated to match. The React site's own hostname on that VM
+  is still undecided — part of ps-007's own scope. Principle X itself has not been amended to
+  match; it still names Azure as the hosting direction until that goes through
+  `/devspark-evolve-constitution`.
 
 ## Delivered
 
@@ -99,8 +108,9 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   stories, alumni, resources, FAQ, impact, program-cycle, schools, plus `/health`) as bilingual
   JSON, seeded from `docs/content/*.json` on every startup; 21/21 tests pass and a new `api-test`
   CI job builds and tests it on every PR. `docs/` remains the untouched, deployed site. Actual
-  Azure deployment did not happen in this PR (see Decisions) and is an open follow-up, not a
-  blocker on ps-007. Delivered via
+  deployment did not happen in this PR and is an open follow-up, not a blocker on ps-007 — the
+  target has since moved to an existing VM at `rite.makeboldspark.com` (see Decisions). Delivered
+  via
   [West-Wichita-Rotary-Club/rite#10](https://github.com/West-Wichita-Rotary-Club/rite/pull/10).
 - **2026-11-16** — [ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)
   — dropped, oversized; never delivered. Replaced by
