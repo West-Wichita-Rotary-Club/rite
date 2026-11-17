@@ -12,7 +12,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 ## Current Baseline
 
 - **Shipped**: a fully static, mocked public preview lives in `docs/`, served via GitHub Pages
-  from `main`. No backend, database, or Azure service exists yet
+  from `main`. As of ps-007, it's rescoped to the still-mocked account/login/claim flow only,
+  with a banner pointing everything else to the production stack once that's deployed
   (`.knowledge/governance/constitution.md`, "Additional Constraints"; `docs/README.md`).
 - **Frontend structure**: the static preview's client code was split from a single
   2,582-line `docs/app.js` into six responsibility-scoped ES modules under `docs/js/`
@@ -20,18 +21,20 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 - **Content model**: bilingual `docs/content/*.json` (English/Spanish), with matched `en`/`es`
   key counts confirmed clean across every content file in the 2026-11-15 site audit
   (`.devspark.work/audit/2026-11-15_results.md`).
-- **Planned, not started**: the production architecture is ASP.NET Core MVC/Web API + SQLite +
-  a standalone React site (constitution Principle IX), hosted on an existing VM per Principle X
-  (amended 2026-11-16, v1.2.0; see Decisions) — API at `rite.makeboldspark.com`, media stored
-  VM-local unless a dedicated object-storage need is identified later. No package manager or
-  dependency manifest exists in the repository yet.
+- **Built, not deployed**: the production architecture — ASP.NET Core MVC/Web API + SQLite
+  (`src/Rite.Api`, ps-006) and a standalone React site (`src/Rite.Web`, ps-007), per constitution
+  Principle IX — is real and tested, but live nowhere yet. Hosting is an existing VM per
+  Principle X (amended 2026-11-16, v1.2.0; see Decisions): the API at `rite.makeboldspark.com`,
+  the React site at `rite-app.makeboldspark.com`, media stored VM-local unless a dedicated
+  object-storage need is identified later.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
-  until ps-005 delivered them 2026-11-16. ps-006 delivered a deployable API and workflow, but it
-  is not yet deployed anywhere — the target is now an existing Windows VM, with the API to be
-  reachable at `rite.makeboldspark.com` and its SQLite database at `C:\websites\rite\` (see
-  Decisions), not the Azure Web App/Linux path ps-006 was written against.
+  until ps-005 delivered them 2026-11-16. ps-006 and ps-007 delivered a deployable API and React
+  site, but neither is deployed anywhere — the target is an existing Windows VM, with the API
+  reachable at `rite.makeboldspark.com`, its SQLite database at `C:\websites\rite\`, and the
+  React site at `rite-app.makeboldspark.com` (see Decisions), not the Azure Web App/Linux path
+  ps-006 was originally written against.
 
 ## Themes
 
@@ -48,8 +51,9 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - [ps-006: Stand up the ASP.NET Core Web API and SQLite database](specs/complete/ps-006-platform-api.md)
      (delivered 2026-11-16; deployment to the existing VM at `rite.makeboldspark.com` is a
      tracked follow-up, see Decisions)
-   - [ps-007: Stand up the standalone React site on the new API](specs/ps-007-platform-react-site.md)
-     (depends on ps-006, now unblocked)
+   - [ps-007: Stand up the standalone React site on the new API](specs/complete/ps-007-platform-react-site.md)
+     (delivered 2026-11-17; deployment to the existing VM at `rite-app.makeboldspark.com` is a
+     tracked follow-up, see Decisions)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/ps-003-school-club-pages.md)
@@ -96,6 +100,16 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   description reasoned about the Linux/Azure App Service default content-root-relative path,
   `{ContentRootPath}/rite.db`) — whichever PS first actually deploys the API must point it at
   `C:\websites\rite\` instead, not the path ps-006 shipped with.
+- **2026-11-17** — ps-007 closed out as `complete` on the same basis as ps-006: its Completion
+  Expectations named live VM deployment as the bar, but the React site, tests, and the `docs/`
+  fate decision are real and merged while actual deployment did not happen in that PR (no VM
+  access from that session). Developer-approved at closeout, consistent with the ps-006
+  precedent: track deployment as an open follow-up here rather than reopening ps-007.
+- **2026-11-17** — ps-007 chose `rite-app.makeboldspark.com` as the React site's hostname
+  (alongside the API's `rite.makeboldspark.com`), and decided `docs/`'s fate: kept live rather
+  than retired or redirected, but rescoped to the one piece of functionality this PS doesn't
+  replace — the still-mocked account/login/claim flow — with a banner linking everything else to
+  the production site. Both recorded in PR #11 and reflected in the Current Baseline above.
 
 ## Delivered
 
@@ -118,7 +132,16 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   target has since moved to an existing VM at `rite.makeboldspark.com` (see Decisions). Delivered
   via
   [West-Wichita-Rotary-Club/rite#10](https://github.com/West-Wichita-Rotary-Club/rite/pull/10).
+- **2026-11-17** — [ps-007: Stand up the standalone React site on the new API](specs/complete/ps-007-platform-react-site.md).
+  A real React site (`src/Rite.Web`, Vite + React Router) now serves all seven non-account
+  content surfaces (history timeline, story archive, alumni directory, resources, FAQ,
+  school/club profiles, impact metrics) from `src/Rite.Api` instead of static JSON fetches,
+  bilingual EN/ES, reusing the West Wichita Rotary design-system tokens; 15/15 tests pass plus a
+  production build. `docs/` stays live, rescoped to the still-mocked account UI with a banner to
+  production. Hostname chosen: `rite-app.makeboldspark.com`. Actual VM deployment is an open
+  follow-up (see Decisions), not a blocker. Delivered via
+  [West-Wichita-Rotary-Club/rite#11](https://github.com/West-Wichita-Rotary-Club/rite/pull/11).
 - **2026-11-16** — [ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)
   — dropped, oversized; never delivered. Replaced by
   [ps-006](specs/complete/ps-006-platform-api.md) and
-  [ps-007](specs/ps-007-platform-react-site.md).
+  [ps-007](specs/complete/ps-007-platform-react-site.md).

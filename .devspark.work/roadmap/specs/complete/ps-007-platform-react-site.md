@@ -1,11 +1,12 @@
 ---
 id: ps-007
 title: Stand up the standalone React site on the new API
-status: proposed
+status: complete
 order: 20
 depends_on: [ps-006]
 blockers: []
-delivery: []
+delivery:
+  - https://github.com/West-Wichita-Rotary-Club/rite/pull/11
 ---
 
 # ps-007: Stand up the standalone React site on the new API
@@ -60,3 +61,12 @@ surface from ps-006's real API instead of static JSON fetches; `docs/`'s fate is
 implemented.
 Recognized complete once that deployment is live and reviewed, with at least one delivery
 reference recorded.
+
+**Closeout note (2026-11-17):** delivered and merged via
+[West-Wichita-Rotary-Club/rite#11](https://github.com/West-Wichita-Rotary-Club/rite/pull/11) —
+the React site (`src/Rite.Web`) is real, tested (15/15 Vitest, plus a production build), and
+calls `src/Rite.Api` for all seven content surfaces; `docs/`'s fate was decided and implemented
+(kept live, rescoped to the still-mocked account UI, with a banner to production). The hostname
+`rite-app.makeboldspark.com` was chosen and recorded, but actual VM deployment did not happen in
+this PR (no VM access from that session, same pattern as ps-006) and is tracked as an open
+follow-up in the roadmap's Decisions rather than reopening this PS.
