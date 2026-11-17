@@ -21,10 +21,10 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   key counts confirmed clean across every content file in the 2026-11-15 site audit
   (`.devspark.work/audit/2026-11-15_results.md`).
 - **Planned, not started**: the production architecture is ASP.NET Core MVC/Web API + SQLite +
-  a standalone React site (constitution Principle IX). Hosting direction has moved from
-  Principle X's Azure plan to an existing VM (see Decisions) — the constitution has not yet been
-  amended to match; media storage strategy (Blob Storage vs. VM-local) is still open. No package
-  manager or dependency manifest exists in the repository yet.
+  a standalone React site (constitution Principle IX), hosted on an existing VM per Principle X
+  (amended 2026-11-16, v1.2.0; see Decisions) — API at `rite.makeboldspark.com`, media stored
+  VM-local unless a dedicated object-storage need is identified later. No package manager or
+  dependency manifest exists in the repository yet.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
@@ -87,9 +87,9 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   VM: the API ships to that VM, reachable at `rite.makeboldspark.com`. Developer-stated direction.
   ps-006's and ps-007's Azure-specific text (deploy workflow, Completion Expectations) is now
   superseded by this decision; ps-007 updated to match. The React site's own hostname on that VM
-  is still undecided — part of ps-007's own scope. Principle X itself has not been amended to
-  match; it still names Azure as the hosting direction until that goes through
-  `/devspark-evolve-constitution`.
+  is still undecided — part of ps-007's own scope. Constitution Principle X amended to match the
+  same day (CAP-2026-002, v1.1.0 → v1.2.0, `.archive/2026-11-16/governance/CAP-2026-002.md`):
+  retitled "X. Hosting Direction," no longer names Azure.
 
 ## Delivered
 
