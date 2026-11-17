@@ -29,8 +29,9 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
   until ps-005 delivered them 2026-11-16. ps-006 delivered a deployable API and workflow, but it
-  is not yet deployed anywhere — the target is now an existing VM, with the API to be reachable
-  at `rite.makeboldspark.com` (see Decisions), not the Azure Web App ps-006 was written against.
+  is not yet deployed anywhere — the target is now an existing Windows VM, with the API to be
+  reachable at `rite.makeboldspark.com` and its SQLite database at `C:\websites\rite\` (see
+  Decisions), not the Azure Web App/Linux path ps-006 was written against.
 
 ## Themes
 
@@ -90,6 +91,11 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   is still undecided — part of ps-007's own scope. Constitution Principle X amended to match the
   same day (CAP-2026-002, v1.1.0 → v1.2.0, `.archive/2026-11-16/governance/CAP-2026-002.md`):
   retitled "X. Hosting Direction," no longer names Azure.
+- **2026-11-16** — The VM is a Windows host: the SQLite database will live at `C:\websites\rite\`
+  on it. Developer-stated direction. This supersedes ps-006's own assumption (its PR #10
+  description reasoned about the Linux/Azure App Service default content-root-relative path,
+  `{ContentRootPath}/rite.db`) — whichever PS first actually deploys the API must point it at
+  `C:\websites\rite\` instead, not the path ps-006 shipped with.
 
 ## Delivered
 
