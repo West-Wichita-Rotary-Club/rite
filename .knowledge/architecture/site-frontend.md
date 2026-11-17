@@ -45,3 +45,23 @@ vanilla-JavaScript, no-build single-page app. Its logic lives in six ES modules 
 
 `docs/js/*.js` and `docs/app.js` are the source of truth. This document describes their current
 structure; if the module boundaries change, update this file in the same change.
+
+## ps-007: the real React site, and this preview's fate
+
+ps-007 stood up a standalone React site (`src/Rite.Web`, Vite + React Router, no server-side
+framework) that calls ps-006's live API (`src/Rite.Api`) for every non-account content surface —
+history timeline, story archive, alumni directory and profiles, resources, FAQ, schools/clubs,
+and impact metrics. It is the real production frontend per constitution Principle IX, reusing
+this file's design-system tokens (`docs/styles.css`, copied into `src/Rite.Web/src/styles.css`)
+and a trimmed copy of `docs/js/i18n.js`'s bilingual copy dictionary (`src/Rite.Web/src/i18n.jsx`).
+Its own hostname decision and the production API's base URL are recorded in
+`src/Rite.Web/.env.production` and in ps-007's PR description.
+
+**This folder's (`docs/`) fate, decided as part of ps-007:** kept live on GitHub Pages, but scoped
+down to being a fallback for the account/login/registration/claim/memory-composer UI only — the
+one piece of the prior scope ps-007 explicitly left mocked and static, pending a dedicated future
+PS (OpenID Connect per Principle IX). Every content surface's own mock banner copy
+(`docs/js/i18n.js`'s `mock`/`liveSiteCta` keys, rendered by `renderMockBanner()` in
+`docs/js/render.js`) now says so and links to the production site, rather than this preview being
+retired outright or redirected wholesale — retiring it would have removed the only place to trial
+those still-mocked flows, with no replacement shipped in the same PS.

@@ -4,7 +4,8 @@ export const copy = {
   en: {
     siteSub: "Intercountry Teacher Exchange",
     join: "Join the community",
-    mock: "Static preview: all API, login, registration, and submission behavior is mocked locally. No data leaves this page.",
+    mock: "Legacy static preview: history, stories, alumni, resources, FAQ, schools, and impact now live on the production site. Login, registration, submission, and account/claim/memory features here remain mocked locally — no data leaves this page.",
+    liveSiteCta: "Visit the production site",
     motto: "Service Above Self",
     heroEducationLabel: "Teach. Learn. Connect.",
     heroTitle: "Teach. Learn. Connect.",
@@ -244,7 +245,8 @@ export const copy = {
   es: {
     siteSub: "Intercambio Internacional de Docentes",
     join: "Unirse a la comunidad",
-    mock: "Vista previa estatica: API, inicio de sesion, registro y envios son simulados localmente. Ningun dato sale de esta pagina.",
+    mock: "Vista previa estatica anterior: historia, historias, exalumnos, recursos, preguntas frecuentes, escuelas e impacto ahora estan en vivo en el sitio de produccion. Inicio de sesion, registro, envios y las funciones de cuenta/reclamo/memoria aqui siguen simuladas localmente; ningun dato sale de esta pagina.",
+    liveSiteCta: "Visitar el sitio de produccion",
     motto: "Dar de Si antes de Pensar en Si",
     heroEducationLabel: "Ensenar. Aprender. Conectar.",
     heroTitle: "Ensenar. Aprender. Conectar.",

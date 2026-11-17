@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8080", "--directory", "docs"],
       "port": 8080
+    },
+    {
+      "name": "rite-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "src/Rite.Web", "--", "--port", "5173"],
+      "port": 5173
     }
   ]
 }
