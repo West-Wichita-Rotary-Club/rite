@@ -1,11 +1,11 @@
 ---
 id: ps-004
 title: Participant dashboards
-status: proposed
+status: complete
 order: 20
 depends_on: []
 blockers: []
-delivery: []
+delivery: ["https://github.com/West-Wichita-Rotary-Club/rite/pull/14"]
 ---
 
 # ps-004: Participant dashboards

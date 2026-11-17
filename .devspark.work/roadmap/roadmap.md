@@ -60,7 +60,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      (delivered 2026-11-17)
 4. **Engagement & Insight** — automated host-family matching, participant dashboards,
    interactive impact reporting maps.
-   - [ps-004: Participant dashboards](specs/ps-004-participant-dashboards.md)
+   - [ps-004: Participant dashboards](specs/complete/ps-004-participant-dashboards.md)
+     (delivered 2026-11-17)
 5. **Quality & Sustainability** — establish real test coverage and a CI gate (delivered by
    ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
    - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
@@ -111,6 +112,12 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   than retired or redirected, but rescoped to the one piece of functionality this PS doesn't
   replace — the still-mocked account/login/claim flow — with a banner linking everything else to
   the production site. Both recorded in PR #11 and reflected in the Current Baseline above.
+- **2026-11-17** — ps-004's "Current Reality" was stale by the time it was picked up: it said no
+  consolidated dashboard existed, but `docs/js/render.js`'s `account` view already combined claim
+  status, memories, and the profile-edit form on one page (predates this PS). Developer-confirmed
+  at specify time: the real gap, and the actual increment delivered, was a status *summary*
+  (claim status, memory count, profile completeness) at the top of that existing page — not a new
+  page built from scratch.
 
 ## Delivered
 
@@ -154,3 +161,12 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   profile. Completion Expectations fully met — no deployment caveat, unlike ps-006/ps-007.
   Delivered via
   [West-Wichita-Rotary-Club/rite#13](https://github.com/West-Wichita-Rotary-Club/rite/pull/13).
+- **2026-11-17** — [ps-004: Participant dashboards](specs/complete/ps-004-participant-dashboards.md).
+  Adds an "At a glance" status summary to the top of the mocked `account` view
+  (`docs/js/render.js`): claim status, memories-shared count, and profile completeness — reusing
+  the existing `.stats-grid`/`.stat-card` component rather than a new page or route, since the
+  account view already combined claim/memories/profile editing (see Decisions). Adds a pure,
+  tested `profileCompleteness()` helper in `docs/js/account.js`; EN/ES i18n parity holds at
+  222/222. Still the mocked `localStorage` account model — no real backend exists yet. Delivered
+  via
+  [West-Wichita-Rotary-Club/rite#14](https://github.com/West-Wichita-Rotary-Club/rite/pull/14).
