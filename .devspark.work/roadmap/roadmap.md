@@ -54,6 +54,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - [ps-007: Stand up the standalone React site on the new API](specs/complete/ps-007-platform-react-site.md)
      (delivered 2026-11-17; deployment to the existing VM at `rite-app.makeboldspark.com` is a
      tracked follow-up, see Decisions)
+   - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
+   - [ps-009: Real registration and login for a small user base](specs/ps-009-real-registration-login.md)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
@@ -66,7 +68,7 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
    - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
 
-`ps-001` through `ps-007` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
+`ps-001` through `ps-009` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
 ps-006/ps-007; see Decisions) — each a right-sized increment under its theme; the remaining
 bundled outcomes named in Themes 3 and 4 above are intentionally deferred to later specs under
 those same themes. Add another with `/devspark-roadmap add a Prospective Spec for <outcome>`.
@@ -118,6 +120,13 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   at specify time: the real gap, and the actual increment delivered, was a status *summary*
   (claim status, memory count, profile completeness) at the top of that existing page — not a new
   page built from scratch.
+- **2026-11-17** — With ps-001–ps-007 all complete or dropped and the roadmap's `UNBLOCKED` list
+  empty, the developer chose the next two Prospective Specs over the other deferred outcomes
+  (Theme 3's video archive/notifications, Theme 4's host-family matching/impact maps): ps-008
+  (deploy the already-built API and React site to the existing VM, closing the open follow-up
+  tracked since ps-006/ps-007) and ps-009 (a real, deliberately simple registration/login system,
+  sized to RITE's small user base — the one piece of Theme 2's original scope ps-006/ps-007 never
+  took on). Both recorded as `proposed`, independent of each other.
 
 ## Delivered
 
