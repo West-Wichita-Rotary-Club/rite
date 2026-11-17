@@ -26,9 +26,10 @@ participant-facing dashboard view exists yet.
 ## Scope and Independence
 
 **In scope:** a dashboard view summarizing one signed-in participant's own claim status,
-submitted memories, and profile completeness, built against whichever account data source is
-current at delivery time (the existing mocked `localStorage` model, or ps-002's real backend if it
-has landed by then).
+submitted memories, and profile completeness, built against the existing mocked `localStorage`
+model — the real backend ps-002 would have delivered this against was dropped 2026-11-16, and its
+replacements (ps-006, ps-007, both now delivered) explicitly excluded accounts/login/claims from
+their scope, so no real account backend exists yet and none is currently planned as its own PS.
 
 **Out of scope:** automated host-family matching and interactive impact reporting maps, named
 elsewhere under this theme — both are separate, independently shippable outcomes.
@@ -39,16 +40,20 @@ matching or impact-map work ever shipping.
 
 ## Future Health
 
-Should be built so that swapping the mocked account data source for ps-002's real backend (once
-that PS delivers accounts) requires changing only the data layer, not the dashboard's structure.
-Does not block on real accounts existing first — ships against the current mock if it delivers
-before the platform migration does.
+Should be built so that swapping the mocked account data source for a real backend — once some
+future PS actually delivers one — requires changing only the data layer, not the dashboard's
+structure. Does not block on real accounts existing first: ps-002 (which would have included
+them) was dropped 2026-11-16, and neither of its replacements (ps-006, ps-007) took on accounts,
+so this still ships against the current mock.
 
 ## Dependencies and Decisions
 
-No delivered prerequisites. Not formally blocked on ps-002; may ship against the mocked account
-model first and migrate its data source later, or ship directly against real accounts if ps-002
-lands first — an open delivery-order decision, not a hard dependency.
+No delivered prerequisites. ps-002, the PS this spec used to name as the real-backend
+alternative, was dropped 2026-11-16 and decomposed into ps-006 (API) and ps-007 (React site, both
+now delivered) — neither covers accounts/login/claims, which both explicitly excluded from
+scope. No PS for migrating accounts to a real backend exists yet, so this PS ships against the
+mocked account model; migrating its data source later, once such a PS exists, is a later
+decision, not a hard dependency now.
 
 ## Completion Expectations
 

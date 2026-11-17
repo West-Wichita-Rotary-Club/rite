@@ -19,9 +19,11 @@ and directory navigation, instead of appearing only as compact cards embedded in
 ## Current Reality
 
 The four known entities (Pleasant Valley Middle School, Instituto Panamericano, Escuela Normal
-Superior de Mendoza, Rotary Club of West Wichita) already exist as bilingual structured data in the
-`schools` array exported from `docs/js/content.js`, rendered today only as inline cards within
-other pages — no entity has its own route or standalone page.
+Superior de Mendoza, Rotary Club of West Wichita) exist as bilingual structured data in two
+places: the original `schools` array exported from `docs/js/content.js` (static preview), and,
+since ps-006/ps-007, `src/Rite.Api`'s `GET /api/schools` endpoint and `src/Rite.Web`'s `Schools`
+list page (`src/Rite.Web/src/pages/Schools.jsx`) — rendered today only as cards in a list, on
+both surfaces. No entity has its own route or standalone profile page on either one.
 
 ## Scope and Independence
 
@@ -38,16 +40,20 @@ fragment of a larger one.
 
 ## Future Health
 
-Should reuse whatever data model and rendering pattern ps-002's platform migration establishes, if
-that PS has landed first; if not, it can ship against the current static content model without
-blocking on it, since the content already exists and needs no account system. Leaves room for
-future per-entity content (e.g., linked stories or alumni) without requiring it now.
+Should reuse `src/Rite.Web`'s existing per-entity profile pattern (`AlumniProfile.jsx`, from
+ps-007) rather than inventing a new one, and read from `src/Rite.Api`'s `GET /api/schools`
+rather than `docs/content/*.json` — the production platform (ps-006 + ps-007) is the real target
+now, per constitution Principle IX; ps-002, which this used to wait on optionally, was dropped
+and decomposed into ps-006/ps-007 on 2026-11-16 (see roadmap Decisions), and both have since
+delivered. Leaves room for future per-entity content (e.g., linked stories or alumni) without
+requiring it now.
 
 ## Dependencies and Decisions
 
-No delivered prerequisites — the underlying data already exists. No formal dependency on ps-002;
-can deliver against either the static preview or the production platform, whichever is current at
-delivery time.
+No delivered prerequisites blocking this PS, but it should build on ps-006 (API) and ps-007
+(React site) now that both are delivered, rather than the static `docs/` preview they're
+superseding — ps-002, the PS this spec used to name as the "if it lands" alternative, was
+dropped 2026-11-16 and replaced by ps-006/ps-007.
 
 ## Completion Expectations
 
