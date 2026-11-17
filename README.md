@@ -19,7 +19,9 @@ This repo includes a fully static public preview in `docs/`.
   `dotnet run --project src/Rite.Api --urls http://localhost:5159` (no `launchSettings.json`
   exists yet, so `--urls` picks the port explicitly).
 - `src/Rite.Web` is the real standalone React site (ps-007) that calls that API. Run it with
-  `npm install && npm run dev` inside `src/Rite.Web` (`VITE_API_BASE_URL` defaults to
-  `http://localhost:5159` in development; see `src/Rite.Web/.env.development`).
-- Planned production hosting: an existing VM, API at `rite.makeboldspark.com`, React site at
-  `rite-app.makeboldspark.com` (constitution Principle X; not yet deployed).
+  `npm install && npm run dev` inside `src/Rite.Web` — it calls the API via relative `/api/*`
+  paths, proxied to `http://localhost:5159` in development by `vite.config.js`.
+- Planned production hosting (ps-008): an existing VM, single domain `rite.makeboldspark.com` —
+  `src/Rite.Api` serves both the API and `src/Rite.Web`'s production build (copied into
+  `wwwroot/` at deploy time) from the same origin, so no CORS policy is needed (constitution
+  Principle X; not yet deployed).
