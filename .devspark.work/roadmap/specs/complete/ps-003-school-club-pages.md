@@ -1,11 +1,11 @@
 ---
 id: ps-003
 title: School and club profile pages
-status: proposed
+status: complete
 order: 20
 depends_on: []
 blockers: []
-delivery: []
+delivery: ["https://github.com/West-Wichita-Rotary-Club/rite/pull/13"]
 ---
 
 # ps-003: School and club profile pages

@@ -56,7 +56,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      tracked follow-up, see Decisions)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
-   - [ps-003: School and club profile pages](specs/ps-003-school-club-pages.md)
+   - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
+     (delivered 2026-11-17)
 4. **Engagement & Insight** — automated host-family matching, participant dashboards,
    interactive impact reporting maps.
    - [ps-004: Participant dashboards](specs/ps-004-participant-dashboards.md)
@@ -145,3 +146,11 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   — dropped, oversized; never delivered. Replaced by
   [ps-006](specs/complete/ps-006-platform-api.md) and
   [ps-007](specs/complete/ps-007-platform-react-site.md).
+- **2026-11-17** — [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md).
+  Each of the four school/club entities (`src/Rite.Api`'s `GET /api/schools`) now gets its own
+  linkable profile route in `src/Rite.Web` (`/schools/:slug`), following `AlumniProfile.jsx`'s
+  pattern from ps-007; since the API has no stable id for these entities, the route is addressed
+  by a slugified `${type}-${name}` composite key. The schools directory list links to each
+  profile. Completion Expectations fully met — no deployment caveat, unlike ps-006/ps-007.
+  Delivered via
+  [West-Wichita-Rotary-Club/rite#13](https://github.com/West-Wichita-Rotary-Club/rite/pull/13).
