@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { useLanguage } from "../i18n.jsx";
 import { useContent } from "../hooks/useContent.js";
 import { api } from "../api.js";
 import { ContentStatus } from "../components/ContentStatus.jsx";
+import { schoolSlug } from "../lib/schools.js";
 
 export function Schools() {
   const { t, localize } = useLanguage();
@@ -16,7 +18,7 @@ export function Schools() {
       {status === "ready" && (
         <div className="card-grid">
           {schools.map((school) => (
-            <article key={`${school.type}-${school.name}`} className={`card ${school.band}`}>
+            <article key={schoolSlug(school)} className={`card ${school.band}`}>
               <h2 className="card-title">{school.name}</h2>
               <p className="meta">{school.place}</p>
               <p>{localize(school.desc)}</p>
@@ -30,6 +32,9 @@ export function Schools() {
                   <span>{t("labels.teachersHosted")}</span>
                 </div>
               </div>
+              <Link className="button ghost" to={`/schools/${schoolSlug(school)}`}>
+                {t("labels.viewProfile")}
+              </Link>
             </article>
           ))}
         </div>

@@ -57,6 +57,10 @@ const copy = {
       coordinator: "Coordinator",
       school: "School administrator"
     },
+    schoolTypes: {
+      school: "Partner school",
+      club: "Rotary club"
+    },
     labels: {
       partnerSince: "Partner since",
       teachersHosted: "Teachers hosted",
@@ -65,6 +69,7 @@ const copy = {
       participationYears: "Participation years",
       viewProfile: "View profile",
       backToDirectory: "Back to alumni",
+      backToSchools: "Back to schools and clubs",
       memories: "Memories",
       pictures: "Pictures",
       suggestions: "Suggestions",
@@ -134,6 +139,10 @@ const copy = {
       coordinator: "Coordinador",
       school: "Administrador escolar"
     },
+    schoolTypes: {
+      school: "Escuela asociada",
+      club: "Club rotario"
+    },
     labels: {
       partnerSince: "Socio desde",
       teachersHosted: "Docentes recibidos",
@@ -142,6 +151,7 @@ const copy = {
       participationYears: "Anos de participacion",
       viewProfile: "Ver perfil",
       backToDirectory: "Volver a exalumnos",
+      backToSchools: "Volver a escuelas y clubes",
       memories: "Memorias",
       pictures: "Fotos",
       suggestions: "Sugerencias",
