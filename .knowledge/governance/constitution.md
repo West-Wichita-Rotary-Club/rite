@@ -1,16 +1,26 @@
 <!--
 SYNC IMPACT REPORT
-Version change: 1.1.0 (was 1.0.0 migrated)
+Version change: 1.2.0 (was 1.1.0)
+Applied Amendments:
+  - CAP-2026-002 (APPROVED 2026-11-16, applied this version) — Principle X redefined: Azure
+    hosting direction replaced by the developer's actual chosen target, an existing VM, with the
+    API reachable at rite.makeboldspark.com; retitled "X. Hosting Direction" (status unchanged,
+    `adopting`). Proposal archived at .archive/2026-11-16/governance/CAP-2026-002.md.
 Modified principles:
-  - I. Product Identity Is Fixed (NON-NEGOTIABLE) — wording updated to include the awareness/
-    connection/shared-learning framing; title and non-negotiable status unchanged.
-  - II. The Product Is a Living Archive and Community Platform → II. The Product Builds Awareness,
-    Connection, and Shared Learning — retitled and reworded to the ratified mission statement;
-    scope list unchanged; pending-amendment note removed.
+  - X. Azure Is the Hosting and Media Direction → X. Hosting Direction — retitled and reworded
+    per CAP-2026-002; status (`adopting`) unchanged.
+Modified sections:
+  - Additional Constraints, "Stack" line — "Azure" replaced with "existing VM hosting
+    (`makeboldspark.com` subdomains)".
+  - Additional Constraints, "Current shipped surface" line — "Azure service" generalized to
+    "hosting" (no hosting of any kind is live for the production stack yet; `docs/` itself is
+    unaffected, already served via GitHub Pages).
 Added sections: none
 Removed sections: none
-Templates requiring updates: none — no other durable file (code, test, or .knowledge/ document)
-  referenced the prior "living archive" framing as current.
+Templates requiring updates: none — no plan/spec/tasks template or command prompt encodes this
+  project's specific hosting target; `README.md`'s mention of the static docs/ preview needing no
+  "Azure service" describes that preview's own dependencies (none), not the production direction,
+  and is left as-is.
 Follow-up TODOs: none
 -->
 
@@ -80,10 +90,12 @@ fonts. Legacy prototype inline styles are grandfathered.
 Build an ASP.NET Core MVC/Web API backend backed by SQLite and a standalone React site that calls
 the API. Authentication is OpenID Connect, with Auth0 as an example provider.
 
-### X. Azure Is the Hosting and Media Direction (adopting)
+### X. Hosting Direction (adopting)
 
-Plan for Azure hosting and Azure Blob Storage for high-resolution photos, videos, transcripts, and
-other archive media, with SQLite-managed metadata.
+Plan for hosting on an existing VM, with services reachable under `makeboldspark.com`
+subdomains — the API at `rite.makeboldspark.com`. Media (high-resolution photos, videos,
+transcripts, and other archive assets) is stored on that VM's filesystem, with SQLite-managed
+metadata, unless and until a dedicated object-storage need is identified.
 
 ### XI. Testing and CI Are Not Yet Established (adopting)
 
@@ -92,14 +104,15 @@ before treating the app as production-ready.
 
 ## Additional Constraints
 
-- **Stack:** ASP.NET Core MVC/Web API, React (standalone, calling the API), SQLite, Azure.
-  Starter: brownfield-from-prototype. Flavor: west-wichita-rotary-design-system.
+- **Stack:** ASP.NET Core MVC/Web API, React (standalone, calling the API), SQLite, existing VM
+  hosting (`makeboldspark.com` subdomains). Starter: brownfield-from-prototype. Flavor:
+  west-wichita-rotary-design-system.
 - **Personas and profile fields:** teachers, host families, Rotary leaders, coordinators, school
   administrators; profiles carry country, city, languages, biography, and RITE exchange years.
 - **Content workflow:** members submit stories, classroom projects, curriculum resources, and
   media through a contributor workflow; editors and administrators approve before public release.
 - **Current shipped surface:** a fully static, mocked public preview lives in `docs/` (served via
-  GitHub Pages from `main`) — no backend, database, or Azure service exists yet. Treat `docs/` as
+  GitHub Pages from `main`) — no backend, database, or hosting is live yet. Treat `docs/` as
   the production site's content/IA reference, not as the target architecture (see Principle IX).
 
 ## Development Workflow
@@ -119,5 +132,5 @@ This constitution supersedes Bold's `backbone.md` as RITE's current, authoritati
 product-identity document. Amendments follow DevSpark's own governance commands
 (`/devspark-evolve-constitution`, `/devspark-discover-constitution`) rather than direct edits.
 
-**Version**: 1.1.0 | **Originally ratified**: 2026-07-15 (as Bold backbone) |
+**Version**: 1.2.0 | **Originally ratified**: 2026-07-15 (as Bold backbone) |
 **Migrated to DevSpark**: 2026-11-15 | **Last Amended**: 2026-11-16
