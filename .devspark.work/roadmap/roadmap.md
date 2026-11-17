@@ -27,7 +27,9 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
-  until ps-005 delivered them 2026-11-16.
+  until ps-005 delivered them 2026-11-16. No Azure resource has been provisioned yet (Principle X,
+  `adopting`) — ps-006 delivered a deployable API and workflow, but actual deployment is an open
+  follow-up (see Decisions).
 
 ## Themes
 
@@ -41,9 +43,10 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    localStorage-backed registration/login/profiles into it for real.
    - ~~[ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)~~
      — dropped 2026-11-16, oversized; decomposed into ps-006 and ps-007 below.
-   - [ps-006: Stand up the ASP.NET Core Web API and SQLite database](specs/ps-006-platform-api.md)
+   - [ps-006: Stand up the ASP.NET Core Web API and SQLite database](specs/complete/ps-006-platform-api.md)
+     (delivered 2026-11-16; Azure deployment itself is a tracked follow-up, see Decisions)
    - [ps-007: Stand up the standalone React site on the new API](specs/ps-007-platform-react-site.md)
-     (depends on ps-006)
+     (depends on ps-006, now unblocked)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/ps-003-school-club-pages.md)
@@ -73,6 +76,11 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   UI, and deciding `docs/`'s fate into one PS. Developer-approved decomposition: ps-002 marked
   `dropped`; ps-006 (API + database) and ps-007 (React site, depends on ps-006) carry the outcome
   forward as separately shippable increments.
+- **2026-11-16** — ps-006 closed out as `complete` even though its own Completion Expectations
+  named live Azure deployment as the bar: the API, database, and tests are real and merged, but no
+  Azure Web App has been provisioned and the deploy workflow has never been run. Developer-approved
+  at closeout: track actual Azure deployment as an open follow-up here rather than reopening ps-006
+  or blocking ps-007 on it. Revisit when an Azure subscription/Web App is available to deploy to.
 
 ## Delivered
 
@@ -86,6 +94,15 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   pull request and is a required status check on `main`. `render.js` and the DOM-touching
   router functions are left for a future increment. Delivered via
   [West-Wichita-Rotary-Club/rite#9](https://github.com/West-Wichita-Rotary-Club/rite/pull/9).
+- **2026-11-16** — [ps-006: Stand up the ASP.NET Core Web API and SQLite database](specs/complete/ps-006-platform-api.md).
+  A real ASP.NET Core + EF Core/SQLite API now serves all eight content surfaces (timeline,
+  stories, alumni, resources, FAQ, impact, program-cycle, schools, plus `/health`) as bilingual
+  JSON, seeded from `docs/content/*.json` on every startup; 21/21 tests pass and a new `api-test`
+  CI job builds and tests it on every PR. `docs/` remains the untouched, deployed site. Actual
+  Azure deployment did not happen in this PR (see Decisions) and is an open follow-up, not a
+  blocker on ps-007. Delivered via
+  [West-Wichita-Rotary-Club/rite#10](https://github.com/West-Wichita-Rotary-Club/rite/pull/10).
 - **2026-11-16** — [ps-002: Stand up the production platform foundation](specs/complete/ps-002-platform-foundation.md)
   — dropped, oversized; never delivered. Replaced by
-  [ps-006](specs/ps-006-platform-api.md) and [ps-007](specs/ps-007-platform-react-site.md).
+  [ps-006](specs/complete/ps-006-platform-api.md) and
+  [ps-007](specs/ps-007-platform-react-site.md).

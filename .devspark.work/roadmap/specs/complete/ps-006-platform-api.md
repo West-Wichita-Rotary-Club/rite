@@ -1,11 +1,12 @@
 ---
 id: ps-006
 title: Stand up the ASP.NET Core Web API and SQLite database
-status: proposed
+status: complete
 order: 10
 depends_on: []
 blockers: []
-delivery: []
+delivery:
+  - https://github.com/West-Wichita-Rotary-Club/rite/pull/10
 ---
 
 # ps-006: Stand up the ASP.NET Core Web API and SQLite database
@@ -62,3 +63,10 @@ original, oversized ps-002 on 2026-11-16 (see roadmap Decisions); ps-007 depends
 The API is deployed to Azure and reachable; every endpoint for the seven content surfaces above
 returns real data matching the current bilingual shape of `docs/content/*.json`. Recognized
 complete once that deployment is live and reviewed, with at least one delivery reference recorded.
+
+**Closeout note (2026-11-16):** delivered and merged via
+[West-Wichita-Rotary-Club/rite#10](https://github.com/West-Wichita-Rotary-Club/rite/pull/10) —
+the API, SQLite database, seeding, and all eight endpoints are real and tested (21/21), shipped
+intentionally inactive per the Standalone Shipping Boundary above. Actual Azure deployment did not
+happen in this PR (no Web App provisioned; the deploy workflow is manual-dispatch only and has
+never been run) and is tracked separately in the roadmap's Decisions rather than reopening this PS.

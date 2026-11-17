@@ -13,7 +13,7 @@ delivery: []
 > **Dropped 2026-11-16.** This PS bundled three separately shippable outcomes — the API and
 > database, the React UI that consumes it, and deciding `docs/`'s fate — failing the roadmap's
 > right-sizing test. Decomposed, with the developer's approval, into
-> [ps-006: Stand up the ASP.NET Core Web API and SQLite database](../ps-006-platform-api.md) and
+> [ps-006: Stand up the ASP.NET Core Web API and SQLite database](ps-006-platform-api.md) and
 > [ps-007: Stand up the standalone React site on the new API](../ps-007-platform-react-site.md),
 > which carry this outcome forward. See the roadmap's Decisions section.
 
