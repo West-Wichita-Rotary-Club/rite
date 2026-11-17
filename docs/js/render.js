@@ -27,6 +27,7 @@ import {
   blankMemoryDraft,
   validateParticipationRow,
   downscalePhoto,
+  profileCompleteness,
   CLAIM_ROLES,
   MAX_PHOTOS_PER_MEMORY,
   MAX_MEMORIES_PER_MEMBER
@@ -973,11 +974,37 @@ function renderAccount() {
     <section class="section account-page">
       <h1 class="section-title">${escapeHtml(t("sections.accountTitle"))}</h1>
       <p class="section-lede">${escapeHtml(t("sections.accountIntro"))}</p>
+      ${renderDashboardSummary(account)}
       ${renderAccountDetailsForm(account)}
       ${renderClaimSection(account)}
       ${renderMemoriesSection(account)}
       <div class="account-danger">
         <button class="button ghost" type="button" data-action="clear-data">${escapeHtml(t("labels.clearDataButton"))}</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderDashboardSummary(account) {
+  const claimStatusLabel = account.claim ? t("labels.pendingReviewBadge") : t("labels.dashboardClaimStatusNone");
+  const memoriesCount = (account.memories || []).length;
+  const completeness = profileCompleteness(account);
+  return `
+    <section class="dashboard-summary" aria-label="${escapeHtml(t("sections.dashboardSummaryTitle"))}">
+      <h2 class="form-title">${escapeHtml(t("sections.dashboardSummaryTitle"))}</h2>
+      <div class="stats-grid dashboard-summary-grid">
+        <article class="stat-card">
+          <div class="stat-number">${escapeHtml(claimStatusLabel)}</div>
+          <div class="stat-label">${escapeHtml(t("labels.dashboardClaimStatusLabel"))}</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-number">${memoriesCount}</div>
+          <div class="stat-label">${escapeHtml(t("labels.dashboardMemoriesLabel"))}</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-number">${completeness}%</div>
+          <div class="stat-label">${escapeHtml(t("labels.dashboardCompletenessLabel"))}</div>
+        </article>
       </div>
     </section>
   `;

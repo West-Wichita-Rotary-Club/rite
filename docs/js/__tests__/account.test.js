@@ -15,6 +15,7 @@ import {
   signIn,
   signOut,
   currentAccount,
+  profileCompleteness,
   CLAIM_ROLES
 } from "../account.js";
 
@@ -90,6 +91,27 @@ test("blankMemoryDraft() seeds a fresh draft, or copies an existing memory", () 
   const copy = blankMemoryDraft(existing);
   assert.deepEqual(copy, existing);
   assert.notEqual(copy.photos, existing.photos);
+});
+
+test("profileCompleteness() handles no account, no fields, and every field filled", () => {
+  assert.equal(profileCompleteness(null), 0);
+  assert.equal(profileCompleteness({}), 0);
+  assert.equal(
+    profileCompleteness({
+      name: "Pat",
+      role: "teacher",
+      country: "Panama",
+      city: "Panama City",
+      languages: "es, en",
+      years: "2010",
+      bio: "A short bio."
+    }),
+    100
+  );
+});
+
+test("profileCompleteness() rounds a partially filled profile and ignores blank/whitespace fields", () => {
+  assert.equal(profileCompleteness({ name: "Pat", role: "  " }), 14);
 });
 
 test("createAccount() persists the account and currentAccount() reads it back once signed in", () => {
