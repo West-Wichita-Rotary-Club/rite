@@ -56,22 +56,28 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      tracked follow-up, see Decisions)
    - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
    - [ps-009: Real registration and login for a small user base](specs/ps-009-real-registration-login.md)
+   - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
      (delivered 2026-11-17)
+   - [ps-011: Video oral history archive](specs/ps-011-video-oral-history-archive.md)
+   - [ps-012: Automated new-story notifications](specs/ps-012-new-story-notifications.md)
 4. **Engagement & Insight** — automated host-family matching, participant dashboards,
    interactive impact reporting maps.
    - [ps-004: Participant dashboards](specs/complete/ps-004-participant-dashboards.md)
      (delivered 2026-11-17)
+   - [ps-013: Automated host-family matching](specs/ps-013-host-family-matching.md) (depends on ps-009)
+   - [ps-014: Interactive impact reporting maps](specs/ps-014-impact-reporting-maps.md)
 5. **Quality & Sustainability** — establish real test coverage and a CI gate (delivered by
    ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
    - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
 
-`ps-001` through `ps-009` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
-ps-006/ps-007; see Decisions) — each a right-sized increment under its theme; the remaining
-bundled outcomes named in Themes 3 and 4 above are intentionally deferred to later specs under
-those same themes. Add another with `/devspark-roadmap add a Prospective Spec for <outcome>`.
+`ps-001` through `ps-014` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
+ps-006/ps-007; see Decisions) — each a right-sized increment under its theme. Every outcome
+originally named in Themes 2–4 now has a recorded Prospective Spec (delivered, or proposed and
+awaiting its dependency). Add another with `/devspark-roadmap add a Prospective Spec for
+<outcome>`.
 
 ## Decisions
 
@@ -127,6 +133,13 @@ those same themes. Add another with `/devspark-roadmap add a Prospective Spec fo
   tracked since ps-006/ps-007) and ps-009 (a real, deliberately simple registration/login system,
   sized to RITE's small user base — the one piece of Theme 2's original scope ps-006/ps-007 never
   took on). Both recorded as `proposed`, independent of each other.
+- **2026-11-17** — Recorded every remaining outcome named in Themes 2–4 as its own Prospective
+  Spec, at the developer's request, so nothing is left as unstructured prose: ps-010 (user
+  management on the API, depends on ps-009), ps-011 (video oral history archive), ps-012
+  (automated new-story notifications, scoped to a fixed coordinator list rather than per-visitor
+  subscriptions so it doesn't need ps-009), ps-013 (automated host-family matching, depends on
+  ps-009 — real identifiable accounts are a prerequisite for a match to mean anything), and ps-014
+  (interactive impact reporting maps). All `proposed`; every Theme 2–4 outcome now has a PS.
 
 ## Delivered
 
