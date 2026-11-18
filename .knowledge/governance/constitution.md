@@ -1,26 +1,31 @@
 <!--
 SYNC IMPACT REPORT
-Version change: 1.2.0 (was 1.1.0)
+Version change: 1.3.0 (was 1.2.0)
 Applied Amendments:
-  - CAP-2026-002 (APPROVED 2026-11-16, applied this version) — Principle X redefined: Azure
-    hosting direction replaced by the developer's actual chosen target, an existing VM, with the
-    API reachable at rite.makeboldspark.com; retitled "X. Hosting Direction" (status unchanged,
-    `adopting`). Proposal archived at .archive/2026-11-16/governance/CAP-2026-002.md.
+  - CAP-2026-003 (APPROVED 2026-11-18, applied this version) — Principle IX's authentication
+    mandate relaxed: OpenID Connect/Auth0 is no longer required; a simple credential or
+    magic-link scheme is sufficient for this program's scale, with OpenID Connect adopted only if
+    a concrete future need justifies it. Proposal archived at
+    .archive/2026-11-18/governance/CAP-2026-003.md.
+  - CAP-2026-004 (APPROVED 2026-11-18, applied this version) — Principle XI corrected: its title
+    and body described a testing/CI gap that ps-005 had already closed on 2026-11-16; retitled
+    "XI. Test Coverage and CI Are Established" and reworded to describe the actual, now-enforced
+    practice; status changed from `adopting` to `enforced`. Proposal archived at
+    .archive/2026-11-18/governance/CAP-2026-004.md.
 Modified principles:
-  - X. Azure Is the Hosting and Media Direction → X. Hosting Direction — retitled and reworded
-    per CAP-2026-002; status (`adopting`) unchanged.
-Modified sections:
-  - Additional Constraints, "Stack" line — "Azure" replaced with "existing VM hosting
-    (`makeboldspark.com` subdomains)".
-  - Additional Constraints, "Current shipped surface" line — "Azure service" generalized to
-    "hosting" (no hosting of any kind is live for the production stack yet; `docs/` itself is
-    unaffected, already served via GitHub Pages).
+  - IX. Production Architecture Is .NET API Plus Standalone React — authentication clause
+    reworded per CAP-2026-003; title and architecture mandate unchanged.
+  - XI. Testing and CI Are Not Yet Established → XI. Test Coverage and CI Are Established —
+    retitled and reworded per CAP-2026-004; status `adopting` → `enforced`.
+Modified sections: none
 Added sections: none
 Removed sections: none
-Templates requiring updates: none — no plan/spec/tasks template or command prompt encodes this
-  project's specific hosting target; `README.md`'s mention of the static docs/ preview needing no
-  "Azure service" describes that preview's own dependencies (none), not the production direction,
-  and is left as-is.
+Templates requiring updates:
+  - .knowledge/architecture/site-frontend.md — ✅ updated: removed its "pending a dedicated
+    future PS (OpenID Connect per Principle IX)" framing (no longer accurate under CAP-2026-003)
+    and its now-superseded claim that docs/ is the only place to see the mocked account UI (ps-015
+    delivered that into src/Rite.Web too, 2026-11-18); now also notes ps-016 (retire/redirect
+    docs/, waiting on ps-008).
 Follow-up TODOs: none
 -->
 
@@ -88,7 +93,10 @@ fonts. Legacy prototype inline styles are grandfathered.
 ### IX. Production Architecture Is .NET API Plus Standalone React (NON-NEGOTIABLE)
 
 Build an ASP.NET Core MVC/Web API backend backed by SQLite and a standalone React site that calls
-the API. Authentication is OpenID Connect, with Auth0 as an example provider.
+the API. Authentication is a developer's choice sized to the program — a simple credential or
+magic-link scheme is sufficient for this small, volunteer-run exchange; adopt OpenID Connect
+(e.g. Auth0) only if a real future need (SSO, a second consuming application, a compliance
+requirement) justifies the added complexity.
 
 ### X. Hosting Direction (adopting)
 
@@ -97,10 +105,14 @@ subdomains — the API at `rite.makeboldspark.com`. Media (high-resolution photo
 transcripts, and other archive assets) is stored on that VM's filesystem, with SQLite-managed
 metadata, unless and until a dedicated object-storage need is identified.
 
-### XI. Testing and CI Are Not Yet Established (adopting)
+### XI. Test Coverage and CI Are Established (enforced)
 
-Future work must make explicit choices for test coverage, build validation, and deployment checks
-before treating the app as production-ready.
+`docs/js` carries a test suite (state, i18n, content, account, router) run via Node's built-in
+test runner, plus a lint script; both run in CI (`.github/workflows/ci.yml`) on every pull
+request, and the `test` job is a required status check on `main`. `src/Rite.Api` and
+`src/Rite.Web` each carry their own test suites (`dotnet test`, `npm test`), run in CI the same
+way. New production code must extend this coverage, not bypass it; a surface shipped without
+matching tests is incomplete, not merely untested.
 
 ## Additional Constraints
 
@@ -132,5 +144,5 @@ This constitution supersedes Bold's `backbone.md` as RITE's current, authoritati
 product-identity document. Amendments follow DevSpark's own governance commands
 (`/devspark-evolve-constitution`, `/devspark-discover-constitution`) rather than direct edits.
 
-**Version**: 1.2.0 | **Originally ratified**: 2026-07-15 (as Bold backbone) |
-**Migrated to DevSpark**: 2026-11-15 | **Last Amended**: 2026-11-16
+**Version**: 1.3.0 | **Originally ratified**: 2026-07-15 (as Bold backbone) |
+**Migrated to DevSpark**: 2026-11-15 | **Last Amended**: 2026-11-18

@@ -57,11 +57,17 @@ and a trimmed copy of `docs/js/i18n.js`'s bilingual copy dictionary (`src/Rite.W
 Its own hostname decision and the production API's base URL are recorded in
 `src/Rite.Web/.env.production` and in ps-007's PR description.
 
-**This folder's (`docs/`) fate, decided as part of ps-007:** kept live on GitHub Pages, but scoped
-down to being a fallback for the account/login/registration/claim/memory-composer UI only — the
-one piece of the prior scope ps-007 explicitly left mocked and static, pending a dedicated future
-PS (OpenID Connect per Principle IX). Every content surface's own mock banner copy
-(`docs/js/i18n.js`'s `mock`/`liveSiteCta` keys, rendered by `renderMockBanner()` in
-`docs/js/render.js`) now says so and links to the production site, rather than this preview being
-retired outright or redirected wholesale — retiring it would have removed the only place to trial
-those still-mocked flows, with no replacement shipped in the same PS.
+**This folder's (`docs/`) fate, decided as part of ps-007:** kept live on GitHub Pages, scoped
+down to a fallback for the account/login/registration/claim/memory-composer UI — the one piece
+of the prior scope ps-007 explicitly left mocked and static. Every content surface's own mock
+banner copy (`docs/js/i18n.js`'s `mock`/`liveSiteCta` keys, rendered by `renderMockBanner()` in
+`docs/js/render.js`) says so and links to the production site, rather than this preview being
+retired outright or redirected wholesale at that point — retiring it then would have removed the
+only place to trial those still-mocked flows, with no replacement shipped in the same PS.
+ps-015 (2026-11-18) ported that same mocked UI directly into `src/Rite.Web` too (not a real
+backend — still the mocked `localStorage` model — see `src/Rite.Web/src/context/AccountContext.jsx`),
+so `docs/` is no longer the only place to see it; retiring or redirecting `docs/` itself is
+tracked separately as ps-016, which waits on ps-008 (production deployment) since `docs/` is
+still the only thing actually live today. Real accounts/login (ps-009, not started) are
+deliberately simple auth, not OpenID Connect — Principle IX no longer mandates a third-party
+identity provider (CAP-2026-003, relaxed for this program's small, volunteer-run scale).

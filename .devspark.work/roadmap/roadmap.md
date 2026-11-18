@@ -183,6 +183,15 @@ Prospective Spec for <outcome>`.
   only lives in the English-only constitution, not any user-facing page; and a stakeholder
   one-pager — unclear audience/format) were left uncaptured rather than given a guessed-at scope;
   see the note after the Themes list above.
+- **2026-11-18** — Resolved both constitution findings from the same review, via
+  `/devspark-evolve-constitution` + `/devspark-constitution` (constitution bumped 1.2.0 → 1.3.0):
+  Principle IX's authentication mandate relaxed (CAP-2026-003) — OpenID Connect/Auth0 is no
+  longer required, so ps-009 proceeds as already scoped (simple credential/magic-link auth), with
+  OpenID Connect adopted later only if a concrete need justifies it. Principle XI corrected
+  (CAP-2026-004) — retitled "Test Coverage and CI Are Established," status `adopting` →
+  `enforced`, describing the real, already-delivered practice instead of a gap ps-005 closed two
+  days before this principle's text was written. Developer approved both in-session
+  (`/devspark-roadmap`'s own finding); 14-day review waived, same as CAP-2026-002's precedent.
 
 ## Delivered
 
