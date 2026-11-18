@@ -37,7 +37,7 @@ constitution Principle X, is an open question for whoever picks this up); the ma
 functions.
 
 **Out of scope:** the editor/administrator review-and-approve workflow for submitted
-claims/memories implied by constitution Principle III (a separate, not-yet-scoped outcome);
+claims/memories implied by constitution Principle III (see `ps-018`, which depends on this PS);
 `docs/`'s own mocked copy, which is unaffected unless/until `ps-016` retires it.
 
 **Standalone shipping boundary:** if this PS completes and every later roadmap item is canceled,
