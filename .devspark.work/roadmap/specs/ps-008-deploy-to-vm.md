@@ -2,8 +2,8 @@
 id: ps-008
 title: Deploy the production platform to the existing VM
 status: proposed
-order: 30
-depends_on: [ps-006, ps-007]
+order: 50
+depends_on: [ps-006, ps-007, ps-009, ps-010, ps-017, ps-018]
 blockers: []
 delivery: []
 ---
@@ -65,8 +65,9 @@ to the VM, reachable at `rite.makeboldspark.com`, with its SQLite database at
 or retiring the stale Azure-specific `deploy-api.yml`; confirm `docs/`'s banner correctly links to
 the now-live `rite.makeboldspark.com`.
 
-**Out of scope:** a real registration/login/claims backend (separate outcome, see ps-009) —
-`docs/` keeps serving that mocked flow until that PS lands; any VM provisioning work that isn't
+**Out of scope:** implementing real registration/login (`ps-009`), user management (`ps-010`),
+real claims/memories (`ps-017`), or the review-and-approve workflow (`ps-018`) — those are now
+prerequisites this PS depends on, not work it does itself; any VM provisioning work that isn't
 specific to this application (OS patching, general server hardening).
 
 **Standalone shipping boundary:** if this PS completes and every later roadmap item is canceled,
@@ -86,15 +87,21 @@ realizes the hosting direction constitution Principle X already settled.
 
 ## Dependencies and Decisions
 
-Depends on the delivered ps-006 (API) and ps-007 (React site); both are complete. The VM hosting
-direction, single hostname, combined-origin architecture, and Windows SQLite path are already
-decided (roadmap Decisions, 2026-11-16/2026-11-17) — this PS executes that decision rather than
-re-deciding it. Open question for whoever picks this up: VM access/credentials, and whether the
-existing `deploy-api.yml` is adapted in place or replaced.
+Depends on the delivered `ps-006` (API) and `ps-007` (React site) — both complete — and, per the
+developer-stated deployment MVP (roadmap Decisions, 2026-11-18), on `ps-009` (real
+registration/login), `ps-010` (user management), `ps-017` (real claims/memories), and `ps-018`
+(review/approve workflow) all landing first: the VM launch should carry full, real account
+functionality from day one rather than shipping a deployed site that still falls back to `docs/`'s
+mocked account flow. The VM hosting direction, single hostname, combined-origin architecture, and
+Windows SQLite path are already decided (roadmap Decisions, 2026-11-16/2026-11-17) — this PS
+executes that decision rather than re-deciding it. Open question for whoever picks this up: VM
+access/credentials, and whether the existing `deploy-api.yml` is adapted in place or replaced.
 
 ## Completion Expectations
 
 `rite.makeboldspark.com` serves the live API under `/api/*` and the live React site at every other
 path (with working deep-link refresh), reachable over the public internet; the API's SQLite
 database is at `C:\websites\rite\` on the VM; `docs/`'s banner points at the live production site.
-Recognized complete once verified reachable from outside the VM.
+Real registration/login, user management, and claim/memory submission-and-review are all working
+against the live API, not a mocked fallback — the deployment MVP this PS now waits on. Recognized
+complete once verified reachable from outside the VM.

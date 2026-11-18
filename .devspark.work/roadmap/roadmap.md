@@ -27,7 +27,12 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   Principle X (amended 2026-11-16, v1.2.0; see Decisions): `src/Rite.Api` serves both the API and
   `src/Rite.Web`'s production build from one origin, `rite.makeboldspark.com` (combined-hosting
   decision, 2026-11-17 — see Decisions; supersedes ps-007's original two-hostname choice), media
-  stored VM-local unless a dedicated object-storage need is identified later.
+  stored VM-local unless a dedicated object-storage need is identified later. **Deployment is now
+  deliberately deferred**: the developer set the deployment MVP bar at full, real account
+  functionality live on the API — registration/login (ps-009), user management (ps-010), real
+  claims/memories (ps-017), and the review/approve workflow (ps-018) — rather than deploying the
+  content-only platform ps-006/ps-007 already deliver (2026-11-18 — see Decisions). `ps-008` now
+  depends on all four.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
@@ -55,17 +60,19 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - [ps-007: Stand up the standalone React site on the new API](specs/complete/ps-007-platform-react-site.md)
      (delivered 2026-11-17; deployment to the existing VM, combined with the API under
      `rite.makeboldspark.com`, is a tracked follow-up, see Decisions)
-   - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
    - [ps-009: Real registration and login for a small user base](specs/ps-009-real-registration-login.md)
    - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
    - [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md)
      (delivered 2026-11-18)
-   - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
-     (depends on ps-008)
    - [ps-017: Move claim and memories onto real accounts](specs/ps-017-claim-memories-on-real-accounts.md)
      (depends on ps-009)
    - [ps-018: Editor/administrator review-and-approve workflow for claims and memories](specs/ps-018-review-approve-claims-memories.md)
      (depends on ps-017, ps-010)
+   - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
+     (depends on ps-009, ps-010, ps-017, ps-018 — the deployment MVP now requires full real
+     account functionality live on the API first, see Decisions)
+   - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
+     (depends on ps-008)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
@@ -206,6 +213,19 @@ Prospective Spec for <outcome>`.
   release or directory access" — NON-NEGOTIABLE, not yet implemented anywhere). Recorded as
   `ps-018`, depending on `ps-017` (something real to review) and `ps-010` (reuses its
   coordinator/leader authorization pattern rather than inventing a separate "editor" role).
+- **2026-11-18** — Developer-stated direction: defer VM deployment (`ps-008`) until full real
+  account functionality is live on the API — the deployment MVP is no longer "the content-only
+  platform `ps-006`/`ps-007` already deliver," but that platform plus real registration/login
+  (`ps-009`), user management (`ps-010`), real claims/memories (`ps-017`), and the
+  editor/administrator review-and-approve workflow (`ps-018`). Asked whether `ps-018` specifically
+  belongs in that bar or could follow deployment as a fast-follow; developer chose to include it,
+  consistent with constitution Principle III (NON-NEGOTIABLE) — launching with real claims/memories
+  but no review-and-approve path would mean account functionality ships incomplete from a user's
+  perspective, not actually "full." `ps-008`'s `depends_on` updated from `[ps-006, ps-007]` to
+  `[ps-006, ps-007, ps-009, ps-010, ps-017, ps-018]` (`order` 30 → 50, after that whole chain); its
+  own scope (deploy mechanics) is unchanged — only when it can start moved. This removes `ps-008`
+  from the currently-unblocked set; `ps-009` is now the critical-path item that unblocks everything
+  else in this theme in turn.
 
 ## Delivered
 
