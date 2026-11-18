@@ -58,7 +58,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
    - [ps-009: Real registration and login for a small user base](specs/ps-009-real-registration-login.md)
    - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
-   - [ps-015: Port the mocked account UI into the React site](specs/ps-015-account-ui-in-react-site.md)
+   - [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md)
+     (delivered 2026-11-18)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
@@ -164,6 +165,14 @@ awaiting its dependency). Add another with `/devspark-roadmap add a Prospective 
 
 ## Delivered
 
+- **2026-11-18** — [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md).
+  `src/Rite.Web` now has its own register/login/account (claim + memories + profile) UI at
+  `/register`, `/login`, and `/account`, reusing `docs/js/account.js`'s mocked, browser-local
+  `localStorage` model; `MockBanner` is removed. Claim matching queries real `/api/alumni` data
+  live. EN/ES i18n parity holds at 131/131 keys; 54/54 `src/Rite.Web` tests pass. Verified end to
+  end in the browser against the real API. `docs/`'s own copy of this UI is left as-is — retiring
+  or migrating it is a separate, not-yet-made decision. Delivered via
+  [West-Wichita-Rotary-Club/rite#18](https://github.com/West-Wichita-Rotary-Club/rite/pull/18).
 - **2026-11-16** — [ps-001: Apply ratified mission statement to the constitution](specs/complete/ps-001-amend-constitution-mission.md).
   Constitution bumped 1.0.0 → 1.1.0; Principles I and II now match the ratified mission
   statement, pending-amendment note removed. Delivered via
