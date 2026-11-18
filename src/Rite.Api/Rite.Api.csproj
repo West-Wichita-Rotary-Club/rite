@@ -38,21 +38,45 @@
     <Content Include="..\..\docs\content\program-cycle.json" Link="content\program-cycle.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
-  <!-- ps-008: dotnet publish (from the CLI or Visual Studio's Publish dialog) builds
-       src/Rite.Web and copies its dist/ into wwwroot/, so the publish output is a
-       complete, self-contained deployable unit — API plus SPA, one zip. This never
-       runs for a plain build/run (BeforeTargets is ComputeFilesToPublish, which only
-       fires during publish), so F5/dotnet run stays fast. -->
+  <!-- ps-008: building the solution (F5, dotnet build, dotnet test's implicit build,
+       and dotnet publish) builds src/Rite.Web and copies its dist/ into wwwroot/, so
+       the API always serves the real SPA at root — no separate step needed to see the
+       combined-hosting behavior locally. Incremental via Inputs/Outputs: unchanged
+       Rite.Web source means this is skipped, not re-run, on a plain F5/dotnet build.
+       Makes Node a build-time dependency for Rite.Api itself (see ci.yml's api-test
+       job). For active frontend development with hot reload, still run `npm run dev`
+       separately in src/Rite.Web (README) rather than relying on this rebuild loop. -->
   <PropertyGroup>
     <RiteWebDir>$(MSBuildProjectDirectory)\..\Rite.Web</RiteWebDir>
+    <RiteWwwroot>$(MSBuildProjectDirectory)\wwwroot</RiteWwwroot>
   </PropertyGroup>
 
-  <Target Name="BuildRiteWebForPublish" BeforeTargets="ComputeFilesToPublish">
+  <!-- A top-level item group, not one inside the target below: these files already
+       exist on disk (checked into git) at project-evaluation time, unlike the
+       generated dist/wwwroot output, so globbing them here — not inside the target,
+       where it would evaluate too late to inform that target's own Inputs check — is
+       both correct and the simpler option. -->
+  <ItemGroup>
+    <RiteWebSourceFiles Include="$(RiteWebDir)\index.html;$(RiteWebDir)\src\**" />
+  </ItemGroup>
+
+  <Target Name="BuildRiteWeb" BeforeTargets="Build"
+          Inputs="$(RiteWebDir)\package.json;$(RiteWebDir)\vite.config.js;$(RiteWebDir)\.env.production;@(RiteWebSourceFiles)"
+          Outputs="$(RiteWwwroot)\index.html">
     <Exec Command="npm ci" WorkingDirectory="$(RiteWebDir)" Condition="!Exists('$(RiteWebDir)\node_modules')" />
     <Exec Command="npm run build" WorkingDirectory="$(RiteWebDir)" />
+    <RemoveDir Directories="$(RiteWwwroot)" Condition="Exists('$(RiteWwwroot)')" />
     <ItemGroup>
       <RiteWebDistFiles Include="$(RiteWebDir)\dist\**" />
-      <ResolvedFileToPublish Include="@(RiteWebDistFiles)">
+    </ItemGroup>
+    <Copy SourceFiles="@(RiteWebDistFiles)"
+          DestinationFiles="@(RiteWebDistFiles -> '$(RiteWwwroot)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="RegisterRiteWebFilesForPublish" BeforeTargets="ComputeFilesToPublish" DependsOnTargets="BuildRiteWeb">
+    <ItemGroup>
+      <RiteWwwrootFiles Include="$(RiteWwwroot)\**" />
+      <ResolvedFileToPublish Include="@(RiteWwwrootFiles)">
         <RelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>

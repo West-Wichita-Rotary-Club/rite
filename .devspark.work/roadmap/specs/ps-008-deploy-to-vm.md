@@ -39,13 +39,19 @@ account/login/claim flow with a banner pointing to `rite.makeboldspark.com` once
 A committed `src/Rite.Api/Properties/launchSettings.json` now pins local `dotnet run`/Visual
 Studio F5 to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy (previously only an
 uncommitted, differently-ported local file existed, which F5 would have used instead — silently
-breaking the dev proxy). `scripts/publish-rite-api.ps1` produces the actual deployable package:
-`dotnet publish` (which the project's `BuildRiteWebForPublish` MSBuild target already extends to
-build `src/Rite.Web` and copy its `dist/` into `wwwroot/`) followed by zipping the output —
-verified end to end to include `web.config`, `Rite.Api.exe`, and the SPA. Zipping could not be
-done as an MSBuild `AfterTargets="Publish"` hook: `web.config` is written by a separate internal
-publish sub-pipeline (`_TransformWebConfig`) whose completion isn't reliably observable from a
-project-level target, so an in-process hook silently produced a zip missing it — the script
+breaking the dev proxy). Building `Rite.Api` at all — F5, `dotnet build`, `dotnet test`'s implicit
+build, or publish, via the `BuildRiteWeb` MSBuild target (`BeforeTargets="Build"`, incremental on
+`src/Rite.Web`'s source) — now also builds `src/Rite.Web` and copies it into `wwwroot/`, so the
+API's own root URL serves the real SPA directly even outside publish (closing the "F5 in Visual
+Studio gives a 404 at `/`" surprise); `RegisterRiteWebFilesForPublish` depends on it to register
+those files for `dotnet publish`. This makes Node a build-time dependency of `Rite.Api` itself —
+`.github/workflows/ci.yml`'s `api-test` job needed a `Set up Node.js` step added, which it didn't
+have before. `scripts/publish-rite-api.ps1` produces the actual deployable package: `dotnet
+publish` followed by zipping the output — verified end to end to include `web.config`,
+`Rite.Api.exe`, and the SPA. Zipping could not be done as an MSBuild `AfterTargets="Publish"`
+hook: `web.config` is written by a separate internal publish sub-pipeline
+(`_TransformWebConfig`) whose completion isn't reliably observable from a project-level target,
+so an in-process hook silently produced a zip missing it — the script
 zips only after the `dotnet publish` process has fully exited, side-stepping that. A
 `RuntimeIdentifier` (`win-x64`) is now required project-wide for the SDK to generate `web.config`
 at all (IIS/ANCM needs it to launch the app); without one, publish silently omits it.
