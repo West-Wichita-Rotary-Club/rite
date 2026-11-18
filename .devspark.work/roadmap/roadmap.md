@@ -62,6 +62,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      (delivered 2026-11-18)
    - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
      (depends on ps-008)
+   - [ps-017: Move claim and memories onto real accounts](specs/ps-017-claim-memories-on-real-accounts.md)
+     (depends on ps-009)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
@@ -78,7 +80,7 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
    - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
 
-`ps-001` through `ps-016` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
+`ps-001` through `ps-017` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
 ps-006/ps-007; see Decisions) — each a right-sized increment under its theme. Every outcome
 originally named in Themes 2–4 now has a recorded Prospective Spec (delivered, or proposed and
 awaiting its dependency). Theme 1's two deferred follow-ups (Spanish translation of the ratified
@@ -192,6 +194,11 @@ Prospective Spec for <outcome>`.
   `enforced`, describing the real, already-delivered practice instead of a gap ps-005 closed two
   days before this principle's text was written. Developer approved both in-session
   (`/devspark-roadmap`'s own finding); 14-day review waived, same as CAP-2026-002's precedent.
+- **2026-11-18** — Asked which PS(s) get to an API-driven account UI; `ps-009`'s own scope
+  already excludes claim and memories ("separate, larger outcomes that can follow once real
+  accounts exist"), leaving a real gap after `ps-009` ships: claim/memories would stay
+  `localStorage`-only with nothing tracking the follow-up. Recorded as `ps-017`, depending on
+  `ps-009`.
 
 ## Delivered
 
