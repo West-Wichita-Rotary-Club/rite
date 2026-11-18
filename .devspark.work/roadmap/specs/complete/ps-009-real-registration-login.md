@@ -1,11 +1,11 @@
 ---
 id: ps-009
 title: Real registration and login for a small user base
-status: proposed
+status: complete
 order: 30
 depends_on: [ps-006, ps-007]
 blockers: []
-delivery: []
+delivery: ["https://github.com/West-Wichita-Rotary-Club/rite/pull/19"]
 ---
 
 # ps-009: Real registration and login for a small user base

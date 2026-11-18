@@ -32,7 +32,9 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   functionality live on the API — registration/login (ps-009), user management (ps-010), real
   claims/memories (ps-017), and the review/approve workflow (ps-018) — rather than deploying the
   content-only platform ps-006/ps-007 already deliver (2026-11-18 — see Decisions). `ps-008` now
-  depends on all four.
+  depends on all four. ps-009 delivered 2026-11-18 (real cookie-session register/login/logout/
+  profile in `src/Rite.Api`, replacing the mocked `localStorage` identity in `src/Rite.Web`) —
+  `ps-010` and `ps-017` are now unblocked; `ps-008` still waits on all four.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
@@ -60,7 +62,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - [ps-007: Stand up the standalone React site on the new API](specs/complete/ps-007-platform-react-site.md)
      (delivered 2026-11-17; deployment to the existing VM, combined with the API under
      `rite.makeboldspark.com`, is a tracked follow-up, see Decisions)
-   - [ps-009: Real registration and login for a small user base](specs/ps-009-real-registration-login.md)
+   - [ps-009: Real registration and login for a small user base](specs/complete/ps-009-real-registration-login.md)
+     (delivered 2026-11-18)
    - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
    - [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md)
      (delivered 2026-11-18)
@@ -226,9 +229,28 @@ Prospective Spec for <outcome>`.
   own scope (deploy mechanics) is unchanged — only when it can start moved. This removes `ps-008`
   from the currently-unblocked set; `ps-009` is now the critical-path item that unblocks everything
   else in this theme in turn.
+- **2026-11-18** — Delivered ps-009 (PR #19): real cookie-session registration/login/logout/
+  profile in `src/Rite.Api`, replacing `src/Rite.Web`'s mocked `localStorage` identity (ps-015's
+  claim/memories store stays mocked, now keyed by the real account's email). PR review (standard
+  process, not waived) found one blocking finding — a login-timing side channel that could
+  enumerate registered emails — plus two non-blocking ones; all three fixed and the developer
+  personally verified each fix in chat (the reviewing AI session couldn't serve as an independent
+  evaluator of its own remediation). `ps-010` and `ps-017` are now unblocked; `ps-008` still waits
+  on `ps-010`, `ps-017`, and `ps-018` too.
 
 ## Delivered
 
+- **2026-11-18** — [ps-009: Real registration and login for a small user base](specs/complete/ps-009-real-registration-login.md).
+  Adds a persisted `Account` entity and `/api/account/register|login|logout|me` endpoints to
+  `src/Rite.Api` (cookie session, `PasswordHasher` for hashing — no SSO, per constitution
+  Principle IX as relaxed by CAP-2026-003), and wires `src/Rite.Web`'s `AccountContext.jsx` to
+  call them instead of `localStorage`. Claim and memories stay exactly where ps-015 left them —
+  the same mocked, browser-local model, now keyed by the real account's email. Login never
+  distinguishes an unknown email from a wrong password, so the API can't be used to enumerate
+  registered accounts. 35/35 backend + 62/62 frontend tests pass; EN/ES i18n parity holds at
+  136/136. Verified end to end in the browser (register, duplicate-email rejection, wrong/right
+  password, profile-edit persistence across reload, sign-out redirect). Delivered via
+  [West-Wichita-Rotary-Club/rite#19](https://github.com/West-Wichita-Rotary-Club/rite/pull/19).
 - **2026-11-18** — [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md).
   `src/Rite.Web` now has its own register/login/account (claim + memories + profile) UI at
   `/register`, `/login`, and `/account`, reusing `docs/js/account.js`'s mocked, browser-local
