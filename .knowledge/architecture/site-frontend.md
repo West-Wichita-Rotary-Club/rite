@@ -68,6 +68,18 @@ ps-015 (2026-11-18) ported that same mocked UI directly into `src/Rite.Web` too 
 backend — still the mocked `localStorage` model — see `src/Rite.Web/src/context/AccountContext.jsx`),
 so `docs/` is no longer the only place to see it; retiring or redirecting `docs/` itself is
 tracked separately as ps-016, which waits on ps-008 (production deployment) since `docs/` is
-still the only thing actually live today. Real accounts/login (ps-009, not started) are
-deliberately simple auth, not OpenID Connect — Principle IX no longer mandates a third-party
-identity provider (CAP-2026-003, relaxed for this program's small, volunteer-run scale).
+still the only thing actually live today.
+
+ps-009 (2026-11-18) moved registration, sign-in, sign-out, and profile view/edit onto the real
+API: `src/Rite.Api/Accounts/AccountEndpoints.cs` adds a persisted `Account` entity (email +
+password hash, hashed via `Microsoft.AspNetCore.Identity.PasswordHasher<Account>`) and
+`/api/account/register|login|logout|me` endpoints, authenticated with a simple cookie session
+(`Microsoft.AspNetCore.Authentication.Cookies`) — deliberately not OpenID Connect, since
+Principle IX no longer mandates a third-party identity provider (CAP-2026-003, relaxed for this
+program's small, volunteer-run scale). `AccountContext.jsx` now calls that real API for identity
+(`register`/`signIn`/`signOut`/`updateProfile`, each async) instead of reading/writing
+`localStorage` for it. Claim-an-alumni-profile and memories/photos are a separate, later
+increment (`ps-017`) and still live exactly where ps-015 left them — mocked and browser-local,
+in `src/Rite.Web/src/lib/account.js`'s claims/memories store, now keyed by the real account's
+email rather than being the account record itself. `docs/`'s own copy of the whole account UI is
+unaffected — it stays fully mocked until/unless `ps-016` retires it.

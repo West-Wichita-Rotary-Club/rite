@@ -1,110 +1,136 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { api } from "../api.js";
 import {
   StorageBudgetError,
-  createAccountRecord,
+  clearClaimsMemories,
   detectStorageAvailable,
-  readAccounts,
-  readSession,
-  writeAccounts,
-  writeSession
+  readClaimsMemories,
+  writeClaimsMemories
 } from "../lib/account.js";
 
 const AccountContext = createContext(null);
 
 export function AccountProvider({ children }) {
   const [storageAvailable] = useState(() => detectStorageAvailable());
-  const [accounts, setAccounts] = useState(() => readAccounts(storageAvailable));
-  const [sessionEmail, setSessionEmail] = useState(() => readSession(storageAvailable));
+  const [profile, setProfile] = useState(null);
+  const [claimsMemories, setClaimsMemories] = useState(null);
+  // "loading" covers the one GET /api/account/me this makes on mount to restore
+  // an existing session cookie — consumers (Account.jsx) must wait for "ready"
+  // before treating a null account as "signed out" and redirecting.
+  const [status, setStatus] = useState("loading");
 
-  const account = sessionEmail ? accounts[sessionEmail] ?? null : null;
+  useEffect(() => {
+    let cancelled = false;
+    api.getCurrentAccount().then(({ ok, data }) => {
+      if (cancelled) {
+        return;
+      }
+      if (ok && data) {
+        setProfile(data);
+        setClaimsMemories(readClaimsMemories(storageAvailable, data.email));
+      }
+      setStatus("ready");
+    });
+    return () => {
+      cancelled = true;
+    };
+    // storageAvailable is fixed for the component's lifetime (useState initializer).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  function persist(next) {
-    writeAccounts(next);
-    setAccounts(next);
-  }
+  const account = profile
+    ? { ...profile, claim: claimsMemories?.claim ?? null, memories: claimsMemories?.memories ?? [] }
+    : null;
 
-  function signIn(email) {
-    setSessionEmail(email);
-    writeSession(email);
-  }
-
-  function signOut() {
-    setSessionEmail(null);
-    writeSession(null);
-  }
-
-  function register(email, fields) {
-    const record = createAccountRecord(email, fields);
-    persist({ ...accounts, [email]: record });
-    signIn(email);
-    return record;
-  }
-
-  function updateAccount(email, updater) {
-    const existing = accounts[email];
-    if (!existing) {
-      return;
+  async function register(fields) {
+    const { ok, data } = await api.registerAccount(fields);
+    if (!ok) {
+      return { ok: false, error: data?.error || "unknown" };
     }
-    persist({ ...accounts, [email]: updater({ ...existing }) });
+    setProfile(data);
+    setClaimsMemories(readClaimsMemories(storageAvailable, data.email));
+    return { ok: true };
   }
 
-  function updateProfile(fields) {
-    if (!account) {
-      return;
+  async function signIn(email, password) {
+    const { ok, data } = await api.loginAccount({ email, password });
+    if (!ok) {
+      return { ok: false, error: data?.error || "unknown" };
     }
-    updateAccount(account.email, (existing) => ({ ...existing, ...fields }));
+    setProfile(data);
+    setClaimsMemories(readClaimsMemories(storageAvailable, data.email));
+    return { ok: true };
+  }
+
+  async function signOut() {
+    await api.logoutAccount();
+    setProfile(null);
+    setClaimsMemories(null);
+  }
+
+  async function updateProfile(fields) {
+    const { ok, data } = await api.updateAccountProfile(fields);
+    if (ok) {
+      setProfile(data);
+    }
+    return ok;
   }
 
   function saveClaim(claim) {
     if (!account) {
       return;
     }
-    updateAccount(account.email, (existing) => ({ ...existing, claim }));
+    setClaimsMemories(
+      writeClaimsMemories(storageAvailable, account.email, (existing) => ({ ...existing, claim }))
+    );
   }
 
   function withdrawClaim() {
     if (!account) {
       return;
     }
-    updateAccount(account.email, (existing) => ({ ...existing, claim: null }));
+    setClaimsMemories(
+      writeClaimsMemories(storageAvailable, account.email, (existing) => ({ ...existing, claim: null }))
+    );
   }
 
   function saveMemory(memory, isNew) {
     if (!account) {
       return;
     }
-    updateAccount(account.email, (existing) => ({
-      ...existing,
-      memories: isNew
-        ? existing.memories.concat(memory)
-        : existing.memories.map((item) => (item.id === memory.id ? memory : item))
-    }));
+    setClaimsMemories(
+      writeClaimsMemories(storageAvailable, account.email, (existing) => ({
+        ...existing,
+        memories: isNew
+          ? existing.memories.concat(memory)
+          : existing.memories.map((item) => (item.id === memory.id ? memory : item))
+      }))
+    );
   }
 
   function deleteMemory(memoryId) {
     if (!account) {
       return;
     }
-    updateAccount(account.email, (existing) => ({
-      ...existing,
-      memories: existing.memories.filter((item) => item.id !== memoryId)
-    }));
+    setClaimsMemories(
+      writeClaimsMemories(storageAvailable, account.email, (existing) => ({
+        ...existing,
+        memories: existing.memories.filter((item) => item.id !== memoryId)
+      }))
+    );
   }
 
-  function clearAccountData() {
-    if (!account) {
-      return;
+  async function clearAccountData() {
+    if (account) {
+      clearClaimsMemories(storageAvailable, account.email);
     }
-    const next = { ...accounts };
-    delete next[account.email];
-    persist(next);
-    signOut();
+    await signOut();
   }
 
   const value = useMemo(
     () => ({
       account,
-      accounts,
+      status,
       storageAvailable,
       register,
       signIn,
@@ -117,7 +143,7 @@ export function AccountProvider({ children }) {
       clearAccountData
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [account, accounts, storageAvailable]
+    [account, status, storageAvailable]
   );
 
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;

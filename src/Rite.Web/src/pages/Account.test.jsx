@@ -1,51 +1,43 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen, fireEvent, waitFor, cleanup } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "../i18n.jsx";
-import { AccountProvider, useAccount } from "../context/AccountContext.jsx";
+import { AccountProvider } from "../context/AccountContext.jsx";
 import { api } from "../api.js";
 import { Account } from "./Account.jsx";
 
 vi.mock("../api.js", () => ({
   api: {
-    getAlumni: vi.fn()
+    getAlumni: vi.fn(),
+    getCurrentAccount: vi.fn(),
+    registerAccount: vi.fn(),
+    loginAccount: vi.fn(),
+    logoutAccount: vi.fn(),
+    updateAccountProfile: vi.fn()
   }
 }));
 
+const SIGNED_IN_PROFILE = {
+  email: "pat@example.com",
+  name: "Pat Lee",
+  role: "teacher",
+  country: "Panama",
+  city: "",
+  languages: "",
+  years: "",
+  bio: ""
+};
+
 beforeEach(() => {
   window.localStorage.clear();
+  vi.clearAllMocks();
   api.getAlumni.mockResolvedValue({
     countries: { panama: { label: { en: "Panama", es: "Panama" } } },
     functions: { teacher: { label: { en: "Teacher", es: "Docente" } } },
     profiles: []
   });
+  api.getCurrentAccount.mockResolvedValue({ ok: false, status: 401, data: null });
 });
-
-function Seed() {
-  const { register } = useAccount();
-  return (
-    <button
-      onClick={() => register("pat@example.com", { name: "Pat Lee", role: "teacher", country: "Panama" })}
-    >
-      seed
-    </button>
-  );
-}
-
-// Registering through the real Login/Register pages navigates to /account
-// afterward; a bare useAccount().register() call here does not, so seeding
-// must happen in localStorage *before* Account mounts — not by registering
-// after Account has already redirected to /login — or the test would be
-// asserting against a route a real user could never reach this way either.
-function seedAccount() {
-  render(
-    <AccountProvider>
-      <Seed />
-    </AccountProvider>
-  );
-  fireEvent.click(screen.getByText("seed"));
-  cleanup();
-}
 
 function renderAccount() {
   return render(
@@ -63,13 +55,13 @@ function renderAccount() {
 }
 
 describe("Account", () => {
-  it("redirects to /login when signed out", () => {
+  it("redirects to /login once the session check resolves signed-out", async () => {
     renderAccount();
-    expect(screen.getByText("Login page")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("Login page")).toBeInTheDocument());
   });
 
   it("shows the dashboard summary and profile once signed in", async () => {
-    seedAccount();
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
     renderAccount();
 
     await waitFor(() => expect(screen.getByText("At a glance")).toBeInTheDocument());
@@ -79,20 +71,26 @@ describe("Account", () => {
     expect(screen.getByText("You haven't shared any memories yet.")).toBeInTheDocument();
   });
 
-  it("saves profile edits", async () => {
-    seedAccount();
+  it("saves profile edits through the API", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.updateAccountProfile.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: { ...SIGNED_IN_PROFILE, name: "Pat Updated" }
+    });
     renderAccount();
     await waitFor(() => expect(screen.getByDisplayValue("Pat Lee")).toBeInTheDocument());
 
     fireEvent.change(screen.getByDisplayValue("Pat Lee"), { target: { value: "Pat Updated" } });
     fireEvent.click(screen.getByText("Save details"));
 
-    await waitFor(() => expect(screen.getByText("Details saved in this browser.")).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText("Details saved.")).toBeInTheDocument());
     expect(screen.getByDisplayValue("Pat Updated")).toBeInTheDocument();
+    expect(api.updateAccountProfile).toHaveBeenCalled();
   });
 
-  it("saves a memory and reflects it in the dashboard summary", async () => {
-    seedAccount();
+  it("saves a memory locally and reflects it in the dashboard summary", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
     renderAccount();
     await waitFor(() => expect(screen.getByText("Share a memory")).toBeInTheDocument());
 

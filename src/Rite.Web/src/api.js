@@ -13,6 +13,26 @@ async function getJson(path) {
   return response.json();
 }
 
+// Account calls (ps-009) never throw on a non-2xx response — 400/401/409 are
+// expected, meaningful outcomes (bad input, wrong credentials, duplicate email),
+// not failures the caller should have to catch. AccountContext branches on `ok`
+// and the server's `error` code instead.
+async function accountRequest(path, { method = "GET", body } = {}) {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method,
+    credentials: "same-origin",
+    headers: body ? { "Content-Type": "application/json" } : undefined,
+    body: body ? JSON.stringify(body) : undefined
+  });
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (_error) {
+    data = null;
+  }
+  return { ok: response.ok, status: response.status, data };
+}
+
 export const api = {
   getTimeline: () => getJson("/api/timeline"),
   getStories: () => getJson("/api/stories"),
@@ -21,5 +41,10 @@ export const api = {
   getFaq: () => getJson("/api/faq"),
   getImpact: () => getJson("/api/impact"),
   getProgramCycle: () => getJson("/api/program-cycle"),
-  getSchools: () => getJson("/api/schools")
+  getSchools: () => getJson("/api/schools"),
+  registerAccount: (payload) => accountRequest("/api/account/register", { method: "POST", body: payload }),
+  loginAccount: (payload) => accountRequest("/api/account/login", { method: "POST", body: payload }),
+  logoutAccount: () => accountRequest("/api/account/logout", { method: "POST" }),
+  getCurrentAccount: () => accountRequest("/api/account/me"),
+  updateAccountProfile: (payload) => accountRequest("/api/account/me", { method: "PUT", body: payload })
 };

@@ -1,9 +1,10 @@
-// Ported from docs/js/account.js: the same mocked, browser-local account model
-// (register/sign-in/profile/claim/memories), now living directly in this site
-// instead of only on the legacy static preview. localStorage is origin-scoped,
-// so this is a fresh, separate mock store from docs/'s — nothing to migrate.
-const ACCOUNTS_KEY = "rite-web-accounts";
-const SESSION_KEY = "rite-web-session";
+// ps-009 moved registration/sign-in/profile onto the real API (src/Rite.Api) —
+// see context/AccountContext.jsx and api.js. Claim-an-alumni-profile and
+// memories/photo submissions are a separate, later increment and still live
+// here as the same mocked, browser-local model ported from docs/js/account.js,
+// now keyed by the signed-in account's real email rather than being the
+// account record itself.
+const CLAIMS_MEMORIES_KEY = "rite-web-claims-memories";
 const FEATURE_STORAGE_BUDGET = 3 * 1000 * 1000;
 const PHOTO_MAX_DIMENSION = 1024;
 export const MAX_PHOTOS_PER_MEMORY = 3;
@@ -11,6 +12,7 @@ export const MAX_MEMORIES_PER_MEMBER = 10;
 const MIN_PARTICIPATION_YEAR = 1996;
 export const CLAIM_ROLES = ["leader", "host", "teacher"];
 const PROFILE_COMPLETENESS_FIELDS = ["name", "role", "country", "city", "languages", "years", "bio"];
+const BLANK_CLAIM_MEMORY = { claim: null, memories: [] };
 
 export class StorageBudgetError extends Error {}
 
@@ -25,62 +27,48 @@ export function detectStorageAvailable() {
   }
 }
 
-export function readAccounts(storageAvailable) {
-  if (!storageAvailable) {
-    return {};
-  }
-  try {
-    return JSON.parse(window.localStorage.getItem(ACCOUNTS_KEY) || "{}");
-  } catch (_error) {
-    return {};
-  }
-}
-
-export function writeAccounts(accounts) {
-  const size = JSON.stringify(accounts).length;
-  if (size > FEATURE_STORAGE_BUDGET) {
-    throw new StorageBudgetError();
-  }
-  window.localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
-}
-
-export function readSession(storageAvailable) {
-  if (!storageAvailable) {
-    return null;
-  }
-  try {
-    return window.localStorage.getItem(SESSION_KEY) || null;
-  } catch (_error) {
-    return null;
-  }
-}
-
-export function writeSession(email) {
-  if (email) {
-    window.localStorage.setItem(SESSION_KEY, email);
-  } else {
-    window.localStorage.removeItem(SESSION_KEY);
-  }
-}
-
 export function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
 }
 
-export function createAccountRecord(email, fields) {
-  return {
-    email,
-    name: fields.name || "",
-    role: fields.role || "",
-    country: fields.country || "",
-    city: fields.city || "",
-    languages: fields.languages || "",
-    years: fields.years || "",
-    bio: fields.bio || "",
-    createdAt: new Date().toISOString(),
-    claim: null,
-    memories: []
-  };
+function readAllClaimsMemories() {
+  try {
+    return JSON.parse(window.localStorage.getItem(CLAIMS_MEMORIES_KEY) || "{}");
+  } catch (_error) {
+    return {};
+  }
+}
+
+export function readClaimsMemories(storageAvailable, email) {
+  if (!storageAvailable || !email) {
+    return BLANK_CLAIM_MEMORY;
+  }
+  return readAllClaimsMemories()[email] || BLANK_CLAIM_MEMORY;
+}
+
+export function writeClaimsMemories(storageAvailable, email, updater) {
+  if (!storageAvailable || !email) {
+    return BLANK_CLAIM_MEMORY;
+  }
+  const all = readAllClaimsMemories();
+  const updated = updater(all[email] || BLANK_CLAIM_MEMORY);
+  const next = { ...all, [email]: updated };
+
+  const size = JSON.stringify(next).length;
+  if (size > FEATURE_STORAGE_BUDGET) {
+    throw new StorageBudgetError();
+  }
+  window.localStorage.setItem(CLAIMS_MEMORIES_KEY, JSON.stringify(next));
+  return updated;
+}
+
+export function clearClaimsMemories(storageAvailable, email) {
+  if (!storageAvailable || !email) {
+    return;
+  }
+  const all = readAllClaimsMemories();
+  delete all[email];
+  window.localStorage.setItem(CLAIMS_MEMORIES_KEY, JSON.stringify(all));
 }
 
 export function downscalePhoto(file) {

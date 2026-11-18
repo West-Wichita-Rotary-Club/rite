@@ -1,60 +1,67 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "../i18n.jsx";
-import { AccountProvider, useAccount } from "../context/AccountContext.jsx";
+import { AccountProvider } from "../context/AccountContext.jsx";
+import { api } from "../api.js";
 import { Login } from "./Login.jsx";
+
+vi.mock("../api.js", () => ({
+  api: {
+    getCurrentAccount: vi.fn(),
+    registerAccount: vi.fn(),
+    loginAccount: vi.fn(),
+    logoutAccount: vi.fn(),
+    updateAccountProfile: vi.fn()
+  }
+}));
 
 beforeEach(() => {
   window.localStorage.clear();
+  vi.clearAllMocks();
+  api.getCurrentAccount.mockResolvedValue({ ok: false, status: 401, data: null });
 });
-
-function Seed() {
-  const { register, signOut } = useAccount();
-  return (
-    <button
-      onClick={() => {
-        register("pat@example.com", { name: "Pat Lee" });
-        signOut();
-      }}
-    >
-      seed
-    </button>
-  );
-}
 
 function renderLogin() {
   return render(
     <LanguageProvider>
       <AccountProvider>
-        <MemoryRouter>
-          <Seed />
-          <Login />
+        <MemoryRouter initialEntries={["/login"]}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/account" element={<div>Account page</div>} />
+          </Routes>
         </MemoryRouter>
       </AccountProvider>
     </LanguageProvider>
   );
 }
 
-describe("Login", () => {
-  it("rejects an email with no matching account", async () => {
-    renderLogin();
-    fireEvent.change(screen.getByPlaceholderText("name@example.org"), { target: { value: "nobody@example.com" } });
-    fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
+function submitLogin(email, password) {
+  fireEvent.change(screen.getByPlaceholderText("name@example.org"), { target: { value: email } });
+  fireEvent.change(screen.getByPlaceholderText("At least 8 characters"), { target: { value: password } });
+  fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
+}
 
-    await waitFor(() =>
-      expect(screen.getByText("No account found for this email in this browser. Register first.")).toBeInTheDocument()
-    );
+describe("Login", () => {
+  it("shows an invalid-credentials error for an unknown email", async () => {
+    api.loginAccount.mockResolvedValue({ ok: false, status: 401, data: null });
+    renderLogin();
+    submitLogin("nobody@example.com", "password1");
+
+    await waitFor(() => expect(screen.getByText("Invalid email or password.")).toBeInTheDocument());
   });
 
-  it("signs in a known account", async () => {
+  it("signs in with the right credentials and navigates to the account page", async () => {
+    api.loginAccount.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: { email: "pat@example.com", name: "Pat Lee" }
+    });
     renderLogin();
-    fireEvent.click(screen.getByText("seed"));
-    fireEvent.change(screen.getByPlaceholderText("name@example.org"), { target: { value: "pat@example.com" } });
-    fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
+    submitLogin("pat@example.com", "password1");
 
-    await waitFor(() =>
-      expect(screen.queryByText("No account found for this email in this browser. Register first.")).not.toBeInTheDocument()
-    );
+    await waitFor(() => expect(screen.getByText("Account page")).toBeInTheDocument());
+    expect(api.loginAccount).toHaveBeenCalledWith({ email: "pat@example.com", password: "password1" });
   });
 });

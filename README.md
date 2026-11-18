@@ -10,17 +10,21 @@ This repo includes a fully static public preview in `docs/`.
 - All registration, resource, and API behavior is mocked in local JavaScript.
 - The preview uses local assets only and does not require a backend, database, Azure service, authentication provider, CDN, analytics script, or external API.
 - GitHub Pages deploys the committed `docs/` folder through `.github/workflows/pages.yml` after changes are merged to `main`.
-- As of ps-015, every surface this preview had — including the mocked account/login/registration/claim/memory UI — is also live on the production React site (`src/Rite.Web`), so this preview is no longer the only place to see any of it; it's kept as a fallback, not a required stop. See `.knowledge/architecture/site-frontend.md`.
+- As of ps-015, every surface this preview had — including the mocked account/login/registration/claim/memory UI — is also live on the production React site (`src/Rite.Web`), so this preview is no longer the only place to see any of it; it's kept as a fallback, not a required stop. As of ps-009, this preview's own account/login/registration stays a `localStorage` mock — only `src/Rite.Web`'s copy moved onto the real API. See `.knowledge/architecture/site-frontend.md`.
 
 ## Production API and React site
 
-- `src/Rite.Web` also has its own mocked account/login/registration/claim/memory UI now (ps-015),
-  ported from `docs/`'s and living at `/register`, `/login`, and `/account` — still a
-  browser-local `localStorage` mock (no real backend; that's ps-009, not yet started), but no
-  longer requiring a trip to the legacy static preview to see it. See
-  `src/Rite.Web/src/context/AccountContext.jsx` and `src/Rite.Web/src/lib/account.js`.
+- `src/Rite.Web` has its own account UI at `/register`, `/login`, and `/account`. As of ps-009,
+  registration, sign-in, sign-out, and profile view/edit are real — persisted on `src/Rite.Api`
+  via `POST/GET/PUT /api/account/*`, with a cookie session (no SSO, no third-party identity
+  provider — deliberately simple, per constitution Principle IX as relaxed by CAP-2026-003). See
+  `src/Rite.Web/src/context/AccountContext.jsx` and `src/Rite.Api/Accounts/AccountEndpoints.cs`.
+  Claiming alumni status and sharing memories/photos (also on `/account`) are a separate, later
+  increment (ps-017) and still a browser-local `localStorage` mock — see
+  `src/Rite.Web/src/lib/account.js`.
 - `src/Rite.Api` is the real ASP.NET Core + SQLite API (ps-006), serving the seven content
-  surfaces plus schools as bilingual JSON. Run it with F5 in Visual Studio, or
+  surfaces plus schools as bilingual JSON, plus the real account endpoints above (ps-009). Run it
+  with F5 in Visual Studio, or
   `dotnet run --project src/Rite.Api` from the command line — `Properties/launchSettings.json`
   pins it to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy below. Building the
   project (F5, `dotnet build`, `dotnet test`'s implicit build, or publish) also builds

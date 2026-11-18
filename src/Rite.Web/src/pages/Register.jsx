@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../i18n.jsx";
 import { useAccount } from "../context/AccountContext.jsx";
 import { normalizeEmail } from "../lib/account.js";
@@ -6,26 +7,34 @@ import { normalizeEmail } from "../lib/account.js";
 const COUNTRIES = ["United States", "Panama", "Argentina", "Mexico"];
 const ROLES = ["teacher", "host", "leader", "coordinator", "school"];
 
+const ERROR_KEYS = {
+  "invalid-email": "invalidEmail",
+  "weak-password": "weakPassword",
+  "duplicate-email": "duplicateAccount"
+};
+
 export function Register() {
   const { t } = useLanguage();
-  const { accounts, storageAvailable, register } = useAccount();
+  const { register } = useAccount();
+  const navigate = useNavigate();
   const [notice, setNotice] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const fields = Object.fromEntries(formData.entries());
-    const email = normalizeEmail(fields.email);
-    if (!email || !storageAvailable) {
-      setNotice(t("labels.storageUnavailableNotice"));
+    fields.email = normalizeEmail(fields.email);
+
+    setSubmitting(true);
+    const result = await register(fields);
+    setSubmitting(false);
+
+    if (!result.ok) {
+      setNotice(t(`labels.${ERROR_KEYS[result.error] || "registerError"}`));
       return;
     }
-    if (accounts[email]) {
-      setNotice(t("labels.duplicateAccount"));
-      return;
-    }
-    register(email, fields);
-    setNotice(t("labels.detailsSaved"));
+    navigate("/account");
   }
 
   return (
@@ -42,6 +51,17 @@ export function Register() {
           <label className="field">
             {t("labels.email")}
             <input name="email" type="email" autoComplete="email" placeholder={t("placeholders.email")} required />
+          </label>
+          <label className="field">
+            {t("labels.password")}
+            <input
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              placeholder={t("placeholders.password")}
+              minLength={8}
+              required
+            />
           </label>
           <label className="field">
             {t("labels.role")}
@@ -79,13 +99,12 @@ export function Register() {
           </label>
         </div>
         <div className="form-actions">
-          <button className="button gold" type="submit">
+          <button className="button gold" type="submit" disabled={submitting}>
             {t("labels.registerButton")}
           </button>
-          <span className="privacy-note">{t("labels.noNetwork")}</span>
         </div>
         <p className="privacy-note login-notice">{t("labels.previewLoginNotice")}</p>
-        {notice && <div className="status-panel">{notice}</div>}
+        {notice && <div className="status-panel warning">{notice}</div>}
       </form>
     </section>
   );
