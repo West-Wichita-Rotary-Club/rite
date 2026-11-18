@@ -30,6 +30,15 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"
+      # Rite.Api.csproj's BuildRiteWeb target (ps-008) builds src/Rite.Web into
+      # wwwroot/ as part of a plain build, not just publish, so Node is now a
+      # build-time dependency of Rite.Api itself.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: src/Rite.Web/package-lock.json
       - name: Build
         run: dotnet build Rite.slnx --configuration Release
       - name: Test

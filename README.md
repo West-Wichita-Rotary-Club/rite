@@ -17,12 +17,18 @@ This repo includes a fully static public preview in `docs/`.
 - `src/Rite.Api` is the real ASP.NET Core + SQLite API (ps-006), serving the seven content
   surfaces plus schools as bilingual JSON. Run it with F5 in Visual Studio, or
   `dotnet run --project src/Rite.Api` from the command line — `Properties/launchSettings.json`
-  pins it to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy below.
-- `src/Rite.Web` is the real standalone React site (ps-007) that calls that API. Run it with
-  `npm install && npm run dev` inside `src/Rite.Web` — it calls the API via relative `/api/*`
-  paths, proxied to `http://localhost:5159` in development by `vite.config.js` (set
-  `VITE_DEV_PROXY_TARGET` in a local `.env.local` to point it at a different API instead, e.g.
-  the live one once deployed).
+  pins it to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy below. Building the
+  project (F5, `dotnet build`, `dotnet test`'s implicit build, or publish) also builds
+  `src/Rite.Web` and copies it into `wwwroot/` (Node is a build-time dependency of `Rite.Api`
+  because of this — see `Rite.Api.csproj`'s `BuildRiteWeb` target), so the API's own root URL
+  (`http://localhost:5159/`) serves the real site directly, same as production. This step is
+  incremental — unchanged `src/Rite.Web` source skips it, so a plain F5 stays fast.
+- For active frontend development, run `npm install && npm run dev` inside `src/Rite.Web`
+  instead and use its URL (`http://localhost:5173` by default) — that gets you Vite's hot
+  module reload, which rebuilding `Rite.Api` on every change does not. It calls the API via
+  relative `/api/*` paths, proxied to `http://localhost:5159` in development by
+  `vite.config.js` (set `VITE_DEV_PROXY_TARGET` in a local `.env.local` to point it at a
+  different API instead, e.g. the live one once deployed).
 - Planned production hosting (ps-008): an existing VM, single domain `rite.makeboldspark.com` —
   `src/Rite.Api` serves both the API and `src/Rite.Web`'s production build (copied into
   `wwwroot/` at deploy time) from the same origin, so no CORS policy is needed (constitution
