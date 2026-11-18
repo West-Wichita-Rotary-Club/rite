@@ -10,6 +10,9 @@ import { Faq } from "./pages/Faq.jsx";
 import { Schools } from "./pages/Schools.jsx";
 import { SchoolProfile } from "./pages/SchoolProfile.jsx";
 import { Impact } from "./pages/Impact.jsx";
+import { Register } from "./pages/Register.jsx";
+import { Login } from "./pages/Login.jsx";
+import { Account } from "./pages/Account.jsx";
 import { NotFound } from "./pages/NotFound.jsx";
 
 export function App() {
@@ -26,6 +29,9 @@ export function App() {
         <Route path="resources" element={<Resources />} />
         <Route path="faq" element={<Faq />} />
         <Route path="impact" element={<Impact />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="account" element={<Account />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

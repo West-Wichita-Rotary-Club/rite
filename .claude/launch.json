@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "src/Rite.Web", "--", "--port", "5173"],
       "port": 5173
+    },
+    {
+      "name": "rite-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/Rite.Api", "--configuration", "Debug", "--urls", "http://localhost:5159"],
+      "port": 5159
     }
   ]
 }

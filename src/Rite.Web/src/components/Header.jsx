@@ -1,5 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useLanguage } from "../i18n.jsx";
+import { useAccount } from "../context/AccountContext.jsx";
 
 const NAV_ITEMS = [
   { to: "/", key: "home" },
@@ -14,6 +15,8 @@ const NAV_ITEMS = [
 
 export function Header() {
   const { t, lang, setLang } = useLanguage();
+  const { account, signOut } = useAccount();
+  const navigate = useNavigate();
 
   return (
     <header className="site-header">
@@ -53,6 +56,32 @@ export function Header() {
               ES
             </button>
           </div>
+          {account ? (
+            <>
+              <NavLink to="/account" className="button ghost">
+                {account.name || account.email}
+              </NavLink>
+              <button
+                type="button"
+                className="button gold"
+                onClick={() => {
+                  signOut();
+                  navigate("/");
+                }}
+              >
+                {t("labels.signOut")}
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className="button ghost">
+                {t("labels.signIn")}
+              </NavLink>
+              <NavLink to="/register" className="button gold">
+                {t("labels.register")}
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </header>
