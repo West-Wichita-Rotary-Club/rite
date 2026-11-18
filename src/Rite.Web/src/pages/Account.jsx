@@ -24,20 +24,47 @@ const ROLES = ["teacher", "host", "leader", "coordinator", "school"];
 
 export function Account() {
   const { t, localize } = useLanguage();
-  const { account, storageAvailable, updateProfile, saveClaim, withdrawClaim, saveMemory, deleteMemory, clearAccountData } =
-    useAccount();
+  const {
+    account,
+    status,
+    storageAvailable,
+    updateProfile,
+    saveClaim,
+    withdrawClaim,
+    saveMemory,
+    deleteMemory,
+    clearAccountData
+  } = useAccount();
   const { data: alumniContent } = useContent(api.getAlumni);
   const [profileNotice, setProfileNotice] = useState("");
+  const [profileError, setProfileError] = useState("");
+
+  // "loading" covers the one-time GET /api/account/me AccountProvider makes on
+  // mount to restore an existing session cookie — redirecting to /login before
+  // that resolves would bounce an already-signed-in person on every page load.
+  if (status === "loading") {
+    return (
+      <section className="section">
+        <p>{t("labels.loading")}</p>
+      </section>
+    );
+  }
 
   if (!account) {
     return <Navigate to="/login" replace />;
   }
 
-  function handleDetailsSubmit(event) {
+  async function handleDetailsSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    updateProfile(Object.fromEntries(formData.entries()));
-    setProfileNotice(t("labels.detailsSaved"));
+    const ok = await updateProfile(Object.fromEntries(formData.entries()));
+    if (ok) {
+      setProfileNotice(t("labels.detailsSaved"));
+      setProfileError("");
+    } else {
+      setProfileError(t("labels.profileSaveError"));
+      setProfileNotice("");
+    }
   }
 
   return (
@@ -92,6 +119,7 @@ export function Account() {
           </button>
           {profileNotice && <span className="privacy-note">{profileNotice}</span>}
         </div>
+        {profileError && <div className="status-panel warning">{profileError}</div>}
       </form>
 
       <ClaimSection

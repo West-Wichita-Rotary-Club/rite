@@ -1,19 +1,26 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
   CLAIM_ROLES,
+  StorageBudgetError,
   blankClaimDraft,
   blankMemoryDraft,
   blankParticipationRow,
   candidateProfilesForClaim,
-  createAccountRecord,
+  clearClaimsMemories,
   findAlumniProfile,
   getCountryLabel,
   getProfileRoles,
   normalizeEmail,
   participationYearsFromRow,
   profileCompleteness,
-  validateParticipationRow
+  readClaimsMemories,
+  validateParticipationRow,
+  writeClaimsMemories
 } from "./account.js";
+
+beforeEach(() => {
+  window.localStorage.clear();
+});
 
 describe("normalizeEmail", () => {
   it("trims and lowercases", () => {
@@ -83,14 +90,51 @@ describe("blankMemoryDraft", () => {
   });
 });
 
-describe("createAccountRecord", () => {
-  it("builds a new account with defaults for missing fields", () => {
-    const account = createAccountRecord("teacher@example.com", { name: "Pat", role: "teacher" });
-    expect(account.email).toBe("teacher@example.com");
-    expect(account.name).toBe("Pat");
-    expect(account.bio).toBe("");
-    expect(account.claim).toBeNull();
-    expect(account.memories).toEqual([]);
+describe("readClaimsMemories / writeClaimsMemories / clearClaimsMemories", () => {
+  it("returns a blank record when storage is unavailable or the email is missing", () => {
+    expect(readClaimsMemories(false, "pat@example.com")).toEqual({ claim: null, memories: [] });
+    expect(readClaimsMemories(true, "")).toEqual({ claim: null, memories: [] });
+  });
+
+  it("writes and reads back a claim, keyed by email", () => {
+    const claim = { country: "panama", participation: [], matchedProfileId: "", selfDeclaredName: "" };
+    writeClaimsMemories(true, "pat@example.com", (existing) => ({ ...existing, claim }));
+
+    expect(readClaimsMemories(true, "pat@example.com").claim).toEqual(claim);
+    expect(readClaimsMemories(true, "someone-else@example.com")).toEqual({ claim: null, memories: [] });
+  });
+
+  it("appends a memory without disturbing an existing claim", () => {
+    const claim = { country: "panama", participation: [], matchedProfileId: "", selfDeclaredName: "" };
+    writeClaimsMemories(true, "pat@example.com", (existing) => ({ ...existing, claim }));
+    writeClaimsMemories(true, "pat@example.com", (existing) => ({
+      ...existing,
+      memories: existing.memories.concat({ id: "m1", title: "Trip", text: "...", photos: [] })
+    }));
+
+    const record = readClaimsMemories(true, "pat@example.com");
+    expect(record.claim).toEqual(claim);
+    expect(record.memories).toHaveLength(1);
+  });
+
+  it("throws StorageBudgetError when the write would exceed the storage budget", () => {
+    const hugeText = "x".repeat(4 * 1000 * 1000);
+    expect(() =>
+      writeClaimsMemories(true, "pat@example.com", (existing) => ({
+        ...existing,
+        memories: [{ id: "m1", title: "Trip", text: hugeText, photos: [] }]
+      }))
+    ).toThrow(StorageBudgetError);
+  });
+
+  it("clears only the named email's claim/memory record", () => {
+    writeClaimsMemories(true, "pat@example.com", (existing) => ({ ...existing, claim: { country: "panama" } }));
+    writeClaimsMemories(true, "other@example.com", (existing) => ({ ...existing, claim: { country: "argentina" } }));
+
+    clearClaimsMemories(true, "pat@example.com");
+
+    expect(readClaimsMemories(true, "pat@example.com")).toEqual({ claim: null, memories: [] });
+    expect(readClaimsMemories(true, "other@example.com").claim).toEqual({ country: "argentina" });
   });
 });
 

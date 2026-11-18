@@ -1,5 +1,7 @@
 using ApiTestSpark;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Rite.Api.Accounts;
 using Rite.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,32 @@ var connectionString = builder.Configuration.GetConnectionString("RiteDb")
     ?? $"Data Source={Path.Combine(builder.Environment.ContentRootPath, "rite.db")}";
 
 builder.Services.AddDbContext<RiteDbContext>(options => options.UseSqlite(connectionString));
+
+// ps-009: deliberately simple cookie-session auth, sized to a small known
+// community — no SSO, no third-party identity provider (constitution Principle
+// IX, relaxed by CAP-2026-003). The default cookie handler redirects an
+// unauthenticated request to an HTML login page; this is a JSON API, so both
+// redirect events are overridden to plain status codes instead.
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.Cookie.Name = "rite.auth";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.ExpireTimeSpan = TimeSpan.FromDays(30);
+        options.SlidingExpiration = true;
+        options.Events.OnRedirectToLogin = context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return Task.CompletedTask;
+        };
+        options.Events.OnRedirectToAccessDenied = context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            return Task.CompletedTask;
+        };
+    });
+builder.Services.AddAuthorization();
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, _, _) =>
@@ -29,6 +57,16 @@ builder.Services.AddOpenApi(options =>
             | Impact metrics | `GET /api/impact` |
             | Program cycle | `GET /api/program-cycle` |
             | Schools and clubs | `GET /api/schools` |
+
+            Real, persisted account registration/login (email + password, cookie session):
+
+            | Action | Endpoint |
+            | --- | --- |
+            | Register | `POST /api/account/register` |
+            | Sign in | `POST /api/account/login` |
+            | Sign out | `POST /api/account/logout` |
+            | Get own profile | `GET /api/account/me` |
+            | Update own profile | `PUT /api/account/me` |
             """;
         return Task.CompletedTask;
     });
@@ -43,6 +81,9 @@ var app = builder.Build();
 // with no IIS rewrite rule required.
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapOpenApi();
 app.MapApiTestSpark(options =>
@@ -93,6 +134,8 @@ MapContentEndpoint(app, "schools", "GetSchools", "Schools and clubs", "Get the s
     "Bilingual directory of participating schools and Rotary clubs. Unlike the other surfaces, " +
     "this one has no `docs/content/` file of its own — it's mirrored from `docs/js/content.js`'s " +
     "hardcoded array (see `Rite.Api.Data.SchoolsSeed`).");
+
+app.MapAccountEndpoints();
 
 // An unmatched /api/* path (a typo'd surface, say) must keep 404ing rather than
 // silently falling through to the SPA's index.html below — MapFallbackToFile only

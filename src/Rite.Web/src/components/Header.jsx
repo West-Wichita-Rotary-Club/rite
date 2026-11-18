@@ -64,8 +64,8 @@ export function Header() {
               <button
                 type="button"
                 className="button gold"
-                onClick={() => {
-                  signOut();
+                onClick={async () => {
+                  await signOut();
                   navigate("/");
                 }}
               >
