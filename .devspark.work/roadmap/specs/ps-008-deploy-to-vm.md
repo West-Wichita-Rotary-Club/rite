@@ -36,6 +36,19 @@ today's combined-hosting decision too (it only ever published the API). The VM i
 the API's SQLite database path is decided (`C:\websites\rite\`) but nothing has been provisioned
 there yet. `docs/` remains the sole live production surface today, rescoped (ps-007) to the mocked
 account/login/claim flow with a banner pointing to `rite.makeboldspark.com` once it exists.
+A committed `src/Rite.Api/Properties/launchSettings.json` now pins local `dotnet run`/Visual
+Studio F5 to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy (previously only an
+uncommitted, differently-ported local file existed, which F5 would have used instead — silently
+breaking the dev proxy). `scripts/publish-rite-api.ps1` produces the actual deployable package:
+`dotnet publish` (which the project's `BuildRiteWebForPublish` MSBuild target already extends to
+build `src/Rite.Web` and copy its `dist/` into `wwwroot/`) followed by zipping the output —
+verified end to end to include `web.config`, `Rite.Api.exe`, and the SPA. Zipping could not be
+done as an MSBuild `AfterTargets="Publish"` hook: `web.config` is written by a separate internal
+publish sub-pipeline (`_TransformWebConfig`) whose completion isn't reliably observable from a
+project-level target, so an in-process hook silently produced a zip missing it — the script
+zips only after the `dotnet publish` process has fully exited, side-stepping that. A
+`RuntimeIdentifier` (`win-x64`) is now required project-wide for the SDK to generate `web.config`
+at all (IIS/ANCM needs it to launch the app); without one, publish silently omits it.
 
 ## Scope and Independence
 

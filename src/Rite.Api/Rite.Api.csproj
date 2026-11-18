@@ -6,6 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <RootNamespace>Rite.Api</RootNamespace>
+    <!-- ps-008: the VM is Windows/IIS. A RID is required for the SDK to generate
+         web.config (IIS/ANCM needs it to know how to launch the app) — without
+         one, dotnet publish silently omits it. SelfContained=false: the VM has
+         the ASP.NET Core Hosting Bundle installed, so the zip stays small. -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,5 +37,33 @@
     <Content Include="..\..\docs\content\impact.json" Link="content\impact.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\docs\content\program-cycle.json" Link="content\program-cycle.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+
+  <!-- ps-008: dotnet publish (from the CLI or Visual Studio's Publish dialog) builds
+       src/Rite.Web and copies its dist/ into wwwroot/, so the publish output is a
+       complete, self-contained deployable unit — API plus SPA, one zip. This never
+       runs for a plain build/run (BeforeTargets is ComputeFilesToPublish, which only
+       fires during publish), so F5/dotnet run stays fast. -->
+  <PropertyGroup>
+    <RiteWebDir>$(MSBuildProjectDirectory)\..\Rite.Web</RiteWebDir>
+  </PropertyGroup>
+
+  <Target Name="BuildRiteWebForPublish" BeforeTargets="ComputeFilesToPublish">
+    <Exec Command="npm ci" WorkingDirectory="$(RiteWebDir)" Condition="!Exists('$(RiteWebDir)\node_modules')" />
+    <Exec Command="npm run build" WorkingDirectory="$(RiteWebDir)" />
+    <ItemGroup>
+      <RiteWebDistFiles Include="$(RiteWebDir)\dist\**" />
+      <ResolvedFileToPublish Include="@(RiteWebDistFiles)">
+        <RelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+  <!-- Deliberately not an MSBuild AfterTargets="Publish" hook: web.config is
+       written by a separate internal publish sub-pipeline (_TransformWebConfig,
+       via Microsoft.NET.Sdk.Publish) whose completion isn't reliably reachable
+       from a project-level target — naming it in AfterTargets still runs before
+       the file lands in PublishDir. scripts/publish-rite-api.ps1 zips only after
+       dotnet publish's process has fully exited, which sidesteps that entirely. -->
 
 </Project>
