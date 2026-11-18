@@ -60,6 +60,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
    - [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md)
      (delivered 2026-11-18)
+   - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
+     (depends on ps-008)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
    notifications for new community stories.
    - [ps-003: School and club profile pages](specs/complete/ps-003-school-club-pages.md)
@@ -76,11 +78,13 @@ archive" framing) — see Themes, Mission & Identity Alignment.
    ps-005); address the bus-factor-of-1 risk named in the 2026-11-15 commit audit (still open).
    - [ps-005: Establish test coverage and a CI gate](specs/complete/ps-005-test-coverage-ci.md)
 
-`ps-001` through `ps-015` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
+`ps-001` through `ps-016` are the Prospective Specs recorded so far (ps-002 dropped and replaced by
 ps-006/ps-007; see Decisions) — each a right-sized increment under its theme. Every outcome
 originally named in Themes 2–4 now has a recorded Prospective Spec (delivered, or proposed and
-awaiting its dependency). Add another with `/devspark-roadmap add a Prospective Spec for
-<outcome>`.
+awaiting its dependency). Theme 1's two deferred follow-ups (Spanish translation of the ratified
+mission copy, and a stakeholder one-pager) remain deliberately uncaptured — neither has a clear
+enough outcome yet to right-size (see Decisions). Add another with `/devspark-roadmap add a
+Prospective Spec for <outcome>`.
 
 ## Decisions
 
@@ -162,6 +166,23 @@ awaiting its dependency). Add another with `/devspark-roadmap add a Prospective 
   the real backend now — that stays ps-009, not started; or just rewording the banner with no
   functional change). `docs/`'s own copy of the UI is left as-is; whether to retire or migrate it
   now that `src/Rite.Web` has its own is a separate, not-yet-made decision.
+- **2026-11-18** — Asked "should we retire or redirect `docs/` now?" after ps-015 shipped;
+  recommended waiting until ps-008 (VM deployment) ships and is verified live, since `docs/` is
+  currently the *only* publicly reachable surface — retiring it sooner would leave nothing public
+  at all. Recorded as ps-016, depending on ps-008.
+- **2026-11-18** — Reviewing the roadmap for uncaptured scope (`/devspark-roadmap create ps-* for
+  remaining scope`) surfaced two findings outside this command's own authority, reported to the
+  developer rather than silently fixed or folded into a PS: (1) ps-009's planned auth (simple
+  credential/magic-link, explicitly no SSO/third-party identity provider) conflicts with
+  constitution Principle IX (NON-NEGOTIABLE), which mandates OpenID Connect with Auth0 as an
+  example provider — needs resolving (fix ps-009, or amend the principle) before ps-009 starts,
+  not a PS itself. (2) Principle XI's title ("Testing and CI Are Not Yet Established," `adopting`)
+  and body are stale against ps-005's 2026-11-16 delivery of exactly that — a constitution
+  correction via `/devspark-evolve-constitution`, not a PS. Theme 1's two deferred follow-ups
+  (Spanish translation of the ratified mission copy — unclear which copy, since the ratified text
+  only lives in the English-only constitution, not any user-facing page; and a stakeholder
+  one-pager — unclear audience/format) were left uncaptured rather than given a guessed-at scope;
+  see the note after the Themes list above.
 
 ## Delivered
 
