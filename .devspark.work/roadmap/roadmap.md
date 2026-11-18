@@ -24,17 +24,18 @@ archive" framing) — see Themes, Mission & Identity Alignment.
 - **Built, not deployed**: the production architecture — ASP.NET Core MVC/Web API + SQLite
   (`src/Rite.Api`, ps-006) and a standalone React site (`src/Rite.Web`, ps-007), per constitution
   Principle IX — is real and tested, but live nowhere yet. Hosting is an existing VM per
-  Principle X (amended 2026-11-16, v1.2.0; see Decisions): the API at `rite.makeboldspark.com`,
-  the React site at `rite-app.makeboldspark.com`, media stored VM-local unless a dedicated
-  object-storage need is identified later.
+  Principle X (amended 2026-11-16, v1.2.0; see Decisions): `src/Rite.Api` serves both the API and
+  `src/Rite.Web`'s production build from one origin, `rite.makeboldspark.com` (combined-hosting
+  decision, 2026-11-17 — see Decisions; supersedes ps-007's original two-hostname choice), media
+  stored VM-local unless a dedicated object-storage need is identified later.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
   until ps-005 delivered them 2026-11-16. ps-006 and ps-007 delivered a deployable API and React
-  site, but neither is deployed anywhere — the target is an existing Windows VM, with the API
-  reachable at `rite.makeboldspark.com`, its SQLite database at `C:\websites\rite\`, and the
-  React site at `rite-app.makeboldspark.com` (see Decisions), not the Azure Web App/Linux path
-  ps-006 was originally written against.
+  site, but neither is deployed anywhere — the target is an existing Windows VM, with both
+  reachable at the single hostname `rite.makeboldspark.com`, the API's SQLite database at
+  `C:\websites\rite\` (see Decisions), not the Azure Web App/Linux path ps-006 was originally
+  written against.
 
 ## Themes
 
@@ -52,8 +53,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      (delivered 2026-11-16; deployment to the existing VM at `rite.makeboldspark.com` is a
      tracked follow-up, see Decisions)
    - [ps-007: Stand up the standalone React site on the new API](specs/complete/ps-007-platform-react-site.md)
-     (delivered 2026-11-17; deployment to the existing VM at `rite-app.makeboldspark.com` is a
-     tracked follow-up, see Decisions)
+     (delivered 2026-11-17; deployment to the existing VM, combined with the API under
+     `rite.makeboldspark.com`, is a tracked follow-up, see Decisions)
    - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
    - [ps-009: Real registration and login for a small user base](specs/ps-009-real-registration-login.md)
    - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
@@ -140,6 +141,19 @@ awaiting its dependency). Add another with `/devspark-roadmap add a Prospective 
   subscriptions so it doesn't need ps-009), ps-013 (automated host-family matching, depends on
   ps-009 — real identifiable accounts are a prerequisite for a match to mean anything), and ps-014
   (interactive impact reporting maps). All `proposed`; every Theme 2–4 outcome now has a PS.
+- **2026-11-17** — Superseding ps-007's two-hostname choice: `src/Rite.Api` now serves
+  `src/Rite.Web`'s production build directly from the same origin (`UseDefaultFiles` /
+  `UseStaticFiles` / `MapFallbackToFile`, with an explicit `/api/{**catchall}` 404 so an unknown
+  API path can't fall through to the SPA), under one hostname, `rite.makeboldspark.com` —
+  `rite-app.makeboldspark.com` is dropped. Developer-stated direction, chosen over keeping two
+  hostnames and over hosting the React site on GitHub Pages (both considered and rejected: two
+  hostnames keeps CORS; GitHub Pages would need a constitution amendment to Principle X and a
+  second repo or a repointed Pages deployment for its own custom domain). Consequences: the CORS
+  policy is removed (same-origin now); both `.env.development` and `.env.production` set
+  `VITE_API_BASE_URL` empty so the SPA calls relative `/api/*` paths everywhere, with
+  `vite.config.js` proxying `/api` to the local API in development so no CORS is needed there
+  either; `docs/js/render.js`'s production-site link now points at `rite.makeboldspark.com`.
+  `ps-008` updated to match; `ps-009`–`ps-014` are unaffected (none named the dropped hostname).
 
 ## Delivered
 

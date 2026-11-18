@@ -120,7 +120,7 @@ function renderHeaderAccountActions() {
 // ps-007 docs/ fate decision: this folder stays live, scoped to the
 // mocked account/login/registration/claim/memory UI that PS left out of
 // scope, with every other surface pointing visitors at the real site.
-const PRODUCTION_SITE_URL = "https://rite-app.makeboldspark.com";
+const PRODUCTION_SITE_URL = "https://rite.makeboldspark.com";
 
 function renderMockBanner() {
   return `

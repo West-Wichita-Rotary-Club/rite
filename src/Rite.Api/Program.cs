@@ -34,20 +34,15 @@ builder.Services.AddOpenApi(options =>
     });
 });
 
-const string PublicReadCorsPolicy = "PublicRead";
-builder.Services.AddCors(options =>
-{
-    // Every surface here is already public, read-only content with no auth or
-    // cookies involved, so an open GET-only policy is intentional, not an
-    // oversight. Revisit once accounts/auth (a later PS) introduce anything
-    // that needs a narrower origin list or credentials.
-    options.AddPolicy(PublicReadCorsPolicy, policy =>
-        policy.AllowAnyOrigin().WithMethods("GET").AllowAnyHeader());
-});
-
 var app = builder.Build();
 
-app.UseCors(PublicReadCorsPolicy);
+// src/Rite.Web's production build is copied into wwwroot/ at deploy time (ps-008)
+// and served from this same process/origin, so the SPA's API calls are same-origin
+// — no CORS policy is needed. UseStaticFiles/MapFallbackToFile also give the SPA's
+// client-side routes (e.g. /schools/:slug) a working deep-link refresh, in-process,
+// with no IIS rewrite rule required.
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapOpenApi();
 app.MapApiTestSpark(options =>
@@ -98,6 +93,19 @@ MapContentEndpoint(app, "schools", "GetSchools", "Schools and clubs", "Get the s
     "Bilingual directory of participating schools and Rotary clubs. Unlike the other surfaces, " +
     "this one has no `docs/content/` file of its own — it's mirrored from `docs/js/content.js`'s " +
     "hardcoded array (see `Rite.Api.Data.SchoolsSeed`).");
+
+// An unmatched /api/* path (a typo'd surface, say) must keep 404ing rather than
+// silently falling through to the SPA's index.html below — MapFallbackToFile only
+// catches requests that don't match any endpoint, and without this, a more specific
+// unmatched /api/* request wouldn't match anything either and would also fall
+// through to it once wwwroot/index.html exists (it doesn't yet in tests/CI, which
+// is why Unknown_surface_returns_404 doesn't currently catch this).
+app.MapGet("/api/{**catchall}", () => Results.NotFound())
+    .ExcludeFromDescription();
+
+// Must come after every endpoint mapping above: it only matches requests that
+// didn't hit another endpoint, so it can never shadow them.
+app.MapFallbackToFile("index.html");
 
 app.Run();
 

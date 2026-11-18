@@ -1,8 +1,9 @@
-// No launchSettings.json exists for src/Rite.Api, so its dev URL depends on
-// how it's started; .env.development pins VITE_API_BASE_URL to match the
-// --urls flag used in this project's README. Production overrides this via
-// .env.production (ps-006's API at rite.makeboldspark.com).
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5159";
+// Empty in both .env.development and .env.production (ps-008): the SPA and the
+// API are served from the same origin everywhere — in production because
+// src/Rite.Api serves this build's static files directly, and in development via
+// vite.config.js's /api proxy to the dotnet API on :5159 — so every call here is
+// a same-origin relative path, and no origin needs CORS-approving.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
 async function getJson(path) {
   const response = await fetch(`${API_BASE_URL}${path}`, { cache: "no-store" });
