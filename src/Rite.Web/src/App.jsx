@@ -13,6 +13,7 @@ import { Impact } from "./pages/Impact.jsx";
 import { Register } from "./pages/Register.jsx";
 import { Login } from "./pages/Login.jsx";
 import { Account } from "./pages/Account.jsx";
+import { Coordinator } from "./pages/Coordinator.jsx";
 import { NotFound } from "./pages/NotFound.jsx";
 
 export function App() {
@@ -32,6 +33,7 @@ export function App() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="account" element={<Account />} />
+        <Route path="coordinator" element={<Coordinator />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -55,7 +55,9 @@ const copy = {
       claimTitle: "Claim your alumni status",
       claimIntro:
         "Declare your country and the roles you held in different years. This claim is browser-local and pending review — it never changes the public directory.",
-      memoriesComposerTitle: "Share a memory"
+      memoriesComposerTitle: "Share a memory",
+      coordinatorTitle: "Manage accounts",
+      coordinatorIntro: "Coordinators can see every registered account and deactivate one if needed."
     },
     filters: {
       all: "All",
@@ -154,7 +156,20 @@ const copy = {
       memoryStorageFull: "This browser's preview storage is full. Remove a photo or memory before adding more.",
       clearDataButton: "Sign out and clear browser data",
       clearDataConfirm: "This signs you out and removes your claim and memories from this browser. Continue?",
-      cancelButton: "Cancel"
+      cancelButton: "Cancel",
+      coordinatorNavLink: "Manage accounts",
+      userEmailColumn: "Email",
+      userRoleColumn: "Role",
+      userStatusColumn: "Status",
+      userActionsColumn: "Actions",
+      statusActive: "Active",
+      statusDeactivated: "Deactivated",
+      coordinatorBadge: "Coordinator",
+      deactivateButton: "Deactivate",
+      reactivateButton: "Reactivate",
+      deactivateConfirm: "Deactivate this account? They won't be able to sign in until reactivated.",
+      usersLoadError: "Could not load the account list. Confirm you're signed in as a coordinator.",
+      forbiddenNotice: "Only coordinators can see this page."
     },
     placeholders: {
       name: "e.g. Maria Camarena",
@@ -217,7 +232,9 @@ const copy = {
       claimTitle: "Reclame su estatus de exalumno",
       claimIntro:
         "Declare su pais y los roles que tuvo en distintos anos. Este reclamo es local al navegador y queda pendiente de revision; nunca cambia el directorio publico.",
-      memoriesComposerTitle: "Comparta una memoria"
+      memoriesComposerTitle: "Comparta una memoria",
+      coordinatorTitle: "Administrar cuentas",
+      coordinatorIntro: "Los coordinadores pueden ver cada cuenta registrada y desactivarla si es necesario."
     },
     filters: {
       all: "Todos",
@@ -316,7 +333,20 @@ const copy = {
       memoryStorageFull: "El almacenamiento de vista previa de este navegador esta lleno. Elimine una foto o memoria antes de agregar mas.",
       clearDataButton: "Cerrar sesion y borrar datos del navegador",
       clearDataConfirm: "Esto cierra su sesion y elimina su reclamo y memorias de este navegador. Continuar?",
-      cancelButton: "Cancelar"
+      cancelButton: "Cancelar",
+      coordinatorNavLink: "Administrar cuentas",
+      userEmailColumn: "Correo electronico",
+      userRoleColumn: "Rol",
+      userStatusColumn: "Estado",
+      userActionsColumn: "Acciones",
+      statusActive: "Activa",
+      statusDeactivated: "Desactivada",
+      coordinatorBadge: "Coordinador",
+      deactivateButton: "Desactivar",
+      reactivateButton: "Reactivar",
+      deactivateConfirm: "Desactivar esta cuenta? No podra iniciar sesion hasta que se reactive.",
+      usersLoadError: "No se pudo cargar la lista de cuentas. Confirme que inicio sesion como coordinador.",
+      forbiddenNotice: "Solo los coordinadores pueden ver esta pagina."
     },
     placeholders: {
       name: "p. ej. Maria Camarena",

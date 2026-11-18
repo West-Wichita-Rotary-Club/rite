@@ -1,6 +1,6 @@
 # Work: ps-010 user management on the API
 
-**Status**: In Progress
+**Status**: Complete
 
 ## Intended Outcome
 
@@ -12,6 +12,20 @@ view their roles/profiles, and deactivate an account — from an authenticated s
 
 A coordinator can sign in, see the list of real registered accounts with their roles, and
 deactivate one. Recognized complete once that flow works end to end and is reviewed.
+
+Verified: 44/44 backend tests pass (9 new — unauthenticated/non-coordinator/coordinator access for
+list, deactivate, reactivate; 404 for an unknown id; deactivation blocks future login and revokes
+an already-live session immediately via isolated `HttpClient`/`CookieContainer` pairs; reactivation
+restores login; a client-supplied `isCoordinator: true` on register is silently ignored). 68/68
+`src/Rite.Web` tests pass (6 new `Coordinator.test.jsx` cases). EN/ES i18n parity holds at
+151/151. Verified live in the browser: registered two accounts; confirmed setting one's own
+`Role` dropdown to "Coordinator" does **not** grant `/coordinator` access (the exact gap the
+material decision below closes); promoted one account via a direct SQLite edit (no other path
+exists); confirmed the coordinator sees both accounts, deactivate blocks that account's login,
+and reactivate restores it. (One two-tab manual attempt to show mid-session revocation was
+inconclusive — both tabs shared one browser cookie jar, so a login in one tab silently overwrote
+the other's session; this is a test-methodology artifact, not a product behavior, and the
+property itself is proven by the isolated-client backend test instead.)
 
 ## Material Exclusions
 
@@ -46,8 +60,20 @@ lines ~92-103, 170-176 (register/update both accept `Role` from the client).
 the exact gap this decision exists to close. Any new account-related endpoint must be checked
 against this before shipping.
 
+## Additional Implementation Notes
+
+- Deactivation also runs the same timing-safe dummy-hash check ps-009's `H-01` fix introduced:
+  an unknown email, a wrong password, and a deactivated account's correct password all take
+  comparable time and return the same 401 — deactivation status isn't leakable via timing either.
+- `Account.IsActive` defaults to `true`; `CurrentAccountAsync` (used by `GetMeAsync`,
+  `UpdateMeAsync`, and the coordinator endpoints) filters it, so deactivation takes effect
+  immediately rather than only on next sign-in.
+- `AccountProfile` (the `/me`, register, login response shape) now also returns `isCoordinator`
+  (read-only) so `src/Rite.Web` can decide whether to show the "Manage accounts" nav link and
+  `/coordinator` route at all.
+
 ## Next Useful Action
 
-Implement the `IsCoordinator` field (migration-free via `EnsureCreatedAsync`, same pattern as the
-rest of `Account`), the coordinator-only list endpoint, a deactivation mechanism, and the matching
-`src/Rite.Web` coordinator UI.
+None — this increment is complete. `ps-013` (host-family matching) and `ps-018` (review/approve
+workflow, which reuses this PS's coordinator pattern rather than inventing a separate "editor"
+role) can each build on this.

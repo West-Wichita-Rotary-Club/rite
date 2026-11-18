@@ -58,6 +58,11 @@ export function Header() {
           </div>
           {account ? (
             <>
+              {account.isCoordinator && (
+                <NavLink to="/coordinator" className="button ghost">
+                  {t("labels.coordinatorNavLink")}
+                </NavLink>
+              )}
               <NavLink to="/account" className="button ghost">
                 {account.name || account.email}
               </NavLink>
