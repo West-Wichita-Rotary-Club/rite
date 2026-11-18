@@ -16,6 +16,12 @@ public static class AccountEndpoints
 {
     private static readonly PasswordHasher<Account> Hasher = new();
 
+    // Used only to equalize LoginAsync's timing for an unknown email against a
+    // wrong password for a real one (see LoginAsync) — never a real account.
+    private static readonly Account DummyAccountForTiming = new() { Id = Guid.Empty, Email = "", PasswordHash = "" };
+    private static readonly string DummyPasswordHashForTiming =
+        Hasher.HashPassword(DummyAccountForTiming, "not-a-real-password-used-only-for-timing");
+
     public static void MapAccountEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/account").WithTags("Account");
@@ -100,7 +106,18 @@ public static class AccountEndpoints
         account.PasswordHash = Hasher.HashPassword(account, request.Password);
 
         db.Accounts.Add(account);
-        await db.SaveChangesAsync();
+        try
+        {
+            await db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            // A second line of defense behind the pre-check above: two concurrent
+            // registrations for the same email can both pass that check before
+            // either writes, so the loser hits the unique index on Email here
+            // instead of silently creating a duplicate account.
+            return Results.Conflict(new ErrorResponse("duplicate-email"));
+        }
 
         await SignInAsync(http, account);
         return Results.Ok(ToProfile(account));
@@ -112,6 +129,10 @@ public static class AccountEndpoints
         var account = await db.Accounts.FirstOrDefaultAsync(a => a.Email == email);
         if (account is null)
         {
+            // Run the same deliberately slow hash verification the wrong-password
+            // path below runs, against a fixed dummy hash, so this path's latency
+            // doesn't reveal that the email isn't registered.
+            Hasher.VerifyHashedPassword(DummyAccountForTiming, DummyPasswordHashForTiming, request.Password ?? "");
             return Results.Unauthorized();
         }
 

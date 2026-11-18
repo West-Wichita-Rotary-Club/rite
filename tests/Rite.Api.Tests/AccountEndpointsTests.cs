@@ -106,6 +106,25 @@ public class AccountEndpointsTests : IClassFixture<RiteApiFactory>
     }
 
     [Fact]
+    public async Task Concurrent_registration_for_the_same_email_never_surfaces_as_a_500()
+    {
+        var email = UniqueEmail();
+        var first = _factory.CreateClient();
+        var second = _factory.CreateClient();
+
+        var responses = await Task.WhenAll(
+            first.PostAsJsonAsync("/api/account/register", RegisterPayload(email)),
+            second.PostAsJsonAsync("/api/account/register", RegisterPayload(email)));
+
+        var statusCodes = responses.Select(r => r.StatusCode).OrderBy(s => s).ToArray();
+        Assert.Equal([HttpStatusCode.OK, HttpStatusCode.Conflict], statusCodes);
+
+        var conflictResponse = responses.Single(r => r.StatusCode == HttpStatusCode.Conflict);
+        var body = await conflictResponse.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.Equal("duplicate-email", body.GetProperty("error").GetString());
+    }
+
+    [Fact]
     public async Task Login_with_the_right_password_signs_in()
     {
         var email = UniqueEmail();

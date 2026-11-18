@@ -89,6 +89,20 @@ describe("Account", () => {
     expect(api.updateAccountProfile).toHaveBeenCalled();
   });
 
+  it("shows an error, not a silent no-op, when the profile update fails", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.updateAccountProfile.mockResolvedValue({ ok: false, status: 401, data: null });
+    renderAccount();
+    await waitFor(() => expect(screen.getByDisplayValue("Pat Lee")).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText("Save details"));
+
+    await waitFor(() =>
+      expect(screen.getByText("Something went wrong saving your details. Try again.")).toBeInTheDocument()
+    );
+    expect(screen.queryByText("Details saved.")).not.toBeInTheDocument();
+  });
+
   it("saves a memory locally and reflects it in the dashboard summary", async () => {
     api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
     renderAccount();

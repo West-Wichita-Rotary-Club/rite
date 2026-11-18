@@ -37,6 +37,7 @@ export function Account() {
   } = useAccount();
   const { data: alumniContent } = useContent(api.getAlumni);
   const [profileNotice, setProfileNotice] = useState("");
+  const [profileError, setProfileError] = useState("");
 
   // "loading" covers the one-time GET /api/account/me AccountProvider makes on
   // mount to restore an existing session cookie — redirecting to /login before
@@ -59,6 +60,10 @@ export function Account() {
     const ok = await updateProfile(Object.fromEntries(formData.entries()));
     if (ok) {
       setProfileNotice(t("labels.detailsSaved"));
+      setProfileError("");
+    } else {
+      setProfileError(t("labels.profileSaveError"));
+      setProfileNotice("");
     }
   }
 
@@ -114,6 +119,7 @@ export function Account() {
           </button>
           {profileNotice && <span className="privacy-note">{profileNotice}</span>}
         </div>
+        {profileError && <div className="status-panel warning">{profileError}</div>}
       </form>
 
       <ClaimSection
