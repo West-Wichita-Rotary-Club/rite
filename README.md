@@ -10,10 +10,15 @@ This repo includes a fully static public preview in `docs/`.
 - All registration, resource, and API behavior is mocked in local JavaScript.
 - The preview uses local assets only and does not require a backend, database, Azure service, authentication provider, CDN, analytics script, or external API.
 - GitHub Pages deploys the committed `docs/` folder through `.github/workflows/pages.yml` after changes are merged to `main`.
-- As of ps-007, this preview is a fallback scoped to the mocked account/login/registration/claim/memory UI only — every other surface now redirects visitors to the production site. See `.knowledge/architecture/site-frontend.md`.
+- As of ps-015, every surface this preview had — including the mocked account/login/registration/claim/memory UI — is also live on the production React site (`src/Rite.Web`), so this preview is no longer the only place to see any of it; it's kept as a fallback, not a required stop. See `.knowledge/architecture/site-frontend.md`.
 
 ## Production API and React site
 
+- `src/Rite.Web` also has its own mocked account/login/registration/claim/memory UI now (ps-015),
+  ported from `docs/`'s and living at `/register`, `/login`, and `/account` — still a
+  browser-local `localStorage` mock (no real backend; that's ps-009, not yet started), but no
+  longer requiring a trip to the legacy static preview to see it. See
+  `src/Rite.Web/src/context/AccountContext.jsx` and `src/Rite.Web/src/lib/account.js`.
 - `src/Rite.Api` is the real ASP.NET Core + SQLite API (ps-006), serving the seven content
   surfaces plus schools as bilingual JSON. Run it with F5 in Visual Studio, or
   `dotnet run --project src/Rite.Api` from the command line — `Properties/launchSettings.json`

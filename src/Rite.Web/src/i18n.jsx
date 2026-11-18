@@ -2,9 +2,9 @@ import { createContext, useContext, useMemo, useState } from "react";
 
 // Trimmed from docs/js/i18n.js's `copy` dictionary to the seven in-scope
 // content surfaces (history, stories, alumni, resources, FAQ, schools,
-// impact) plus shared chrome. Account/login/register/claim/memory-composer
-// copy is intentionally left out — that UI stays mocked/static in docs/
-// per this PS's scope.
+// impact) plus shared chrome, plus the account/login/register/claim/memory
+// copy ported from docs/js/i18n.js's `account`/`claim`/`memor*` keys — that
+// mocked UI now lives here directly instead of only on the legacy preview.
 const copy = {
   en: {
     siteSub: "Intercountry Teacher Exchange",
@@ -42,7 +42,21 @@ const copy = {
         "Answers drawn from official Rotary sources and the RITE program's own research. Items still awaiting committee confirmation say so plainly.",
       impactTitle: "One teacher can reach hundreds of students",
       impactIntro:
-        "The exchange-teacher counts below are only the direct travelers. Outbound teachers each lead a full seminar for Panamanian teachers of English — so the value of RITE multiplies well past the people who got on a plane, reaching the seminar attendees and, through them, their own students."
+        "The exchange-teacher counts below are only the direct travelers. Outbound teachers each lead a full seminar for Panamanian teachers of English — so the value of RITE multiplies well past the people who got on a plane, reaching the seminar attendees and, through them, their own students.",
+      registerTitle: "Create your account",
+      registerIntro:
+        "This account is a local preview — stored only in this browser, not on a server. Claim status, memories, and photos you add here stay on this device.",
+      loginTitle: "Sign in",
+      loginIntro:
+        "Enter the email you used to register. This is a preview convenience, not real security — anyone using this browser can see the same local data.",
+      accountTitle: "Your account",
+      accountIntro:
+        "Everything here is a local preview, stored only in this browser, to help gather feedback on the member experience.",
+      dashboardSummaryTitle: "At a glance",
+      claimTitle: "Claim your alumni status",
+      claimIntro:
+        "Declare your country and the roles you held in different years. This claim is browser-local and pending review — it never changes the public directory.",
+      memoriesComposerTitle: "Share a memory"
     },
     filters: {
       all: "All",
@@ -80,13 +94,76 @@ const copy = {
       asOfLabel: "As of",
       loading: "Loading...",
       loadError: "This content could not be loaded. Confirm the API is running and reachable.",
-      notFound: "Not found."
+      notFound: "Not found.",
+      role: "I am...",
+      fullName: "Full name",
+      email: "Email",
+      country: "Country",
+      city: "City",
+      languages: "Languages",
+      years: "RITE exchange year(s)",
+      bio: "Short biography",
+      registerButton: "Create account",
+      noNetwork: "Local preview — no data leaves this browser",
+      signIn: "Sign in",
+      signOut: "Sign out",
+      myAccount: "My account",
+      register: "Register",
+      unknownAccount: "No account found for this email in this browser. Register first.",
+      duplicateAccount: "This email already has an account in this browser. Sign in instead.",
+      previewLoginNotice:
+        "This is a preview simulation. Sign-in is a mock convenience, not real security — data stays in this browser only, and anyone else using this browser can see the same data.",
+      storageUnavailableNotice:
+        "This preview needs browser storage, which isn't available right now (for example, in some private-browsing modes).",
+      saveDetails: "Save details",
+      detailsSaved: "Details saved in this browser.",
+      dashboardClaimStatusLabel: "Claim status",
+      dashboardClaimStatusNone: "Not claimed",
+      dashboardMemoriesLabel: "Memories shared",
+      dashboardCompletenessLabel: "Profile completeness",
+      pendingReviewBadge: "Pending review",
+      claimCountryLabel: "Country",
+      claimRoleLabel: "Role",
+      claimYearFromLabel: "Year",
+      claimYearToLabel: "Through year (optional)",
+      claimAddRow: "Add another role/year",
+      claimRemoveRow: "Remove",
+      claimRangeError:
+        "Enter a role and a year between 1996 and now; the through-year can't be before the start year.",
+      claimMatchTitle: "Is one of these you?",
+      claimMatchNone: "None of these — self-declare instead",
+      claimSelfDeclareNameLabel: "Your name for this claim",
+      claimSaveButton: "Save claim",
+      claimEditButton: "Edit claim",
+      claimWithdrawButton: "Withdraw claim",
+      claimNoneYet: "You haven't claimed alumni status yet.",
+      claimSavedNotice: "Claim saved. It stays pending review and never changes the public directory.",
+      claimWithdrawnNotice: "Claim withdrawn.",
+      memoryTitleLabel: "Memory title",
+      memoryTextLabel: "Your story",
+      memoryPhotosLabel: "Photos (optional)",
+      memorySaveButton: "Save memory",
+      memoryEditButton: "Edit",
+      memoryDeleteButton: "Delete",
+      memoryNoneYet: "You haven't shared any memories yet.",
+      memoryPhotoCapReached: "Each memory can hold up to 3 photos.",
+      memoryCapReached: "Each account can hold up to 10 memories in this preview.",
+      memoryNonImageFile: "Only image files can be attached as photos.",
+      memoryStorageFull: "This browser's preview storage is full. Remove a photo or memory before adding more.",
+      clearDataButton: "Clear my preview data",
+      clearDataConfirm: "This removes your account, claim, and memories from this browser. Continue?",
+      cancelButton: "Cancel"
+    },
+    placeholders: {
+      name: "e.g. Maria Camarena",
+      email: "name@example.org",
+      city: "e.g. Wichita",
+      languages: "Spanish, English",
+      years: "2019",
+      bio: "A few sentences about your RITE experience"
     },
     footerTitle: "Rotary Intercountry Teacher Exchange",
-    footerSub: "A program of Rotary District 5680, Wichita, Kansas, with partners in Panama and Argentina",
-    mockBanner:
-      "Production preview: history, stories, alumni, resources, FAQ, schools, and impact data here come live from the RITE API. Account, login, and registration still live on the legacy static preview.",
-    legacyPreviewCta: "Legacy static preview"
+    footerSub: "A program of Rotary District 5680, Wichita, Kansas, with partners in Panama and Argentina"
   },
   es: {
     siteSub: "Intercambio Internacional de Docentes",
@@ -124,7 +201,21 @@ const copy = {
         "Respuestas basadas en fuentes oficiales de Rotary y en la propia investigacion del programa RITE. Los temas que aun esperan confirmacion del comite lo indican claramente.",
       impactTitle: "Un docente puede llegar a cientos de estudiantes",
       impactIntro:
-        "Las cifras de docentes de intercambio a continuacion son solo quienes viajaron directamente. Cada docente de envio dirige un seminario completo para docentes panamenos de ingles — el valor de RITE se multiplica mucho mas alla de quienes subieron a un avion, llegando a los asistentes del seminario y, a traves de ellos, a sus propios estudiantes."
+        "Las cifras de docentes de intercambio a continuacion son solo quienes viajaron directamente. Cada docente de envio dirige un seminario completo para docentes panamenos de ingles — el valor de RITE se multiplica mucho mas alla de quienes subieron a un avion, llegando a los asistentes del seminario y, a traves de ellos, a sus propios estudiantes.",
+      registerTitle: "Cree su cuenta",
+      registerIntro:
+        "Esta cuenta es una vista previa local, guardada solo en este navegador, no en un servidor. El estado de reclamo, las memorias y las fotos que agregue aqui permanecen en este dispositivo.",
+      loginTitle: "Iniciar sesion",
+      loginIntro:
+        "Ingrese el correo con el que se registro. Esto es una conveniencia de vista previa, no seguridad real: cualquier persona que use este navegador puede ver los mismos datos locales.",
+      accountTitle: "Su cuenta",
+      accountIntro:
+        "Todo aqui es una vista previa local, guardada solo en este navegador, para ayudar a recopilar comentarios sobre la experiencia de miembros.",
+      dashboardSummaryTitle: "De un vistazo",
+      claimTitle: "Reclame su estatus de exalumno",
+      claimIntro:
+        "Declare su pais y los roles que tuvo en distintos anos. Este reclamo es local al navegador y queda pendiente de revision; nunca cambia el directorio publico.",
+      memoriesComposerTitle: "Comparta una memoria"
     },
     filters: {
       all: "Todos",
@@ -162,13 +253,76 @@ const copy = {
       asOfLabel: "Al",
       loading: "Cargando...",
       loadError: "No se pudo cargar este contenido. Confirme que la API este activa y accesible.",
-      notFound: "No encontrado."
+      notFound: "No encontrado.",
+      role: "Soy...",
+      fullName: "Nombre completo",
+      email: "Correo electronico",
+      country: "Pais",
+      city: "Ciudad",
+      languages: "Idiomas",
+      years: "Ano(s) de intercambio RITE",
+      bio: "Biografia breve",
+      registerButton: "Crear cuenta",
+      noNetwork: "Vista previa local: ningun dato sale de este navegador",
+      signIn: "Iniciar sesion",
+      signOut: "Cerrar sesion",
+      myAccount: "Mi cuenta",
+      register: "Registrarse",
+      unknownAccount: "No se encontro una cuenta para este correo en este navegador. Registrese primero.",
+      duplicateAccount: "Este correo ya tiene una cuenta en este navegador. Inicie sesion en su lugar.",
+      previewLoginNotice:
+        "Esto es una simulacion de vista previa. El inicio de sesion es una conveniencia simulada, no seguridad real. Los datos se guardan solo en este navegador, y cualquier otra persona que use este navegador puede ver los mismos datos.",
+      storageUnavailableNotice:
+        "Esta vista previa necesita almacenamiento del navegador, que no esta disponible ahora mismo (por ejemplo, en algunos modos de navegacion privada).",
+      saveDetails: "Guardar datos",
+      detailsSaved: "Datos guardados en este navegador.",
+      dashboardClaimStatusLabel: "Estado del reclamo",
+      dashboardClaimStatusNone: "Sin reclamo",
+      dashboardMemoriesLabel: "Memorias compartidas",
+      dashboardCompletenessLabel: "Perfil completo",
+      pendingReviewBadge: "Pendiente de revision",
+      claimCountryLabel: "Pais",
+      claimRoleLabel: "Rol",
+      claimYearFromLabel: "Ano",
+      claimYearToLabel: "Hasta el ano (opcional)",
+      claimAddRow: "Agregar otro rol/ano",
+      claimRemoveRow: "Quitar",
+      claimRangeError:
+        "Ingrese un rol y un ano entre 1996 y ahora; el ano final no puede ser anterior al ano inicial.",
+      claimMatchTitle: "Es usted alguno de estos?",
+      claimMatchNone: "Ninguno de estos: declararme por mi cuenta",
+      claimSelfDeclareNameLabel: "Su nombre para este reclamo",
+      claimSaveButton: "Guardar reclamo",
+      claimEditButton: "Editar reclamo",
+      claimWithdrawButton: "Retirar reclamo",
+      claimNoneYet: "Todavia no ha reclamado estatus de exalumno.",
+      claimSavedNotice: "Reclamo guardado. Queda pendiente de revision y nunca cambia el directorio publico.",
+      claimWithdrawnNotice: "Reclamo retirado.",
+      memoryTitleLabel: "Titulo de la memoria",
+      memoryTextLabel: "Su historia",
+      memoryPhotosLabel: "Fotos (opcional)",
+      memorySaveButton: "Guardar memoria",
+      memoryEditButton: "Editar",
+      memoryDeleteButton: "Eliminar",
+      memoryNoneYet: "Todavia no ha compartido memorias.",
+      memoryPhotoCapReached: "Cada memoria puede tener hasta 3 fotos.",
+      memoryCapReached: "Cada cuenta puede tener hasta 10 memorias en esta vista previa.",
+      memoryNonImageFile: "Solo se pueden adjuntar archivos de imagen como fotos.",
+      memoryStorageFull: "El almacenamiento de vista previa de este navegador esta lleno. Elimine una foto o memoria antes de agregar mas.",
+      clearDataButton: "Borrar mis datos de vista previa",
+      clearDataConfirm: "Esto elimina su cuenta, reclamo y memorias de este navegador. Continuar?",
+      cancelButton: "Cancelar"
+    },
+    placeholders: {
+      name: "p. ej. Maria Camarena",
+      email: "nombre@example.org",
+      city: "p. ej. Wichita",
+      languages: "espanol, ingles",
+      years: "2019",
+      bio: "Unas pocas oraciones sobre su experiencia con RITE"
     },
     footerTitle: "Intercambio Internacional de Docentes de Rotary",
-    footerSub: "Un programa del Distrito 5680 de Rotary, Wichita, Kansas, con socios en Panama y Argentina",
-    mockBanner:
-      "Vista previa de produccion: la historia, historias, exalumnos, recursos, preguntas frecuentes, escuelas y datos de impacto provienen en vivo de la API de RITE. Cuenta, inicio de sesion y registro siguen en la vista previa estatica anterior.",
-    legacyPreviewCta: "Vista previa estatica anterior"
+    footerSub: "Un programa del Distrito 5680 de Rotary, Wichita, Kansas, con socios en Panama y Argentina"
   }
 };
 
