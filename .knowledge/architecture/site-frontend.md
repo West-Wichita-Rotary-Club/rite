@@ -83,3 +83,17 @@ increment (`ps-017`) and still live exactly where ps-015 left them — mocked an
 in `src/Rite.Web/src/lib/account.js`'s claims/memories store, now keyed by the real account's
 email rather than being the account record itself. `docs/`'s own copy of the whole account UI is
 unaffected — it stays fully mocked until/unless `ps-016` retires it.
+
+ps-010 (2026-11-18) adds coordinator-only account management on top of ps-009's accounts:
+`GET /api/account/users` (list), `POST /api/account/users/{id}/deactivate`, and
+`POST /api/account/users/{id}/reactivate`, all authorized against a new `Account.IsCoordinator`
+boolean — deliberately **not** the existing `Role` field, which is free-text and self-editable via
+`RegisterRequest`/`UpdateProfileRequest`, so authorizing against it would let any registered user
+self-promote by setting their own profile's role to "coordinator". `IsCoordinator` is never bound
+from a public request body; the only way to set it today is a direct database edit (no promote
+workflow exists). A deactivated account can neither sign in (`LoginAsync`) nor use an existing
+session (`CurrentAccountAsync` now filters on `IsActive`, so deactivation takes effect
+immediately, not only on next sign-in) — verified end to end, including that an already-live
+session is cut off without waiting for a new login. `src/Rite.Web`'s `/coordinator` page (linked
+from `Header.jsx` only when `account.isCoordinator`) lists every account and lets a coordinator
+toggle deactivate/reactivate.

@@ -46,5 +46,8 @@ export const api = {
   loginAccount: (payload) => accountRequest("/api/account/login", { method: "POST", body: payload }),
   logoutAccount: () => accountRequest("/api/account/logout", { method: "POST" }),
   getCurrentAccount: () => accountRequest("/api/account/me"),
-  updateAccountProfile: (payload) => accountRequest("/api/account/me", { method: "PUT", body: payload })
+  updateAccountProfile: (payload) => accountRequest("/api/account/me", { method: "PUT", body: payload }),
+  listAccounts: () => accountRequest("/api/account/users"),
+  deactivateAccount: (id) => accountRequest(`/api/account/users/${id}/deactivate`, { method: "POST" }),
+  reactivateAccount: (id) => accountRequest(`/api/account/users/${id}/reactivate`, { method: "POST" })
 };

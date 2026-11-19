@@ -1,6 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Rite.Api.Data;
 using Xunit;
 
 namespace Rite.Api.Tests;
@@ -32,6 +35,18 @@ public class AccountEndpointsTests : IClassFixture<RiteApiFactory>
         years = "2019",
         bio = "A short bio."
     };
+
+    // No endpoint can set IsCoordinator (ps-010's whole point) — tests promote
+    // directly via the database, the same "no promote workflow" path a real
+    // coordinator would need until one is built.
+    private async Task PromoteToCoordinatorAsync(string email)
+    {
+        using var scope = _factory.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<RiteDbContext>();
+        var account = await db.Accounts.SingleAsync(a => a.Email == email);
+        account.IsCoordinator = true;
+        await db.SaveChangesAsync();
+    }
 
     [Fact]
     public async Task Register_creates_a_real_account_and_signs_in()
@@ -222,5 +237,165 @@ public class AccountEndpointsTests : IClassFixture<RiteApiFactory>
         var client = _factory.CreateClient();
         var response = await client.PutAsJsonAsync("/api/account/me", new { name = "Someone" });
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Register_cannot_set_is_coordinator_via_the_request_body()
+    {
+        var client = _factory.CreateClient();
+        var email = UniqueEmail();
+        // A bare anonymous object with an extra field a real attacker might try --
+        // RegisterRequest has no IsCoordinator property, so System.Text.Json
+        // silently ignores it rather than binding it.
+        var payload = new
+        {
+            email,
+            password = "correct-horse",
+            name = "Pat Lee",
+            isCoordinator = true
+        };
+        var response = await client.PostAsJsonAsync("/api/account/register", payload);
+        response.EnsureSuccessStatusCode();
+
+        var profile = await response.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.False(profile.GetProperty("isCoordinator").GetBoolean());
+
+        var listResponse = await client.GetAsync("/api/account/users");
+        Assert.Equal(HttpStatusCode.Forbidden, listResponse.StatusCode);
+    }
+
+    [Fact]
+    public async Task List_users_without_a_session_returns_401()
+    {
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync("/api/account/users");
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task List_users_for_a_non_coordinator_returns_403()
+    {
+        var client = _factory.CreateClient();
+        var email = UniqueEmail();
+        (await client.PostAsJsonAsync("/api/account/register", RegisterPayload(email))).EnsureSuccessStatusCode();
+
+        var response = await client.GetAsync("/api/account/users");
+        Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task List_users_for_a_coordinator_returns_every_account()
+    {
+        var coordinatorEmail = UniqueEmail();
+        var client = _factory.CreateClient();
+        (await client.PostAsJsonAsync("/api/account/register", RegisterPayload(coordinatorEmail)))
+            .EnsureSuccessStatusCode();
+        await PromoteToCoordinatorAsync(coordinatorEmail);
+
+        var response = await client.GetAsync("/api/account/users");
+        response.EnsureSuccessStatusCode();
+
+        var users = await response.Content.ReadFromJsonAsync<JsonElement>();
+        var match = users.EnumerateArray().FirstOrDefault(u => u.GetProperty("email").GetString() == coordinatorEmail);
+        Assert.True(match.ValueKind == JsonValueKind.Object, "the coordinator's own account should appear in the list");
+        Assert.True(match.GetProperty("isActive").GetBoolean());
+        Assert.True(match.GetProperty("isCoordinator").GetBoolean());
+    }
+
+    [Fact]
+    public async Task Deactivate_for_a_non_coordinator_returns_403()
+    {
+        var client = _factory.CreateClient();
+        var email = UniqueEmail();
+        (await client.PostAsJsonAsync("/api/account/register", RegisterPayload(email))).EnsureSuccessStatusCode();
+
+        var response = await client.PostAsync($"/api/account/users/{Guid.NewGuid()}/deactivate", null);
+        Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Deactivate_an_unknown_id_returns_404_for_a_coordinator()
+    {
+        var coordinatorEmail = UniqueEmail();
+        var client = _factory.CreateClient();
+        (await client.PostAsJsonAsync("/api/account/register", RegisterPayload(coordinatorEmail)))
+            .EnsureSuccessStatusCode();
+        await PromoteToCoordinatorAsync(coordinatorEmail);
+
+        var response = await client.PostAsync($"/api/account/users/{Guid.NewGuid()}/deactivate", null);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Deactivate_blocks_future_login_and_ends_the_current_session_immediately()
+    {
+        var coordinatorEmail = UniqueEmail();
+        var coordinatorClient = _factory.CreateClient();
+        (await coordinatorClient.PostAsJsonAsync("/api/account/register", RegisterPayload(coordinatorEmail)))
+            .EnsureSuccessStatusCode();
+        await PromoteToCoordinatorAsync(coordinatorEmail);
+
+        var targetEmail = UniqueEmail();
+        var targetClient = _factory.CreateClient();
+        (await targetClient.PostAsJsonAsync("/api/account/register", RegisterPayload(targetEmail))).EnsureSuccessStatusCode();
+        var targetProfile = await (await coordinatorClient.GetAsync("/api/account/users")).Content.ReadFromJsonAsync<JsonElement>();
+        var targetSummary = targetProfile.EnumerateArray().First(u => u.GetProperty("email").GetString() == targetEmail);
+        var id = targetSummary.GetProperty("id").GetGuid();
+
+        var deactivateResponse = await coordinatorClient.PostAsync($"/api/account/users/{id}/deactivate", null);
+        deactivateResponse.EnsureSuccessStatusCode();
+        var deactivated = await deactivateResponse.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.False(deactivated.GetProperty("isActive").GetBoolean());
+
+        // The target's existing session cookie is still present, but the account
+        // is now deactivated -- this must take effect immediately, not only on
+        // next sign-in.
+        var meAfterDeactivation = await targetClient.GetAsync("/api/account/me");
+        Assert.Equal(HttpStatusCode.Unauthorized, meAfterDeactivation.StatusCode);
+
+        var freshClient = _factory.CreateClient();
+        var loginResponse = await freshClient.PostAsJsonAsync(
+            "/api/account/login", new { email = targetEmail, password = "correct-horse" });
+        Assert.Equal(HttpStatusCode.Unauthorized, loginResponse.StatusCode);
+    }
+
+    [Fact]
+    public async Task Reactivate_restores_login_access()
+    {
+        var coordinatorEmail = UniqueEmail();
+        var coordinatorClient = _factory.CreateClient();
+        (await coordinatorClient.PostAsJsonAsync("/api/account/register", RegisterPayload(coordinatorEmail)))
+            .EnsureSuccessStatusCode();
+        await PromoteToCoordinatorAsync(coordinatorEmail);
+
+        var targetEmail = UniqueEmail();
+        var targetClient = _factory.CreateClient();
+        (await targetClient.PostAsJsonAsync("/api/account/register", RegisterPayload(targetEmail)))
+            .EnsureSuccessStatusCode();
+
+        var usersBody = await (await coordinatorClient.GetAsync("/api/account/users")).Content.ReadFromJsonAsync<JsonElement>();
+        var id = usersBody.EnumerateArray().First(u => u.GetProperty("email").GetString() == targetEmail).GetProperty("id").GetGuid();
+
+        (await coordinatorClient.PostAsync($"/api/account/users/{id}/deactivate", null)).EnsureSuccessStatusCode();
+        var reactivateResponse = await coordinatorClient.PostAsync($"/api/account/users/{id}/reactivate", null);
+        reactivateResponse.EnsureSuccessStatusCode();
+        var reactivated = await reactivateResponse.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.True(reactivated.GetProperty("isActive").GetBoolean());
+
+        var freshClient = _factory.CreateClient();
+        var loginResponse = await freshClient.PostAsJsonAsync(
+            "/api/account/login", new { email = targetEmail, password = "correct-horse" });
+        loginResponse.EnsureSuccessStatusCode();
+    }
+
+    [Fact]
+    public async Task Reactivate_for_a_non_coordinator_returns_403()
+    {
+        var client = _factory.CreateClient();
+        var email = UniqueEmail();
+        (await client.PostAsJsonAsync("/api/account/register", RegisterPayload(email))).EnsureSuccessStatusCode();
+
+        var response = await client.PostAsync($"/api/account/users/{Guid.NewGuid()}/reactivate", null);
+        Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
     }
 }

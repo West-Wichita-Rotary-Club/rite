@@ -71,6 +71,38 @@ public static class AccountEndpoints
             .RequireAuthorization()
             .Produces<AccountProfile>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status401Unauthorized);
+
+        // ps-010: coordinator-only account management. Authorized against
+        // Account.IsCoordinator (never bound from a public request body — see its
+        // doc comment), not the self-declared Role field.
+        group.MapGet("/users", ListUsersAsync)
+            .WithName("ListAccounts")
+            .WithSummary("List every account (coordinator-only)")
+            .RequireAuthorization()
+            .Produces<List<AccountSummary>>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized)
+            .Produces(StatusCodes.Status403Forbidden);
+
+        group.MapPost("/users/{id:guid}/deactivate", DeactivateUserAsync)
+            .WithName("DeactivateAccount")
+            .WithSummary("Deactivate an account (coordinator-only)")
+            .WithDescription(
+                "Blocks the target account from signing in or using an existing session. Data is " +
+                "retained, not deleted — see ReactivateAccount to undo.")
+            .RequireAuthorization()
+            .Produces<AccountSummary>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized)
+            .Produces(StatusCodes.Status403Forbidden)
+            .Produces(StatusCodes.Status404NotFound);
+
+        group.MapPost("/users/{id:guid}/reactivate", ReactivateUserAsync)
+            .WithName("ReactivateAccount")
+            .WithSummary("Reactivate a previously deactivated account (coordinator-only)")
+            .RequireAuthorization()
+            .Produces<AccountSummary>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized)
+            .Produces(StatusCodes.Status403Forbidden)
+            .Produces(StatusCodes.Status404NotFound);
     }
 
     private static async Task<IResult> RegisterAsync(RegisterRequest request, RiteDbContext db, HttpContext http)
@@ -127,11 +159,11 @@ public static class AccountEndpoints
     {
         var email = NormalizeEmail(request.Email);
         var account = await db.Accounts.FirstOrDefaultAsync(a => a.Email == email);
-        if (account is null)
+        if (account is null || !account.IsActive)
         {
             // Run the same deliberately slow hash verification the wrong-password
             // path below runs, against a fixed dummy hash, so this path's latency
-            // doesn't reveal that the email isn't registered.
+            // doesn't reveal that the email isn't registered or is deactivated.
             Hasher.VerifyHashedPassword(DummyAccountForTiming, DummyPasswordHashForTiming, request.Password ?? "");
             return Results.Unauthorized();
         }
@@ -194,16 +226,85 @@ public static class AccountEndpoints
     private static Task<Account?> CurrentAccountAsync(HttpContext http, RiteDbContext db)
     {
         var idValue = http.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // Excludes a deactivated account even for an existing, still-valid cookie:
+        // deactivation takes effect immediately, not only on next sign-in.
         return idValue is not null && Guid.TryParse(idValue, out var id)
-            ? db.Accounts.FirstOrDefaultAsync(a => a.Id == id)
+            ? db.Accounts.FirstOrDefaultAsync(a => a.Id == id && a.IsActive)
             : Task.FromResult<Account?>(null);
+    }
+
+    private static async Task<IResult> ListUsersAsync(HttpContext http, RiteDbContext db)
+    {
+        var account = await CurrentAccountAsync(http, db);
+        if (account is null)
+        {
+            return Results.Unauthorized();
+        }
+        if (!account.IsCoordinator)
+        {
+            return Results.Forbid();
+        }
+
+        // Materialize first, then map: ToSummary isn't an EF-translatable expression.
+        var accounts = await db.Accounts.OrderBy(a => a.Email).ToListAsync();
+        return Results.Ok(accounts.Select(ToSummary).ToList());
+    }
+
+    private static async Task<IResult> DeactivateUserAsync(Guid id, HttpContext http, RiteDbContext db)
+    {
+        var caller = await CurrentAccountAsync(http, db);
+        if (caller is null)
+        {
+            return Results.Unauthorized();
+        }
+        if (!caller.IsCoordinator)
+        {
+            return Results.Forbid();
+        }
+
+        var target = await db.Accounts.FindAsync(id);
+        if (target is null)
+        {
+            return Results.NotFound();
+        }
+
+        target.IsActive = false;
+        await db.SaveChangesAsync();
+        return Results.Ok(ToSummary(target));
+    }
+
+    private static async Task<IResult> ReactivateUserAsync(Guid id, HttpContext http, RiteDbContext db)
+    {
+        var caller = await CurrentAccountAsync(http, db);
+        if (caller is null)
+        {
+            return Results.Unauthorized();
+        }
+        if (!caller.IsCoordinator)
+        {
+            return Results.Forbid();
+        }
+
+        var target = await db.Accounts.FindAsync(id);
+        if (target is null)
+        {
+            return Results.NotFound();
+        }
+
+        target.IsActive = true;
+        await db.SaveChangesAsync();
+        return Results.Ok(ToSummary(target));
     }
 
     private static string NormalizeEmail(string? email) => (email ?? "").Trim().ToLowerInvariant();
 
     private static AccountProfile ToProfile(Account account) => new(
         account.Email, account.Name, account.Role, account.Country, account.City,
-        account.Languages, account.Years, account.Bio);
+        account.Languages, account.Years, account.Bio, account.IsCoordinator);
+
+    private static AccountSummary ToSummary(Account account) => new(
+        account.Id, account.Email, account.Name, account.Role, account.IsActive,
+        account.IsCoordinator, account.CreatedAt);
 }
 
 public record RegisterRequest(
@@ -215,8 +316,15 @@ public record LoginRequest(string Email, string Password);
 public record UpdateProfileRequest(
     string? Name, string? Role, string? Country, string? City, string? Languages, string? Years, string? Bio);
 
-// The response shape for every account endpoint: never includes PasswordHash.
+// The response shape for register/login/me: never includes PasswordHash. IsCoordinator
+// is included (read-only here) so src/Rite.Web can decide whether to show the
+// coordinator-only user-management UI at all.
 public record AccountProfile(
-    string Email, string Name, string Role, string Country, string City, string Languages, string Years, string Bio);
+    string Email, string Name, string Role, string Country, string City, string Languages,
+    string Years, string Bio, bool IsCoordinator);
+
+// The response shape for the coordinator-only user-management endpoints.
+public record AccountSummary(
+    Guid Id, string Email, string Name, string Role, bool IsActive, bool IsCoordinator, DateTimeOffset CreatedAt);
 
 public record ErrorResponse(string Error);

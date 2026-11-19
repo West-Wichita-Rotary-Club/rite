@@ -21,10 +21,12 @@ This repo includes a fully static public preview in `docs/`.
   `src/Rite.Web/src/context/AccountContext.jsx` and `src/Rite.Api/Accounts/AccountEndpoints.cs`.
   Claiming alumni status and sharing memories/photos (also on `/account`) are a separate, later
   increment (ps-017) and still a browser-local `localStorage` mock — see
-  `src/Rite.Web/src/lib/account.js`.
+  `src/Rite.Web/src/lib/account.js`. As of ps-010, a coordinator (`Account.IsCoordinator` — set
+  only by a direct database edit, never via any public endpoint) can see every account and
+  deactivate/reactivate one at `/coordinator` (linked from the header nav only for coordinators).
 - `src/Rite.Api` is the real ASP.NET Core + SQLite API (ps-006), serving the seven content
-  surfaces plus schools as bilingual JSON, plus the real account endpoints above (ps-009). Run it
-  with F5 in Visual Studio, or
+  surfaces plus schools as bilingual JSON, plus the real account endpoints above (ps-009, ps-010).
+  Run it with F5 in Visual Studio, or
   `dotnet run --project src/Rite.Api` from the command line — `Properties/launchSettings.json`
   pins it to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy below. Building the
   project (F5, `dotnet build`, `dotnet test`'s implicit build, or publish) also builds
