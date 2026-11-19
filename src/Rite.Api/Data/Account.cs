@@ -23,7 +23,7 @@ public class Account
     // "coordinator" via RegisterRequest/UpdateProfileRequest, so authorizing
     // against it would let any user self-promote. IsCoordinator is never bound
     // from any public request DTO; the only way to set it is a direct database
-    // edit (no promote workflow exists yet — see ps-010's work.md).
+    // edit (no promote workflow exists yet).
     public bool IsCoordinator { get; set; }
 
     // A coordinator-deactivated account can no longer sign in or use an existing
