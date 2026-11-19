@@ -1,9 +1,8 @@
 namespace Rite.Api.Data;
 
 // A real, persisted account (ps-009) — registration/login/profile, plus coordinator
-// authorization and activation state (ps-010). Claim and memories are not modeled
-// here yet; they stay in src/Rite.Web's browser-local mock until a later increment
-// moves them onto real accounts too.
+// authorization and activation state (ps-010), plus the owner of a Claim and any
+// number of Memory records (ps-017) — see Claim.cs and Memory.cs.
 public class Account
 {
     public Guid Id { get; set; }

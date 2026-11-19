@@ -223,7 +223,9 @@ public static class AccountEndpoints
         await http.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
     }
 
-    private static Task<Account?> CurrentAccountAsync(HttpContext http, RiteDbContext db)
+    // Internal, not private: ClaimMemoryEndpoints (ps-017) reuses this exact
+    // IsActive-filtering behavior rather than duplicating it.
+    internal static Task<Account?> CurrentAccountAsync(HttpContext http, RiteDbContext db)
     {
         var idValue = http.User.FindFirstValue(ClaimTypes.NameIdentifier);
         // Excludes a deactivated account even for an existing, still-valid cookie:

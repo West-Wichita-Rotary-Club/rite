@@ -12,7 +12,9 @@ vi.mock("../api.js", () => ({
     registerAccount: vi.fn(),
     loginAccount: vi.fn(),
     logoutAccount: vi.fn(),
-    updateAccountProfile: vi.fn()
+    updateAccountProfile: vi.fn(),
+    getClaim: vi.fn(),
+    listMemories: vi.fn()
   }
 }));
 
@@ -20,6 +22,8 @@ beforeEach(() => {
   window.localStorage.clear();
   vi.clearAllMocks();
   api.getCurrentAccount.mockResolvedValue({ ok: false, status: 401, data: null });
+  api.getClaim.mockResolvedValue({ ok: true, status: 204, data: null });
+  api.listMemories.mockResolvedValue({ ok: true, status: 200, data: [] });
 });
 
 function renderLogin() {

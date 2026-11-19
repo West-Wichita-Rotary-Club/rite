@@ -11,6 +11,13 @@ var connectionString = builder.Configuration.GetConnectionString("RiteDb")
 
 builder.Services.AddDbContext<RiteDbContext>(options => options.UseSqlite(connectionString));
 
+// ps-017: where memory photos live on disk (constitution Principle X — VM
+// filesystem, SQLite-managed metadata). Overridable the same way RiteDb's
+// connection string is, so tests get an isolated temp directory instead.
+var mediaRoot = builder.Configuration["MediaStorage:Root"]
+    ?? Path.Combine(builder.Environment.ContentRootPath, "media");
+builder.Services.AddSingleton(new MediaStorage(mediaRoot));
+
 // ps-009: deliberately simple cookie-session auth, sized to a small known
 // community — no SSO, no third-party identity provider (constitution Principle
 // IX, relaxed by CAP-2026-003). The default cookie handler redirects an
@@ -67,6 +74,20 @@ builder.Services.AddOpenApi(options =>
             | Sign out | `POST /api/account/logout` |
             | Get own profile | `GET /api/account/me` |
             | Update own profile | `PUT /api/account/me` |
+
+            Real alumni-status claim and shared memories/photos, for the signed-in account's own
+            data only (not yet reviewed/approved — that workflow is a later increment):
+
+            | Action | Endpoint |
+            | --- | --- |
+            | Get own claim | `GET /api/account/claim` |
+            | Save own claim | `PUT /api/account/claim` |
+            | Withdraw own claim | `DELETE /api/account/claim` |
+            | List own memories | `GET /api/account/memories` |
+            | Share a new memory | `POST /api/account/memories` |
+            | Edit own memory | `PUT /api/account/memories/{id}` |
+            | Delete own memory | `DELETE /api/account/memories/{id}` |
+            | Get a memory's photo | `GET /api/account/memories/{id}/photos/{photoId}` |
             """;
         return Task.CompletedTask;
     });
@@ -136,6 +157,7 @@ MapContentEndpoint(app, "schools", "GetSchools", "Schools and clubs", "Get the s
     "hardcoded array (see `Rite.Api.Data.SchoolsSeed`).");
 
 app.MapAccountEndpoints();
+app.MapClaimAndMemoryEndpoints();
 
 // An unmatched /api/* path (a typo'd surface, say) must keep 404ing rather than
 // silently falling through to the SPA's index.html below — MapFallbackToFile only

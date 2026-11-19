@@ -49,5 +49,12 @@ export const api = {
   updateAccountProfile: (payload) => accountRequest("/api/account/me", { method: "PUT", body: payload }),
   listAccounts: () => accountRequest("/api/account/users"),
   deactivateAccount: (id) => accountRequest(`/api/account/users/${id}/deactivate`, { method: "POST" }),
-  reactivateAccount: (id) => accountRequest(`/api/account/users/${id}/reactivate`, { method: "POST" })
+  reactivateAccount: (id) => accountRequest(`/api/account/users/${id}/reactivate`, { method: "POST" }),
+  getClaim: () => accountRequest("/api/account/claim"),
+  saveClaim: (payload) => accountRequest("/api/account/claim", { method: "PUT", body: payload }),
+  withdrawClaim: () => accountRequest("/api/account/claim", { method: "DELETE" }),
+  listMemories: () => accountRequest("/api/account/memories"),
+  createMemory: (payload) => accountRequest("/api/account/memories", { method: "POST", body: payload }),
+  updateMemory: (id, payload) => accountRequest(`/api/account/memories/${id}`, { method: "PUT", body: payload }),
+  deleteMemory: (id) => accountRequest(`/api/account/memories/${id}`, { method: "DELETE" })
 };

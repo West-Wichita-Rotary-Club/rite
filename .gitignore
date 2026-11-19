@@ -443,3 +443,7 @@ docs/build-info.json
 *.db
 *.db-shm
 *.db-wal
+
+# ps-017: local dev memory-photo storage root (src/Rite.Api/Program.cs's MediaStorage) —
+# real uploaded files, same category as rite.db above.
+src/Rite.Api/media/

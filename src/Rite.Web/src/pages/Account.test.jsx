@@ -13,7 +13,14 @@ vi.mock("../api.js", () => ({
     registerAccount: vi.fn(),
     loginAccount: vi.fn(),
     logoutAccount: vi.fn(),
-    updateAccountProfile: vi.fn()
+    updateAccountProfile: vi.fn(),
+    getClaim: vi.fn(),
+    saveClaim: vi.fn(),
+    withdrawClaim: vi.fn(),
+    listMemories: vi.fn(),
+    createMemory: vi.fn(),
+    updateMemory: vi.fn(),
+    deleteMemory: vi.fn()
   }
 }));
 
@@ -33,10 +40,16 @@ beforeEach(() => {
   vi.clearAllMocks();
   api.getAlumni.mockResolvedValue({
     countries: { panama: { label: { en: "Panama", es: "Panama" } } },
-    functions: { teacher: { label: { en: "Teacher", es: "Docente" } } },
+    functions: {
+      leader: { label: { en: "Leader", es: "Lider" } },
+      host: { label: { en: "Host", es: "Anfitrion" } },
+      teacher: { label: { en: "Teacher", es: "Docente" } }
+    },
     profiles: []
   });
   api.getCurrentAccount.mockResolvedValue({ ok: false, status: 401, data: null });
+  api.getClaim.mockResolvedValue({ ok: true, status: 204, data: null });
+  api.listMemories.mockResolvedValue({ ok: true, status: 200, data: [] });
 });
 
 function renderAccount() {
@@ -103,8 +116,13 @@ describe("Account", () => {
     expect(screen.queryByText("Details saved.")).not.toBeInTheDocument();
   });
 
-  it("saves a memory locally and reflects it in the dashboard summary", async () => {
+  it("shares a memory through the API and reflects it in the dashboard summary", async () => {
     api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.createMemory.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: { id: "m1", title: "My first seminar", text: "It was unforgettable.", photos: [] }
+    });
     renderAccount();
     await waitFor(() => expect(screen.getByText("Share a memory")).toBeInTheDocument());
 
@@ -115,5 +133,59 @@ describe("Account", () => {
 
     await waitFor(() => expect(screen.getByText("My first seminar")).toBeInTheDocument());
     expect(screen.getByText("Memories shared").previousSibling).toHaveTextContent("1");
+    expect(api.createMemory).toHaveBeenCalledWith({
+      title: "My first seminar",
+      text: "It was unforgettable.",
+      keepPhotoIds: [],
+      newPhotos: []
+    });
+  });
+
+  it("shows an error, not a silent no-op, when sharing a memory fails", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.createMemory.mockResolvedValue({ ok: false, status: 400, data: { error: "invalid-memory" } });
+    renderAccount();
+    await waitFor(() => expect(screen.getByText("Share a memory")).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText("Share a memory"));
+    fireEvent.change(screen.getByLabelText("Memory title"), { target: { value: "My first seminar" } });
+    fireEvent.change(screen.getByLabelText("Your story"), { target: { value: "It was unforgettable." } });
+    fireEvent.click(screen.getByText("Save memory"));
+
+    await waitFor(() =>
+      expect(screen.getByText("Something went wrong saving your memory. Try again.")).toBeInTheDocument()
+    );
+    expect(screen.queryByText("My first seminar")).not.toBeInTheDocument();
+  });
+
+  it("saves a claim through the API and shows it as pending review", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.saveClaim.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: {
+        country: "panama",
+        participation: [{ role: "teacher", yearFrom: 2015, yearTo: null }],
+        matchedProfileId: "",
+        selfDeclaredName: "Pat Lee"
+      }
+    });
+    renderAccount();
+    await waitFor(() => expect(screen.getByText("You haven't claimed alumni status yet.")).toBeInTheDocument());
+
+    fireEvent.click(screen.getByRole("button", { name: "Claim your alumni status" }));
+    fireEvent.change(screen.getByRole("combobox", { name: "Country" }), { target: { value: "panama" } });
+    fireEvent.change(screen.getByLabelText("Role"), { target: { value: "teacher" } });
+    fireEvent.change(screen.getByLabelText("Year"), { target: { value: "2015" } });
+    fireEvent.change(screen.getByLabelText("Your name for this claim"), { target: { value: "Pat Lee" } });
+    fireEvent.click(screen.getByText("Save claim"));
+
+    await waitFor(() => expect(screen.getByText("Pending review")).toBeInTheDocument());
+    expect(api.saveClaim).toHaveBeenCalledWith({
+      country: "panama",
+      participation: [{ role: "teacher", yearFrom: 2015, yearTo: null }],
+      matchedProfileId: "",
+      selfDeclaredName: "Pat Lee"
+    });
   });
 });

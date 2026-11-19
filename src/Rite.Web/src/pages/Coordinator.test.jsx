@@ -15,7 +15,9 @@ vi.mock("../api.js", () => ({
     updateAccountProfile: vi.fn(),
     listAccounts: vi.fn(),
     deactivateAccount: vi.fn(),
-    reactivateAccount: vi.fn()
+    reactivateAccount: vi.fn(),
+    getClaim: vi.fn(),
+    listMemories: vi.fn()
   }
 }));
 
@@ -57,6 +59,8 @@ const USERS = [
 beforeEach(() => {
   window.localStorage.clear();
   vi.clearAllMocks();
+  api.getClaim.mockResolvedValue({ ok: true, status: 204, data: null });
+  api.listMemories.mockResolvedValue({ ok: true, status: 200, data: [] });
 });
 
 function renderCoordinator() {

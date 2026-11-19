@@ -8,7 +8,6 @@ import {
   CLAIM_ROLES,
   MAX_MEMORIES_PER_MEMBER,
   MAX_PHOTOS_PER_MEMORY,
-  StorageBudgetError,
   blankClaimDraft,
   blankMemoryDraft,
   blankParticipationRow,
@@ -16,6 +15,7 @@ import {
   downscalePhoto,
   findAlumniProfile,
   getCountryLabel,
+  participationPayload,
   profileCompleteness,
   validateParticipationRow
 } from "../lib/account.js";
@@ -24,17 +24,7 @@ const ROLES = ["teacher", "host", "leader", "coordinator", "school"];
 
 export function Account() {
   const { t, localize } = useLanguage();
-  const {
-    account,
-    status,
-    storageAvailable,
-    updateProfile,
-    saveClaim,
-    withdrawClaim,
-    saveMemory,
-    deleteMemory,
-    clearAccountData
-  } = useAccount();
+  const { account, status, updateProfile, saveClaim, withdrawClaim, saveMemory, deleteMemory } = useAccount();
   const { data: alumniContent } = useContent(api.getAlumni);
   const [profileNotice, setProfileNotice] = useState("");
   const [profileError, setProfileError] = useState("");
@@ -71,7 +61,6 @@ export function Account() {
     <section className="section account-page">
       <h1 className="section-title">{t("sections.accountTitle")}</h1>
       <p className="section-lede">{t("sections.accountIntro")}</p>
-      {!storageAvailable && <div className="status-panel warning">{t("labels.storageUnavailableNotice")}</div>}
 
       <DashboardSummary account={account} t={t} />
 
@@ -132,20 +121,6 @@ export function Account() {
       />
 
       <MemoriesSection account={account} t={t} saveMemory={saveMemory} deleteMemory={deleteMemory} />
-
-      <div className="account-danger">
-        <button
-          className="button ghost"
-          type="button"
-          onClick={() => {
-            if (window.confirm(t("labels.clearDataConfirm"))) {
-              clearAccountData();
-            }
-          }}
-        >
-          {t("labels.clearDataButton")}
-        </button>
-      </div>
     </section>
   );
 }
@@ -179,6 +154,7 @@ function ClaimSection({ account, alumniContent, t, localize, saveClaim, withdraw
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(null);
   const [error, setError] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   if (editing) {
     return (
@@ -190,26 +166,27 @@ function ClaimSection({ account, alumniContent, t, localize, saveClaim, withdraw
         draft={draft}
         setDraft={setDraft}
         error={error}
+        saveError={saveError}
         onCancel={() => {
           setEditing(false);
           setDraft(null);
           setError(false);
+          setSaveError("");
         }}
-        onSave={(claim) => {
+        onSave={async (claim) => {
           const invalid = draft.participation.some((row) => validateParticipationRow(row));
           if (!draft.country || !draft.participation.length || invalid) {
             setError(true);
             return;
           }
-          try {
-            saveClaim(claim);
+          const ok = await saveClaim({ ...claim, participation: participationPayload(claim.participation) });
+          if (ok) {
             setEditing(false);
             setDraft(null);
             setError(false);
-          } catch (saveError) {
-            if (!(saveError instanceof StorageBudgetError)) {
-              throw saveError;
-            }
+            setSaveError("");
+          } else {
+            setSaveError(t("labels.claimSaveError"));
           }
         }}
       />
@@ -276,7 +253,7 @@ function ClaimSection({ account, alumniContent, t, localize, saveClaim, withdraw
   );
 }
 
-function ClaimForm({ account, alumniContent, t, localize, draft, setDraft, error, onCancel, onSave }) {
+function ClaimForm({ account, alumniContent, t, localize, draft, setDraft, error, saveError, onCancel, onSave }) {
   const draftRoles = draft.participation.map((row) => row.role).filter(Boolean);
   const candidates = draft.country && draftRoles.length
     ? draftRoles
@@ -391,6 +368,7 @@ function ClaimForm({ account, alumniContent, t, localize, draft, setDraft, error
         <input name="selfDeclaredName" defaultValue={draft.selfDeclaredName} />
       </label>
       {error && <div className="status-panel warning">{t("labels.claimRangeError")}</div>}
+      {saveError && <div className="status-panel warning">{saveError}</div>}
       <div className="form-actions">
         <button className="button gold" type="submit">
           {t("labels.claimSaveButton")}
@@ -419,7 +397,7 @@ function MemoriesSection({ account, t, saveMemory, deleteMemory }) {
       }
       try {
         const dataUrl = await downscalePhoto(file);
-        photos = photos.concat(dataUrl);
+        photos = photos.concat({ photoId: null, src: dataUrl });
       } catch (_error) {
         error = t("labels.memoryNonImageFile");
       }
@@ -428,7 +406,7 @@ function MemoriesSection({ account, t, saveMemory, deleteMemory }) {
     setDraft({ ...draft, photos });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const isNew = !draft.id;
@@ -437,20 +415,17 @@ function MemoriesSection({ account, t, saveMemory, deleteMemory }) {
       return;
     }
     const memory = {
-      id: draft.id || `memory-${Date.now()}-${Math.round(Math.random() * 1000)}`,
+      id: draft.id,
       title: formData.get("title") || "",
       text: formData.get("text") || "",
       photos: draft.photos.slice()
     };
-    try {
-      saveMemory(memory, isNew);
+    const ok = await saveMemory(memory, isNew);
+    if (ok) {
       setDraft(null);
       setPhotoError("");
-    } catch (error) {
-      if (!(error instanceof StorageBudgetError)) {
-        throw error;
-      }
-      setPhotoError(t("labels.memoryStorageFull"));
+    } else {
+      setPhotoError(t("labels.memorySaveError"));
     }
   }
 
@@ -466,8 +441,8 @@ function MemoriesSection({ account, t, saveMemory, deleteMemory }) {
           <p>{memory.text}</p>
           {memory.photos.length > 0 && (
             <div className="memory-photo-row">
-              {memory.photos.map((src, index) => (
-                <img className="memory-photo-thumb" src={src} alt="" key={index} />
+              {memory.photos.map((photo) => (
+                <img className="memory-photo-thumb" src={photo.url} alt="" key={photo.id} />
               ))}
             </div>
           )}
@@ -507,9 +482,9 @@ function MemoriesSection({ account, t, saveMemory, deleteMemory }) {
           </div>
           {draft.photos.length > 0 && (
             <div className="memory-photo-row">
-              {draft.photos.map((src, index) => (
-                <span className="memory-photo-draft" key={index}>
-                  <img className="memory-photo-thumb" src={src} alt="" />
+              {draft.photos.map((photo, index) => (
+                <span className="memory-photo-draft" key={photo.photoId || index}>
+                  <img className="memory-photo-thumb" src={photo.src} alt="" />
                   <button
                     className="button ghost"
                     type="button"

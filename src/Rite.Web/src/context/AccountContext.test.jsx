@@ -9,7 +9,14 @@ vi.mock("../api.js", () => ({
     registerAccount: vi.fn(),
     loginAccount: vi.fn(),
     logoutAccount: vi.fn(),
-    updateAccountProfile: vi.fn()
+    updateAccountProfile: vi.fn(),
+    getClaim: vi.fn(),
+    saveClaim: vi.fn(),
+    withdrawClaim: vi.fn(),
+    listMemories: vi.fn(),
+    createMemory: vi.fn(),
+    updateMemory: vi.fn(),
+    deleteMemory: vi.fn()
   }
 }));
 
@@ -30,6 +37,8 @@ beforeEach(() => {
   api.getCurrentAccount.mockResolvedValue({ ok: false, status: 401, data: null });
   api.registerAccount.mockResolvedValue({ ok: true, status: 200, data: PROFILE });
   api.logoutAccount.mockResolvedValue({ ok: true, status: 200, data: null });
+  api.getClaim.mockResolvedValue({ ok: true, status: 204, data: null });
+  api.listMemories.mockResolvedValue({ ok: true, status: 200, data: [] });
 });
 
 function Probe() {
@@ -50,7 +59,7 @@ function Probe() {
       <button onClick={() => saveClaim({ country: "panama", participation: [], matchedProfileId: "", selfDeclaredName: "" })}>
         claim
       </button>
-      <button onClick={() => saveMemory({ id: "m1", title: "Trip", text: "...", photos: [] }, true)}>memory</button>
+      <button onClick={() => saveMemory({ id: null, title: "Trip", text: "...", photos: [] }, true)}>memory</button>
     </div>
   );
 }
@@ -102,7 +111,7 @@ describe("AccountProvider", () => {
     await waitFor(() => expect(screen.getByTestId("email")).toHaveTextContent("pat@example.com"));
   });
 
-  it("updates the profile via the API, and keeps claim/memories browser-local", async () => {
+  it("updates the profile via the API", async () => {
     api.updateAccountProfile.mockResolvedValue({ ok: true, status: 200, data: { ...PROFILE, name: "Pat Updated" } });
     renderProbe();
     await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
@@ -112,12 +121,37 @@ describe("AccountProvider", () => {
 
     fireEvent.click(screen.getByText("update"));
     await waitFor(() => expect(screen.getByTestId("name")).toHaveTextContent("Pat Updated"));
+  });
+
+  it("saves a claim and a memory through the real API, not browser storage", async () => {
+    api.saveClaim.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: { country: "panama", participation: [], matchedProfileId: "", selfDeclaredName: "" }
+    });
+    api.createMemory.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: { id: "m1", title: "Trip", text: "...", photos: [] }
+    });
+    renderProbe();
+    await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
+
+    fireEvent.click(screen.getByText("register"));
+    await waitFor(() => expect(screen.getByTestId("email")).toHaveTextContent("pat@example.com"));
 
     fireEvent.click(screen.getByText("claim"));
-    expect(screen.getByTestId("claim")).toHaveTextContent("claimed");
+    await waitFor(() => expect(screen.getByTestId("claim")).toHaveTextContent("claimed"));
+    expect(api.saveClaim).toHaveBeenCalledWith({
+      country: "panama",
+      participation: [],
+      matchedProfileId: "",
+      selfDeclaredName: ""
+    });
 
     fireEvent.click(screen.getByText("memory"));
-    expect(screen.getByTestId("memories")).toHaveTextContent("1");
+    await waitFor(() => expect(screen.getByTestId("memories")).toHaveTextContent("1"));
+    expect(api.createMemory).toHaveBeenCalledWith({ title: "Trip", text: "...", keepPhotoIds: [], newPhotos: [] });
   });
 
   it("surfaces a failed registration without signing in", async () => {

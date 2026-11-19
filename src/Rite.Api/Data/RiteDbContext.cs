@@ -6,6 +6,8 @@ public class RiteDbContext(DbContextOptions<RiteDbContext> options) : DbContext(
 {
     public DbSet<ContentDocument> ContentDocuments => Set<ContentDocument>();
     public DbSet<Account> Accounts => Set<Account>();
+    public DbSet<AlumniClaim> AlumniClaims => Set<AlumniClaim>();
+    public DbSet<Memory> Memories => Set<Memory>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,6 +22,20 @@ public class RiteDbContext(DbContextOptions<RiteDbContext> options) : DbContext(
             entity.HasKey(a => a.Id);
             entity.Property(a => a.Email).HasMaxLength(256);
             entity.HasIndex(a => a.Email).IsUnique();
+        });
+
+        modelBuilder.Entity<AlumniClaim>(entity =>
+        {
+            entity.HasKey(c => c.Id);
+            // One claim per account: PUT /api/account/claim always updates this
+            // row in place rather than ever accumulating a second one.
+            entity.HasIndex(c => c.AccountId).IsUnique();
+        });
+
+        modelBuilder.Entity<Memory>(entity =>
+        {
+            entity.HasKey(m => m.Id);
+            entity.HasIndex(m => m.AccountId);
         });
     }
 }
