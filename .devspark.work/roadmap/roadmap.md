@@ -33,8 +33,10 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   claims/memories (ps-017), and the review/approve workflow (ps-018) — rather than deploying the
   content-only platform ps-006/ps-007 already deliver (2026-11-18 — see Decisions). `ps-008` now
   depends on all four. ps-009 delivered 2026-11-18 (real cookie-session register/login/logout/
-  profile in `src/Rite.Api`, replacing the mocked `localStorage` identity in `src/Rite.Web`) —
-  `ps-010` and `ps-017` are now unblocked; `ps-008` still waits on all four.
+  profile in `src/Rite.Api`, replacing the mocked `localStorage` identity in `src/Rite.Web`) and
+  ps-010 delivered 2026-11-18 (coordinator-only account listing/deactivation, authorized against
+  a new `IsCoordinator` boolean kept deliberately separate from the self-editable `Role` field) —
+  `ps-017` is now unblocked; `ps-008` still waits on `ps-017` and `ps-018`.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
@@ -64,7 +66,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      `rite.makeboldspark.com`, is a tracked follow-up, see Decisions)
    - [ps-009: Real registration and login for a small user base](specs/complete/ps-009-real-registration-login.md)
      (delivered 2026-11-18)
-   - [ps-010: User management on the API](specs/ps-010-user-management-api.md) (depends on ps-009)
+   - [ps-010: User management on the API](specs/complete/ps-010-user-management-api.md)
+     (delivered 2026-11-18)
    - [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md)
      (delivered 2026-11-18)
    - [ps-017: Move claim and memories onto real accounts](specs/ps-017-claim-memories-on-real-accounts.md)
@@ -73,7 +76,8 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      (depends on ps-017, ps-010)
    - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
      (depends on ps-009, ps-010, ps-017, ps-018 — the deployment MVP now requires full real
-     account functionality live on the API first, see Decisions)
+     account functionality live on the API first, see Decisions; ps-009 and ps-010 delivered,
+     waiting on ps-017 and ps-018)
    - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
      (depends on ps-008)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
@@ -237,9 +241,29 @@ Prospective Spec for <outcome>`.
   personally verified each fix in chat (the reviewing AI session couldn't serve as an independent
   evaluator of its own remediation). `ps-010` and `ps-017` are now unblocked; `ps-008` still waits
   on `ps-010`, `ps-017`, and `ps-018` too.
+- **2026-11-18** — Delivered ps-010 (PR #20): coordinator-only account listing and
+  deactivation/reactivation in `src/Rite.Api`/`src/Rite.Web`. During specify, investigation found
+  the spec's own suggestion to reuse ps-009's `Role` field for authorization would let any
+  registered user self-promote (`Role` is free-text and self-editable); the developer chose a new
+  `Account.IsCoordinator` boolean, never bound from any public request DTO, set only by a direct
+  database edit. PR review found one blocking finding — a code comment pointing at the ephemeral
+  `.devspark.work/` planning bundle — fixed and the developer personally verified it in chat (same
+  independent-evaluator limit as ps-009's review). `ps-017` is now unblocked; `ps-008` still waits
+  on `ps-017` and `ps-018`.
 
 ## Delivered
 
+- **2026-11-18** — [ps-010: User management on the API](specs/complete/ps-010-user-management-api.md).
+  Adds coordinator-only `GET /api/account/users` (list), `POST /api/account/users/{id}/deactivate`,
+  and `/reactivate` to `src/Rite.Api`, authorized against a new `Account.IsCoordinator` boolean —
+  deliberately not the existing self-declared `Role` field, which any registered user can set to
+  "coordinator" with no server-side restriction. `IsCoordinator` is never bound from a public
+  request body; the only way to set it today is a direct database edit. Deactivation revokes an
+  already-live session immediately (not just on next sign-in) and reuses ps-009's timing-safe
+  dummy-hash check so deactivation status can't leak via login latency either. 44/44 backend +
+  68/68 frontend tests pass; EN/ES i18n parity holds at 151/151. Verified live in the browser,
+  including that self-promotion via the `Role` dropdown does **not** grant `/coordinator` access.
+  Delivered via [West-Wichita-Rotary-Club/rite#20](https://github.com/West-Wichita-Rotary-Club/rite/pull/20).
 - **2026-11-18** — [ps-009: Real registration and login for a small user base](specs/complete/ps-009-real-registration-login.md).
   Adds a persisted `Account` entity and `/api/account/register|login|logout|me` endpoints to
   `src/Rite.Api` (cookie session, `PasswordHasher` for hashing — no SSO, per constitution

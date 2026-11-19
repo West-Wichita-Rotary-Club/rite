@@ -1,11 +1,11 @@
 ---
 id: ps-010
 title: User management on the API
-status: proposed
+status: complete
 order: 40
 depends_on: [ps-009]
 blockers: []
-delivery: []
+delivery: ["https://github.com/West-Wichita-Rotary-Club/rite/pull/20"]
 ---
 
 # ps-010: User management on the API
