@@ -33,10 +33,11 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   claims/memories (ps-017), and the review/approve workflow (ps-018) — rather than deploying the
   content-only platform ps-006/ps-007 already deliver (2026-11-18 — see Decisions). `ps-008` now
   depends on all four. ps-009 delivered 2026-11-18 (real cookie-session register/login/logout/
-  profile in `src/Rite.Api`, replacing the mocked `localStorage` identity in `src/Rite.Web`) and
+  profile in `src/Rite.Api`, replacing the mocked `localStorage` identity in `src/Rite.Web`),
   ps-010 delivered 2026-11-18 (coordinator-only account listing/deactivation, authorized against
-  a new `IsCoordinator` boolean kept deliberately separate from the self-editable `Role` field) —
-  `ps-017` is now unblocked; `ps-008` still waits on `ps-017` and `ps-018`.
+  a new `IsCoordinator` boolean kept deliberately separate from the self-editable `Role` field),
+  and ps-017 delivered 2026-11-19 (real claim and memory/photo persistence, replacing the
+  `localStorage` mock for that data too) — `ps-008` now waits only on `ps-018`.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
@@ -70,14 +71,14 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      (delivered 2026-11-18)
    - [ps-015: Port the mocked account UI into the React site](specs/complete/ps-015-account-ui-in-react-site.md)
      (delivered 2026-11-18)
-   - [ps-017: Move claim and memories onto real accounts](specs/ps-017-claim-memories-on-real-accounts.md)
-     (depends on ps-009)
+   - [ps-017: Move claim and memories onto real accounts](specs/complete/ps-017-claim-memories-on-real-accounts.md)
+     (delivered 2026-11-19)
    - [ps-018: Editor/administrator review-and-approve workflow for claims and memories](specs/ps-018-review-approve-claims-memories.md)
      (depends on ps-017, ps-010)
    - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
      (depends on ps-009, ps-010, ps-017, ps-018 — the deployment MVP now requires full real
-     account functionality live on the API first, see Decisions; ps-009 and ps-010 delivered,
-     waiting on ps-017 and ps-018)
+     account functionality live on the API first, see Decisions; ps-009, ps-010, and ps-017
+     delivered, waiting only on ps-018)
    - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
      (depends on ps-008)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
@@ -250,9 +251,31 @@ Prospective Spec for <outcome>`.
   `.devspark.work/` planning bundle — fixed and the developer personally verified it in chat (same
   independent-evaluator limit as ps-009's review). `ps-017` is now unblocked; `ps-008` still waits
   on `ps-017` and `ps-018`.
+- **2026-11-19** — Delivered ps-017 (PR #21): claim-an-alumni-profile and memory/photo sharing
+  move from `src/Rite.Web`'s `localStorage` mock onto real per-account persistence in
+  `src/Rite.Api`, with photo bytes stored on the filesystem per constitution Principle X. PR
+  review (standard process) found no blocking findings, including after a deliberate P0-depth
+  check for IDOR and path traversal in the new file-handling endpoints (neither held up — every
+  query scopes to the caller's own account, and GUID route constraints keep attacker-controlled
+  strings out of filesystem paths). `ps-008` now waits only on `ps-018`.
 
 ## Delivered
 
+- **2026-11-19** — [ps-017: Move claim and memories onto real accounts](specs/complete/ps-017-claim-memories-on-real-accounts.md).
+  Adds a real `AlumniClaim` (one per account) and `Memory` (up to 10 per account, up to 3 photos
+  each) to `src/Rite.Api`, replacing `src/Rite.Web/src/lib/account.js`'s `localStorage` mock for
+  that data. New endpoints: `GET/PUT/DELETE /api/account/claim`,
+  `GET/POST/PUT/DELETE /api/account/memories[/{id}]`, and
+  `GET /api/account/memories/{id}/photos/{photoId}`, all scoped to the signed-in account's own
+  data. Photo bytes live on disk via a new `MediaStorage` service (constitution Principle X — VM
+  filesystem, SQLite-managed metadata). The now-meaningless "sign out and clear browser data"
+  button was removed from `/account`, and three "stays in this browser" copy strings left accurate
+  by ps-009/ps-015 were corrected. 62/62 backend tests pass (18 new) and 71/71 frontend tests pass;
+  EN/ES i18n parity holds at 149/149. Verified live in the browser against the real API (confirmed
+  via network tab, not mocks): a submitted claim survives a page reload, and memory sharing/
+  deletion both round-trip through the server. The review/approve workflow for submitted claims
+  and memories is a separate, later increment (ps-018). Delivered via
+  [West-Wichita-Rotary-Club/rite#21](https://github.com/West-Wichita-Rotary-Club/rite/pull/21).
 - **2026-11-18** — [ps-010: User management on the API](specs/complete/ps-010-user-management-api.md).
   Adds coordinator-only `GET /api/account/users` (list), `POST /api/account/users/{id}/deactivate`,
   and `/reactivate` to `src/Rite.Api`, authorized against a new `Account.IsCoordinator` boolean —

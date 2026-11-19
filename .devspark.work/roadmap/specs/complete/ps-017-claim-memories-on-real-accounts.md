@@ -1,11 +1,11 @@
 ---
 id: ps-017
 title: Move claim and memories onto real accounts
-status: proposed
+status: complete
 order: 30
 depends_on: [ps-009]
 blockers: []
-delivery: []
+delivery: ["https://github.com/West-Wichita-Rotary-Club/rite/pull/21"]
 ---
 
 # ps-017: Move claim and memories onto real accounts
