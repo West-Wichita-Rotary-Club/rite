@@ -1,74 +1,18 @@
-// ps-009 moved registration/sign-in/profile onto the real API (src/Rite.Api) —
-// see context/AccountContext.jsx and api.js. Claim-an-alumni-profile and
-// memories/photo submissions are a separate, later increment and still live
-// here as the same mocked, browser-local model ported from docs/js/account.js,
-// now keyed by the signed-in account's real email rather than being the
-// account record itself.
-const CLAIMS_MEMORIES_KEY = "rite-web-claims-memories";
-const FEATURE_STORAGE_BUDGET = 3 * 1000 * 1000;
+// ps-009 moved registration/sign-in/profile onto the real API (src/Rite.Api).
+// ps-017 moved claim-an-alumni-profile and memory/photo submission onto it too
+// — see context/AccountContext.jsx and api.js — replacing this module's prior
+// browser-local localStorage mock (ported from docs/js/account.js) entirely.
+// What's left here is pure, storage-free: draft shaping, validation, and the
+// one piece that's still genuinely client-side, photo downscaling.
 const PHOTO_MAX_DIMENSION = 1024;
 export const MAX_PHOTOS_PER_MEMORY = 3;
 export const MAX_MEMORIES_PER_MEMBER = 10;
 const MIN_PARTICIPATION_YEAR = 1996;
 export const CLAIM_ROLES = ["leader", "host", "teacher"];
 const PROFILE_COMPLETENESS_FIELDS = ["name", "role", "country", "city", "languages", "years", "bio"];
-const BLANK_CLAIM_MEMORY = { claim: null, memories: [] };
-
-export class StorageBudgetError extends Error {}
-
-export function detectStorageAvailable() {
-  try {
-    const testKey = "__rite_storage_test__";
-    window.localStorage.setItem(testKey, "1");
-    window.localStorage.removeItem(testKey);
-    return true;
-  } catch (_error) {
-    return false;
-  }
-}
 
 export function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
-}
-
-function readAllClaimsMemories() {
-  try {
-    return JSON.parse(window.localStorage.getItem(CLAIMS_MEMORIES_KEY) || "{}");
-  } catch (_error) {
-    return {};
-  }
-}
-
-export function readClaimsMemories(storageAvailable, email) {
-  if (!storageAvailable || !email) {
-    return BLANK_CLAIM_MEMORY;
-  }
-  return readAllClaimsMemories()[email] || BLANK_CLAIM_MEMORY;
-}
-
-export function writeClaimsMemories(storageAvailable, email, updater) {
-  if (!storageAvailable || !email) {
-    return BLANK_CLAIM_MEMORY;
-  }
-  const all = readAllClaimsMemories();
-  const updated = updater(all[email] || BLANK_CLAIM_MEMORY);
-  const next = { ...all, [email]: updated };
-
-  const size = JSON.stringify(next).length;
-  if (size > FEATURE_STORAGE_BUDGET) {
-    throw new StorageBudgetError();
-  }
-  window.localStorage.setItem(CLAIMS_MEMORIES_KEY, JSON.stringify(next));
-  return updated;
-}
-
-export function clearClaimsMemories(storageAvailable, email) {
-  if (!storageAvailable || !email) {
-    return;
-  }
-  const all = readAllClaimsMemories();
-  delete all[email];
-  window.localStorage.setItem(CLAIMS_MEMORIES_KEY, JSON.stringify(all));
 }
 
 export function downscalePhoto(file) {
@@ -124,6 +68,17 @@ export function participationYearsFromRow(row) {
   return from === to ? [from] : [from, to];
 }
 
+// The API's ParticipationRowRequest wants integers (yearTo null, not a
+// repeated yearFrom, for a single-year row) — form state keeps them as
+// editable strings, so this is the one coercion point before a PUT.
+export function participationPayload(participation) {
+  return participation.map((row) => {
+    const yearFrom = parseInt(row.yearFrom, 10);
+    const yearTo = row.yearTo ? parseInt(row.yearTo, 10) : null;
+    return { role: row.role, yearFrom, yearTo: yearTo === yearFrom ? null : yearTo };
+  });
+}
+
 export function blankParticipationRow() {
   return { role: "", yearFrom: "", yearTo: "" };
 }
@@ -155,16 +110,26 @@ export function profileCompleteness(account) {
   return Math.round((filled / PROFILE_COMPLETENESS_FIELDS.length) * 100);
 }
 
+// Each draft photo is { photoId, src }: photoId set (and src its server URL)
+// for a photo the memory already has, or null (and src a fresh data: URL) for
+// one just added in this editing session — see photosToSave below.
 export function blankMemoryDraft(existingMemory) {
   if (existingMemory) {
     return {
       id: existingMemory.id,
       title: existingMemory.title,
       text: existingMemory.text,
-      photos: existingMemory.photos.slice()
+      photos: existingMemory.photos.map((photo) => ({ photoId: photo.id, src: photo.url }))
     };
   }
   return { id: null, title: "", text: "", photos: [] };
+}
+
+export function photosToSave(draftPhotos) {
+  return {
+    keepPhotoIds: draftPhotos.filter((photo) => photo.photoId).map((photo) => photo.photoId),
+    newPhotos: draftPhotos.filter((photo) => !photo.photoId).map((photo) => photo.src)
+  };
 }
 
 export function getProfileRoles(profile) {

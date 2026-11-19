@@ -1,26 +1,20 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   CLAIM_ROLES,
-  StorageBudgetError,
   blankClaimDraft,
   blankMemoryDraft,
   blankParticipationRow,
   candidateProfilesForClaim,
-  clearClaimsMemories,
   findAlumniProfile,
   getCountryLabel,
   getProfileRoles,
   normalizeEmail,
+  participationPayload,
   participationYearsFromRow,
+  photosToSave,
   profileCompleteness,
-  readClaimsMemories,
-  validateParticipationRow,
-  writeClaimsMemories
+  validateParticipationRow
 } from "./account.js";
-
-beforeEach(() => {
-  window.localStorage.clear();
-});
 
 describe("normalizeEmail", () => {
   it("trims and lowercases", () => {
@@ -83,58 +77,53 @@ describe("blankMemoryDraft", () => {
   it("seeds a fresh draft, or copies an existing memory", () => {
     expect(blankMemoryDraft(null)).toEqual({ id: null, title: "", text: "", photos: [] });
 
-    const existing = { id: "m1", title: "Trip", text: "...", photos: ["a.jpg"] };
+    const existing = {
+      id: "m1",
+      title: "Trip",
+      text: "...",
+      photos: [{ id: "ph1", url: "/api/account/memories/m1/photos/ph1" }]
+    };
     const copy = blankMemoryDraft(existing);
-    expect(copy).toEqual(existing);
-    expect(copy.photos).not.toBe(existing.photos);
+    expect(copy).toEqual({
+      id: "m1",
+      title: "Trip",
+      text: "...",
+      photos: [{ photoId: "ph1", src: "/api/account/memories/m1/photos/ph1" }]
+    });
   });
 });
 
-describe("readClaimsMemories / writeClaimsMemories / clearClaimsMemories", () => {
-  it("returns a blank record when storage is unavailable or the email is missing", () => {
-    expect(readClaimsMemories(false, "pat@example.com")).toEqual({ claim: null, memories: [] });
-    expect(readClaimsMemories(true, "")).toEqual({ claim: null, memories: [] });
+describe("photosToSave", () => {
+  it("splits kept (existing) photos from newly added (data URL) ones", () => {
+    const photos = [
+      { photoId: "ph1", src: "/api/account/memories/m1/photos/ph1" },
+      { photoId: null, src: "data:image/jpeg;base64,abc" }
+    ];
+    expect(photosToSave(photos)).toEqual({ keepPhotoIds: ["ph1"], newPhotos: ["data:image/jpeg;base64,abc"] });
   });
 
-  it("writes and reads back a claim, keyed by email", () => {
-    const claim = { country: "panama", participation: [], matchedProfileId: "", selfDeclaredName: "" };
-    writeClaimsMemories(true, "pat@example.com", (existing) => ({ ...existing, claim }));
+  it("returns empty arrays for no photos", () => {
+    expect(photosToSave([])).toEqual({ keepPhotoIds: [], newPhotos: [] });
+  });
+});
 
-    expect(readClaimsMemories(true, "pat@example.com").claim).toEqual(claim);
-    expect(readClaimsMemories(true, "someone-else@example.com")).toEqual({ claim: null, memories: [] });
+describe("participationPayload", () => {
+  it("coerces form-state rows to integer years, dropping a yearTo equal to yearFrom", () => {
+    expect(participationPayload([{ role: "teacher", yearFrom: "2010", yearTo: "2010" }])).toEqual([
+      { role: "teacher", yearFrom: 2010, yearTo: null }
+    ]);
   });
 
-  it("appends a memory without disturbing an existing claim", () => {
-    const claim = { country: "panama", participation: [], matchedProfileId: "", selfDeclaredName: "" };
-    writeClaimsMemories(true, "pat@example.com", (existing) => ({ ...existing, claim }));
-    writeClaimsMemories(true, "pat@example.com", (existing) => ({
-      ...existing,
-      memories: existing.memories.concat({ id: "m1", title: "Trip", text: "...", photos: [] })
-    }));
-
-    const record = readClaimsMemories(true, "pat@example.com");
-    expect(record.claim).toEqual(claim);
-    expect(record.memories).toHaveLength(1);
+  it("keeps a real range", () => {
+    expect(participationPayload([{ role: "teacher", yearFrom: "2010", yearTo: "2012" }])).toEqual([
+      { role: "teacher", yearFrom: 2010, yearTo: 2012 }
+    ]);
   });
 
-  it("throws StorageBudgetError when the write would exceed the storage budget", () => {
-    const hugeText = "x".repeat(4 * 1000 * 1000);
-    expect(() =>
-      writeClaimsMemories(true, "pat@example.com", (existing) => ({
-        ...existing,
-        memories: [{ id: "m1", title: "Trip", text: hugeText, photos: [] }]
-      }))
-    ).toThrow(StorageBudgetError);
-  });
-
-  it("clears only the named email's claim/memory record", () => {
-    writeClaimsMemories(true, "pat@example.com", (existing) => ({ ...existing, claim: { country: "panama" } }));
-    writeClaimsMemories(true, "other@example.com", (existing) => ({ ...existing, claim: { country: "argentina" } }));
-
-    clearClaimsMemories(true, "pat@example.com");
-
-    expect(readClaimsMemories(true, "pat@example.com")).toEqual({ claim: null, memories: [] });
-    expect(readClaimsMemories(true, "other@example.com").claim).toEqual({ country: "argentina" });
+  it("treats a blank yearTo as a single year", () => {
+    expect(participationPayload([{ role: "teacher", yearFrom: "2010", yearTo: "" }])).toEqual([
+      { role: "teacher", yearFrom: 2010, yearTo: null }
+    ]);
   });
 });
 

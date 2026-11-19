@@ -1,19 +1,21 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { api } from "../api.js";
-import {
-  StorageBudgetError,
-  clearClaimsMemories,
-  detectStorageAvailable,
-  readClaimsMemories,
-  writeClaimsMemories
-} from "../lib/account.js";
+import { photosToSave } from "../lib/account.js";
 
 const AccountContext = createContext(null);
 
+async function fetchClaimAndMemories() {
+  const [claimResult, memoriesResult] = await Promise.all([api.getClaim(), api.listMemories()]);
+  return {
+    claim: claimResult.ok ? claimResult.data : null,
+    memories: memoriesResult.ok ? memoriesResult.data : []
+  };
+}
+
 export function AccountProvider({ children }) {
-  const [storageAvailable] = useState(() => detectStorageAvailable());
   const [profile, setProfile] = useState(null);
-  const [claimsMemories, setClaimsMemories] = useState(null);
+  const [claim, setClaim] = useState(null);
+  const [memories, setMemories] = useState([]);
   // "loading" covers the one GET /api/account/me this makes on mount to restore
   // an existing session cookie — consumers (Account.jsx) must wait for "ready"
   // before treating a null account as "signed out" and redirecting.
@@ -21,26 +23,26 @@ export function AccountProvider({ children }) {
 
   useEffect(() => {
     let cancelled = false;
-    api.getCurrentAccount().then(({ ok, data }) => {
-      if (cancelled) {
-        return;
-      }
+    api.getCurrentAccount().then(async ({ ok, data }) => {
       if (ok && data) {
+        const claimsMemories = await fetchClaimAndMemories();
+        if (cancelled) {
+          return;
+        }
         setProfile(data);
-        setClaimsMemories(readClaimsMemories(storageAvailable, data.email));
+        setClaim(claimsMemories.claim);
+        setMemories(claimsMemories.memories);
       }
-      setStatus("ready");
+      if (!cancelled) {
+        setStatus("ready");
+      }
     });
     return () => {
       cancelled = true;
     };
-    // storageAvailable is fixed for the component's lifetime (useState initializer).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const account = profile
-    ? { ...profile, claim: claimsMemories?.claim ?? null, memories: claimsMemories?.memories ?? [] }
-    : null;
+  const account = profile ? { ...profile, claim, memories } : null;
 
   async function register(fields) {
     const { ok, data } = await api.registerAccount(fields);
@@ -48,7 +50,8 @@ export function AccountProvider({ children }) {
       return { ok: false, error: data?.error || "unknown" };
     }
     setProfile(data);
-    setClaimsMemories(readClaimsMemories(storageAvailable, data.email));
+    setClaim(null);
+    setMemories([]);
     return { ok: true };
   }
 
@@ -58,14 +61,17 @@ export function AccountProvider({ children }) {
       return { ok: false, error: data?.error || "unknown" };
     }
     setProfile(data);
-    setClaimsMemories(readClaimsMemories(storageAvailable, data.email));
+    const claimsMemories = await fetchClaimAndMemories();
+    setClaim(claimsMemories.claim);
+    setMemories(claimsMemories.memories);
     return { ok: true };
   }
 
   async function signOut() {
     await api.logoutAccount();
     setProfile(null);
-    setClaimsMemories(null);
+    setClaim(null);
+    setMemories([]);
   }
 
   async function updateProfile(fields) {
@@ -76,62 +82,51 @@ export function AccountProvider({ children }) {
     return ok;
   }
 
-  function saveClaim(claim) {
-    if (!account) {
-      return;
+  // claimPayload's participation rows must already be {role, yearFrom, yearTo}
+  // ints (see lib/account.js's participationPayload) — the caller owns that
+  // coercion since it has the raw form-state rows.
+  async function saveClaim(claimPayload) {
+    const { ok, data } = await api.saveClaim(claimPayload);
+    if (ok) {
+      setClaim(data);
     }
-    setClaimsMemories(
-      writeClaimsMemories(storageAvailable, account.email, (existing) => ({ ...existing, claim }))
-    );
+    return ok;
   }
 
-  function withdrawClaim() {
-    if (!account) {
-      return;
+  async function withdrawClaim() {
+    const { ok } = await api.withdrawClaim();
+    if (ok) {
+      setClaim(null);
     }
-    setClaimsMemories(
-      writeClaimsMemories(storageAvailable, account.email, (existing) => ({ ...existing, claim: null }))
-    );
+    return ok;
   }
 
-  function saveMemory(memory, isNew) {
-    if (!account) {
-      return;
+  async function saveMemory(memoryDraft, isNew) {
+    const { keepPhotoIds, newPhotos } = photosToSave(memoryDraft.photos);
+    const payload = { title: memoryDraft.title, text: memoryDraft.text, keepPhotoIds, newPhotos };
+    const { ok, data } = isNew
+      ? await api.createMemory(payload)
+      : await api.updateMemory(memoryDraft.id, payload);
+    if (ok) {
+      setMemories((existing) =>
+        isNew ? existing.concat(data) : existing.map((item) => (item.id === data.id ? data : item))
+      );
     }
-    setClaimsMemories(
-      writeClaimsMemories(storageAvailable, account.email, (existing) => ({
-        ...existing,
-        memories: isNew
-          ? existing.memories.concat(memory)
-          : existing.memories.map((item) => (item.id === memory.id ? memory : item))
-      }))
-    );
+    return ok;
   }
 
-  function deleteMemory(memoryId) {
-    if (!account) {
-      return;
+  async function deleteMemory(memoryId) {
+    const { ok } = await api.deleteMemory(memoryId);
+    if (ok) {
+      setMemories((existing) => existing.filter((item) => item.id !== memoryId));
     }
-    setClaimsMemories(
-      writeClaimsMemories(storageAvailable, account.email, (existing) => ({
-        ...existing,
-        memories: existing.memories.filter((item) => item.id !== memoryId)
-      }))
-    );
-  }
-
-  async function clearAccountData() {
-    if (account) {
-      clearClaimsMemories(storageAvailable, account.email);
-    }
-    await signOut();
+    return ok;
   }
 
   const value = useMemo(
     () => ({
       account,
       status,
-      storageAvailable,
       register,
       signIn,
       signOut,
@@ -139,11 +134,10 @@ export function AccountProvider({ children }) {
       saveClaim,
       withdrawClaim,
       saveMemory,
-      deleteMemory,
-      clearAccountData
+      deleteMemory
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [account, status, storageAvailable]
+    [account, status]
   );
 
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;
@@ -156,5 +150,3 @@ export function useAccount() {
   }
   return context;
 }
-
-export { StorageBudgetError };

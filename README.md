@@ -19,14 +19,18 @@ This repo includes a fully static public preview in `docs/`.
   via `POST/GET/PUT /api/account/*`, with a cookie session (no SSO, no third-party identity
   provider — deliberately simple, per constitution Principle IX as relaxed by CAP-2026-003). See
   `src/Rite.Web/src/context/AccountContext.jsx` and `src/Rite.Api/Accounts/AccountEndpoints.cs`.
-  Claiming alumni status and sharing memories/photos (also on `/account`) are a separate, later
-  increment (ps-017) and still a browser-local `localStorage` mock — see
-  `src/Rite.Web/src/lib/account.js`. As of ps-010, a coordinator (`Account.IsCoordinator` — set
-  only by a direct database edit, never via any public endpoint) can see every account and
-  deactivate/reactivate one at `/coordinator` (linked from the header nav only for coordinators).
+  As of ps-010, a coordinator (`Account.IsCoordinator` — set only by a direct database edit, never
+  via any public endpoint) can see every account and deactivate/reactivate one at `/coordinator`
+  (linked from the header nav only for coordinators). As of ps-017, claiming alumni status and
+  sharing memories/photos (also on `/account`, for the signed-in account's own data only) are real
+  too — persisted via `POST/GET/PUT/DELETE /api/account/claim` and
+  `/api/account/memories[/{id}]`, with photo bytes stored on disk under `MediaStorage`'s
+  configurable root (constitution Principle X) — see
+  `src/Rite.Api/Accounts/ClaimMemoryEndpoints.cs`. The review/approve workflow for submitted
+  claims/memories is still a separate, later increment (ps-018).
 - `src/Rite.Api` is the real ASP.NET Core + SQLite API (ps-006), serving the seven content
-  surfaces plus schools as bilingual JSON, plus the real account endpoints above (ps-009, ps-010).
-  Run it with F5 in Visual Studio, or
+  surfaces plus schools as bilingual JSON, plus the real account endpoints above (ps-009, ps-010,
+  ps-017). Run it with F5 in Visual Studio, or
   `dotnet run --project src/Rite.Api` from the command line — `Properties/launchSettings.json`
   pins it to `http://localhost:5159`, matching `src/Rite.Web`'s dev proxy below. Building the
   project (F5, `dotnet build`, `dotnet test`'s implicit build, or publish) also builds

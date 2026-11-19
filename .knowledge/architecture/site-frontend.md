@@ -78,11 +78,11 @@ password hash, hashed via `Microsoft.AspNetCore.Identity.PasswordHasher<Account>
 Principle IX no longer mandates a third-party identity provider (CAP-2026-003, relaxed for this
 program's small, volunteer-run scale). `AccountContext.jsx` now calls that real API for identity
 (`register`/`signIn`/`signOut`/`updateProfile`, each async) instead of reading/writing
-`localStorage` for it. Claim-an-alumni-profile and memories/photos are a separate, later
-increment (`ps-017`) and still live exactly where ps-015 left them — mocked and browser-local,
-in `src/Rite.Web/src/lib/account.js`'s claims/memories store, now keyed by the real account's
-email rather than being the account record itself. `docs/`'s own copy of the whole account UI is
-unaffected — it stays fully mocked until/unless `ps-016` retires it.
+`localStorage` for it. Claim-an-alumni-profile and memories/photos stayed a separate, later
+increment at this point (`ps-017`, delivered below) — not yet real, still mocked and browser-local
+in `src/Rite.Web/src/lib/account.js`'s claims/memories store, now keyed by the real account's email
+rather than being the account record itself. `docs/`'s own copy of the whole account UI is
+unaffected by any of this — it stays fully mocked until/unless `ps-016` retires it.
 
 ps-010 (2026-11-18) adds coordinator-only account management on top of ps-009's accounts:
 `GET /api/account/users` (list), `POST /api/account/users/{id}/deactivate`, and
@@ -97,3 +97,19 @@ immediately, not only on next sign-in) — verified end to end, including that a
 session is cut off without waiting for a new login. `src/Rite.Web`'s `/coordinator` page (linked
 from `Header.jsx` only when `account.isCoordinator`) lists every account and lets a coordinator
 toggle deactivate/reactivate.
+
+ps-017 (2026-11-19) moves claim-an-alumni-profile and memory/photo submission off the
+`localStorage` mock onto the real API, for the signed-in account's own data only — the
+review/approve workflow stays a separate later increment. `src/Rite.Api/Data/AlumniClaim.cs` adds
+one claim per account (`GET/PUT/DELETE /api/account/claim`); `src/Rite.Api/Data/Memory.cs` adds up
+to 10 memories per account, each with up to 3 photos
+(`GET/POST/PUT/DELETE /api/account/memories[/{id}]`). Photo bytes live on disk under
+`MediaStorage`'s configurable root (constitution Principle X — VM filesystem, SQLite-managed
+metadata; `MediaStorage:Root` config, defaulting to `media/` next to the API, overridden to an
+isolated temp directory in tests), streamed back via
+`GET /api/account/memories/{id}/photos/{photoId}`; only JPEG data URLs are accepted, matching what
+`src/Rite.Web/src/lib/account.js`'s `downscalePhoto` already produces client-side. `AccountContext.jsx`
+now fetches claim/memories from the API on sign-in instead of reading `localStorage`, and the
+account page's former "sign out and clear browser data" button was removed — there's no more
+browser-only claim/memory data for it to clear. `docs/`'s own copy of the account UI, and `ps-016`'s
+retirement of it, are both unaffected.
