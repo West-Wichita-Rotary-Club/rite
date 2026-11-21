@@ -36,8 +36,11 @@ archive" framing) — see Themes, Mission & Identity Alignment.
   profile in `src/Rite.Api`, replacing the mocked `localStorage` identity in `src/Rite.Web`),
   ps-010 delivered 2026-11-18 (coordinator-only account listing/deactivation, authorized against
   a new `IsCoordinator` boolean kept deliberately separate from the self-editable `Role` field),
-  and ps-017 delivered 2026-11-19 (real claim and memory/photo persistence, replacing the
-  `localStorage` mock for that data too) — `ps-008` now waits only on `ps-018`.
+  ps-017 delivered 2026-11-19 (real claim and memory/photo persistence, replacing the
+  `localStorage` mock for that data too), and ps-018 delivered 2026-11-21 (coordinator review
+  queue and approve/reject for claims/memories, plus a new public `/api/community/*` surface for
+  approved content — Principle III's first real implementation) — every item `ps-008` depends on
+  is now delivered; deployment is fully unblocked.
 - **Known gaps**: a single contributor accounts for 100% of commit history — bus factor 1
   (`.devspark.work/audit/commit-audit-2026-11-15.md`), tracked as an accepted risk (see
   Decisions). Test coverage and a CI gate were the other known gap (Principle XI, `adopting`)
@@ -73,12 +76,12 @@ archive" framing) — see Themes, Mission & Identity Alignment.
      (delivered 2026-11-18)
    - [ps-017: Move claim and memories onto real accounts](specs/complete/ps-017-claim-memories-on-real-accounts.md)
      (delivered 2026-11-19)
-   - [ps-018: Editor/administrator review-and-approve workflow for claims and memories](specs/ps-018-review-approve-claims-memories.md)
-     (depends on ps-017, ps-010)
+   - [ps-018: Editor/administrator review-and-approve workflow for claims and memories](specs/complete/ps-018-review-approve-claims-memories.md)
+     (delivered 2026-11-21)
    - [ps-008: Deploy the production platform to the existing VM](specs/ps-008-deploy-to-vm.md)
      (depends on ps-009, ps-010, ps-017, ps-018 — the deployment MVP now requires full real
-     account functionality live on the API first, see Decisions; ps-009, ps-010, and ps-017
-     delivered, waiting only on ps-018)
+     account functionality live on the API first, see Decisions; all four now delivered — fully
+     unblocked)
    - [ps-016: Retire or redirect docs/ once the production stack is live](specs/ps-016-retire-docs-preview.md)
      (depends on ps-008)
 3. **Content & Community Depth** — video oral history archive, school-specific pages, automated
@@ -102,8 +105,9 @@ ps-006/ps-007; see Decisions) — each a right-sized increment under its theme. 
 originally named in Themes 2–4 now has a recorded Prospective Spec (delivered, or proposed and
 awaiting its dependency). Theme 1's two deferred follow-ups (Spanish translation of the ratified
 mission copy, and a stakeholder one-pager) remain deliberately uncaptured — neither has a clear
-enough outcome yet to right-size (see Decisions). Add another with `/devspark-roadmap add a
-Prospective Spec for <outcome>`.
+enough outcome yet to right-size (see Decisions). `ps-008` is now the only item in Theme 2 with
+every dependency delivered and nothing else blocking it — the critical-path item to pick up next.
+Add another PS with `/devspark-roadmap add a Prospective Spec for <outcome>`.
 
 ## Decisions
 
@@ -258,9 +262,36 @@ Prospective Spec for <outcome>`.
   check for IDOR and path traversal in the new file-handling endpoints (neither held up — every
   query scopes to the caller's own account, and GUID route constraints keep attacker-controlled
   strings out of filesystem paths). `ps-008` now waits only on `ps-018`.
+- **2026-11-21** — Delivered ps-018 (PR #22): a coordinator-only review queue and approve/reject
+  workflow for pending `AlumniClaim`/`Memory` rows, the first real implementation of constitution
+  Principle III. At specify time, verified this PS's own "visible in the public alumni
+  directory/story archive" language against the repository: `/api/alumni` and `/api/stories` are
+  static, seeded from `docs/content/*.json`, with no connection to the real claim/memory tables
+  `ps-017` added — nothing today could make an approved item "publicly visible" at all. Developer
+  chose a new, standalone, anonymous public surface (`/api/community/claims|memories`, approved-only)
+  over merging into those existing static endpoints, which stay untouched; that merge remains a
+  distinct, not-yet-made decision for a later PS if ever wanted. 83/83 backend and 78/78 frontend
+  tests pass; EN/ES i18n parity holds at 163/163. Verified live end to end in the browser against the
+  real API: a coordinator approved a pending claim, the submitter's own account immediately showed
+  "Approved," and the approved claim appeared on `/api/community/claims` with no account identifiers,
+  while a still-pending memory correctly stayed private. `ps-008` now has every dependency
+  (`ps-006`, `ps-007`, `ps-009`, `ps-010`, `ps-017`, `ps-018`) delivered — fully unblocked.
 
 ## Delivered
 
+- **2026-11-21** — [ps-018: Editor/administrator review-and-approve workflow for claims and memories](specs/complete/ps-018-review-approve-claims-memories.md).
+  Adds `Status` (Pending/Approved/Rejected, resetting to Pending on every save) and
+  `RejectionReason` to `AlumniClaim`/`Memory`; a coordinator-only review queue
+  (`GET /api/review/claims|memories`, `POST /api/review/{claims|memories}/{id}/approve|reject`,
+  reusing `ps-010`'s `IsCoordinator` authorization) in `src/Rite.Api/Accounts/ReviewEndpoints.cs`;
+  and a new standalone, anonymous public surface (`GET /api/community/claims|memories`,
+  `GET /api/community/memories/{id}/photos/{photoId}`, approved-only, no account identifiers) in
+  `src/Rite.Api/Community/CommunityEndpoints.cs` — the existing static `/api/alumni`/`/api/stories`
+  stay untouched. `src/Rite.Web`'s `/coordinator` page gets an approve/reject queue; `Account.jsx`
+  now shows the real review status and rejection reason instead of an unconditional "pending
+  review" badge. 83/83 backend and 78/78 frontend tests pass; EN/ES i18n parity holds at 163/163.
+  Verified live end to end in the browser against the real API. Delivered via
+  [West-Wichita-Rotary-Club/rite#22](https://github.com/West-Wichita-Rotary-Club/rite/pull/22).
 - **2026-11-19** — [ps-017: Move claim and memories onto real accounts](specs/complete/ps-017-claim-memories-on-real-accounts.md).
   Adds a real `AlumniClaim` (one per account) and `Memory` (up to 10 per account, up to 3 photos
   each) to `src/Rite.Api`, replacing `src/Rite.Web/src/lib/account.js`'s `localStorage` mock for

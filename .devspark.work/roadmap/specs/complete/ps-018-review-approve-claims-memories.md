@@ -1,11 +1,11 @@
 ---
 id: ps-018
 title: Editor/administrator review-and-approve workflow for claims and memories
-status: proposed
+status: complete
 order: 40
 depends_on: [ps-017, ps-010]
 blockers: []
-delivery: []
+delivery: [https://github.com/West-Wichita-Rotary-Club/rite/pull/22]
 ---
 
 # ps-018: Editor/administrator review-and-approve workflow for claims and memories
@@ -58,8 +58,20 @@ Depends on `ps-017` (real claims/memories must exist before anything can review 
 `ps-010` (the coordinator/leader authorization surface this reuses). Not yet startable; becomes
 right-sized/ready once both deliver.
 
+**2026-11-21 (specify-time finding):** this PS's own "visible in the public alumni directory/story
+archive" language assumed a visibility mechanism that didn't exist — `/api/alumni` and `/api/stories`
+are static, seeded from `docs/content/*.json`, and unrelated to the real `AlumniClaim`/`Memory`
+tables `ps-017` added. Verified against the repository before implementing. Developer chose a new,
+standalone, anonymous public surface (`/api/community/claims|memories`) exposing only
+`Status == Approved` content, rather than merging into the existing static endpoints (deferred as a
+distinct, not-yet-made decision — those endpoints' content model is untouched by this PS).
+
 ## Completion Expectations
 
 A coordinator/leader can see a queue of pending claims and memories, approve or reject each with
 a visible outcome, and an approved item becomes visible in the public directory/archive.
 Recognized complete once that flow works end to end on the real stack and is reviewed.
+
+**Delivered 2026-11-21** via
+[West-Wichita-Rotary-Club/rite#22](https://github.com/West-Wichita-Rotary-Club/rite/pull/22). See
+the roadmap's Delivered section for the full summary.
