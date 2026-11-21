@@ -26,8 +26,11 @@ This repo includes a fully static public preview in `docs/`.
   too — persisted via `POST/GET/PUT/DELETE /api/account/claim` and
   `/api/account/memories[/{id}]`, with photo bytes stored on disk under `MediaStorage`'s
   configurable root (constitution Principle X) — see
-  `src/Rite.Api/Accounts/ClaimMemoryEndpoints.cs`. The review/approve workflow for submitted
-  claims/memories is still a separate, later increment (ps-018).
+  `src/Rite.Api/Accounts/ClaimMemoryEndpoints.cs`. As of ps-018, a coordinator can review and
+  approve/reject pending claims/memories (`GET/POST /api/review/claims|memories/...` — see
+  `src/Rite.Api/Accounts/ReviewEndpoints.cs`), and only approved content is exposed publicly via a
+  separate, anonymous surface (`GET /api/community/claims|memories` —
+  `src/Rite.Api/Community/CommunityEndpoints.cs`).
 - `src/Rite.Api` is the real ASP.NET Core + SQLite API (ps-006), serving the seven content
   surfaces plus schools as bilingual JSON, plus the real account endpoints above (ps-009, ps-010,
   ps-017). Run it with F5 in Visual Studio, or
@@ -44,12 +47,14 @@ This repo includes a fully static public preview in `docs/`.
   relative `/api/*` paths, proxied to `http://localhost:5159` in development by
   `vite.config.js` (set `VITE_DEV_PROXY_TARGET` in a local `.env.local` to point it at a
   different API instead, e.g. the live one once deployed).
-- Planned production hosting (ps-008): an existing VM, single domain `rite.makeboldspark.com` —
+- Production hosting (ps-008): an existing VM, single domain `rite.makeboldspark.com` —
   `src/Rite.Api` serves both the API and `src/Rite.Web`'s production build (copied into
   `wwwroot/` at deploy time) from the same origin, so no CORS policy is needed (constitution
-  Principle X; not yet deployed).
-- To produce a deployment package: `./scripts/publish-rite-api.ps1` (or `dotnet publish
-  src/Rite.Api -c Release` plus zipping the `bin/Release/net10.0/win-x64/publish/` folder
-  yourself) builds `src/Rite.Web`, copies it into `wwwroot/`, and publishes a framework-dependent,
-  IIS-ready package — `rite-api-publish.zip`, next to the publish folder — to copy to the VM
-  (which needs the ASP.NET Core Hosting Bundle installed).
+  Principle X). There is no automated push to the VM — the "Build Rite.Api deployment package"
+  GitHub Actions workflow (`workflow_dispatch`) produces a downloadable package, and a person RDPs
+  in and installs it by hand. Full install/redeploy steps: `.knowledge/architecture/deployment.md`.
+- To produce a deployment package locally instead of via that workflow:
+  `./scripts/publish-rite-api.ps1` (or `dotnet publish src/Rite.Api -c Release` plus zipping the
+  `bin/Release/net10.0/win-x64/publish/` folder yourself) builds `src/Rite.Web`, copies it into
+  `wwwroot/`, and publishes a framework-dependent, IIS-ready package — `rite-api-publish.zip`, next
+  to the publish folder.

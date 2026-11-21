@@ -1,0 +1,39 @@
+name: Build Rite.Api deployment package
+
+# ps-008: the VM hosting this application has no automated deploy target (no
+# cloud provider credentials, no remote agent) — a person RDPs in and installs
+# it by hand. This workflow's only job is to produce that installable package
+# as a downloadable build artifact; it never touches the VM itself. Replaces
+# the old, Azure-specific "Deploy API to Azure" workflow (deploy-api.yml),
+# stale since the 2026-11-16 move to VM hosting (constitution Principle X).
+on:
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      # Rite.Api.csproj's BuildRiteWeb target builds src/Rite.Web into wwwroot/
+      # as part of a plain build, so Node is a build-time dependency of
+      # Rite.Api itself (see .github/workflows/ci.yml's api-test job).
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: src/Rite.Web/package-lock.json
+      - name: Publish and zip
+        shell: pwsh
+        run: ./scripts/publish-rite-api.ps1
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: rite-api-deployment-package
+          path: src/Rite.Api/bin/Release/net10.0/win-x64/rite-api-publish.zip
+          if-no-files-found: error
