@@ -2,6 +2,7 @@ using ApiTestSpark;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Rite.Api.Accounts;
+using Rite.Api.Community;
 using Rite.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -76,7 +77,9 @@ builder.Services.AddOpenApi(options =>
             | Update own profile | `PUT /api/account/me` |
 
             Real alumni-status claim and shared memories/photos, for the signed-in account's own
-            data only (not yet reviewed/approved — that workflow is a later increment):
+            data only. Every save (new or edited) starts at Status "pending"; a coordinator's
+            review (below) moves it to "approved" or "rejected" (with a RejectionReason) — an
+            edit to a previously-reviewed claim/memory resets it to "pending" again:
 
             | Action | Endpoint |
             | --- | --- |
@@ -88,6 +91,27 @@ builder.Services.AddOpenApi(options =>
             | Edit own memory | `PUT /api/account/memories/{id}` |
             | Delete own memory | `DELETE /api/account/memories/{id}` |
             | Get a memory's photo | `GET /api/account/memories/{id}/photos/{photoId}` |
+
+            Coordinator-only review queue for pending claims/memories (constitution Principle
+            III), authorized the same way as the user-management endpoints above:
+
+            | Action | Endpoint |
+            | --- | --- |
+            | List pending claims | `GET /api/review/claims` |
+            | Approve a claim | `POST /api/review/claims/{id}/approve` |
+            | Reject a claim | `POST /api/review/claims/{id}/reject` |
+            | List pending memories | `GET /api/review/memories` |
+            | Approve a memory | `POST /api/review/memories/{id}/approve` |
+            | Reject a memory | `POST /api/review/memories/{id}/reject` |
+
+            Public, anonymous surface for claims/memories a coordinator has approved — separate
+            from, and unrelated to, the static Alumni directory/Story archive above:
+
+            | Action | Endpoint |
+            | --- | --- |
+            | List approved claims | `GET /api/community/claims` |
+            | List approved memories | `GET /api/community/memories` |
+            | Get an approved memory's photo | `GET /api/community/memories/{id}/photos/{photoId}` |
             """;
         return Task.CompletedTask;
     });
@@ -158,6 +182,8 @@ MapContentEndpoint(app, "schools", "GetSchools", "Schools and clubs", "Get the s
 
 app.MapAccountEndpoints();
 app.MapClaimAndMemoryEndpoints();
+app.MapReviewEndpoints();
+app.MapCommunityEndpoints();
 
 // An unmatched /api/* path (a typo'd surface, say) must keep 404ing rather than
 // silently falling through to the SPA's index.html below — MapFallbackToFile only

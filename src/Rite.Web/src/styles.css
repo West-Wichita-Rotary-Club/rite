@@ -410,6 +410,12 @@ a:focus-visible {
   vertical-align: middle;
 }
 
+/* ps-018: an approved claim/memory's badge reads differently from the
+   default (pending/rejected) look above. */
+.pending-badge.approved {
+  background: var(--grass);
+}
+
 .claim-row {
   padding: 16px;
   margin-bottom: 14px;

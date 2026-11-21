@@ -7,8 +7,9 @@ namespace Rite.Api.Accounts;
 // ps-017: moves claim-an-alumni-profile and memory/photo submission off
 // src/Rite.Web's localStorage mock onto the real API — the two pieces ps-009
 // deliberately left out. Every endpoint here operates on the signed-in
-// caller's own claim/memories only; there is no coordinator or cross-account
-// surface (that review/approve workflow is ps-018).
+// caller's own claim/memories only. The coordinator review queue
+// (ReviewEndpoints) and the public approved-only surface
+// (Community.CommunityEndpoints) are ps-018, in their own files.
 public static class ClaimMemoryEndpoints
 {
     private const int MaxPhotosPerMemory = 3;
@@ -130,6 +131,11 @@ public static class ClaimMemoryEndpoints
         claim.MatchedProfileId = string.IsNullOrWhiteSpace(request.MatchedProfileId) ? null : request.MatchedProfileId;
         claim.SelfDeclaredName = string.IsNullOrWhiteSpace(request.SelfDeclaredName) ? null : request.SelfDeclaredName;
         claim.UpdatedAt = now;
+        // ps-018: every save (new or re-edit) goes back to Pending — an edit to
+        // an already-approved claim must not keep the stale, no-longer-accurate
+        // review outcome.
+        claim.Status = ReviewStatus.Pending;
+        claim.RejectionReason = null;
 
         await db.SaveChangesAsync();
         return Results.Ok(ToClaimResponse(claim));
@@ -264,6 +270,10 @@ public static class ClaimMemoryEndpoints
         memory.Title = request.Title;
         memory.Text = request.Text;
         memory.PhotoIdsJson = JsonSerializer.Serialize(finalIds);
+        // ps-018: see SaveClaimAsync's matching comment — an edit always resets
+        // to Pending.
+        memory.Status = ReviewStatus.Pending;
+        memory.RejectionReason = null;
         await db.SaveChangesAsync();
         return Results.Ok(ToMemoryResponse(memory));
     }
@@ -379,7 +389,9 @@ public static class ClaimMemoryEndpoints
         JsonSerializer.Deserialize<List<ParticipationRowRequest>>(claim.ParticipationJson) ?? [],
         claim.MatchedProfileId,
         claim.SelfDeclaredName,
-        claim.CreatedAt);
+        claim.CreatedAt,
+        ToStatusString(claim.Status),
+        claim.RejectionReason);
 
     private static MemoryResponse ToMemoryResponse(Memory memory)
     {
@@ -387,8 +399,19 @@ public static class ClaimMemoryEndpoints
         var photos = photoIds
             .Select(photoId => new MemoryPhotoRef(photoId, $"/api/account/memories/{memory.Id}/photos/{photoId}"))
             .ToList();
-        return new MemoryResponse(memory.Id, memory.Title, memory.Text, photos, memory.CreatedAt);
+        return new MemoryResponse(
+            memory.Id, memory.Title, memory.Text, photos, memory.CreatedAt,
+            ToStatusString(memory.Status), memory.RejectionReason);
     }
+
+    // Lowercase, matching every other string enum-ish value this API already
+    // returns (e.g. ErrorResponse's error codes) — not the C# member casing.
+    internal static string ToStatusString(ReviewStatus status) => status switch
+    {
+        ReviewStatus.Approved => "approved",
+        ReviewStatus.Rejected => "rejected",
+        _ => "pending"
+    };
 }
 
 public record ParticipationRowRequest(string Role, int YearFrom, int? YearTo);
@@ -398,7 +421,7 @@ public record SaveClaimRequest(
 
 public record ClaimResponse(
     string Country, List<ParticipationRowRequest> Participation, string? MatchedProfileId,
-    string? SelfDeclaredName, DateTimeOffset CreatedAt);
+    string? SelfDeclaredName, DateTimeOffset CreatedAt, string Status, string? RejectionReason);
 
 // KeepPhotoIds is ignored on create (nothing to keep yet) and names which of an
 // existing memory's photos survive an edit on update; NewPhotos are JPEG data
@@ -407,4 +430,6 @@ public record SaveMemoryRequest(string Title, string Text, List<Guid>? KeepPhoto
 
 public record MemoryPhotoRef(Guid Id, string Url);
 
-public record MemoryResponse(Guid Id, string Title, string Text, List<MemoryPhotoRef> Photos, DateTimeOffset CreatedAt);
+public record MemoryResponse(
+    Guid Id, string Title, string Text, List<MemoryPhotoRef> Photos, DateTimeOffset CreatedAt,
+    string Status, string? RejectionReason);

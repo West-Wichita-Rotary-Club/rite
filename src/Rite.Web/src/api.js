@@ -56,5 +56,14 @@ export const api = {
   listMemories: () => accountRequest("/api/account/memories"),
   createMemory: (payload) => accountRequest("/api/account/memories", { method: "POST", body: payload }),
   updateMemory: (id, payload) => accountRequest(`/api/account/memories/${id}`, { method: "PUT", body: payload }),
-  deleteMemory: (id) => accountRequest(`/api/account/memories/${id}`, { method: "DELETE" })
+  deleteMemory: (id) => accountRequest(`/api/account/memories/${id}`, { method: "DELETE" }),
+  // ps-018: coordinator-only review queue, same authorization as the account
+  // endpoints above.
+  listPendingClaims: () => accountRequest("/api/review/claims"),
+  approveClaim: (id) => accountRequest(`/api/review/claims/${id}/approve`, { method: "POST" }),
+  rejectClaim: (id, reason) => accountRequest(`/api/review/claims/${id}/reject`, { method: "POST", body: { reason } }),
+  listPendingMemories: () => accountRequest("/api/review/memories"),
+  approveMemory: (id) => accountRequest(`/api/review/memories/${id}/approve`, { method: "POST" }),
+  rejectMemory: (id, reason) =>
+    accountRequest(`/api/review/memories/${id}/reject`, { method: "POST", body: { reason } })
 };

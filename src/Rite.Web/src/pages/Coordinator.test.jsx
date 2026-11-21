@@ -17,7 +17,13 @@ vi.mock("../api.js", () => ({
     deactivateAccount: vi.fn(),
     reactivateAccount: vi.fn(),
     getClaim: vi.fn(),
-    listMemories: vi.fn()
+    listMemories: vi.fn(),
+    listPendingClaims: vi.fn(),
+    approveClaim: vi.fn(),
+    rejectClaim: vi.fn(),
+    listPendingMemories: vi.fn(),
+    approveMemory: vi.fn(),
+    rejectMemory: vi.fn()
   }
 }));
 
@@ -61,6 +67,8 @@ beforeEach(() => {
   vi.clearAllMocks();
   api.getClaim.mockResolvedValue({ ok: true, status: 204, data: null });
   api.listMemories.mockResolvedValue({ ok: true, status: 200, data: [] });
+  api.listPendingClaims.mockResolvedValue({ ok: true, status: 200, data: [] });
+  api.listPendingMemories.mockResolvedValue({ ok: true, status: 200, data: [] });
 });
 
 function renderCoordinator() {
@@ -147,5 +155,82 @@ describe("Coordinator", () => {
         screen.getByText("Could not load the account list. Confirm you're signed in as a coordinator.")
       ).toBeInTheDocument()
     );
+  });
+
+  it("shows an empty review queue when nothing is pending", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: COORDINATOR_PROFILE });
+    api.listAccounts.mockResolvedValue({ ok: true, status: 200, data: USERS });
+
+    renderCoordinator();
+    await waitFor(() => expect(screen.getAllByText("Nothing is waiting for review.")).toHaveLength(2));
+  });
+
+  it("lists pending claims and approves one", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: COORDINATOR_PROFILE });
+    api.listAccounts.mockResolvedValue({ ok: true, status: 200, data: USERS });
+    const claim = {
+      id: "claim-1",
+      submitterEmail: "someone@example.com",
+      submitterName: "Someone Else",
+      country: "panama",
+      participation: [{ role: "teacher", yearFrom: 2015, yearTo: null }],
+      selfDeclaredName: "Someone Else"
+    };
+    api.listPendingClaims.mockResolvedValue({ ok: true, status: 200, data: [claim] });
+    api.approveClaim.mockResolvedValue({ ok: true, status: 200, data: null });
+
+    renderCoordinator();
+    await waitFor(() => expect(screen.getByText(/Someone Else \(someone@example.com\)/)).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText("Approve"));
+
+    await waitFor(() => expect(api.approveClaim).toHaveBeenCalledWith("claim-1"));
+    await waitFor(() => expect(screen.queryByText(/Someone Else \(someone@example.com\)/)).not.toBeInTheDocument());
+  });
+
+  it("rejects a pending memory with a reason", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: COORDINATOR_PROFILE });
+    api.listAccounts.mockResolvedValue({ ok: true, status: 200, data: USERS });
+    const memory = {
+      id: "memory-1",
+      submitterEmail: "someone@example.com",
+      submitterName: "Someone Else",
+      title: "My first seminar",
+      text: "It was unforgettable."
+    };
+    api.listPendingMemories.mockResolvedValue({ ok: true, status: 200, data: [memory] });
+    api.rejectMemory.mockResolvedValue({ ok: true, status: 200, data: null });
+    vi.spyOn(window, "prompt").mockReturnValue("Please add more context");
+
+    renderCoordinator();
+    await waitFor(() => expect(screen.getByText("My first seminar")).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText("Reject"));
+
+    await waitFor(() => expect(api.rejectMemory).toHaveBeenCalledWith("memory-1", "Please add more context"));
+    await waitFor(() => expect(screen.queryByText("My first seminar")).not.toBeInTheDocument());
+  });
+
+  it("requires a non-blank reason to reject a claim", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: COORDINATOR_PROFILE });
+    api.listAccounts.mockResolvedValue({ ok: true, status: 200, data: USERS });
+    const claim = {
+      id: "claim-1",
+      submitterEmail: "someone@example.com",
+      submitterName: "Someone Else",
+      country: "panama",
+      participation: [],
+      selfDeclaredName: "Someone Else"
+    };
+    api.listPendingClaims.mockResolvedValue({ ok: true, status: 200, data: [claim] });
+    vi.spyOn(window, "prompt").mockReturnValue("   ");
+
+    renderCoordinator();
+    await waitFor(() => expect(screen.getByText(/Someone Else \(someone@example.com\)/)).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText("Reject"));
+
+    await waitFor(() => expect(screen.getByText("A reason is required to reject.")).toBeInTheDocument());
+    expect(api.rejectClaim).not.toHaveBeenCalled();
   });
 });
