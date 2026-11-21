@@ -125,8 +125,33 @@ export function Account() {
   );
 }
 
+// ps-018: the server now tracks a real review status ("pending" | "approved" |
+// "rejected") per claim/memory instead of every item being unconditionally
+// "pending review".
+function statusBadgeLabel(status, t) {
+  if (status === "approved") {
+    return t("labels.approvedBadge");
+  }
+  if (status === "rejected") {
+    return t("labels.rejectedBadge");
+  }
+  return t("labels.pendingReviewBadge");
+}
+
+function statusBadgeClass(status) {
+  if (status === "approved") {
+    return "pending-badge approved";
+  }
+  if (status === "rejected") {
+    return "pending-badge rejected";
+  }
+  return "pending-badge";
+}
+
 function DashboardSummary({ account, t }) {
-  const claimStatusLabel = account.claim ? t("labels.pendingReviewBadge") : t("labels.dashboardClaimStatusNone");
+  const claimStatusLabel = account.claim
+    ? statusBadgeLabel(account.claim.status, t)
+    : t("labels.dashboardClaimStatusNone");
   const memoriesCount = (account.memories || []).length;
   const completeness = profileCompleteness(account);
   return (
@@ -223,7 +248,8 @@ function ClaimSection({ account, alumniContent, t, localize, saveClaim, withdraw
     <article className="profile-panel">
       <h2>{t("sections.claimTitle")}</h2>
       <p className="meta">
-        {getCountryLabel(claim.country, alumniContent, localize)} <span className="pending-badge">{t("labels.pendingReviewBadge")}</span>
+        {getCountryLabel(claim.country, alumniContent, localize)}{" "}
+        <span className={statusBadgeClass(claim.status)}>{statusBadgeLabel(claim.status, t)}</span>
       </p>
       <div className="year-list">
         {sortedParticipation.map((row, index) => (
@@ -233,6 +259,11 @@ function ClaimSection({ account, alumniContent, t, localize, saveClaim, withdraw
         ))}
       </div>
       <p className="meta">{matchedProfile ? matchedProfile.name : claim.selfDeclaredName}</p>
+      {claim.status === "rejected" && claim.rejectionReason && (
+        <p className="status-panel warning">
+          {t("labels.rejectionReasonLabel")}: {claim.rejectionReason}
+        </p>
+      )}
       <div className="form-actions">
         <button
           className="button ghost"
@@ -436,9 +467,14 @@ function MemoriesSection({ account, t, saveMemory, deleteMemory }) {
       {memories.map((memory) => (
         <div className="profile-content-item" key={memory.id}>
           <h3>
-            {memory.title} <span className="pending-badge">{t("labels.pendingReviewBadge")}</span>
+            {memory.title} <span className={statusBadgeClass(memory.status)}>{statusBadgeLabel(memory.status, t)}</span>
           </h3>
           <p>{memory.text}</p>
+          {memory.status === "rejected" && memory.rejectionReason && (
+            <p className="status-panel warning">
+              {t("labels.rejectionReasonLabel")}: {memory.rejectionReason}
+            </p>
+          )}
           {memory.photos.length > 0 && (
             <div className="memory-photo-row">
               {memory.photos.map((photo) => (

@@ -1,6 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Rite.Api.Data;
 using Xunit;
 
 namespace Rite.Api.Tests;
@@ -115,6 +118,58 @@ public class ClaimMemoryEndpointsTests : IClassFixture<RiteApiFactory>
         var getResponse = await client.GetAsync("/api/account/claim");
         var claim = await getResponse.Content.ReadFromJsonAsync<JsonElement>();
         Assert.Equal("argentina", claim.GetProperty("country").GetString());
+    }
+
+    // ps-018: directly moves a claim/memory to Approved/Rejected via the
+    // database, mirroring AccountEndpointsTests' PromoteToCoordinatorAsync —
+    // there is still no endpoint that can do this other than ReviewEndpoints
+    // itself, which these tests deliberately avoid depending on.
+    private async Task SetClaimStatusAsync(string email, ReviewStatus status, string? rejectionReason = null)
+    {
+        using var scope = _factory.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<RiteDbContext>();
+        var account = await db.Accounts.SingleAsync(a => a.Email == email);
+        var claim = await db.AlumniClaims.SingleAsync(c => c.AccountId == account.Id);
+        claim.Status = status;
+        claim.RejectionReason = rejectionReason;
+        await db.SaveChangesAsync();
+    }
+
+    private async Task SetMemoryStatusAsync(Guid memoryId, ReviewStatus status, string? rejectionReason = null)
+    {
+        using var scope = _factory.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<RiteDbContext>();
+        var memory = await db.Memories.SingleAsync(m => m.Id == memoryId);
+        memory.Status = status;
+        memory.RejectionReason = rejectionReason;
+        await db.SaveChangesAsync();
+    }
+
+    [Fact]
+    public async Task A_newly_saved_claim_is_pending_with_no_rejection_reason()
+    {
+        var client = await SignedInClientAsync();
+        var saveResponse = await client.PutAsJsonAsync("/api/account/claim", ClaimPayload());
+        saveResponse.EnsureSuccessStatusCode();
+        var claim = await saveResponse.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.Equal("pending", claim.GetProperty("status").GetString());
+        Assert.True(claim.GetProperty("rejectionReason").ValueKind is JsonValueKind.Null);
+    }
+
+    [Fact]
+    public async Task Editing_an_approved_claim_resets_it_to_pending_and_clears_the_rejection_reason()
+    {
+        var email = UniqueEmail();
+        var client = _factory.CreateClient();
+        (await client.PostAsJsonAsync("/api/account/register", RegisterPayload(email))).EnsureSuccessStatusCode();
+        (await client.PutAsJsonAsync("/api/account/claim", ClaimPayload())).EnsureSuccessStatusCode();
+        await SetClaimStatusAsync(email, ReviewStatus.Rejected, "Needs more detail");
+
+        var editResponse = await client.PutAsJsonAsync("/api/account/claim", ClaimPayload(country: "argentina"));
+        editResponse.EnsureSuccessStatusCode();
+        var claim = await editResponse.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.Equal("pending", claim.GetProperty("status").GetString());
+        Assert.True(claim.GetProperty("rejectionReason").ValueKind is JsonValueKind.Null);
     }
 
     [Fact]
@@ -238,6 +293,39 @@ public class ClaimMemoryEndpointsTests : IClassFixture<RiteApiFactory>
         Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync(oldPhotoUrl)).StatusCode);
         var newPhotoUrl = updated.GetProperty("photos")[0].GetProperty("url").GetString()!;
         (await client.GetAsync(newPhotoUrl)).EnsureSuccessStatusCode();
+    }
+
+    [Fact]
+    public async Task A_newly_created_memory_is_pending_with_no_rejection_reason()
+    {
+        var client = await SignedInClientAsync();
+        var response = await client.PostAsJsonAsync(
+            "/api/account/memories",
+            new { title = "Trip", text = "...", keepPhotoIds = Array.Empty<Guid>(), newPhotos = Array.Empty<string>() });
+        response.EnsureSuccessStatusCode();
+        var memory = await response.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.Equal("pending", memory.GetProperty("status").GetString());
+        Assert.True(memory.GetProperty("rejectionReason").ValueKind is JsonValueKind.Null);
+    }
+
+    [Fact]
+    public async Task Editing_a_rejected_memory_resets_it_to_pending_and_clears_the_rejection_reason()
+    {
+        var client = await SignedInClientAsync();
+        var createResponse = await client.PostAsJsonAsync(
+            "/api/account/memories",
+            new { title = "Trip", text = "...", keepPhotoIds = Array.Empty<Guid>(), newPhotos = Array.Empty<string>() });
+        createResponse.EnsureSuccessStatusCode();
+        var memoryId = (await createResponse.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("id").GetGuid();
+        await SetMemoryStatusAsync(memoryId, ReviewStatus.Rejected, "Needs permission from the school");
+
+        var updateResponse = await client.PutAsJsonAsync(
+            $"/api/account/memories/{memoryId}",
+            new { title = "Trip (edited)", text = "...", keepPhotoIds = Array.Empty<Guid>(), newPhotos = Array.Empty<string>() });
+        updateResponse.EnsureSuccessStatusCode();
+        var memory = await updateResponse.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.Equal("pending", memory.GetProperty("status").GetString());
+        Assert.True(memory.GetProperty("rejectionReason").ValueKind is JsonValueKind.Null);
     }
 
     [Fact]

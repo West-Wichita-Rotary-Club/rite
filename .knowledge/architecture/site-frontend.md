@@ -113,3 +113,23 @@ now fetches claim/memories from the API on sign-in instead of reading `localStor
 account page's former "sign out and clear browser data" button was removed — there's no more
 browser-only claim/memory data for it to clear. `docs/`'s own copy of the account UI, and `ps-016`'s
 retirement of it, are both unaffected.
+
+ps-018 (2026-11-21) implements constitution Principle III (editor/administrator review before
+public release) for claims and memories, the gap ps-017 explicitly left open. `AlumniClaim` and
+`Memory` each gain a `Status` (`ReviewStatus`: Pending/Approved/Rejected, starting and resetting to
+Pending on every save — an edit to a previously-reviewed item must not keep a stale outcome) and a
+nullable `RejectionReason`, both returned to the submitter via the existing `GET/PUT
+/api/account/claim` and `/api/account/memories` responses. A new coordinator-only surface,
+`src/Rite.Api/Accounts/ReviewEndpoints.cs` (`GET /api/review/claims|memories`, `POST
+/api/review/{claims|memories}/{id}/approve|reject`), reuses ps-010's `IsCoordinator` authorization
+pattern rather than a separate "editor" role; `reject` requires a non-blank `Reason`. Approved
+content needed a real public surface, which didn't exist: the static `/api/alumni` and `/api/stories`
+(seeded from `docs/content/*.json`) are unrelated to these tables, so — a developer decision made
+explicit during specify rather than assumed — a new, standalone, anonymous
+`src/Rite.Api/Community/CommunityEndpoints.cs` (`GET /api/community/claims|memories`, `GET
+/api/community/memories/{id}/photos/{photoId}`) exposes only `Status == Approved` rows, filtered
+server-side, with no `AccountId`/email/account field in any response. `src/Rite.Web`'s `/coordinator`
+page (`Coordinator.jsx`) adds a review-queue section below the existing user-management table;
+`Account.jsx`'s claim/memory badges now read the real status (pending/approved/rejected, the last
+showing the coordinator's `RejectionReason`) instead of always showing "Pending review" regardless
+of outcome.

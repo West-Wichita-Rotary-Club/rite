@@ -1,8 +1,8 @@
 namespace Rite.Api.Data;
 
 // ps-017: a real shared memory, up to MAX_MEMORIES_PER_MEMBER per account — the
-// second piece ps-009 deliberately left mocked. Not yet reviewed/approved
-// (that's ps-018).
+// second piece ps-009 deliberately left mocked. ps-018 adds the review/approve
+// status below.
 public class Memory
 {
     public Guid Id { get; set; }
@@ -18,4 +18,10 @@ public class Memory
     public string PhotoIdsJson { get; set; } = "[]";
 
     public DateTimeOffset CreatedAt { get; set; }
+
+    // ps-018: starts Pending on every save (new or edited — see AlumniClaim's
+    // matching field for why an edit resets it). Only ReviewEndpoints moves it
+    // to Approved/Rejected.
+    public ReviewStatus Status { get; set; } = ReviewStatus.Pending;
+    public string? RejectionReason { get; set; }
 }

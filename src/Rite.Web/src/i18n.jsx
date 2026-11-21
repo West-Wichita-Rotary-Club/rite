@@ -56,7 +56,10 @@ const copy = {
         "Declare your country and the roles you held in different years. This claim is saved on the server and stays pending review — it never changes the public directory.",
       memoriesComposerTitle: "Share a memory",
       coordinatorTitle: "Manage accounts",
-      coordinatorIntro: "Coordinators can see every registered account and deactivate one if needed."
+      coordinatorIntro: "Coordinators can see every registered account and deactivate one if needed.",
+      reviewQueueTitle: "Review submissions",
+      reviewQueueIntro:
+        "Approve or reject pending claims and memories. Only approved items are ever shown outside this account."
     },
     filters: {
       all: "All",
@@ -123,6 +126,9 @@ const copy = {
       dashboardMemoriesLabel: "Memories shared",
       dashboardCompletenessLabel: "Profile completeness",
       pendingReviewBadge: "Pending review",
+      approvedBadge: "Approved",
+      rejectedBadge: "Rejected",
+      rejectionReasonLabel: "Reviewer's note",
       claimCountryLabel: "Country",
       claimRoleLabel: "Role",
       claimYearFromLabel: "Year",
@@ -165,7 +171,16 @@ const copy = {
       reactivateButton: "Reactivate",
       deactivateConfirm: "Deactivate this account? They won't be able to sign in until reactivated.",
       usersLoadError: "Could not load the account list. Confirm you're signed in as a coordinator.",
-      forbiddenNotice: "Only coordinators can see this page."
+      forbiddenNotice: "Only coordinators can see this page.",
+      reviewClaimsHeading: "Pending claims",
+      reviewMemoriesHeading: "Pending memories",
+      reviewQueueEmpty: "Nothing is waiting for review.",
+      reviewSubmitterLabel: "Submitted by",
+      approveButton: "Approve",
+      rejectButton: "Reject",
+      rejectReasonPrompt: "Reason for rejecting (shown to the member):",
+      rejectReasonRequired: "A reason is required to reject.",
+      reviewLoadError: "Could not load the review queue. Confirm you're signed in as a coordinator."
     },
     placeholders: {
       name: "e.g. Maria Camarena",
@@ -229,7 +244,10 @@ const copy = {
         "Declare su pais y los roles que tuvo en distintos anos. Este reclamo se guarda en el servidor y queda pendiente de revision; nunca cambia el directorio publico.",
       memoriesComposerTitle: "Comparta una memoria",
       coordinatorTitle: "Administrar cuentas",
-      coordinatorIntro: "Los coordinadores pueden ver cada cuenta registrada y desactivarla si es necesario."
+      coordinatorIntro: "Los coordinadores pueden ver cada cuenta registrada y desactivarla si es necesario.",
+      reviewQueueTitle: "Revisar envios",
+      reviewQueueIntro:
+        "Apruebe o rechace los reclamos y memorias pendientes. Solo los elementos aprobados se muestran fuera de esta cuenta."
     },
     filters: {
       all: "Todos",
@@ -296,6 +314,9 @@ const copy = {
       dashboardMemoriesLabel: "Memorias compartidas",
       dashboardCompletenessLabel: "Perfil completo",
       pendingReviewBadge: "Pendiente de revision",
+      approvedBadge: "Aprobado",
+      rejectedBadge: "Rechazado",
+      rejectionReasonLabel: "Nota del revisor",
       claimCountryLabel: "Pais",
       claimRoleLabel: "Rol",
       claimYearFromLabel: "Ano",
@@ -338,7 +359,16 @@ const copy = {
       reactivateButton: "Reactivar",
       deactivateConfirm: "Desactivar esta cuenta? No podra iniciar sesion hasta que se reactive.",
       usersLoadError: "No se pudo cargar la lista de cuentas. Confirme que inicio sesion como coordinador.",
-      forbiddenNotice: "Solo los coordinadores pueden ver esta pagina."
+      forbiddenNotice: "Solo los coordinadores pueden ver esta pagina.",
+      reviewClaimsHeading: "Reclamos pendientes",
+      reviewMemoriesHeading: "Memorias pendientes",
+      reviewQueueEmpty: "No hay nada pendiente de revision.",
+      reviewSubmitterLabel: "Enviado por",
+      approveButton: "Aprobar",
+      rejectButton: "Rechazar",
+      rejectReasonPrompt: "Motivo del rechazo (se muestra al miembro):",
+      rejectReasonRequired: "Se requiere un motivo para rechazar.",
+      reviewLoadError: "No se pudo cargar la cola de revision. Confirme que inicio sesion como coordinador."
     },
     placeholders: {
       name: "p. ej. Maria Camarena",

@@ -188,4 +188,69 @@ describe("Account", () => {
       selfDeclaredName: "Pat Lee"
     });
   });
+
+  it("shows an approved claim with the approved badge, not pending", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.getClaim.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: {
+        country: "panama",
+        participation: [{ role: "teacher", yearFrom: 2015, yearTo: null }],
+        matchedProfileId: "",
+        selfDeclaredName: "Pat Lee",
+        status: "approved",
+        rejectionReason: null
+      }
+    });
+    renderAccount();
+
+    // "Approved" appears both in the dashboard summary's claim-status tile and
+    // the claim panel's own badge.
+    await waitFor(() => expect(screen.getAllByText("Approved")).toHaveLength(2));
+    expect(screen.queryByText("Pending review")).not.toBeInTheDocument();
+  });
+
+  it("shows a rejected claim's reason to the member", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.getClaim.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: {
+        country: "panama",
+        participation: [{ role: "teacher", yearFrom: 2015, yearTo: null }],
+        matchedProfileId: "",
+        selfDeclaredName: "Pat Lee",
+        status: "rejected",
+        rejectionReason: "Years don't match our records"
+      }
+    });
+    renderAccount();
+
+    await waitFor(() => expect(screen.getAllByText("Rejected")).toHaveLength(2));
+    expect(screen.getByText(/Years don't match our records/)).toBeInTheDocument();
+  });
+
+  it("shows a rejected memory's reason to the member", async () => {
+    api.getCurrentAccount.mockResolvedValue({ ok: true, status: 200, data: SIGNED_IN_PROFILE });
+    api.listMemories.mockResolvedValue({
+      ok: true,
+      status: 200,
+      data: [
+        {
+          id: "m1",
+          title: "My first seminar",
+          text: "It was unforgettable.",
+          photos: [],
+          status: "rejected",
+          rejectionReason: "Please add more context"
+        }
+      ]
+    });
+    renderAccount();
+
+    await waitFor(() => expect(screen.getByText("My first seminar")).toBeInTheDocument());
+    expect(screen.getByText("Rejected")).toBeInTheDocument();
+    expect(screen.getByText(/Please add more context/)).toBeInTheDocument();
+  });
 });
